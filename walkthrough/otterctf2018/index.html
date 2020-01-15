@@ -1,0 +1,1250 @@
+<!DOCTYPE html>
+<html lang="">
+	
+	
+
+
+	<head>
+    <link href="https://gmpg.org/xfn/11" rel="profile">
+    	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta http-equiv="Cache-Control" content="public" />
+	<!-- Enable responsiveness on mobile devices -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+	
+	    
+	    
+	    
+	
+	<title>OtterCTF 2018 • Just another infosec blog</title>
+	
+	
+	<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="OtterCTF 2018"/>
+<meta name="twitter:description" content="CTF created by Asaf Eitani about forensic, reverse and network task."/>
+
+	<meta property="og:title" content="OtterCTF 2018" />
+<meta property="og:description" content="CTF created by Asaf Eitani about forensic, reverse and network task." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://maki.bzh/walkthrough/otterctf2018/" />
+<meta property="article:published_time" content="2018-12-24T00:00:00&#43;00:00"/>
+<meta property="article:modified_time" content="2018-12-24T00:00:00&#43;00:00"/>
+
+
+    		
+	
+	
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/solarized-dark.min.css" integrity="sha256-90Y+fvi28WF+3jKH4tHEkoQ9WLeFKJjpvCPNOtU9ZvU= sha384-s+7l2WBKs5ChgZ+esoTV0aWZRcma7BxuSHlzBJz6PH4Cc4ZX3/ErQZtk+ZzYQy/X sha512-BiC3DH0qMCjCYqPNGAthQ95QCndm60uhfQVwhqZ2eG1zuGkP+3T1cw6PzEC4CiRfRIbd2qvyN39RoDfil/XcMA==" crossorigin="anonymous">
+	
+	
+	
+
+	<link rel="stylesheet" href="/css/hyde-hyde.css" integrity="sha256-cUUT8nKBmejGAmxYnpOnspTmwap5Sjc/nzRfeTTjgeQ=" crossorigin="anonymous">
+	<link rel="stylesheet" href="/css/custom.css" >
+	<link rel="stylesheet" href="/css/print.min.css" media="print" integrity="sha256-obkLPMZU5Kb+rPwjMazkJLfYW8H9dj6yh8Gzzs2dv5c=" crossorigin="anonymous">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js" integrity="sha256-3Jy/GbSLrg0o9y5Z5n1uw0qxZECH7C6OQpVBgNFYa0g= sha384-qFIkRsVO/J5orlMvxK1sgAt2FXT67og+NyFTITYzvbIP1IJavVEKZM7YWczXkwpB sha512-UDJtJXfzfsiPPgnI5S1000FPLBHMhvzAMX15I+qG2E2OAzC9P1JzUwJOfnypXiOH7MRPaqzhPbBGDNNj7zBfoA==" crossorigin="anonymous"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js" integrity="sha256-g6iAfvZp+nDQ2TdTR/VVKJf3bGro4ub5fvWSWVRi2NE= sha384-ZoaMbDF+4LeFxg6WdScQ9nnR1QC2MIRxA1O9KWEXQwns1G8UNyIEZIQidzb0T1fo sha512-qWVvreMuH9i0DrugcOtifxdtZVBBL0X75r9YweXsdCHtXUidlctw7NXg5KVP3ITPtqZ2S575A0wFkvgS2anqSA==" crossorigin="anonymous"></script>
+    <![endif]-->
+    <!-- Icons -->
+    <link rel="shortcut icon" href="/favicon.png">
+    	
+
+</head>
+
+
+	<body >
+				
+		<div class="sidebar">
+			<div class="container sidebar-about ">
+				<span class="site__title">
+				
+					<a href=""></a>
+				</span>
+				<a href="https://maki.bzh/">
+					
+					
+					
+					<div class="author-image">
+						<img src="https://maki.bzh/img/maki.jpg" alt="Author Image" class="img--circle img--headshot element--center"/>
+					</div>
+					
+				</a>
+				<p class="site__description">
+					<a href="https://maki.bzh/en">
+						
+					</a>
+				</p>
+				<div>
+	<ul class="sidebar-nav">
+		 
+		 
+			 
+				<li>
+					<a href="/articles/">
+						<span>Articles</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/walkthrough/">
+						<span>Walkthrough</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/stupidthings/">
+						<span>Stupid Things</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/ctf/">
+						<span>CTF</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/friends/">
+						<span>Friends</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/whoami/">
+						<span>Who Am I?</span>
+					</a>
+				</li>
+			 
+		
+	</ul>
+</div>
+
+				
+				<section class="social">
+						
+						<a href="https://twitter.com/maki_mitz" rel="me"><i class="rotate fab fa-twitter fa-lg" aria-hidden="true"></i></a>
+						
+						
+						
+						
+						
+						<a href="https://gitlab.com/maki_chaz" rel="me"><i class="rotate fab fa-gitlab fa-lg" aria-hidden="true"></i></a>
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						<a href="mailto:Yml0ZWRlcG91bGV0" rel="me"><i class="rotate fas fa-at fa-lg" aria-hidden="true"></i></a>
+						
+						
+					  &nbsp;<a href="https://www.root-me.org/Maki-37744" target="blank" class="linklogo"><div class="rotate rootme_logo logohover"></div></a>
+					  
+						
+					  &nbsp;<a href="https://www.hackthebox.eu/home/users/profile/10265" target="blank" class="linklogo"><div class="rotate hackthebox_logo logohover"></div></a>
+					  
+						
+					  &nbsp;<a href="https://www.aperikube.fr" target="blank" class="linklogo"><div class="rotate aperikube_logo logohover"></div></a>
+					  
+</section>
+
+				
+				
+				<p class="copyright">
+					&copy; 2020 Maki.
+					<br/>
+					<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">Some Rights Reserved</a>.
+					<br/>Built with, Haax, Laluka, _ACKNAK_
+					<a href="https://gohugo.io">Hugo</a> ❤️ <a href="https://github.com/htr3n/hyde-hyde">hyde-hyde</a>.
+					
+				</p>
+			</div>
+		</div>
+
+		<div class="content container">
+			
+	<article>
+	<header>
+		<h1>OtterCTF 2018</h1>
+		
+		
+<div class="post__meta">
+	
+	<i class="fas fa-calendar-alt"></i> Dec 24, 2018
+	
+	
+	<br/>
+	<i class="fas fa-clock"></i> 24 min read
+</div>
+
+
+	</header>
+	<hr/>
+	<div class="post">
+		<nav id="TableOfContents">
+<ul>
+<li><a href="#memory-dump">Memory dump</a>
+<ul>
+<li><a href="#1-what-the-password">1 - What the password?</a>
+<ul>
+<li><a href="#cracking-ntlm-hashes">Cracking NTLM hashes</a></li>
+<li><a href="#process-process-my-wonderful-process">Process, process, my wonderful process</a></li>
+<li><a href="#flag">Flag</a></li>
+</ul></li>
+<li><a href="#2-general-info">2 - General Info</a>
+<ul>
+<li><a href="#computer-name">Computer name</a></li>
+<li><a href="#computer-ip">Computer IP</a></li>
+</ul></li>
+<li><a href="#3-play-time">3 - Play time</a>
+<ul>
+<li><a href="#game-name">Game name</a></li>
+<li><a href="#game-ip">Game IP</a></li>
+</ul></li>
+<li><a href="#4-name-game">4 - Name Game</a></li>
+<li><a href="#5-name-game-2">5 - Name Game 2</a></li>
+<li><a href="#6-silly-rick">6 - Silly Rick</a></li>
+<li><a href="#7-hide-and-seek">7 - Hide and Seek</a>
+<ul>
+<li><a href="#a-needle-in-a-haystack">A needle in a haystack</a></li>
+<li><a href="#malware-is-that-you">Malware, is that you?</a></li>
+</ul></li>
+<li><a href="#8-path-to-glory">8 - Path to glory</a></li>
+<li><a href="#9-path-to-glory-2">9 - Path to glory 2</a></li>
+<li><a href="#10-bit-4-bit">10 - Bit 4 Bit</a></li>
+<li><a href="#11-graphic-s-for-the-weak">11 - Graphic&rsquo;s for the Weak</a></li>
+<li><a href="#12-recovery">12 - Recovery</a></li>
+<li><a href="#13-closure">13 - Closure</a></li>
+</ul></li>
+<li><a href="#network">Network</a>
+<ul>
+<li><a href="#birdman-s-data">Birdman&rsquo;s Data</a>
+<ul>
+<li><a href="#state-of-the-art">State of the art</a></li>
+<li><a href="#crypto-time">&ldquo;Crypto&rdquo; time</a></li>
+<li><a href="#flag-1">Flag</a></li>
+</ul></li>
+<li><a href="#look-at-me">Look at me</a>
+<ul>
+<li><a href="#data-extraction">Data extraction</a></li>
+<li><a href="#data-decoding">Data decoding</a></li>
+<li><a href="#flag-2">Flag</a></li>
+</ul></li>
+<li><a href="#otter-leak">Otter Leak</a>
+<ul>
+<li><a href="#extraction-and-decoding-time">Extraction and decoding time</a></li>
+<li><a href="#flag-3">Flag</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+		
+
+<p><center>
+    <img src="/img/writeups/otterctf2018/OtterCTF.png" width="50%" height="50%" >
+    Picture from OtterCTF, awesome logo! :D
+</center></p>
+
+<p>In this short article, I will present some challenges of <strong>OtterCTF</strong>. I will begin with a memory dump challenge suite, it contains a little ransomware. This scenario is really interesting for people who like playing with some forensic stuff. At the end of this article, I&rsquo;ll talk about network task too.</p>
+
+<h1 id="memory-dump">Memory dump</h1>
+
+<p>The memory dump to analyze can be found at this address: <a href="https://mega.nz/#!sh8wmCIL!b4tpech4wzc3QQ6YgQ2uZnOmctRZ2duQxDqxbkWYipQ">https://mega.nz/#!sh8wmCIL!b4tpech4wzc3QQ6YgQ2uZnOmctRZ2duQxDqxbkWYipQ</a></p>
+
+<h2 id="1-what-the-password">1 - What the password?</h2>
+
+<p><center>
+<img src="/img/writeups/otterctf2018/statement_mem1.png" alt="" />
+</center></p>
+
+<p>The first thing to do with a memory dump: determine which OS is it and which version of the OS. Volatility needs those information to properly parse the memory:</p>
+
+<pre><code class="language-bash">$ vol.py --plugins=plug_vol/ -f usr_land/OtterCTF.vmem imageinfo
+
+Volatility Foundation Volatility Framework 2.6.1
+INFO    : volatility.debug    : Determining profile based on KDBG search...
+          Suggested Profile(s) : Win7SP1x64, Win7SP0x64, Win2008R2SP0x64, Win2008R2SP1x64_24000, Win2008R2SP1x64_23418, Win2008R2SP1x64, Win7SP1x64_24000, Win7SP1x64_23418
+                     AS Layer1 : WindowsAMD64PagedMemory (Kernel AS)
+                     AS Layer2 : FileAddressSpace (/opt/usr_land/OtterCTF.vmem)
+                      PAE type : No PAE
+                           DTB : 0x187000L
+                          KDBG : 0xf80002c430a0L
+          Number of Processors : 2
+     Image Type (Service Pack) : 1
+                KPCR for CPU 0 : 0xfffff80002c44d00L
+                KPCR for CPU 1 : 0xfffff880009ef000L
+             KUSER_SHARED_DATA : 0xfffff78000000000L
+           Image date and time : 2018-08-04 19:34:22 UTC+0000
+     Image local date and time : 2018-08-04 22:34:22 +0300
+</code></pre>
+
+<p>Before continuing, I&rsquo;m used to redirecting volatility plugins output into files. It will be faster if I need to check information in the future. I call them with the following syntax:</p>
+
+<blockquote>
+<p>p&lt;plugin name&gt;</p>
+</blockquote>
+
+<p>For example: for <code>pstree</code> it becomes <code>ppstree</code></p>
+
+<p>Let&rsquo;s get started. Finding a user password in a memory dump, there is not a lot of possibilities:</p>
+
+<ul>
+<li>Cracking NTLM hashes</li>
+<li>Find the password stored into processes</li>
+<li>Find the password stored in a file (the legendary password.txt on the desktop)</li>
+</ul>
+
+<h3 id="cracking-ntlm-hashes">Cracking NTLM hashes</h3>
+
+<pre><code class="language-bash">$ vol.py --plugins=plug_vol/ -f usr_land/OtterCTF.vmem --profile=Win7SP1x64 hashdump
+
+Volatility Foundation Volatility Framework 2.6.1
+Administrator:500:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::
+Guest:501:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::
+Rick:1000:aad3b435b51404eeaad3b435b51404ee:518172d012f97d3a8fcc089615283940:::
+</code></pre>
+
+<p>With this, I have tried to break <code>Rick</code>&rsquo;s NTLM hash on a website like crackstation. After two or three attempts I decided to try the second option: find the password into process memory.</p>
+
+<h3 id="process-process-my-wonderful-process">Process, process, my wonderful process</h3>
+
+<p>When I spoke about a process, it can be <code>notepad.exe</code> with a piece of text file in memory for example. Or, it can be the Windows &ldquo;strongbox&rdquo;: <code>lsass.exe</code>.</p>
+
+<p><code>Mimikatz</code> is a famous tool used by pentesters and (unfortunately) by malwares. This tool takes advantages of some <code>lsass</code> weaknesses (and many others) to find clear text password in memory.</p>
+
+<p>Volatility plugin has been made:</p>
+
+<pre><code class="language-bash">$ vol.py --plugins=plug_vol/ -f usr_land/OtterCTF.vmem --profile=Win7SP1x64 mimikatz
+
+Volatility Foundation Volatility Framework 2.6.1
+Module   User             Domain           Password                                
+-------- ---------------- ---------------- ----------------------------------------
+wdigest  Rick             WIN-LO6FAF3DTFE  MortyIsReallyAnOtter                    
+wdigest  WIN-LO6FAF3DTFE$ WORKGROUP
+</code></pre>
+
+<p>Great, the password has been found, so we got the flag.</p>
+
+<h3 id="flag">Flag</h3>
+
+<blockquote>
+<p>CTF{MortyIsReallyAnOtter}</p>
+</blockquote>
+
+<h2 id="2-general-info">2 - General Info</h2>
+
+<p><center>
+<img src="/img/writeups/otterctf2018/statement_mem2.png" alt="" />
+</center></p>
+
+<p>Now, we&rsquo;re looking for 2 flags: computer&rsquo;s IP and computer&rsquo;s name.</p>
+
+<h3 id="computer-name">Computer name</h3>
+
+<p>Computer&rsquo;s name is really easy to find because mimikatz plugins used previously brought it out: WIN-LO6FAF3DTFE.</p>
+
+<p>So the flag is:</p>
+
+<blockquote>
+<p>CTF{WIN-LO6FAF3DTFE}</p>
+</blockquote>
+
+<h3 id="computer-ip">Computer IP</h3>
+
+<p>Computer&rsquo;s IP address will not be much more complicated to find. By default, volatility can list all actives network connections with <code>netscan</code> plugin. This feature allows us to have a <code>netstat</code> view at memory acquisition.</p>
+
+<pre><code class="language-bash">$ vol.py --plugins=plug_vol/ -f usr_land/OtterCTF.vmem --profile=Win7SP1x64 netscan &gt; pnetscan
+
+$ cat pnetscan
+
+Volatility Foundation Volatility Framework 2.6.1
+Offset(P)          Proto    Local Address                  Foreign Address      State            Pid      Owner          Created
+0x7d60f010         UDPv4    0.0.0.0:1900                   *:*                                   2836     BitTorrent.exe 2018-08-04 19:27:17 UTC+0000
+0x7d62b3f0         UDPv4    192.168.202.131:6771           *:*                                   2836     BitTorrent.exe 2018-08-04 19:27:22 UTC+0000
+0x7d62f4c0         UDPv4    127.0.0.1:62307                *:*                                   2836     BitTorrent.exe 2018-08-04 19:27:17 UTC+0000
+0x7d62f920         UDPv4    192.168.202.131:62306          *:*                                   2836     BitTorrent.exe 2018-08-04 19:27:17 UTC+0000
+0x7d6424c0         UDPv4    0.0.0.0:50762                  *:*                                   4076     chrome.exe     2018-08-04 19:33:37 UTC+0000
+0x7d6b4250         UDPv6    ::1:1900                       *:*                                   164      svchost.exe    2018-08-04 19:28:42 UTC+0000
+0x7d6e3230         UDPv4    127.0.0.1:6771                 *:*                                   2836     BitTorrent.exe 2018-08-04 19:27:22 UTC+0000
+0x7d6ed650         UDPv4    0.0.0.0:5355                   *:*                                   620      svchost.exe    2018-08-04 19:34:22 UTC+0000
+0x7d71c8a0         UDPv4    0.0.0.0:0                      *:*                                   868      svchost.exe    2018-08-04 19:34:22 UTC+0000
+0x7d71c8a0         UDPv6    :::0                           *:*                                   868      svchost.exe    2018-08-04 19:34:22 UTC+0000
+0x7d74a390         UDPv4    127.0.0.1:52847                *:*                                   2624     bittorrentie.e 2018-08-04 19:27:24 UTC+0000
+0x7d7602c0         UDPv4    127.0.0.1:52846                *:*                                   2308     bittorrentie.e 2018-08-04 19:27:24 UTC+0000
+[...]
+</code></pre>
+
+<p>The most frequent source IP in the output is: 192.168.202.131. Good news, it&rsquo;s the flag:</p>
+
+<blockquote>
+<p>CTF{192.168.202.131}</p>
+</blockquote>
+
+<h2 id="3-play-time">3 - Play time</h2>
+
+<p><center>
+<img src="/img/writeups/otterctf2018/statement_mem3.png" alt="" />
+</center></p>
+
+<p>Again, two flags to find. This time, let&rsquo;s start to resolve the first flag: game name.</p>
+
+<h3 id="game-name">Game name</h3>
+
+<p>If <strong>Rick</strong> plays to something, his process should run:</p>
+
+<pre><code class="language-bash">$ vol.py --plugins=plug_vol/ -f usr_land/OtterCTF.vmem --profile=Win7SP1x64 pstree &gt; ppstree
+
+$ cat ppstree
+Name                                                  Pid   PPid   Thds   Hnds Time
+-------------------------------------------------- ------ ------ ------ ------ ----
+ 0xfffffa801b27e060:explorer.exe                     2728   2696     33    854 2018-08-04 19:27:04 UTC+0000
+. 0xfffffa801b486b30:Rick And Morty                  3820   2728      4    185 2018-08-04 19:32:55 UTC+0000
+.. 0xfffffa801a4c5b30:vmware-tray.ex                 3720   3820      8    147 2018-08-04 19:33:02 UTC+0000
+. 0xfffffa801b2f02e0:WebCompanion.e                  2844   2728      0 ------ 2018-08-04 19:27:07 UTC+0000
+. 0xfffffa801a4e3870:chrome.exe                      4076   2728     44   1160 2018-08-04 19:29:30 UTC+0000
+.. 0xfffffa801a4eab30:chrome.exe                     4084   4076      8     86 2018-08-04 19:29:30 UTC+0000
+.. 0xfffffa801a5ef1f0:chrome.exe                     1796   4076     15    170 2018-08-04 19:33:41 UTC+0000
+.. 0xfffffa801aa00a90:chrome.exe                     3924   4076     16    228 2018-08-04 19:29:51 UTC+0000
+.. 0xfffffa801a635240:chrome.exe                     3648   4076     16    207 2018-08-04 19:33:38 UTC+0000
+.. 0xfffffa801a502b30:chrome.exe                      576   4076      2     58 2018-08-04 19:29:31 UTC+0000
+.. 0xfffffa801a4f7b30:chrome.exe                     1808   4076     13    229 2018-08-04 19:29:32 UTC+0000
+.. 0xfffffa801a7f98f0:chrome.exe                     2748   4076     15    181 2018-08-04 19:31:15 UTC+0000
+. 0xfffffa801b5cb740:LunarMS.exe                      708   2728     18    346 2018-08-04 19:27:39 UTC+0000
+. 0xfffffa801b1cdb30:vmtoolsd.exe                    2804   2728      6    190 2018-08-04 19:27:06 UTC+0000
+. 0xfffffa801b290b30:BitTorrent.exe                  2836   2728     24    471 2018-08-04 19:27:07 UTC+0000
+.. 0xfffffa801b4c9b30:bittorrentie.e                 2624   2836     13    316 2018-08-04 19:27:21 UTC+0000
+.. 0xfffffa801b4a7b30:bittorrentie.e                 2308   2836     15    337 2018-08-04 19:27:19 UTC+0000
+ 0xfffffa8018d44740:System                              4      0     95    411 2018-08-04 19:26:03 UTC+0000
+. 0xfffffa801947e4d0:smss.exe                         260      4      2     30 2018-08-04 19:26:03 UTC+0000
+ 0xfffffa801a2ed060:wininit.exe                       396    336      3     78 2018-08-04 19:26:11 UTC+0000
+. 0xfffffa801ab377c0:services.exe                     492    396     11    242 2018-08-04 19:26:12 UTC+0000
+.. 0xfffffa801afe7800:svchost.exe                    1948    492      6     96 2018-08-04 19:26:42 UTC+0000
+.. 0xfffffa801ae92920:vmtoolsd.exe                   1428    492      9    313 2018-08-04 19:26:27 UTC+0000
+... 0xfffffa801a572b30:cmd.exe                       3916   1428      0 ------ 2018-08-04 19:34:22 UTC+0000
+.. 0xfffffa801ae0f630:VGAuthService.                 1356    492      3     85 2018-08-04 19:26:25 UTC+0000
+.. 0xfffffa801abbdb30:vmacthlp.exe                    668    492      3     56 2018-08-04 19:26:16 UTC+0000
+.. 0xfffffa801aad1060:Lavasoft.WCAss                 3496    492     14    473 2018-08-04 19:33:49 UTC+0000
+.. 0xfffffa801a6af9f0:svchost.exe                     164    492     12    147 2018-08-04 19:28:42 UTC+0000
+.. 0xfffffa801ac2e9e0:svchost.exe                     808    492     22    508 2018-08-04 19:26:18 UTC+0000
+... 0xfffffa801ac753a0:audiodg.exe                    960    808      7    151 2018-08-04 19:26:19 UTC+0000
+.. 0xfffffa801ae7f630:dllhost.exe                    1324    492     15    207 2018-08-04 19:26:42 UTC+0000
+.. 0xfffffa801a6c2700:mscorsvw.exe                   3124    492      7     77 2018-08-04 19:28:43 UTC+0000
+.. 0xfffffa801b232060:sppsvc.exe                     2500    492      4    149 2018-08-04 19:26:58 UTC+0000
+.. 0xfffffa801abebb30:svchost.exe                     712    492      8    301 2018-08-04 19:26:17 UTC+0000
+.. 0xfffffa801ad718a0:svchost.exe                    1164    492     18    312 2018-08-04 19:26:23 UTC+0000
+.. 0xfffffa801ac31b30:svchost.exe                     844    492     17    396 2018-08-04 19:26:18 UTC+0000
+... 0xfffffa801b1fab30:dwm.exe                       2704    844      4     97 2018-08-04 19:27:04 UTC+0000
+.. 0xfffffa801988c2d0:PresentationFo                  724    492      6    148 2018-08-04 19:27:52 UTC+0000
+.. 0xfffffa801b603610:mscorsvw.exe                    412    492      7     86 2018-08-04 19:28:42 UTC+0000
+.. 0xfffffa8018e3c890:svchost.exe                     604    492     11    376 2018-08-04 19:26:16 UTC+0000
+... 0xfffffa8019124b30:WmiPrvSE.exe                  1800    604      9    222 2018-08-04 19:26:39 UTC+0000
+... 0xfffffa801b112060:WmiPrvSE.exe                  2136    604     12    324 2018-08-04 19:26:51 UTC+0000
+.. 0xfffffa801ad5ab30:spoolsv.exe                    1120    492     14    346 2018-08-04 19:26:22 UTC+0000
+.. 0xfffffa801ac4db30:svchost.exe                     868    492     45   1114 2018-08-04 19:26:18 UTC+0000
+.. 0xfffffa801a6e4b30:svchost.exe                    3196    492     14    352 2018-08-04 19:28:44 UTC+0000
+.. 0xfffffa801acd37e0:svchost.exe                     620    492     19    415 2018-08-04 19:26:21 UTC+0000
+.. 0xfffffa801b1e9b30:taskhost.exe                   2344    492      8    193 2018-08-04 19:26:57 UTC+0000
+.. 0xfffffa801ac97060:svchost.exe                    1012    492     12    554 2018-08-04 19:26:20 UTC+0000
+.. 0xfffffa801b3aab30:SearchIndexer.                 3064    492     11    610 2018-08-04 19:27:14 UTC+0000
+.. 0xfffffa801aff3b30:msdtc.exe                      1436    492     14    155 2018-08-04 19:26:43 UTC+0000
+. 0xfffffa801ab3f060:lsass.exe                        500    396      7    610 2018-08-04 19:26:12 UTC+0000
+. 0xfffffa801ab461a0:lsm.exe                          508    396     10    148 2018-08-04 19:26:12 UTC+0000
+ 0xfffffa801a0c8380:csrss.exe                         348    336      9    563 2018-08-04 19:26:10 UTC+0000
+. 0xfffffa801a6643d0:conhost.exe                     2420    348      0     30 2018-08-04 19:34:22 UTC+0000
+ 0xfffffa80198d3b30:csrss.exe                         388    380     11    460 2018-08-04 19:26:11 UTC+0000
+ 0xfffffa801aaf4060:winlogon.exe                      432    380      3    113 2018-08-04 19:26:11 UTC+0000
+ 0xfffffa801b18f060:WebCompanionIn                   3880   1484     15    522 2018-08-04 19:33:07 UTC+0000
+. 0xfffffa801aa72b30:sc.exe                          3504   3880      0 ------ 2018-08-04 19:33:48 UTC+0000
+. 0xfffffa801aeb6890:sc.exe                           452   3880      0 ------ 2018-08-04 19:33:48 UTC+0000
+. 0xfffffa801a6268b0:WebCompanion.e                  3856   3880     15    386 2018-08-04 19:34:05 UTC+0000
+. 0xfffffa801b08f060:sc.exe                          3208   3880      0 ------ 2018-08-04 19:33:47 UTC+0000
+. 0xfffffa801ac01060:sc.exe                          2028   3880      0 ------ 2018-08-04 19:33:49 UTC+0000
+ 0xfffffa801b1fd960:notepad.exe                      3304   3132      2     79 2018-08-04 19:34:10 UTC+0000
+</code></pre>
+
+<p>Here are suspicious processes:</p>
+
+<ul>
+<li>&ldquo;Rick and Morty&rdquo;</li>
+<li>vmware-tray.exe</li>
+<li>WebCompanion.exe</li>
+<li>LunarMS.exe</li>
+</ul>
+
+<p>After some internet research, <strong>LunarMS</strong> appears to be the best candidate. Good!</p>
+
+<blockquote>
+<p>CTF{LunarMS}</p>
+</blockquote>
+
+<h3 id="game-ip">Game IP</h3>
+
+<p>Now I got the process name, find the associated IP will be easy. Indeed, <code>netscan</code> plugin used previously is also showing IP address associated to processes.</p>
+
+<pre><code class="language-bash">$ cat pnetscan | grep LunarMS
+0x7d6124d0         TCPv4    192.168.202.131:49530          77.102.199.102:7575  CLOSED           708      LunarMS.exe    
+0x7e413a40         TCPv4    -:0                            -:0                  CLOSED           708      LunarMS.exe    
+0x7e521b50         TCPv4    -:0                            -:0                  CLOSED           708      LunarMS.exe
+</code></pre>
+
+<p>The only IP address comes out:</p>
+
+<blockquote>
+<p>CTF{77.102.199.102}</p>
+</blockquote>
+
+<h2 id="4-name-game">4 - Name Game</h2>
+
+<p><center>
+<img src="/img/writeups/otterctf2018/statement_mem4.png" alt="" />
+</center></p>
+
+<p>We know the game, then we know its PID. We got a string, I will use it as search index: <strong>Lunar-3</strong>.</p>
+
+<p>A volatility plugin that I like a lot is <code>yarascan</code>, it&rsquo;s like a grep, but better for a memory dump. It&rsquo;s possible to look for patterns with regular expression or just looking for standard strings. For this challenge, I will only look for standard strings in the game process:</p>
+
+<pre><code class="language-bash">$ vol.py --plugins=plug_vol/ -f usr_land/OtterCTF.vmem --profile=Win7SP1x64 yarascan --yara-rules=&quot;Lunar-3&quot; -p 708
+
+Volatility Foundation Volatility Framework 2.6.1
+Rule: r1
+Owner: Process LunarMS.exe Pid 708
+0x5a0c1070  4c 75 6e 61 72 2d 33 00 00 7a 33 00 00 00 00 00   Lunar-3..z3.....
+0x5a0c1080  00 1d 00 00 00 01 00 00 00 0b 00 00 00 0b 00 00   ................
+0x5a0c1090  00 30 74 74 33 72 38 72 33 33 7a 33 00 00 00 00   .0tt3r8r33z3....
+0x5a0c10a0  00 00 1d 00 00 00 01 00 00 00 0d 00 00 00 0d 00   ................
+0x5a0c10b0  00 00 53 6f 75 6e 64 2f 55 49 2e 69 6d 67 2f 00   ..Sound/UI.img/.
+0x5a0c10c0  00 00 00 1d 00 00 00 01 00 00 00 0c 00 00 00 0c   ................
+0x5a0c10d0  00 00 00 42 74 4d 6f 75 73 65 43 6c 69 63 6b 00   ...BtMouseClick.
+0x5a0c10e0  00 00 00 00 1d 00 00 00 01 00 00 00 07 00 00 00   ................
+0x5a0c10f0  07 00 00 00 4c 75 6e 61 72 2d 34 00 00 00 00 00   ....Lunar-4.....
+0x5a0c1100  00 00 00 00 00 1d 00 00 00 01 00 00 00 07 00 00   ................
+0x5a0c1110  00 07 00 00 00 4c 75 6e 61 72 2d 31 00 00 00 00   .....Lunar-1....
+0x5a0c1120  00 00 00 00 00 00 1d 00 00 00 01 00 00 00 07 00   ................
+0x5a0c1130  00 00 07 00 00 00 4c 75 6e 61 72 2d 32 00 00 7a   ......Lunar-2..z
+0x5a0c1140  00 00 00 00 00 00 00 1d 00 00 00 01 00 00 00 08   ................
+0x5a0c1150  00 00 00 08 00 00 00 53 63 72 6f 6c 6c 55 70 00   .......ScrollUp.
+0x5a0c1160  00 00 00 00 00 00 00 00 1d 00 00 00 01 00 00 00   ................
+</code></pre>
+
+<p>The leet speak string looks like a flag ;)</p>
+
+<blockquote>
+<p>CTF{0tt3r8r33z3}</p>
+</blockquote>
+
+<h2 id="5-name-game-2">5 - Name Game 2</h2>
+
+<p><center>
+<img src="/img/writeups/otterctf2018/statement_mem5.png" alt="" />
+</center></p>
+
+<p>In this case, I will use custom yara rules. The statement does not give strings, just a pattern: <strong>0x64 0x??{6-8} 0x40 0x06 0x??{18} 0x5a 0x0c 0x00{2}</strong></p>
+
+<p>To find this pattern in memory, I just have to do a custom rule, here is my <code>otterrule.yar</code> file:</p>
+
+<pre><code class="language-yml">rule OtterCTF
+{
+	meta:
+		desc = &quot;OtterCTF&quot;
+		weight = 10
+	strings:
+		$a = {?? [6-8] 40 06 [18] 5a 0c 00 00}
+	condition:
+		$a
+}
+</code></pre>
+
+<p>Still filtering on the same PID, just add our rule file to the filter:</p>
+
+<pre><code class="language-bash">$ vol.py --plugins=plug_vol/ -f usr_land/OtterCTF.vmem --profile=Win7SP1x64 yarascan -y usr_land/otterrule.ya -p 708
+
+Volatility Foundation Volatility Framework 2.6.1
+Rule: OtterCTF
+Owner: Process LunarMS.exe Pid 708
+0x5ab4dfa7  08 44 64 00 00 00 00 00 00 40 06 00 00 b4 e5 af   .Dd......@......
+0x5ab4dfb7  00 01 00 00 00 00 00 00 00 b0 e5 af 00 5a 0c 00   .............Z..
+0x5ab4dfc7  00 4d 30 72 74 79 4c 30 4c 00 00 00 00 00 00 00   .M0rtyL0L.......
+0x5ab4dfd7  21 4e 00 00 55 75 00 00 00 00 00 00 00 00 00 00   !N..Uu..........
+0x5ab4dfe7  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00   ................
+0x5ab4dff7  b4 10 95 6f d5 cd 66 36 66 36 b4 ab ee fa a4 73   ...o..f6f6.....s
+0x5ab4e007  9f 70 f2 ab 6e ba 3a c4 3f c4 3c ac ee 25 ac d9   .p..n.:.?.&lt;..%..
+0x5ab4e017  a8 d9 60 ac 6e a0 d6 25 d2 25 a8 ab ee ee e1 aa   ..`.n..%.%......
+0x5ab4e027  d2 a2 29 ac 2e 9b d1 5e f4 57 d8 ab 2e 27 86 01   ..)....^.W...'..
+0x5ab4e037  7c 07 87 ab ee 0a e8 5f 12 59 d7 ab 6e 31 96 49   |......_.Y..n1.I
+0x5ab4e047  96 49 cb ab ee 9e dd e6 dd e6 6a ac 2e 2c 12 bd   .I........j..,..
+0x5ab4e057  3e 25 1f 03 6d 29 87 9d 69 26 f8 4a f8 4a cb ab   &gt;%..m)..i&amp;.J.J..
+0x5ab4e067  6e ad 60 35 ef a2 01 c2 38 65 2c d8 fa cd e4 f8   n.`5....8e,.....
+0x5ab4e077  90 31 c7 87 8c 21 0e 70 e6 6d 78 20 af 00 00 00   .1...!.p.mx.....
+0x5ab4e087  00 00 00 00 00 00 00 00 00 00 00 00 00 00 5e 81   ..............^.
+0x5ab4e097  ee 8f 7c 6a 4e 74 06 86 f8 0d 06 00 00 00 00 00   ..|jNt..........
+[...]
+</code></pre>
+
+<p>Great, it works well!</p>
+
+<blockquote>
+<p>CTF{M0rtyL0L}</p>
+</blockquote>
+
+<h2 id="6-silly-rick">6 - Silly Rick</h2>
+
+<p><center>
+<img src="/img/writeups/otterctf2018/statement_mem6.png" alt="" />
+</center></p>
+
+<p>This challenge will use a standard volatility plugin: <code>clipboard</code>. This plugin will get the clipboard content at dump time:</p>
+
+<pre><code class="language-bash">$ vol.py --plugins=plug_vol/ -f usr_land/OtterCTF.vmem --profile=Win7SP1x64 clipboard
+
+Volatility Foundation Volatility Framework 2.6.1
+Session    WindowStation Format                         Handle Object             Data                                              
+---------- ------------- ------------------ ------------------ ------------------ --------------------------------------------------
+         1 WinSta0       CF_UNICODETEXT                0x602e3 0xfffff900c1ad93f0 M@il_Pr0vid0rs                                    
+         1 WinSta0       CF_TEXT                          0x10 ------------------                                                   
+         1 WinSta0       0x150133L              0x200000000000 ------------------                                                   
+         1 WinSta0       CF_TEXT                           0x1 ------------------                                                   
+         1 ------------- ------------------           0x150133 0xfffff900c1c1adc0
+</code></pre>
+
+<p>EZ Win :D</p>
+
+<blockquote>
+<p>CTF{M@il_Pr0vid0rs}</p>
+</blockquote>
+
+<h2 id="7-hide-and-seek">7 - Hide and Seek</h2>
+
+<p><center>
+<img src="/img/writeups/otterctf2018/statement_mem7.png" alt="" />
+</center></p>
+
+<p>It&rsquo;s starting to get interesting: malware. For this challenge, it&rsquo;s better not to go wrong.</p>
+
+<h3 id="a-needle-in-a-haystack">A needle in a haystack</h3>
+
+<p>If we get processes tree, we can notify some strange things:</p>
+
+<ul>
+<li>A &ldquo;Rick and Morty&rdquo; process, that has a child process ;</li>
+<li>Lavasoft process ;</li>
+<li>BitTorrent processes ;</li>
+<li>WebCompanion ;</li>
+<li>Notepad.exe which hasn&rsquo;t got parent process.</li>
+</ul>
+
+<p>Remember, a malware can have any name. It&rsquo;s better to look at the parents/child processes.</p>
+
+<h3 id="malware-is-that-you">Malware, is that you?</h3>
+
+<p>I&rsquo;m going to start with my first hypothesis: the <code>Rick and Morty</code> process and his child, <code>vmware-tray.exe</code>.</p>
+
+<p>The first step, extract binaries:</p>
+
+<pre><code class="language-bash">$ vol.py --plugins=plug_vol/ -f usr_land/OtterCTF.vmem --profile=Win7SP1x64 procdump -p 3820 -D .
+
+Volatility Foundation Volatility Framework 2.6.1
+Process(V)         ImageBase          Name                 Result
+------------------ ------------------ -------------------- ------
+0xfffffa801b486b30 0x0000000000400000 Rick And Morty       OK: executable.3820.exe
+
+$ vol.py --plugins=plug_vol/ -f usr_land/OtterCTF.vmem --profile=Win7SP1x64 procdump -p 3720 -D .
+
+Volatility Foundation Volatility Framework 2.6.1
+Process(V)         ImageBase          Name                 Result
+------------------ ------------------ -------------------- ------
+0xfffffa801a4c5b30 0x0000000000ec0000 vmware-tray.ex       OK: executable.3720.exe
+
+$ mv executable.3820.exe rickandmorty.exe
+$ mv executable.3720.exe vmware-tray.exe
+</code></pre>
+
+<p>Now a little visit on virustotal, to see the score of those two rogues. First, <code>rickandmorty.exe</code>:</p>
+
+<p><center>
+<img src="/img/writeups/otterctf2018/part7_1.png" alt="" />
+</center></p>
+
+<p>Well, <sup>4</sup>&frasl;<sub>68</sub> it&rsquo;s not really huge, probably a false positive. What Virustotal says about <code>vmware-tray.exe</code>:</p>
+
+<p><center>
+<img src="/img/writeups/otterctf2018/part7_2.png" alt="" />
+</center></p>
+
+<p>Great! Better results! It smells the malware :D</p>
+
+<p>And it is:</p>
+
+<blockquote>
+<p>CTF{vmware-tray.exe}</p>
+</blockquote>
+
+<h2 id="8-path-to-glory">8 - Path to glory</h2>
+
+<p><center>
+<img src="/img/writeups/otterctf2018/statement_mem8.png" alt="" />
+</center></p>
+
+<p>According to running processes, I suppose the awful habits of Rick, are the illegal downloads on BitTorrent</p>
+
+<p>Let&rsquo;s try to find what he downloaded:</p>
+
+<pre><code class="language-bash">$ vol.py --plugins=plug_vol/ -f usr_land/OtterCTF.vmem --profile=Win7SP1x64 filescan &gt; pfilescan
+
+$ cat pfilescan | grep -i torrent 
+[...]
+0x000000007d63dbc0     10      0 R--r-d \Device\HarddiskVolume1\Torrents\Rick And Morty season 1 download.exe
+0x000000007d8813c0      2      0 RW-rwd \Device\HarddiskVolume1\Users\Rick\Downloads\Rick And Morty season 1 download.exe.torrent
+0x000000007da56240      2      0 RW-rwd \Device\HarddiskVolume1\Torrents\Rick And Morty season 1 download.exe
+0x000000007dae9350      2      0 RWD--- \Device\HarddiskVolume1\Users\Rick\AppData\Roaming\BitTorrent\Rick And Morty season 1 download.exe.1.torrent
+0x000000007dcbf6f0      2      0 RW-rwd \Device\HarddiskVolume1\Users\Rick\AppData\Roaming\BitTorrent\Rick And Morty season 1 download.exe.1.torrent
+0x000000007e710070      8      0 R--rwd \Device\HarddiskVolume1\Torrents\Rick And Morty season 1 download.exe
+[...]
+</code></pre>
+
+<p>There is a bunch of suspicious files. I first tried to extract <code>Rick And Morty season 1 download.exe</code> file but nothing really relevant inside for our problem:</p>
+
+<pre><code class="language-bash">$ vol.py --plugins=plug_vol/ -f usr_land/OtterCTF.vmem --profile=Win7SP1x64 dumpfiles -Q 0x000000007e710070 -D .
+
+Volatility Foundation Volatility Framework 2.6.1
+ImageSectionObject 0x7e710070   None   \Device\HarddiskVolume1\Torrents\Rick And Morty season 1 download.exe
+DataSectionObject 0x7e710070   None   \Device\HarddiskVolume1\Torrents\Rick And Morty season 1 download.exe
+</code></pre>
+
+<p>Let&rsquo;s do the same operation on the <strong>torrent</strong> file:</p>
+
+<pre><code class="language-bash">$ vol.py --plugins=plug_vol/ -f usr_land/OtterCTF.vmem --profile=Win7SP1x64 dumpfiles -Q 0x000000007dae9350 -D .
+
+Volatility Foundation Volatility Framework 2.6.1
+DataSectionObject 0x7dae9350   None   \Device\HarddiskVolume1\Users\Rick\AppData\Roaming\BitTorrent\Rick And Morty season 1 download.exe.1.torrent
+
+$ strings file.None.0xfffffa801b42c9e0.dat
+d8:announce44:udp://tracker.openbittorrent.com:80/announce13:announce-listll44:udp://tracker.openbittorrent.com:80/announceel42:udp://tracker.opentrackr.org:1337/announceee10:created by17:BitTorrent/7.10.313:creation datei1533150595e8:encoding5:UTF-84:infod6:lengthi456670e4:name36:Rick And Morty season 1 download.exe12:piece lengthi16384e6:pieces560:\I
+!PC&lt;^X
+B.k_Rk
+0&lt;;O87o
+!4^&quot;
+3hq,
+&amp;iW1|
+K68:o
+w~Q~YT
+$$o9p
+bwF:u
+e7:website19:M3an_T0rren7_4_R!cke
+</code></pre>
+
+<p>Yay, it works!</p>
+
+<blockquote>
+<p>CTF{M3an_T0rren7_4_R!ck}</p>
+</blockquote>
+
+<h2 id="9-path-to-glory-2">9 - Path to glory 2</h2>
+
+<p><center>
+<img src="/img/writeups/otterctf2018/statement_mem9.png" alt="" />
+</center></p>
+
+<p>Honestly, with a good friend, we just guessed this flag, it&rsquo;s insane.</p>
+
+<p>He sent me this message: &ldquo;Hey bro, try to find the string &lsquo;Th3&rsquo; inside memory!&rdquo;</p>
+
+<p>Ok, but we can add more filter to be more efficient. The torrent file doesn&rsquo;t come by a magic trick. Rick downloaded it with his favorite browser: Chrome.</p>
+
+<p>Then I search the string &ldquo;Th3&rdquo; into Chrome processes:</p>
+
+<pre><code class="language-bash">$ vol.py --plugins=plug_vol/ -f usr_land/OtterCTF.vmem --profile=Win7SP1x64 yarascan --yara-rules=&quot;Th3&quot; -p 3924
+
+[...]
+Volatility Foundation Volatility Framework 2.6.1
+Rule: r1
+Owner: Process chrome.exe Pid 3924
+0x6203ba714dd  5f 54 68 33 5f 57 65 61 6b 33 73 37 5f 4c 69 6e   _Th3_Weak3s7_Lin
+0x6203ba714ed  6b 5f 49 6e 5f 54 68 33 5f 43 68 40 69 6e 59 65   k_In_Th3_Ch@inYe
+0x6203ba714fd  61 72 00 00 00 06 20 3b a7 0f 50 51 46 e2 0d 2f   ar.....;..PQF../
+0x6203ba7150d  2f 73 65 63 2d 73 2e 75 69 63 64 6e 2e 63 6f 6d   /sec-s.uicdn.com
+0x6203ba7151d  2f 6e 61 76 2d 63 64 6e 2f 68 6f 6d 65 2f 70 72   /nav-cdn/home/pr
+0x6203ba7152d  65 6c 6f 61 64 65 72 2e 67 69 66 00 00 06 20 3b   eloader.gif....;
+0x6203ba7153d  a7 16 18 00 00 00 02 6e 00 61 00 76 00 69 00 67   .......n.a.v.i.g
+0x6203ba7154d  00 61 00 74 00 6f 00 72 00 2d 00 6c 00 78 00 61   .a.t.o.r.-.l.x.a
+0x6203ba7155d  00 2e 00 6d 00 61 00 69 00 6c 00 2e 00 63 00 6f   ...m.a.i.l...c.o
+0x6203ba7156d  00 6d 00 01 00 00 00 16 00 00 00 00 00 00 62 6e   .m............bn
+0x6203ba7157d  00 61 00 76 00 69 00 67 00 61 00 74 00 6f 00 72   .a.v.i.g.a.t.o.r
+0x6203ba7158d  00 2d 00 6c 00 78 00 61 00 2e 00 6d 00 61 00 69   .-.l.x.a...m.a.i
+0x6203ba7159d  00 6c 00 2e 00 63 00 6f 00 6d 00 04 00 00 00 2a   .l...c.o.m.....*
+0x6203ba715ad  00 00 00 4f ac c4 0e 73 69 6d 70 6c 65 2d 69 63   ...O...simple-ic
+0x6203ba715bd  6f 6e 5f 74 6f 6f 6c 62 61 72 2d 63 68 61 6e 67   on_toolbar-chang
+0x6203ba715cd  65 2d 76 69 65 77 2d 68 6f 72 69 7a 6f 6e 74 61   e-view-horizonta
+[...]
+</code></pre>
+
+<p>Ok, I got a piece of something, maybe of the flag:</p>
+
+<blockquote>
+<p>_Th3_Weak3s7_Link_In_Th3_Ch@inYear</p>
+</blockquote>
+
+<p>Let&rsquo;s extract memory from process 3924 and see what happens. To look into memory dump, I&rsquo;m using a good old <code>strings</code> and <code>grep</code> / <code>less</code> command.</p>
+
+<pre><code class="language-bash">$ vol.py --plugins=plug_vol/ -f usr_land/OtterCTF.vmem --profile=Win7SP1x64 memdump -p 3924 -D .
+
+Volatility Foundation Volatility Framework 2.6.1
+************************************************************************
+Writing chrome.exe [  3924] to 3924.dmp
+
+$ strings 3924.dmp| grep Weak3s7_Link_In
+Hum@n_I5_Th3_Weak3s7_Link_In_Th3_Ch@inYear
+[...]
+</code></pre>
+
+<p>And the flag is:</p>
+
+<blockquote>
+<p>CTF{Hum@n_I5_Th3_Weak3s7_Link_In_Th3_Ch@in}</p>
+</blockquote>
+
+<h2 id="10-bit-4-bit">10 - Bit 4 Bit</h2>
+
+<p><center>
+<img src="/img/writeups/otterctf2018/statement_mem10.png" alt="" />
+</center></p>
+
+<p>If all scenario steps are followed, finding the wallet will be easy. The malware is known: <code>vmware-tray.exe</code>. We suspect that the wallet is embedded in the malicious binary:</p>
+
+<pre><code class="language-bash">$ strings -e l vmware-tray.exe               
+[...]
+label2
+Your Payment has failed, The funs have been sent back to your wallet. Please send it again
+Error
+1MmpEmebJkqXG8nQv4cjJSmxZQFVmFo63M
+Send 0.16 to the address below.
+I paid, Now give me back my files.
+Form3
+hidden_tear.Properties.Resources
+Bitcoin_Accepted_Here-4800px
+[...]
+</code></pre>
+
+<p>The flag is:</p>
+
+<blockquote>
+<p>CTF{1MmpEmebJkqXG8nQv4cjJSmxZQFVmFo63M}</p>
+</blockquote>
+
+<h2 id="11-graphic-s-for-the-weak">11 - Graphic&rsquo;s for the Weak</h2>
+
+<p><center>
+<img src="/img/writeups/otterctf2018/statement_mem11.png" alt="" />
+</center></p>
+
+<p>Like the previous challenge, we already identified the malware. So if the malware deal with a picture, there are two possibilities:</p>
+
+<ul>
+<li>The picture is embedded in the malware</li>
+<li>The malware will download the picture</li>
+</ul>
+
+<p>There is an easy way to check the first hypothesis, use a carving software like <code>binwalk</code>, <code>foremost</code> or whatever.</p>
+
+<pre><code class="language-bash">$ binwalk vmware-tray.exe
+
+DECIMAL       HEXADECIMAL     DESCRIPTION
+--------------------------------------------------------------------------------
+0             0x0             Microsoft executable, portable (PE)
+9178          0x23DA          Copyright string: &quot;CopyrightAttribute&quot;
+116288        0x1C640         PNG image, 4800 x 1454, 8-bit/color RGBA, non-interlaced
+116416        0x1C6C0         Zlib compressed data, compressed
+344098        0x54022         PNG image, 800 x 600, 8-bit colormap, non-interlaced
+344511        0x541BF         Zlib compressed data, best compression
+420575        0x66ADF         XML document, version: &quot;1.0&quot;
+423178        0x6750A         Unix path: /schemas.microsoft.com/SMI/2005/WindowsSettings&quot;&gt;true&lt;/dpiAware&gt;
+</code></pre>
+
+<p>We can see two PNG files, let&rsquo;s try to extract them with <code>foremost</code>. I&rsquo;m using foremost instead of binwalk to extract data because files extracted by foremost are much cleaner:</p>
+
+<pre><code class="language-bash">$ foremost vmware-tray.exe   
+Processing: vmware-tray.exe
+|*|
+
+$ file output/png/00000672.png
+output/png/00000672.png: PNG image data, 800 x 600, 8-bit colormap, non-interlaced
+</code></pre>
+
+<p><center>
+<img src="/img/writeups/otterctf2018/part11_1.png" alt="" />
+</center></p>
+
+<blockquote>
+<p>CTF{S0_Just_M0v3_Socy}</p>
+</blockquote>
+
+<h2 id="12-recovery">12 - Recovery</h2>
+
+<p><center>
+<img src="/img/writeups/otterctf2018/statement_mem12.png" alt="" />
+</center></p>
+
+<p>I didn&rsquo;t manage to solve those two last challenges during the CTF time. But there are very interesting, I had a lot of fun solving them.</p>
+
+<p>To find the encryption key, I have to reverse the malware. I want to find out how the key is generated and how the key is sent to the command and control server. Fortunately, the malware was developed with .NET language:</p>
+
+<pre><code class="language-bash">$ file vmware-tray.exe        
+vmware-tray.exe: PE32 executable (GUI) Intel 80386 Mono/.Net assembly, for MS Windows
+</code></pre>
+
+<p>.NET languages can be decompiled easily with tools like ILSPy. The less I&rsquo;m seeing assembly better I am! :D</p>
+
+<p>I quickly identified the function <code>SendPassword</code>.</p>
+
+<p><center>
+<img src="/img/writeups/otterctf2018/part12_1.png" alt="" />
+</center></p>
+
+<p>Now that I&rsquo;ve been achieving to find how the key is sent, I can search the pattern in the memory dump:</p>
+
+<pre><code class="language-bash">$ strings -e l  OtterCTF.vmem| grep &quot;WIN-LO6FAF3DTFE-Rick &quot;
+WIN-LO6FAF3DTFE-Rick aDOBofVYUNVnmp7
+</code></pre>
+
+<blockquote>
+<p>CTF{aDOBofVYUNVnmp7}</p>
+</blockquote>
+
+<h2 id="13-closure">13 - Closure</h2>
+
+<p>While I was looking for the method that sent the key to the command and control server, I saw a name that caught my attention: <code>HiddenTears</code>.</p>
+
+<p>HiddenTears is ransomware available on GitHub since 2015. Some little jerks use this GitHub to do new strains. But it means HiddenTears decrypter is available on the internet, even on the GitHub.</p>
+
+<p>Decrypter: <a href="https://github.com/goliate/hidden-tear/tree/master/hidden-tear-decrypter">https://github.com/goliate/hidden-tear/tree/master/hidden-tear-decrypter</a></p>
+
+<p>Firstly, get the file which contains the flag:</p>
+
+<pre><code class="language-bash">$ cat pfilescan | grep -i flag
+
+0x000000007d61b070     16      0 RW-rw- \Device\HarddiskVolume1\Users\Rick\AppData\Roaming\Microsoft\Windows\Recent\Flag.txt.WINDOWS.lnk
+0x000000007e410890     16      0 R--r-- \Device\HarddiskVolume1\Users\Rick\Desktop\Flag.txt
+
+$ vol.py --plugins=plug_vol/ -f usr_land/OtterCTF.vmem --profile=Win7SP1x64 dumpfiles -Q 0x000000007e410890 -D . 
+
+Volatility Foundation Volatility Framework 2.6.1
+DataSectionObject 0x7e410890   None   \Device\HarddiskVolume1\Users\Rick\Desktop\Flag.txt
+</code></pre>
+
+<p>So, now we got a decryption key, an encrypted file, and a decrypter. It sounds good ;)</p>
+
+<p>&hellip; Or not, there is a little problem in the &ldquo;Flag.txt&rdquo; file that has been extracted:</p>
+
+<pre><code class="language-bash">$ hexdump -C  Flag.txt 
+
+00000000  7b e6 24 56 9e 5c 0f ef  8e 43 28 f7 e4 c5 83 ff  |{.$V.\...C(.....|
+00000010  6c 31 d7 e6 1c da ea 54  cf 72 dd d6 ec 7e b0 7b  |l1.....T.r...~.{|
+00000020  c6 8d d0 a8 cc c2 ce 6e  3e ee 03 47 c1 0b b3 e8  |.......n&gt;..G....|
+00000030  00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |................|
+*
+00001000
+</code></pre>
+
+<p>There is a little mistake about padding, is there a bunch of zero at the end of the file. It probably happens during file extraction from memory.</p>
+
+<p>When the file is lightened of its 0 and renamed with &lsquo;.locked&rsquo; extension, it&rsquo;s decryption time:</p>
+
+<p><center>
+<img src="/img/writeups/otterctf2018/part13_1.gif" alt="" />
+</center></p>
+
+<blockquote>
+<p>CTF{Im_Th@_B3S7_RicK_0f_Th3m_4ll}</p>
+</blockquote>
+
+<hr />
+
+<h1 id="network">Network</h1>
+
+<p>There are 4 network challenges during this CTF, I only solved 3 of them, here is how.</p>
+
+<h2 id="birdman-s-data">Birdman&rsquo;s Data</h2>
+
+<p><center>
+<img src="/img/writeups/otterctf2018/statement_net1.png" alt="" />
+</center></p>
+
+<h3 id="state-of-the-art">State of the art</h3>
+
+<p>The PCAP file is not really big, I decided to open it using Wireshark. There are few things to notice:</p>
+
+<ul>
+<li>Data in UDP protocol</li>
+<li>HTTP packets to <code>txtwizard.net</code></li>
+</ul>
+
+<p><center>
+<img src="/img/writeups/otterctf2018/net1_1.png" alt="" />
+</center></p>
+
+<p>There nothing interesting in UDP traffic, data does not represent much.</p>
+
+<p>On the other hand, HTTP traffic is very interesting.</p>
+
+<h3 id="crypto-time">&ldquo;Crypto&rdquo; time</h3>
+
+<p>There is an interesting request:</p>
+
+<pre><code class="language-raw">POST /crypto/AES/encrypt/CBC/PKCS5 HTTP/1.1
+Host: www.txtwizard.net
+Connection: keep-alive
+Content-Length: 4297
+Accept: application/json, text/javascript, */*; q=0.01
+Origin: http://www.txtwizard.net
+</code></pre>
+
+<p>Oh, AES CBC! We&rsquo;re missing the encrypted data, key and IV&hellip; Just scroll a little bit ;)</p>
+
+<p><center>
+<img src="/img/writeups/otterctf2018/net1_2.png" alt="" />
+</center></p>
+
+<p>After URL decoding data, I got the key and IV, at the end we got:</p>
+
+<pre><code class="language-raw">Key: XfCtxvD1yFZbxQ/+ULhAcA==
+IV : sEhrZxQpnNnINixu3KQ1Tg==
+Cipher text: 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
+</code></pre>
+
+<p>Quick look on: <a href="http://www.txtwizard.net/crypto">http://www.txtwizard.net/crypto</a></p>
+
+<p><center>
+<img src="/img/writeups/otterctf2018/net1_3.png" alt="" />
+</center></p>
+
+<p>Here is the decoded data:</p>
+
+<pre><code class="language-raw">Chance Something's wrong, I can feel it (Six minutes, Slim Shady, you're on) Just a feeling I've got, like something's about
+To happen, but I don't know what If that means, what I think it means, we're in trouble, big trouble, And if he is as bananas as you say, I'm not taking any chances You were just what the doctor ordered I'm beginning to
+Feel like a Rap God, Rap God All my people from the front to the back nod, back nod Now who thinks their arms are long
+{
+Enough to slap box, slap box? They said I rap like a robot, so call
+me Rapbot But for me to rap like a computer must be
+in my genes I got a laptop in my back pocket My pen'll go off when I half-c*** it Got a fat knot from that rap profit Made a living and a killing off it Ever since Bill Clinton was still in office With Monica Lewinsky feeling on his
+Nut-sack I'm an MC still as honest But as rude and indecent as all hell syllables, killaholic (Kill 'em all with) This slickety, gibbedy, hibbedy hip hop You don't really wanna get into a pissing match with this rappidy rap Packing a Mac in the back of the Ac, pack backpack rap, yep, yackidy-yac The
+exact same time I attempt these lyrical acrobat stunts while I'm practicing That I'll still be able to break a
+Motherf***in' table Over the back of a couple of
+_
+Faggots and crack it in half
+Only
+Realized it was ironic I was signed to Aftermath after the fact How could I not blow? All I do is drop F-bombs, feel my wrath of attack Rappers are having a rough time period, here's a Maxipad It's actually disastrously bad For the wack while I'm masterfully constructing this masterpiece as I'm beginning to feel
+_
+Like a Rap God, Rap God All my people from the front to the back nod, back nod Now who thinks their arms are long enough to slap box, slap box? Let me show you maintaining this s*** ain't that hard, that hard Everybody want the key and the secret to rap
+immortality like I have got Well, to be truthful the blueprint's simply rage and youthful exuberance Everybody loves to root
+for a nuisance Hit the
+Earth like an asteroid, did nothing but shoot for the moon since MC's
+_
+get taken to school with this music Cause I use it as a vehicle to bust a rhyme Now I lead a new school full of students Me? I'm a product of Rakim, Lakim Shabazz, 2Pac N- -W.A, Cube, hey, Doc, Ren, Yella,
+Eazy, thank you, they got Slim Inspired
+enough to one day grow up, blow up and be in a position To meet Run DMC and induct them into the motherf***in' Rock n' Roll Hall of Fame Even though I walk in the church and burst in a ball of flames Only Hall of Fame I be inducted in is the alcohol of fame On the wall of shame You fags think it's all a game 'til I walk a flock of flames Off of planking, tell me what in the f*** are you thinking? Little gay looking boy So gay I can barely say it with a straight face looking boy You witnessing a massacre Like you watching a church gathering take place looking boy Oy vey, that boy's gay, that's all they say looking boy You get a thumbs up, pat on the back And a way to go from your label everyday looking boy Hey, looking boy, what you say looking boy? I got a &quot;hell yeah&quot; from Dre looking boy I'mma work for everything I have Never ask nobody for s***, get outta my face looking boy Basically boy you're never gonna be capable To keep up with the same pace looking boy 'Cause I'm beginning to feel like a Rap God, Rap God All my people from the front to the back nod, back nod The way I'm racing around the track, call me Nascar, Nascar Dale Earnhardt of the trailer park, the White Trash God Kneel before General
+zorb
+}
+</code></pre>
+
+<h3 id="flag-1">Flag</h3>
+
+<p>Can you see the flag? Just pick the first character of each line:</p>
+
+<blockquote>
+<p>CTF{EmiNeM_FOR_LifE_gEez}</p>
+</blockquote>
+
+<h2 id="look-at-me">Look at me</h2>
+
+<p><center>
+<img src="/img/writeups/otterctf2018/statement_net2.png" alt="" />
+</center></p>
+
+<p>I did this challenge after the CTF ending.</p>
+
+<p><center>
+<img src="/img/writeups/otterctf2018/net2_3.png" alt="" />
+</center></p>
+
+<p>Wacom CTL 471 is a graphical tablet.</p>
+
+<p>Based on those piece of information, I looked on the internet a CTF writeup. I finally found a writeup of &ldquo;Tom and Jerry&rdquo; challenge from BITSCTF: <a href="https://blogs.tunelko.com/2017/02/05/bitsctf-tom-and-jerry-50-points/">https://blogs.tunelko.com/2017/02/05/bitsctf-tom-and-jerry-50-points/</a></p>
+
+<h3 id="data-extraction">Data extraction</h3>
+
+<p>Frames containing the most interesting data got the following syntax:</p>
+
+<blockquote>
+<p>02:f1:d9:22:1c:25:4d:03:2b:00</p>
+</blockquote>
+
+<p>Here is parsing of this frame:</p>
+
+<ul>
+<li>02:f1 -&gt; Header</li>
+<li>50:1d -&gt; X</li>
+<li>72:1a -&gt; Y</li>
+<li>00:00 -&gt; Pressure</li>
+<li>2b:00 -&gt; Suffix</li>
+</ul>
+
+<p>It&rsquo;s possible to extract all frames with the following <code>tshark</code> command:</p>
+
+<pre><code class="language-bash">$ tshark -r lookatme.pcapng -Y '((usb.transfer_type == 0x01) &amp;&amp; (frame.len == 37))' -Tfields -e usb.capdata &gt; capdata
+</code></pre>
+
+<p>The first condition <code>usb.transfer_type</code> is used to filter the data on sending packets, not the response. It&rsquo;s like filtering on <code>echo request</code> for ICMP data. The second statement filter on data length.</p>
+
+<h3 id="data-decoding">Data decoding</h3>
+
+<p>As mentioned in previous writeups, it&rsquo;s necessary to consider all axis, X, Y, and Z. Parsing data is possible with a little <code>awk</code> command, shamefully stolen from the BITSCTF writeup:</p>
+
+<pre><code class="language-bash">$ awk -F: '{x=$3$4;y=$5$6}{z=$7}$1==&quot;02&quot;{print x,y,z}' capdata &gt; hex_value
+</code></pre>
+
+<p>And decoding data with a python script, still stolen from the previous write-up:</p>
+
+<pre><code class="language-python">#!/usr/bin/python
+from pwn import *
+
+f = open('data_plot','w')
+ 
+for i in open('hex2').readlines():
+    ii = i.strip().split(' ')
+    x = int(ii[0], 16)
+    y = int(ii[1], 16)
+    z = int(ii[2], 16)
+ 
+    if z &gt; 0:
+      f.write(&quot;{0} {1}\n&quot;.format(u16(struct.pack(&quot;&gt;H&quot;, x)), u16(struct.pack(&quot;&gt;H&quot;, y))))
+</code></pre>
+
+<p>With the last statement I ensure that data contains pressure, it prevents from some garbage during decoding. After that, just use <code>gnuplot</code> to visualize the data:</p>
+
+<pre><code class="language-bash">$ gnuplot
+$ plot &quot;data_plot&quot;
+</code></pre>
+
+<p><center>
+<img src="/img/writeups/otterctf2018/net2_1.png" alt="" />
+</center></p>
+
+<h3 id="flag-2">Flag</h3>
+
+<p>If I edit the picture a bit, it gives me:</p>
+
+<p><center>
+<img src="/img/writeups/otterctf2018/net2_2.png" alt="" />
+</center></p>
+
+<blockquote>
+<p>CTF{0TR_U58}</p>
+</blockquote>
+
+<h2 id="otter-leak">Otter Leak</h2>
+
+<p><center>
+<img src="/img/writeups/otterctf2018/statement_net3.png" alt="" />
+</center></p>
+
+<p>For this challenge, I was really lucky. When I opened the PCAP file in my Wireshark I immediately notice some data sent through SMBv2. I configured one column of my Wireshark to display data transferred: <code>data.data</code>:</p>
+
+<p><center>
+<img src="/img/writeups/otterctf2018/net3_1.png" alt="" />
+</center></p>
+
+<h3 id="extraction-and-decoding-time">Extraction and decoding time</h3>
+
+<p>Let&rsquo;s use <code>tshark</code>:</p>
+
+<pre><code class="language-bash">$ tshark -r OtterLeak.pcap -Y 'smb2 &amp;&amp; data.data' -Tfields -e data.data | tr -d ' \n' | xxd -r -p
+=0iLu4iLg4iLu4SLg4iLu0CIu0CIu4CIu0iLg0SLu4iLg4iLu0SLg0CIt0SLg4CIu4iLu4CIu0iLg0SLt0SLg0SL
+</code></pre>
+
+<p>It looks to be upside down base64, by putting it back in the right place, I will try to decode it:</p>
+
+<pre><code class="language-bash">$ cat rev_b64| rev | base64 -d
+-- ----- .-. ..... . --- - --... ...-- .-. .. -. -... -.... ....-
+</code></pre>
+
+<p>Great, morse code. I should be on the right path. <code>dcode</code> website offers morse decoder:</p>
+
+<p><center>
+<img src="/img/writeups/otterctf2018/net3_2.png" alt="" />
+</center></p>
+
+<h3 id="flag-3">Flag</h3>
+
+<blockquote>
+<p>CTF{M0R5EOT73RINB64}</p>
+</blockquote>
+
+<hr />
+
+<p>To conclude this little paper, the OtterCTF was an amazing CTF for forensic lovers. Honestly, I really liked it!
+If you have any question about this article, feel free to contact me on twitter @Maki_chaz.
+Thanks for reading, and merry Christmas guys :)</p>
+
+<p><center>
+<img src="https://media.giphy.com/media/fjyGsdRkYqb3j1WODz/giphy.gif" alt="" />
+</center></p>
+
+	</div>
+</article>
+
+		</div>
+		
+	
+<script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js" integrity="sha256-l1iMQ6f0+8aFBzSNRxgklLlYMqu5S4b/LpaST2s+gog= sha384-4oV5EgaV02iISL2ban6c/RmotsABqE4yZxZLcYMAdG7FAPsyHYAPpywE9PJo+Khy sha512-3dlGoFoY39YEcetqKPULIqryjeClQkr2KXshhYxFXNZAgRFZElUW9UQmYkmQE1bvB8tssj3uSKDzsj8rA04Meg==" crossorigin="anonymous"></script>
+
+
+    
+        
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js" integrity="sha256-/BfiIkHlHoVihZdc6TFuj7MmJ0TWcWsMXkeDFwhi0zw= sha384-ZeLYJ2PNSQjvogWP559CDAf02Qb8FE5OyQicqtz/+UhZutbrwyr87Be7NPH/RgyC sha512-ExaEi+x+Zqq50MIBraxsK23lQQJZd8Q7ZDlwJsxQwsWlO8XvRouQev9ZWaFxCKdTvrgb2fmf2pglwGp61/7qZA==" crossorigin="anonymous"></script>
+	
+        <script type="text/javascript">
+            hljs.configure({languages: []});
+            hljs.initHighlightingOnLoad();
+        </script>
+        
+        
+
+
+
+	
+
+
+	<script>
+    (function() {
+      var toc = document.getElementById('TableOfContents');
+      if (!toc) return;
+      do {
+        var li, ul = toc.querySelector('ul');
+        if (ul.childElementCount !== 1) break;
+        li = ul.firstElementChild;
+        if (li.tagName !== 'LI') break;
+        
+        ul.outerHTML = li.innerHTML;
+      } while (toc.childElementCount >= 1);
+    })();
+  </script>
+
+	</body>
+</html>

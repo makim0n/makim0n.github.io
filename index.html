@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="">
+	
+	<head>
+	<meta name="generator" content="Hugo 0.55.0" />
+    <link href="https://gmpg.org/xfn/11" rel="profile">
+    	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta http-equiv="Cache-Control" content="public" />
+	<!-- Enable responsiveness on mobile devices -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+	
+	    
+	
+	<title>Just another infosec blog</title>
+	
+	
+	<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Just another infosec blog"/>
+<meta name="twitter:description" content=""/>
+
+	<meta property="og:title" content="Just another infosec blog" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://maki.bzh/" />
+
+<meta property="og:updated_time" content="2019-07-20T00:00:00&#43;00:00"/>
+
+
+    		
+	
+	
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/solarized-dark.min.css" integrity="sha256-90Y+fvi28WF+3jKH4tHEkoQ9WLeFKJjpvCPNOtU9ZvU= sha384-s+7l2WBKs5ChgZ+esoTV0aWZRcma7BxuSHlzBJz6PH4Cc4ZX3/ErQZtk+ZzYQy/X sha512-BiC3DH0qMCjCYqPNGAthQ95QCndm60uhfQVwhqZ2eG1zuGkP+3T1cw6PzEC4CiRfRIbd2qvyN39RoDfil/XcMA==" crossorigin="anonymous">
+	
+	
+	
+
+	<link rel="stylesheet" href="/css/hyde-hyde.css" integrity="sha256-cUUT8nKBmejGAmxYnpOnspTmwap5Sjc/nzRfeTTjgeQ=" crossorigin="anonymous">
+	<link rel="stylesheet" href="/css/custom.css" >
+	<link rel="stylesheet" href="/css/print.min.css" media="print" integrity="sha256-obkLPMZU5Kb+rPwjMazkJLfYW8H9dj6yh8Gzzs2dv5c=" crossorigin="anonymous">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js" integrity="sha256-3Jy/GbSLrg0o9y5Z5n1uw0qxZECH7C6OQpVBgNFYa0g= sha384-qFIkRsVO/J5orlMvxK1sgAt2FXT67og+NyFTITYzvbIP1IJavVEKZM7YWczXkwpB sha512-UDJtJXfzfsiPPgnI5S1000FPLBHMhvzAMX15I+qG2E2OAzC9P1JzUwJOfnypXiOH7MRPaqzhPbBGDNNj7zBfoA==" crossorigin="anonymous"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js" integrity="sha256-g6iAfvZp+nDQ2TdTR/VVKJf3bGro4ub5fvWSWVRi2NE= sha384-ZoaMbDF+4LeFxg6WdScQ9nnR1QC2MIRxA1O9KWEXQwns1G8UNyIEZIQidzb0T1fo sha512-qWVvreMuH9i0DrugcOtifxdtZVBBL0X75r9YweXsdCHtXUidlctw7NXg5KVP3ITPtqZ2S575A0wFkvgS2anqSA==" crossorigin="anonymous"></script>
+    <![endif]-->
+    <!-- Icons -->
+    <link rel="shortcut icon" href="/favicon.png">
+    	
+	
+	<link href="https://maki.bzh/index.xml" rel="alternate" type="application/rss+xml" title="Just another infosec blog" />
+	<link href="https://maki.bzh/index.xml" rel="feed" type="application/rss+xml" title="Just another infosec blog" />
+	
+
+</head>
+
+
+	<body >
+				
+		<div class="sidebar">
+			<div class="container sidebar-about ">
+				<span class="site__title">
+				
+					<a href=""></a>
+				</span>
+				<a href="https://maki.bzh/">
+					
+					
+					
+					<div class="author-image">
+						<img src="https://maki.bzh/img/maki.jpg" alt="Author Image" class="img--circle img--headshot element--center"/>
+					</div>
+					
+				</a>
+				<p class="site__description">
+					<a href="https://maki.bzh/en">
+						
+					</a>
+				</p>
+				<div>
+	<ul class="sidebar-nav">
+		 
+		 
+			 
+				<li>
+					<a href="/articles/">
+						<span>Articles</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/walkthrough/">
+						<span>Walkthrough</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/stupidthings/">
+						<span>Stupid Things</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/ctf/">
+						<span>CTF</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/friends/">
+						<span>Friends</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/whoami/">
+						<span>Who Am I?</span>
+					</a>
+				</li>
+			 
+		
+	</ul>
+</div>
+
+				
+				<section class="social">
+						
+						<a href="https://twitter.com/maki_mitz" rel="me"><i class="rotate fab fa-twitter fa-lg" aria-hidden="true"></i></a>
+						
+						
+						
+						
+						
+						<a href="https://gitlab.com/maki_chaz" rel="me"><i class="rotate fab fa-gitlab fa-lg" aria-hidden="true"></i></a>
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						<a href="mailto:Yml0ZWRlcG91bGV0" rel="me"><i class="rotate fas fa-at fa-lg" aria-hidden="true"></i></a>
+						
+						
+					  &nbsp;<a href="https://www.root-me.org/Maki-37744" target="blank" class="linklogo"><div class="rotate rootme_logo logohover"></div></a>
+					  
+						
+					  &nbsp;<a href="https://www.hackthebox.eu/home/users/profile/10265" target="blank" class="linklogo"><div class="rotate hackthebox_logo logohover"></div></a>
+					  
+						
+					  &nbsp;<a href="https://www.aperikube.fr" target="blank" class="linklogo"><div class="rotate aperikube_logo logohover"></div></a>
+					  
+</section>
+
+				
+				
+				<p class="copyright">
+					&copy; 2020 Maki.
+					<br/>
+					<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">Some Rights Reserved</a>.
+					<br/>Built with, Haax, Laluka, _ACKNAK_
+					<a href="https://gohugo.io">Hugo</a> ❤️ <a href="https://github.com/htr3n/hyde-hyde">hyde-hyde</a>.
+					
+				</p>
+			</div>
+		</div>
+
+		<div class="content container">
+			
+	<div class="post-list">
+		
+		
+		<div class="post-list__item">
+			<span class="item__title--big">
+				<a href="/walkthrough/wonkachall2019/">WonkaChall 2019</a>
+			</span>
+			<span class="item__date">
+				<i class="fas fa-clock"></i> 58 min read - Jul 20, 2019
+			</span>
+			
+			Challenge from Akerva (french cybersecurity company), including Web, Active Directory and Linux stuff.
+			
+			
+			<div class="read-more-link">
+				<a href="/walkthrough/wonkachall2019/">Read More…</a>
+			</div>
+			
+		</div>
+		
+		<div class="post-list__item">
+			<span class="item__title--big">
+				<a href="/walkthrough/tamuctf2019/">TamuCTF 2019</a>
+			</span>
+			<span class="item__date">
+				<i class="fas fa-clock"></i> 18 min read - Feb 28, 2019
+			</span>
+			
+			Student CTF from Texas A&amp;M University, writeups focused on forensic tasks.
+			
+			
+			<div class="read-more-link">
+				<a href="/walkthrough/tamuctf2019/">Read More…</a>
+			</div>
+			
+		</div>
+		
+		<div class="post-list__item">
+			<span class="item__title--big">
+				<a href="/articles/wiresharkhowtobasic/">PCAP Analysis</a>
+			</span>
+			<span class="item__date">
+				<i class="fas fa-clock"></i> 26 min read - Feb 20, 2019
+			</span>
+			
+			My methodology about PCAP analysis with practical examples.
+			
+			
+			<div class="read-more-link">
+				<a href="/articles/wiresharkhowtobasic/">Read More…</a>
+			</div>
+			
+		</div>
+		
+		<div class="post-list__item">
+			<span class="item__title--big">
+				<a href="/ctf/">CTF</a>
+			</span>
+			<span class="item__date">
+				<i class="fas fa-clock"></i> 1 min read - Jan 22, 2019
+			</span>
+			
+			https://ctf.maki.bzh 
+Why ? Because I wanted to share my little challenges and try to teach you something, the knowledge sharing is the most important thing in infosec ;)
+Who ? Mainly me, but if someone wants to store his task, I can host it.
+Where ? In my basement.
+Looking for my writeups ? You can find all my writeups on the Aperi&rsquo;Kube website or here, in the Walktrough category!
+			
+			
+			<div class="read-more-link">
+				<a href="/ctf/">Read More…</a>
+			</div>
+			
+		</div>
+		
+		<div class="post-list__item">
+			<span class="item__title--big">
+				<a href="/stupidthings/dontpayvps/">Doing CTF without paying VPS</a>
+			</span>
+			<span class="item__date">
+				<i class="fas fa-clock"></i> 3 min read - Jan 22, 2019
+			</span>
+			
+			How to do some reverse shell or get XSS response on a remote host without paying for a VPS.
+			
+			
+			<div class="read-more-link">
+				<a href="/stupidthings/dontpayvps/">Read More…</a>
+			</div>
+			
+		</div>
+		
+		<div class="post-list__item">
+			<span class="item__title--big">
+				<a href="/friends/">Friends</a>
+			</span>
+			<span class="item__date">
+				<i class="fas fa-clock"></i> 1 min read - Jan 22, 2019
+			</span>
+			
+			Here is my friends websites, hope you&rsquo;ll enjoy them! Follow them on twitter, and let&rsquo;s take a beer all together at the next conference :D
+ Tomtombinary: Tomtombinary&rsquo;s website is focused on low level stuff and CTF writeups. Haax: Haax&rsquo;s website deal with articles about privacy and best practices. You can also find CTF writeups. ENOENT: ENOENT&rsquo;s website talks about cryptography, reverse engineering and other low level stuff. Creased: Creased&rsquo;s website is focused on his project (network, hardware, lot of things).
+			
+			
+			<div class="read-more-link">
+				<a href="/friends/">Read More…</a>
+			</div>
+			
+		</div>
+		
+		<div class="post-list__item">
+			<span class="item__title--big">
+				<a href="/stupidthings/pythonrequestforban/">Python3 Requests for fun and... Ban</a>
+			</span>
+			<span class="item__date">
+				<i class="fas fa-clock"></i> 3 min read - Jan 22, 2019
+			</span>
+			
+			How to show love to a boring CTF.
+			
+			
+			<div class="read-more-link">
+				<a href="/stupidthings/pythonrequestforban/">Read More…</a>
+			</div>
+			
+		</div>
+		
+		<div class="post-list__item">
+			<span class="item__title--big">
+				<a href="/whoami/">Who am I?</a>
+			</span>
+			<span class="item__date">
+				<i class="fas fa-clock"></i> 1 min read - Jan 22, 2019
+			</span>
+			
+			I&rsquo;m playing CTF with Aperi&rsquo;Kube and my main interests are forensic, realistic pentest, hardware and electronic stuff.
+Feel free to contact me on twitter to chat about what you want! Come in the next conference to take a beer :D
+Hope you&rsquo;ll enjoy and laugh reading my blog, cya &lt;3
+/song/
+			
+			
+		</div>
+		
+		<div class="post-list__item">
+			<span class="item__title--big">
+				<a href="/articles/realgs_lasagna/">Real Gs move in silence like lasagna</a>
+			</span>
+			<span class="item__date">
+				<i class="fas fa-clock"></i> 53 min read - Dec 27, 2018
+			</span>
+			
+			Odie got his VPS hacked, could we find out how?
+			
+			
+			<div class="read-more-link">
+				<a href="/articles/realgs_lasagna/">Read More…</a>
+			</div>
+			
+		</div>
+		
+		<div class="post-list__item">
+			<span class="item__title--big">
+				<a href="/walkthrough/otterctf2018/">OtterCTF 2018</a>
+			</span>
+			<span class="item__date">
+				<i class="fas fa-clock"></i> 24 min read - Dec 24, 2018
+			</span>
+			
+			CTF created by Asaf Eitani about forensic, reverse and network task.
+			
+			
+			<div class="read-more-link">
+				<a href="/walkthrough/otterctf2018/">Read More…</a>
+			</div>
+			
+		</div>
+		
+		<div class="post-list__item">
+			<span class="item__title--big">
+				<a href="/walkthrough/santhacklaus2018/">Santhacklaus 2018</a>
+			</span>
+			<span class="item__date">
+				<i class="fas fa-clock"></i> 49 min read - Dec 19, 2018
+			</span>
+			
+			Individual CTF made by Pinkflood from IMT Lille (France).
+			
+			
+			<div class="read-more-link">
+				<a href="/walkthrough/santhacklaus2018/">Read More…</a>
+			</div>
+			
+		</div>
+		
+		<div class="post-list__item">
+			<span class="item__title--big">
+				<a href="/articles/feedback_ecsc2017/">European CyberSecurity Challenge 2018</a>
+			</span>
+			<span class="item__date">
+				<i class="fas fa-clock"></i> 36 min read - Nov 24, 2018
+			</span>
+			
+			My personal feedback about ECSC competition in London.
+			
+			
+			<div class="read-more-link">
+				<a href="/articles/feedback_ecsc2017/">Read More…</a>
+			</div>
+			
+		</div>
+		
+		<div class="post-list__item">
+			<span class="item__title--big">
+				<a href="/walkthrough/qualsecw2018/">Quals ECW 2018</a>
+			</span>
+			<span class="item__date">
+				<i class="fas fa-clock"></i> 16 min read - Oct 22, 2018
+			</span>
+			
+			Challenges writeups on Quals ECW 2018.
+			
+			
+			<div class="read-more-link">
+				<a href="/walkthrough/qualsecw2018/">Read More…</a>
+			</div>
+			
+		</div>
+		
+		<div class="post-list__item">
+			<span class="item__title--big">
+				<a href="/articles/customfirmwarerpi3/">Custom firmware for Raspberry Pi 3</a>
+			</span>
+			<span class="item__date">
+				<i class="fas fa-clock"></i> 8 min read - Oct 5, 2018
+			</span>
+			
+			Custom firmware on Raspberry Pi 3 using buildroot.
+			
+			
+			<div class="read-more-link">
+				<a href="/articles/customfirmwarerpi3/">Read More…</a>
+			</div>
+			
+		</div>
+		
+		<div class="post-list__item">
+			<span class="item__title--big">
+				<a href="/articles/feedback_blackhat2017/">Black Hat Europe 2017</a>
+			</span>
+			<span class="item__date">
+				<i class="fas fa-clock"></i> 26 min read - Oct 3, 2018
+			</span>
+			
+			Feedback on Black Hat Europe 2017 conference.
+			
+			
+			<div class="read-more-link">
+				<a href="/articles/feedback_blackhat2017/">Read More…</a>
+			</div>
+			
+		</div>
+		
+		<div class="post-list__item">
+			<span class="item__title--big">
+				<a href="/song/"></a>
+			</span>
+			<span class="item__date">
+				<i class="fas fa-clock"></i> 1 min read - Jan 1, 0001
+			</span>
+			
+			Le CTFer J'me présente je m'appelle Maki J'voudrais bien réussir mon TI, être aimééé Etre beau, gagner des CTF Puis surtout n'pas être SDF Mais pour tout ça il faudrait que j'paye bien mes fesses... J'suis CTFer, je CTF avec mes copains J'veux faire des challs et que ça flag bien, flag bien J'veux écrire des challenges dans le vent Un air gai, chic et bien rageant Pour faire galérer dans les soirées de M.
+			
+			
+			<div class="read-more-link">
+				<a href="/song/">Read More…</a>
+			</div>
+			
+		</div>
+		
+		
+	</div>
+
+		</div>
+		
+
+<script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js" integrity="sha256-l1iMQ6f0+8aFBzSNRxgklLlYMqu5S4b/LpaST2s+gog= sha384-4oV5EgaV02iISL2ban6c/RmotsABqE4yZxZLcYMAdG7FAPsyHYAPpywE9PJo+Khy sha512-3dlGoFoY39YEcetqKPULIqryjeClQkr2KXshhYxFXNZAgRFZElUW9UQmYkmQE1bvB8tssj3uSKDzsj8rA04Meg==" crossorigin="anonymous"></script>
+
+
+	</body>
+</html>

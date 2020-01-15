@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Just another infosec blog</title>
+    <link>https://maki.bzh/</link>
+    <description>Recent content on Just another infosec blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sat, 20 Jul 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://maki.bzh/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>WonkaChall 2019</title>
+      <link>https://maki.bzh/walkthrough/wonkachall2019/</link>
+      <pubDate>Sat, 20 Jul 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://maki.bzh/walkthrough/wonkachall2019/</guid>
+      <description>Introduction Cette année, lors de l&amp;rsquo;évènement LeHack 2019, nous avons assisté au lancement de la seconde édition du WonkaChallenge réalisé par Akerva. Lors de la première édition, nous pouvions nous confronter à un certain nombre d&amp;rsquo;épreuves, d&amp;rsquo;abord des challenges web puis de l&amp;rsquo;Active Directory. Les writeups officiels de l&amp;rsquo;édition de l&amp;rsquo;année dernière se trouvent ici :
+ Williwonka.shop : https://akerva.com/blog/wonkachall-akerva-ndh-2018-write-up-part-1/ Pramafil.com : https://akerva.com/blog/wonkachall-akerva-ndh2018-write-up-part-2/ Compromission SI pramafil : https://akerva.com/blog/wonkachall-akerva-ndh2018-write-up-part-3/ Compromission du domaine DEV : https://akerva.</description>
+    </item>
+    
+    <item>
+      <title>TamuCTF 2019</title>
+      <link>https://maki.bzh/walkthrough/tamuctf2019/</link>
+      <pubDate>Thu, 28 Feb 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://maki.bzh/walkthrough/tamuctf2019/</guid>
+      <description>Reading rainbow 0_Network_Enumeration    Event Challenge Category Points Solves     TamuCTF 2019 0_Network_Enumeration Reading rainbow 100 ~499    Description  Recently, the office put up a private webserver to store important information about the newest research project for the company. This information was to be kept confidential, as it&amp;rsquo;s release could mean a large loss for everyone in the office. Just as the research was about to be published, a competing firm published information eerily similar.</description>
+    </item>
+    
+    <item>
+      <title>PCAP Analysis</title>
+      <link>https://maki.bzh/articles/wiresharkhowtobasic/</link>
+      <pubDate>Wed, 20 Feb 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://maki.bzh/articles/wiresharkhowtobasic/</guid>
+      <description>Introduction Whether in &amp;ldquo;Capture The Flag&amp;rdquo; (CTF) events or even in professional life, we work with network captures. PCAP (Packet capture), is rich in information. It&amp;rsquo;s easy to get lost in the amount of information and start on wrong tracks. Throughout this MOOC, I will introduce you the methodology to be adopted to deal with this type of situation. Firstly, I will try to describe the PCAP content, list some tools and finally practical exercises resulting from CTF tests or malicious traffic.</description>
+    </item>
+    
+    <item>
+      <title>CTF</title>
+      <link>https://maki.bzh/ctf/</link>
+      <pubDate>Tue, 22 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://maki.bzh/ctf/</guid>
+      <description>https://ctf.maki.bzh 
+Why ? Because I wanted to share my little challenges and try to teach you something, the knowledge sharing is the most important thing in infosec ;)
+Who ? Mainly me, but if someone wants to store his task, I can host it.
+Where ? In my basement.
+Looking for my writeups ? You can find all my writeups on the Aperi&amp;rsquo;Kube website or here, in the Walktrough category!</description>
+    </item>
+    
+    <item>
+      <title>Doing CTF without paying VPS</title>
+      <link>https://maki.bzh/stupidthings/dontpayvps/</link>
+      <pubDate>Tue, 22 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://maki.bzh/stupidthings/dontpayvps/</guid>
+      <description>The goal I think many of us do CTFs, but also many of us don&amp;rsquo;t have any money, because we&amp;rsquo;re student or addict to drugs. So when you don&amp;rsquo;t have any money, you get creative.
+ 
+For webguys who are looking for a reverse shell or who want admin cookies on a remote host (hello root-me), but don&amp;rsquo;t want to pay for a VPS, there is a free solution.</description>
+    </item>
+    
+    <item>
+      <title>Friends</title>
+      <link>https://maki.bzh/friends/</link>
+      <pubDate>Tue, 22 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://maki.bzh/friends/</guid>
+      <description>Here is my friends websites, hope you&amp;rsquo;ll enjoy them! Follow them on twitter, and let&amp;rsquo;s take a beer all together at the next conference :D
+ Tomtombinary: Tomtombinary&amp;rsquo;s website is focused on low level stuff and CTF writeups. Haax: Haax&amp;rsquo;s website deal with articles about privacy and best practices. You can also find CTF writeups. ENOENT: ENOENT&amp;rsquo;s website talks about cryptography, reverse engineering and other low level stuff. Creased: Creased&amp;rsquo;s website is focused on his project (network, hardware, lot of things).</description>
+    </item>
+    
+    <item>
+      <title>Python3 Requests for fun and... Ban</title>
+      <link>https://maki.bzh/stupidthings/pythonrequestforban/</link>
+      <pubDate>Tue, 22 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://maki.bzh/stupidthings/pythonrequestforban/</guid>
+      <description>The goal I always wanted to learn how to use requests library in Python3. It&amp;rsquo;s very helpful in daily life or in CTF&amp;hellip;
+And actually, there is EuropeanCyberWeek CTF, so let&amp;rsquo;s try to do something useful: Auto flag submitter
+State of the art First of all, I need the requests structure, to get this information, just open BurpSuite (if you&amp;rsquo;re a bit stupid like me), or you&amp;rsquo;re Firefox web console and request the chosen challenge (Drone Wars 3 for example).</description>
+    </item>
+    
+    <item>
+      <title>Who am I?</title>
+      <link>https://maki.bzh/whoami/</link>
+      <pubDate>Tue, 22 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://maki.bzh/whoami/</guid>
+      <description>I&amp;rsquo;m playing CTF with Aperi&amp;rsquo;Kube and my main interests are forensic, realistic pentest, hardware and electronic stuff.
+Feel free to contact me on twitter to chat about what you want! Come in the next conference to take a beer :D
+Hope you&amp;rsquo;ll enjoy and laugh reading my blog, cya &amp;lt;3
+/song/</description>
+    </item>
+    
+    <item>
+      <title>Real Gs move in silence like lasagna</title>
+      <link>https://maki.bzh/articles/realgs_lasagna/</link>
+      <pubDate>Thu, 27 Dec 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://maki.bzh/articles/realgs_lasagna/</guid>
+      <description>In this article, I will introduce you to Odie&amp;rsquo;s misfortunes. Odie is a final year student at ENSIBS Cyberdefense (France). He is also the biggest fan of the famous band: Iron Maiden. In addition to that, he built a small fan website for them on his Virtual Private Server. Given that, Odie is a poor student, he only owns one VPS for his tests, courses and others stuff. But, Odie comes from the most prestigious school in cyberdefense, then he knows how to protect himself against awful hackers&amp;hellip; Well, almost.</description>
+    </item>
+    
+    <item>
+      <title>OtterCTF 2018</title>
+      <link>https://maki.bzh/walkthrough/otterctf2018/</link>
+      <pubDate>Mon, 24 Dec 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://maki.bzh/walkthrough/otterctf2018/</guid>
+      <description>Picture from OtterCTF, awesome logo! :D 
+In this short article, I will present some challenges of OtterCTF. I will begin with a memory dump challenge suite, it contains a little ransomware. This scenario is really interesting for people who like playing with some forensic stuff. At the end of this article, I&amp;rsquo;ll talk about network task too.
+Memory dump The memory dump to analyze can be found at this address: https://mega.</description>
+    </item>
+    
+    <item>
+      <title>Santhacklaus 2018</title>
+      <link>https://maki.bzh/walkthrough/santhacklaus2018/</link>
+      <pubDate>Wed, 19 Dec 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://maki.bzh/walkthrough/santhacklaus2018/</guid>
+      <description>Bonjour 
+   Event Challenge Category Points Solves     Santhacklaus Bonjour Rules 0 400    
+Statement  Fig 1: Bonjour statement 
+Flag This challenge is maybe the hardest one. You have to copy and paste the right flag!
+ IMTLD{BaguetteForXMAS}
+ I got 404 problems 
+   Event Challenge Category Points Solves     Santhacklaus I got 404 problems Web 50 ~ 300</description>
+    </item>
+    
+    <item>
+      <title>European CyberSecurity Challenge 2018</title>
+      <link>https://maki.bzh/articles/feedback_ecsc2017/</link>
+      <pubDate>Sat, 24 Nov 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://maki.bzh/articles/feedback_ecsc2017/</guid>
+      <description>Introduction In this article, I&amp;rsquo;ll share the whole journey that lead me to this event, not just the CTF in itself. It is a totally subjective point of view, so the &amp;ldquo;jump to section&amp;rdquo; tool might come in handy if some parts seem useless to you.
+First of all, I&amp;rsquo;ll start by catching up on the &amp;ldquo;Nuit du Hack&amp;rdquo; event, where it all started for some of the members of the Apéri&amp;rsquo;Kube, Hexpresso and Inshall&amp;rsquo;hack teams.</description>
+    </item>
+    
+    <item>
+      <title>Quals ECW 2018</title>
+      <link>https://maki.bzh/walkthrough/qualsecw2018/</link>
+      <pubDate>Mon, 22 Oct 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://maki.bzh/walkthrough/qualsecw2018/</guid>
+      <description>Chatbot 
+   Event Challenge Category Points Solves     ECW Quals Chatbot &amp;ldquo;Reverse Engineering&amp;rdquo; 150 ~ 21    
+Find the vulnerability To begin with, I just played with the binary, trying to find bugs in it&amp;hellip; After a few seconds I found this:
+ Fig1: Segfault 
+Ok, maybe there is something here, let&amp;rsquo;s open IDA :D (I hate it).
+ Fig2: Malloc in binary</description>
+    </item>
+    
+    <item>
+      <title>Custom firmware for Raspberry Pi 3</title>
+      <link>https://maki.bzh/articles/customfirmwarerpi3/</link>
+      <pubDate>Fri, 05 Oct 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://maki.bzh/articles/customfirmwarerpi3/</guid>
+      <description>Introduction In this university project, we had to study the how buildroot works and set up different features with it.
+First part will deal with setting up the system basis. Next part will explain how buildroot can be configured, adding default package or adding an external package.
+I. Step 1 In this first part, we had to set up the buildroot system basis.
+Goals of this part are:
+ Minimal buildroot configuration Copy the new firmware on RPi SD card  I.</description>
+    </item>
+    
+    <item>
+      <title>Black Hat Europe 2017</title>
+      <link>https://maki.bzh/articles/feedback_blackhat2017/</link>
+      <pubDate>Wed, 03 Oct 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://maki.bzh/articles/feedback_blackhat2017/</guid>
+      <description>Introduction First of all, thanks, Black Hat to win places for a student! I filled the annual survey and that happens, it’s crazy! Then, me and 3 my friends (see below) went to London!
+ @GregoireMolveau @razaborg @L4rg0_W1nch  All briefing was interesting, but the most impressive one was on Intel ME from Mark Ermolov, Maxim Goryachy and Dimitry SKLYAROV
+I’ll present this article by day and briefing. At the end of each briefing, I’ll add a personal point of view.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://maki.bzh/song/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://maki.bzh/song/</guid>
+      <description>Le CTFer J&#39;me présente je m&#39;appelle Maki J&#39;voudrais bien réussir mon TI, être aimééé Etre beau, gagner des CTF Puis surtout n&#39;pas être SDF Mais pour tout ça il faudrait que j&#39;paye bien mes fesses... J&#39;suis CTFer, je CTF avec mes copains J&#39;veux faire des challs et que ça flag bien, flag bien J&#39;veux écrire des challenges dans le vent Un air gai, chic et bien rageant Pour faire galérer dans les soirées de M.</description>
+    </item>
+    
+  </channel>
+</rss>

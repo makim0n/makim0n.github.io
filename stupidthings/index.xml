@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Stupidthings on Just another infosec blog</title>
+    <link>https://maki.bzh/stupidthings/</link>
+    <description>Recent content in Stupidthings on Just another infosec blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Tue, 22 Jan 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://maki.bzh/stupidthings/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Doing CTF without paying VPS</title>
+      <link>https://maki.bzh/stupidthings/dontpayvps/</link>
+      <pubDate>Tue, 22 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://maki.bzh/stupidthings/dontpayvps/</guid>
+      <description>The goal I think many of us do CTFs, but also many of us don&amp;rsquo;t have any money, because we&amp;rsquo;re student or addict to drugs. So when you don&amp;rsquo;t have any money, you get creative.
+ 
+For webguys who are looking for a reverse shell or who want admin cookies on a remote host (hello root-me), but don&amp;rsquo;t want to pay for a VPS, there is a free solution.</description>
+    </item>
+    
+    <item>
+      <title>Python3 Requests for fun and... Ban</title>
+      <link>https://maki.bzh/stupidthings/pythonrequestforban/</link>
+      <pubDate>Tue, 22 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://maki.bzh/stupidthings/pythonrequestforban/</guid>
+      <description>The goal I always wanted to learn how to use requests library in Python3. It&amp;rsquo;s very helpful in daily life or in CTF&amp;hellip;
+And actually, there is EuropeanCyberWeek CTF, so let&amp;rsquo;s try to do something useful: Auto flag submitter
+State of the art First of all, I need the requests structure, to get this information, just open BurpSuite (if you&amp;rsquo;re a bit stupid like me), or you&amp;rsquo;re Firefox web console and request the chosen challenge (Drone Wars 3 for example).</description>
+    </item>
+    
+  </channel>
+</rss>

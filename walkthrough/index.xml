@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Walkthrough on Just another infosec blog</title>
+    <link>https://maki.bzh/walkthrough/</link>
+    <description>Recent content in Walkthrough on Just another infosec blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sat, 20 Jul 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://maki.bzh/walkthrough/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>WonkaChall 2019</title>
+      <link>https://maki.bzh/walkthrough/wonkachall2019/</link>
+      <pubDate>Sat, 20 Jul 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://maki.bzh/walkthrough/wonkachall2019/</guid>
+      <description>Introduction Cette année, lors de l&amp;rsquo;évènement LeHack 2019, nous avons assisté au lancement de la seconde édition du WonkaChallenge réalisé par Akerva. Lors de la première édition, nous pouvions nous confronter à un certain nombre d&amp;rsquo;épreuves, d&amp;rsquo;abord des challenges web puis de l&amp;rsquo;Active Directory. Les writeups officiels de l&amp;rsquo;édition de l&amp;rsquo;année dernière se trouvent ici :
+ Williwonka.shop : https://akerva.com/blog/wonkachall-akerva-ndh-2018-write-up-part-1/ Pramafil.com : https://akerva.com/blog/wonkachall-akerva-ndh2018-write-up-part-2/ Compromission SI pramafil : https://akerva.com/blog/wonkachall-akerva-ndh2018-write-up-part-3/ Compromission du domaine DEV : https://akerva.</description>
+    </item>
+    
+    <item>
+      <title>TamuCTF 2019</title>
+      <link>https://maki.bzh/walkthrough/tamuctf2019/</link>
+      <pubDate>Thu, 28 Feb 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://maki.bzh/walkthrough/tamuctf2019/</guid>
+      <description>Reading rainbow 0_Network_Enumeration    Event Challenge Category Points Solves     TamuCTF 2019 0_Network_Enumeration Reading rainbow 100 ~499    Description  Recently, the office put up a private webserver to store important information about the newest research project for the company. This information was to be kept confidential, as it&amp;rsquo;s release could mean a large loss for everyone in the office. Just as the research was about to be published, a competing firm published information eerily similar.</description>
+    </item>
+    
+    <item>
+      <title>OtterCTF 2018</title>
+      <link>https://maki.bzh/walkthrough/otterctf2018/</link>
+      <pubDate>Mon, 24 Dec 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://maki.bzh/walkthrough/otterctf2018/</guid>
+      <description>Picture from OtterCTF, awesome logo! :D 
+In this short article, I will present some challenges of OtterCTF. I will begin with a memory dump challenge suite, it contains a little ransomware. This scenario is really interesting for people who like playing with some forensic stuff. At the end of this article, I&amp;rsquo;ll talk about network task too.
+Memory dump The memory dump to analyze can be found at this address: https://mega.</description>
+    </item>
+    
+    <item>
+      <title>Santhacklaus 2018</title>
+      <link>https://maki.bzh/walkthrough/santhacklaus2018/</link>
+      <pubDate>Wed, 19 Dec 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://maki.bzh/walkthrough/santhacklaus2018/</guid>
+      <description>Bonjour 
+   Event Challenge Category Points Solves     Santhacklaus Bonjour Rules 0 400    
+Statement  Fig 1: Bonjour statement 
+Flag This challenge is maybe the hardest one. You have to copy and paste the right flag!
+ IMTLD{BaguetteForXMAS}
+ I got 404 problems 
+   Event Challenge Category Points Solves     Santhacklaus I got 404 problems Web 50 ~ 300</description>
+    </item>
+    
+    <item>
+      <title>Quals ECW 2018</title>
+      <link>https://maki.bzh/walkthrough/qualsecw2018/</link>
+      <pubDate>Mon, 22 Oct 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://maki.bzh/walkthrough/qualsecw2018/</guid>
+      <description>Chatbot 
+   Event Challenge Category Points Solves     ECW Quals Chatbot &amp;ldquo;Reverse Engineering&amp;rdquo; 150 ~ 21    
+Find the vulnerability To begin with, I just played with the binary, trying to find bugs in it&amp;hellip; After a few seconds I found this:
+ Fig1: Segfault 
+Ok, maybe there is something here, let&amp;rsquo;s open IDA :D (I hate it).
+ Fig2: Malloc in binary</description>
+    </item>
+    
+  </channel>
+</rss>

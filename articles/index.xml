@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Articles on Just another infosec blog</title>
+    <link>https://maki.bzh/articles/</link>
+    <description>Recent content in Articles on Just another infosec blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Wed, 20 Feb 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://maki.bzh/articles/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>PCAP Analysis</title>
+      <link>https://maki.bzh/articles/wiresharkhowtobasic/</link>
+      <pubDate>Wed, 20 Feb 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://maki.bzh/articles/wiresharkhowtobasic/</guid>
+      <description>Introduction Whether in &amp;ldquo;Capture The Flag&amp;rdquo; (CTF) events or even in professional life, we work with network captures. PCAP (Packet capture), is rich in information. It&amp;rsquo;s easy to get lost in the amount of information and start on wrong tracks. Throughout this MOOC, I will introduce you the methodology to be adopted to deal with this type of situation. Firstly, I will try to describe the PCAP content, list some tools and finally practical exercises resulting from CTF tests or malicious traffic.</description>
+    </item>
+    
+    <item>
+      <title>Real Gs move in silence like lasagna</title>
+      <link>https://maki.bzh/articles/realgs_lasagna/</link>
+      <pubDate>Thu, 27 Dec 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://maki.bzh/articles/realgs_lasagna/</guid>
+      <description>In this article, I will introduce you to Odie&amp;rsquo;s misfortunes. Odie is a final year student at ENSIBS Cyberdefense (France). He is also the biggest fan of the famous band: Iron Maiden. In addition to that, he built a small fan website for them on his Virtual Private Server. Given that, Odie is a poor student, he only owns one VPS for his tests, courses and others stuff. But, Odie comes from the most prestigious school in cyberdefense, then he knows how to protect himself against awful hackers&amp;hellip; Well, almost.</description>
+    </item>
+    
+    <item>
+      <title>European CyberSecurity Challenge 2018</title>
+      <link>https://maki.bzh/articles/feedback_ecsc2017/</link>
+      <pubDate>Sat, 24 Nov 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://maki.bzh/articles/feedback_ecsc2017/</guid>
+      <description>Introduction In this article, I&amp;rsquo;ll share the whole journey that lead me to this event, not just the CTF in itself. It is a totally subjective point of view, so the &amp;ldquo;jump to section&amp;rdquo; tool might come in handy if some parts seem useless to you.
+First of all, I&amp;rsquo;ll start by catching up on the &amp;ldquo;Nuit du Hack&amp;rdquo; event, where it all started for some of the members of the Apéri&amp;rsquo;Kube, Hexpresso and Inshall&amp;rsquo;hack teams.</description>
+    </item>
+    
+    <item>
+      <title>Custom firmware for Raspberry Pi 3</title>
+      <link>https://maki.bzh/articles/customfirmwarerpi3/</link>
+      <pubDate>Fri, 05 Oct 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://maki.bzh/articles/customfirmwarerpi3/</guid>
+      <description>Introduction In this university project, we had to study the how buildroot works and set up different features with it.
+First part will deal with setting up the system basis. Next part will explain how buildroot can be configured, adding default package or adding an external package.
+I. Step 1 In this first part, we had to set up the buildroot system basis.
+Goals of this part are:
+ Minimal buildroot configuration Copy the new firmware on RPi SD card  I.</description>
+    </item>
+    
+    <item>
+      <title>Black Hat Europe 2017</title>
+      <link>https://maki.bzh/articles/feedback_blackhat2017/</link>
+      <pubDate>Wed, 03 Oct 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://maki.bzh/articles/feedback_blackhat2017/</guid>
+      <description>Introduction First of all, thanks, Black Hat to win places for a student! I filled the annual survey and that happens, it’s crazy! Then, me and 3 my friends (see below) went to London!
+ @GregoireMolveau @razaborg @L4rg0_W1nch  All briefing was interesting, but the most impressive one was on Intel ME from Mark Ermolov, Maxim Goryachy and Dimitry SKLYAROV
+I’ll present this article by day and briefing. At the end of each briefing, I’ll add a personal point of view.</description>
+    </item>
+    
+  </channel>
+</rss>

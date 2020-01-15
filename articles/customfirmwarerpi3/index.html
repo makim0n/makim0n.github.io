@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="">
+	
+	
+
+
+	<head>
+    <link href="https://gmpg.org/xfn/11" rel="profile">
+    	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta http-equiv="Cache-Control" content="public" />
+	<!-- Enable responsiveness on mobile devices -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+	
+	    
+	    
+	    
+	
+	<title>Custom firmware for Raspberry Pi 3 • Just another infosec blog</title>
+	
+	
+	<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Custom firmware for Raspberry Pi 3"/>
+<meta name="twitter:description" content="Custom firmware on Raspberry Pi 3 using buildroot."/>
+
+	<meta property="og:title" content="Custom firmware for Raspberry Pi 3" />
+<meta property="og:description" content="Custom firmware on Raspberry Pi 3 using buildroot." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://maki.bzh/articles/customfirmwarerpi3/" />
+<meta property="article:published_time" content="2018-10-05T00:00:00&#43;00:00"/>
+<meta property="article:modified_time" content="2018-10-05T00:00:00&#43;00:00"/>
+
+
+    		
+	
+	
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/solarized-dark.min.css" integrity="sha256-90Y+fvi28WF+3jKH4tHEkoQ9WLeFKJjpvCPNOtU9ZvU= sha384-s+7l2WBKs5ChgZ+esoTV0aWZRcma7BxuSHlzBJz6PH4Cc4ZX3/ErQZtk+ZzYQy/X sha512-BiC3DH0qMCjCYqPNGAthQ95QCndm60uhfQVwhqZ2eG1zuGkP+3T1cw6PzEC4CiRfRIbd2qvyN39RoDfil/XcMA==" crossorigin="anonymous">
+	
+	
+	
+
+	<link rel="stylesheet" href="/css/hyde-hyde.css" integrity="sha256-cUUT8nKBmejGAmxYnpOnspTmwap5Sjc/nzRfeTTjgeQ=" crossorigin="anonymous">
+	<link rel="stylesheet" href="/css/custom.css" >
+	<link rel="stylesheet" href="/css/print.min.css" media="print" integrity="sha256-obkLPMZU5Kb+rPwjMazkJLfYW8H9dj6yh8Gzzs2dv5c=" crossorigin="anonymous">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js" integrity="sha256-3Jy/GbSLrg0o9y5Z5n1uw0qxZECH7C6OQpVBgNFYa0g= sha384-qFIkRsVO/J5orlMvxK1sgAt2FXT67og+NyFTITYzvbIP1IJavVEKZM7YWczXkwpB sha512-UDJtJXfzfsiPPgnI5S1000FPLBHMhvzAMX15I+qG2E2OAzC9P1JzUwJOfnypXiOH7MRPaqzhPbBGDNNj7zBfoA==" crossorigin="anonymous"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js" integrity="sha256-g6iAfvZp+nDQ2TdTR/VVKJf3bGro4ub5fvWSWVRi2NE= sha384-ZoaMbDF+4LeFxg6WdScQ9nnR1QC2MIRxA1O9KWEXQwns1G8UNyIEZIQidzb0T1fo sha512-qWVvreMuH9i0DrugcOtifxdtZVBBL0X75r9YweXsdCHtXUidlctw7NXg5KVP3ITPtqZ2S575A0wFkvgS2anqSA==" crossorigin="anonymous"></script>
+    <![endif]-->
+    <!-- Icons -->
+    <link rel="shortcut icon" href="/favicon.png">
+    	
+
+</head>
+
+
+	<body >
+				
+		<div class="sidebar">
+			<div class="container sidebar-about ">
+				<span class="site__title">
+				
+					<a href=""></a>
+				</span>
+				<a href="https://maki.bzh/">
+					
+					
+					
+					<div class="author-image">
+						<img src="https://maki.bzh/img/maki.jpg" alt="Author Image" class="img--circle img--headshot element--center"/>
+					</div>
+					
+				</a>
+				<p class="site__description">
+					<a href="https://maki.bzh/en">
+						
+					</a>
+				</p>
+				<div>
+	<ul class="sidebar-nav">
+		 
+		 
+			 
+				<li>
+					<a href="/articles/">
+						<span>Articles</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/walkthrough/">
+						<span>Walkthrough</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/stupidthings/">
+						<span>Stupid Things</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/ctf/">
+						<span>CTF</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/friends/">
+						<span>Friends</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/whoami/">
+						<span>Who Am I?</span>
+					</a>
+				</li>
+			 
+		
+	</ul>
+</div>
+
+				
+				<section class="social">
+						
+						<a href="https://twitter.com/maki_mitz" rel="me"><i class="rotate fab fa-twitter fa-lg" aria-hidden="true"></i></a>
+						
+						
+						
+						
+						
+						<a href="https://gitlab.com/maki_chaz" rel="me"><i class="rotate fab fa-gitlab fa-lg" aria-hidden="true"></i></a>
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						<a href="mailto:Yml0ZWRlcG91bGV0" rel="me"><i class="rotate fas fa-at fa-lg" aria-hidden="true"></i></a>
+						
+						
+					  &nbsp;<a href="https://www.root-me.org/Maki-37744" target="blank" class="linklogo"><div class="rotate rootme_logo logohover"></div></a>
+					  
+						
+					  &nbsp;<a href="https://www.hackthebox.eu/home/users/profile/10265" target="blank" class="linklogo"><div class="rotate hackthebox_logo logohover"></div></a>
+					  
+						
+					  &nbsp;<a href="https://www.aperikube.fr" target="blank" class="linklogo"><div class="rotate aperikube_logo logohover"></div></a>
+					  
+</section>
+
+				
+				
+				<p class="copyright">
+					&copy; 2020 Maki.
+					<br/>
+					<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">Some Rights Reserved</a>.
+					<br/>Built with, Haax, Laluka, _ACKNAK_
+					<a href="https://gohugo.io">Hugo</a> ❤️ <a href="https://github.com/htr3n/hyde-hyde">hyde-hyde</a>.
+					
+				</p>
+			</div>
+		</div>
+
+		<div class="content container">
+			
+	<article>
+	<header>
+		<h1>Custom firmware for Raspberry Pi 3</h1>
+		
+		
+<div class="post__meta">
+	
+	<i class="fas fa-calendar-alt"></i> Oct 5, 2018
+	
+	
+	<br/>
+	<i class="fas fa-clock"></i> 8 min read
+</div>
+
+
+	</header>
+	<hr/>
+	<div class="post">
+		<nav id="TableOfContents">
+<ul>
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#i-step-1">I. Step 1</a>
+<ul>
+<li><a href="#i-1-base-system-specification">I.1. Base system specification</a></li>
+<li><a href="#i-2-dd-on-the-sd-card">I.2. dd on the SD card</a></li>
+</ul></li>
+<li><a href="#ii-step-2">II. Step 2</a>
+<ul>
+<li><a href="#ii-1-setting-up-on-overlay">II.1. Setting up on overlay</a></li>
+<li><a href="#ii-2-network-configuration">II.2. Network configuration</a></li>
+<li><a href="#ii-3-dropbear-ssh-installation">II.3. Dropbear SSH installation</a></li>
+<li><a href="#ii-4-update-through-network">II.4. Update through network</a></li>
+</ul></li>
+<li><a href="#iii-step-3">III. Step 3</a>
+<ul>
+<li><a href="#iii-1-install-external-package">III.1. Install external package</a></li>
+<li><a href="#iii-2-check-dependencies">III.2. Check dependencies</a></li>
+<li><a href="#iii-3-start-the-package-at-boot">III.3. Start the package at boot</a></li>
+</ul></li>
+<li><a href="#conclusion">Conclusion</a>
+<ul>
+<li><a href="#todo">TODO</a></li>
+</ul></li>
+<li><a href="#annexes">Annexes</a>
+<ul>
+<li><a href="#annexe-1-genimage-ensibs-post-image-sh">Annexe 1 - Genimage ENSIBS &amp; post-image.sh</a></li>
+<li><a href="#annexe-2-sleep-in-s40network-file">Annexe 2 - Sleep in S40network file</a></li>
+<li><a href="#annexe-3-set-static-ip-address">Annexe 3 - Set static IP address</a></li>
+<li><a href="#annexe-4-update-script">Annexe 4 - Update script</a></li>
+<li><a href="#annexe-5-config-in-and-ninvaders-mk">Annexe 5 - Config.in and ninvaders.mk</a></li>
+<li><a href="#annexe-6-etc-profile-file">Annexe 6 - /etc/profile file</a></li>
+</ul></li>
+</ul>
+</nav>
+		
+
+<h1 id="introduction">Introduction</h1>
+
+<p>In this university project, we had to study the how buildroot works and set up different features with it.</p>
+
+<p>First part will deal with setting up the system basis. Next part will explain how buildroot can be configured, adding default package or adding an external package.</p>
+
+<hr />
+
+<h1 id="i-step-1">I. Step 1</h1>
+
+<p>In this first part, we had to set up the buildroot system basis.</p>
+
+<p>Goals of this part are:</p>
+
+<ul>
+<li>Minimal buildroot configuration</li>
+<li>Copy the new firmware on RPi SD card</li>
+</ul>
+
+<h2 id="i-1-base-system-specification">I.1. Base system specification</h2>
+
+<p>After downloaded the last release of buildroot, I prepared the build for Raspberry Pi 3 architecture.</p>
+
+<pre><code>$ make raspberrypi3_defconfig
+</code></pre>
+
+<p>In this interface “<strong>menuconfig</strong>”, I have to initiate the RAM filesystem:</p>
+
+<pre><code>Filesystem images → initial RAM filesystem linked into linux kernel
+</code></pre>
+
+<p>Furthermore, as we can see in the picture above, I disabled the ext3/4 filesystem, it’s not necessary here.</p>
+
+<p>I defined the root password:</p>
+
+<pre><code>System configuration → Root password
+</code></pre>
+
+<p>I also changed the hash function, MD5 or SHA1 are deprecated.</p>
+
+<p>The toolchain requested is Linario ARM, then I have to configure buildroot to use an external toolchain:</p>
+
+<pre><code>Toolchain → Toolchain type → External toolchain
+</code></pre>
+
+<h2 id="i-2-dd-on-the-sd-card">I.2. dd on the SD card</h2>
+
+<p>Now the build is ready for the Raspberry Pi 3, a little shot of <strong>dd</strong> on the SD card, and it’s done.</p>
+
+<p>As mention above, the root filesystem is not required here, then I edited the “genimage-raspberrypi3.cfg” file, and remove this part. I saved the new file in “genimage-raspberrypi3-ENSIBS.cfg”.</p>
+
+<p>Given that we modified the <strong>genimage</strong> name, I have to edit the “post-image.sh” file too (cf. Annexe 1 - Genimage ENSIBS &amp; post-image.sh).</p>
+
+<p>The firmware is ready, I have to build it, just <strong>make</strong> command in the buildroot root folder. When all dependencies are installed, I flashed the SD card:</p>
+
+<pre><code># dd if=output/images/sdcard.img of=/dev/mmcblk
+</code></pre>
+
+<h1 id="ii-step-2">II. Step 2</h1>
+
+<p>The step 2 consists to add the network layer in our firmware. As well as a path that allows us to edit configuration files in the firmware (it’s a <em>overlays</em>).</p>
+
+<p>Goals are:</p>
+
+<ul>
+<li>Setting up an overlay</li>
+<li>Configuration of the network layer</li>
+</ul>
+
+<h2 id="ii-1-setting-up-on-overlay">II.1. Setting up on overlay</h2>
+
+<p>An overlay is a folder on the host system, it allows us to edit files in the firmware. Typically, we have to edit the <strong>interfaces</strong> file in <strong>/etc/network/</strong> folder to setting up the network layer of our firmware. For this, I just have to create a directory and mention it in buildroot. For example, my path is:</p>
+
+<pre><code>/home/billy/Documents/Cours/ENSIBS/secuEmbarque
+</code></pre>
+
+<p>In the first instance, the folder is empty, but at the end of the project, here is mine:</p>
+
+<pre><code>▶ tree .
+.
+└── etc
+    ├── init.d
+    │   └── S40network
+    ├── network
+    │   └── interfaces
+    └── profile
+
+3 directories, 3 files
+</code></pre>
+
+<h2 id="ii-2-network-configuration">II.2. Network configuration</h2>
+
+<p>On the basis of the previous tree, we had to edit the <strong>interfaces</strong> and <strong>S40network</strong> file.</p>
+
+<p>First of all, I noticed that the startup script for the ethernet interface (<strong>S40network</strong>) is triggered before the network card (hardware). I just add a 5 seconds sleep (cf. Annexe 2 - Sleep in S40Network file).</p>
+
+<p>The “<strong>interface</strong>” file (cf. Annexe 3 - Static network configuration) allows the firmware to get a static address IP, a gateway, static network mask on a specific interface (i.e <strong>eth0</strong> here). The firmware will have the IP address: 10.1.49.<sup>4</sup>&frasl;<sub>24</sub> and the gateway will be my host system: 10.1.49.3.</p>
+
+<h2 id="ii-3-dropbear-ssh-installation">II.3. Dropbear SSH installation</h2>
+
+<p>To install a known package in buildroot, it’s pretty easy. I just have to select it in the buildroot menuconfig:</p>
+
+<pre><code>Target packages → Network Applications → dropbear
+</code></pre>
+
+<p>Now, I must rebuild the firmware and flash again the SD card.</p>
+
+<p>The default configuration of dropbear allows root connection, in our case, the only user on the firmware is the root user.</p>
+
+<p>I will maybe add a hardening part later :D</p>
+
+<p>Connection as root on the raspberry pi through SSH:</p>
+
+<pre><code>ssh root@10.1.49.4
+</code></pre>
+
+<h2 id="ii-4-update-through-network">II.4. Update through network</h2>
+
+<p>The network connection is necessary to update (through SSH) the Raspberry Pi without unplugging the SD card from the Pi.</p>
+
+<p>I made a little script (cf. Annexe 4 - Update script) to do this.</p>
+
+<p>It following those steps:</p>
+
+<ul>
+<li>Copy the new firmware on the Pi (scp)</li>
+<li>Use the <strong>dd</strong> command to write the firmware on the SD card</li>
+
+<li><p>Restart the Raspberry Pi</p>
+
+<p>▶ firm_upgrade sdcard.img /dev/mmcblk0 10.1.49.4</p></li>
+</ul>
+
+<p>This method works because the system is load in the RAM, so it won’t do any call to the SD card. By the way, we could remove the SD card from the raspberry pi during it operates, it will still work.</p>
+
+<p>To improve my script, I could copy only the <strong>zImage</strong> file instead of the complete firmware (<strong>sdcard.img</strong>), for the V2! :p</p>
+
+<h1 id="iii-step-3">III. Step 3</h1>
+
+<p>For this final step, I will install an external package (have to download sources, compile them and install, do the same thing with dependencies) and startup this package at boot.</p>
+
+<p>Goals are:</p>
+
+<ul>
+<li>Install external package</li>
+<li>Check dependencies</li>
+<li>Start the package at boot</li>
+</ul>
+
+<h2 id="iii-1-install-external-package">III.1. Install external package</h2>
+
+<p>The external package is: <strong>nInvaders</strong>. A Space Invaders for terminal! Very cool! :D</p>
+
+<p>Tells to buildroot that we want to add an external package in the firmware, I have to add an entry <strong>Config.in</strong> (located in the root directory of buildroot). After that, the external package appears in the <em>menuconfig</em> of buildroot.</p>
+
+<pre><code>buildroot/Config.in
+
+
+[...]
+menu &quot;ninvaders [external repo]&quot;
+        source package/ninvaders/Config.in
+endmenu
+[...]
+</code></pre>
+
+<p>Then, create two files “Config.in”, “ninvaders.mk” in a folder called “ninvaders” (we have to create the folder).</p>
+
+<pre><code>▶ tree ninvaders 
+ninvaders
+├── Config.in
+└── ninvaders.mk
+</code></pre>
+
+<ul>
+<li>Config.in: This file tells to buildroot name of the external package, dependencies and help menu.</li>
+<li>ninvaders.mk: It’s a Makefile, it will build the package with all dependencies, but it’s not a standard Makefile, there is some environment variable and other settings manage by buildroot for the architecture (here it’s for Raspberry Pi 3).</li>
+</ul>
+
+<p>Files are available in Annexe 5.</p>
+
+<h2 id="iii-2-check-dependencies">III.2. Check dependencies</h2>
+
+<p>NInvaders package needs <strong>ncurses</strong> dependancies. Fortunately, this package is easy to install and don’t need further dependencies.</p>
+
+<p>In the file <strong>Config.in</strong> of nInvaders, there is the following line:</p>
+
+<pre><code>select BR2_PACKAGE_NCURSES
+</code></pre>
+
+<p>It will specify to buildroot that <strong>nInvaders</strong> needs <strong>ncurses</strong>.</p>
+
+<p>To compile this dependency, we just need to add this line in our Makefile <strong>ninvaders.mk</strong>:</p>
+
+<pre><code>NINVADERS_DEPENDENCIES = ncurses
+</code></pre>
+
+<p>After a little <strong>make</strong>, the package nInvaders is successfully installed! Now, just connect to the Pi through SSH and execute <strong>ninvaders</strong>:</p>
+
+<pre><code># ninvaders
+</code></pre>
+
+<p><img src="/img/buildroot/ninvaders.gif" alt="" /></p>
+
+<h2 id="iii-3-start-the-package-at-boot">III.3. Start the package at boot</h2>
+
+<p>When the nInvaders package is successfully installed, we will execute it automatically when a session opens.</p>
+
+<p>In our overlays, we need to add (at the end) the <strong>profile</strong> file in folder <strong>/etc</strong> of the firmware with the following lines:</p>
+
+<pre><code>export TERM=xterm
+ninvaders
+</code></pre>
+
+<p>Complete file is available in Annexe 6 - /etc/profile file.</p>
+
+<p>The <strong>profile</strong> file will be executed when user shell is open. It’s quite like <em>.bashrc</em> with a bash shell.</p>
+
+<h1 id="conclusion">Conclusion</h1>
+
+<p>To conclude this article, this project was very interesting, it’s a good introduction for people (like me) without knowledge of firmware building.</p>
+
+<h2 id="todo">TODO</h2>
+
+<ul>
+<li>Hardening part</li>
+<li>Update script</li>
+<li>Build more interesting (honeypot IoT ?)</li>
+</ul>
+
+<hr />
+
+<h1 id="annexes">Annexes</h1>
+
+<h2 id="annexe-1-genimage-ensibs-post-image-sh">Annexe 1 - Genimage ENSIBS &amp; post-image.sh</h2>
+
+<pre><code>genimage-raspberrypi3-ENSIBS.cfg
+
+
+image boot.vfat {
+  vfat {
+    files = {
+      &quot;bcm2710-rpi-3-b.dtb&quot;,
+      &quot;rpi-firmware/bootcode.bin&quot;,
+      &quot;rpi-firmware/cmdline.txt&quot;,
+      &quot;rpi-firmware/config.txt&quot;,
+      &quot;rpi-firmware/fixup.dat&quot;,
+      &quot;rpi-firmware/start.elf&quot;,
+      &quot;rpi-firmware/overlays&quot;,
+      &quot;zImage&quot;
+    }
+  }
+  size = 32M
+}
+
+image sdcard.img {
+  hdimage {
+  }
+
+  partition boot {
+    partition-type = 0xC
+    bootable = &quot;true&quot;
+    image = &quot;boot.vfat&quot;
+  }
+
+}
+</code></pre>
+
+<hr />
+
+<pre><code>post-image.sh
+
+
+#!/bin/sh
+
+BOARD_DIR=&quot;$(dirname $0)&quot;
+BOARD_NAME=&quot;$(basename ${BOARD_DIR})&quot;
+#GENIMAGE_CFG=&quot;${BOARD_DIR}/genimage-${BOARD_NAME}.cfg&quot;
+GENIMAGE_CFG=&quot;${BOARD_DIR}/genimage-raspberrypi3-ENSIBS.cfg&quot;
+GENIMAGE_TMP=&quot;${BUILD_DIR}/genimage.tmp&quot;
+
+case &quot;${2}&quot; in
+    --add-pi3-miniuart-bt-overlay)
+    if ! grep -qE '^dtoverlay=' &quot;${BINARIES_DIR}/rpi-firmware/config.txt&quot;; then
+        echo &quot;Adding 'dtoverlay=pi3-miniuart-bt' to config.txt (fixes ttyAMA0 serial console).&quot;
+        cat &lt;&lt; __EOF__ &gt;&gt; &quot;${BINARIES_DIR}/rpi-firmware/config.txt&quot;
+
+# fixes rpi3 ttyAMA0 serial console
+dtoverlay=pi3-miniuart-bt
+__EOF__
+    fi
+    ;;
+esac
+
+rm -rf &quot;${GENIMAGE_TMP}&quot;
+
+genimage                           \
+    --rootpath &quot;${TARGET_DIR}&quot;     \
+    --tmppath &quot;${GENIMAGE_TMP}&quot;    \
+    --inputpath &quot;${BINARIES_DIR}&quot;  \
+    --outputpath &quot;${BINARIES_DIR}&quot; \
+    --config &quot;${GENIMAGE_CFG}&quot;
+
+exit $?
+</code></pre>
+
+<hr />
+
+<h2 id="annexe-2-sleep-in-s40network-file">Annexe 2 - Sleep in S40network file</h2>
+
+<pre><code>overlays/etc/init.d/S40network
+
+
+#!/bin/sh
+#
+# Start the network....
+#
+# Debian ifupdown needs the /run/network lock directory
+mkdir -p /run/network
+
+case &quot;$1&quot; in
+  start)
+        printf &quot;Starting network: &quot;
+        sleep 5
+    /sbin/ifup -a
+        [ $? = 0 ] &amp;&amp; echo &quot;OK&quot; || echo &quot;FAIL&quot;
+        ;;
+  stop)
+        printf &quot;Stopping network: &quot;
+        /sbin/ifdown -a
+        [ $? = 0 ] &amp;&amp; echo &quot;OK&quot; || echo &quot;FAIL&quot;
+        ;;
+  restart|reload)
+        &quot;$0&quot; stop
+        &quot;$0&quot; start
+        ;;
+  *)
+        echo &quot;Usage: $0 {start|stop|restart}&quot;
+        exit 1
+esac
+
+exit $?
+</code></pre>
+
+<hr />
+
+<h2 id="annexe-3-set-static-ip-address">Annexe 3 - Set static IP address</h2>
+
+<pre><code>overlays/etc/network/interfaces
+
+
+auto lo eth0 
+
+iface lo inet loopback
+
+iface eth0 inet static 
+    address 10.1.49.4
+    netmask 255.255.255.0
+    gateway 10.1.49.3
+</code></pre>
+
+<hr />
+
+<h2 id="annexe-4-update-script">Annexe 4 - Update script</h2>
+
+<pre><code>#!/bin/sh
+
+#############
+# Upgrade script for buildroot
+#############
+
+function upgrade() {
+    printf &quot;[+] Upgrade starting...\n&quot;
+    scp $1 root@$3:/root/ 
+    printf &quot;[+] New firmware copied on the guest system.\n&quot;
+    ssh root@$3 &quot;dd if=/root/$1 of=$2 bs=1M &amp;&amp; /sbin/reboot&quot;
+    printf &quot;[+] Release installed ! Rebooting.\n&quot;
+}
+
+# Main program
+if [[ $# == 0 ]]; then
+    printf &quot;[!] Missing args !\n$(basename \&quot;$0\&quot;) &lt;new release&gt; &lt;partition path on guest&gt; &lt;guest ip&gt;\nEx : $(basename &quot;$0&quot;) sdcard.img /dev/mmcblk0 10.1.49.4&quot;
+else
+    # $1 = Path of the new release
+    # $2 = Path of the disk on the guest, ex : /dev/mmcblk0
+    # $3 = IP of the guest
+    upgrade $1 $2 $3    
+fi
+</code></pre>
+
+<hr />
+
+<h2 id="annexe-5-config-in-and-ninvaders-mk">Annexe 5 - Config.in and ninvaders.mk</h2>
+
+<pre><code>buildroot/package/ninvaders/Config.in
+
+
+config BR2_PACKAGE_NINVADERS
+    bool &quot;ninvaders&quot;
+    select BR2_PACKAGE_NCURSES
+    help
+      Space invaders for RPi3 with Buildroot.r
+</code></pre>
+
+<hr />
+
+<pre><code>buildroot/package/ninvaders/ninvaders.mk
+
+
+################################################################################
+#
+# ninvaders
+#
+################################################################################
+
+NINVADERS_VERSION = 0.1.1
+NINVADERS_SITE = https://downloads.sourceforge.net/project/ninvaders/ninvaders/$(NINVADERS_VERSION)
+
+NINVADERS_DEPENDENCIES = ncurses
+
+define NINVADERS_BUILD_CMDS
+    $(TARGET_MAKE_ENV) $(MAKE) $(TARGET_CONFIGURE_OPTS) -C $(@D) all
+endef
+
+define NINVADERS_INSTALL_TARGET_CMDS
+    $(INSTALL) -m 0755 -D $(@D)/nInvaders $(TARGET_DIR)/usr/bin/ninvaders
+endef
+
+$(eval $(generic-package))
+</code></pre>
+
+<hr />
+
+<h2 id="annexe-6-etc-profile-file">Annexe 6 - /etc/profile file</h2>
+
+<pre><code>overlays/etc/profile
+
+
+export PATH=/bin:/sbin:/usr/bin:/usr/sbin
+
+if [ &quot;$PS1&quot; ]; then
+    if [ &quot;id -u&quot; -eq 0 ]; then
+        export PS1='# '
+    else    
+        export PS1='$ '
+    fi
+fi
+
+export PAGER='/bin/more '
+export EDITOR='/bin/vi'
+
+# Source configuration files from /etc/profile.d
+for i in /etc/profile.d/*.sh ; do
+    if [ -r &quot;$i&quot; ]; then
+        . $i
+    fi
+    unset i
+done
+
+export TERM=xterm
+ninvaders
+</code></pre>
+
+<p><a href="https://maki.bzh/">Home</a></p>
+
+	</div>
+</article>
+
+		</div>
+		
+	
+<script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js" integrity="sha256-l1iMQ6f0+8aFBzSNRxgklLlYMqu5S4b/LpaST2s+gog= sha384-4oV5EgaV02iISL2ban6c/RmotsABqE4yZxZLcYMAdG7FAPsyHYAPpywE9PJo+Khy sha512-3dlGoFoY39YEcetqKPULIqryjeClQkr2KXshhYxFXNZAgRFZElUW9UQmYkmQE1bvB8tssj3uSKDzsj8rA04Meg==" crossorigin="anonymous"></script>
+
+
+    
+        
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js" integrity="sha256-/BfiIkHlHoVihZdc6TFuj7MmJ0TWcWsMXkeDFwhi0zw= sha384-ZeLYJ2PNSQjvogWP559CDAf02Qb8FE5OyQicqtz/+UhZutbrwyr87Be7NPH/RgyC sha512-ExaEi+x+Zqq50MIBraxsK23lQQJZd8Q7ZDlwJsxQwsWlO8XvRouQev9ZWaFxCKdTvrgb2fmf2pglwGp61/7qZA==" crossorigin="anonymous"></script>
+	
+        <script type="text/javascript">
+            hljs.configure({languages: []});
+            hljs.initHighlightingOnLoad();
+        </script>
+        
+        
+
+
+
+	
+
+
+	<script>
+    (function() {
+      var toc = document.getElementById('TableOfContents');
+      if (!toc) return;
+      do {
+        var li, ul = toc.querySelector('ul');
+        if (ul.childElementCount !== 1) break;
+        li = ul.firstElementChild;
+        if (li.tagName !== 'LI') break;
+        
+        ul.outerHTML = li.innerHTML;
+      } while (toc.childElementCount >= 1);
+    })();
+  </script>
+
+	</body>
+</html>
