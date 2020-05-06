@@ -5,10 +5,20 @@
     <link>https://www.maki.bzh/</link>
     <description>Recent content on Just another infosec blog</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sat, 20 Jul 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 06 May 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://www.maki.bzh/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>French CyberSecurity Challenge 2020</title>
+      <link>https://www.maki.bzh/walkthrough/fcsc2020forensic/</link>
+      <pubDate>Wed, 06 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.maki.bzh/walkthrough/fcsc2020forensic/</guid>
+      <description>Le French CyberSecurity Challenge est une compétition en ligne organisée par l&amp;rsquo;Agence National de la Sécurité des Systèmes d&amp;rsquo;Informations (ANSSI). Ce CTF a pour but de préselectionner 30 joueurs: 15 juniors (entre 15 et 20 ans) et 15 seniors (entre 21 et 25 ans). Les catégories étaient extrêmement variées: du forensic au web en passant par du hardware, reverse, etc&amp;hellip;
+Find me  Vous avez accès à un fichier find_me qui semble renfermer un secret bien gardé, qui n&amp;rsquo;existe peut-être même plus.</description>
+    </item>
     
     <item>
       <title>WonkaChall 2019</title>
