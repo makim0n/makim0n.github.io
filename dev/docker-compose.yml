@@ -1,0 +1,18 @@
+version: '3'
+
+# sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+services:
+  hugo:
+    container_name: hugo
+    # image: peaceiris/hugo:v0            # Minimum image
+    # image: peaceiris/hugo:v0.x.x-mod      # Hugo Modules
+    # image: peaceiris/hugo:v0.x.x-full     # Hugo Modules and Node.js
+    image: ghcr.io/peaceiris/hugo:latest  # Docker images on GitHub Packages
+    ports:
+      - 1313:1313
+    volumes:
+      - /home/maki/Documents/makim0n.github.io/blog:/src
+    command:
+      - server
+      - --bind=0.0.0.0
+      - --buildDrafts
