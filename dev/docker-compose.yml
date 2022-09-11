@@ -11,7 +11,7 @@ services:
     ports:
       - 1313:1313
     volumes:
-      - /home/maki/Documents/makim0n.github.io/blog:/src
+      - /home/maki/Documents/makim0n.github.io:/src
     command:
       - server
       - --bind=0.0.0.0
