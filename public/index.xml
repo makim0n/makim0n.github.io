@@ -1,9 +1,9 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
-        <title>My New Hugo Site</title>
-        <link>http://example.org/</link>
-        <description>This is my cool site</description>
-        <generator>Hugo -- gohugo.io</generator><language>en-us</language>
-            <atom:link href="http://example.org/index.xml" rel="self" type="application/rss+xml" />
+        <title>Maki&#39;s adventure | Internet of things, IoT, ICS, forensic, pentest, red team &amp; more :)</title>
+        <link>https://www.maki.bzh/</link>
+        <description>Maki&#39;s adventure | Internet of things, IoT, ICS, forensic, pentest, red team &amp; more :)</description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sun, 01 Dec 2019 21:57:40 &#43;0800</lastBuildDate>
+            <atom:link href="https://www.maki.bzh/index.xml" rel="self" type="application/rss+xml" />
         </channel>
 </rss>
