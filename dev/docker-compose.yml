@@ -7,7 +7,7 @@ services:
     # image: peaceiris/hugo:v0            # Minimum image
     # image: peaceiris/hugo:v0.x.x-mod      # Hugo Modules
     # image: peaceiris/hugo:v0.x.x-full     # Hugo Modules and Node.js
-    image: ghcr.io/peaceiris/hugo:latest  # Docker images on GitHub Packages
+    image: ghcr.io/peaceiris/hugo:latest-full  # Docker images on GitHub Packages
     ports:
       - 1313:1313
     volumes:
