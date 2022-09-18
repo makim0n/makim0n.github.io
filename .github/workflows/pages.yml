@@ -62,8 +62,8 @@ jobs:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    #runs-on: ubuntu-latest
-    runs-on: ghcr.io/peaceiris/hugo:latest-full
+    runs-on: ubuntu-latest
+    #runs-on: ghcr.io/peaceiris/hugo:latest-full
     needs: build
     steps:
       - name: Deploy to GitHub Pages
