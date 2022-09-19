@@ -12,7 +12,7 @@ resources:
   src: "featured-image.png"
 
 tags: ["anssi", "ecsc", "forensic", "malware", "memory dump", "volatility"]
-categories: ["Shorts"]
+categories: ["Writeups"]
 
 lightgallery: true
 ---
