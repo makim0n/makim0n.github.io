@@ -17,6 +17,8 @@ languageName = "English"
 # whether to include Chinese/Japanese/Korean
 hasCJKLanguage = false
 
+timeout = 60000
+
 # default amount of posts in each pages
 paginate = 12
 # google analytics code [UA-XXXXXXXX-X]
