@@ -1,0 +1,328 @@
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=robots content="noodp"><title>[ECSC] - 3615 incident - Maki's adventure | Internet of things, IoT, ICS, forensic, pentest, red team & more :)</title><meta name=Description content="Simple reverse shell using OpenSSL."><meta property="og:title" content="[ECSC] - 3615 incident"><meta property="og:description" content="Simple reverse shell using OpenSSL."><meta property="og:type" content="article"><meta property="og:url" content="maki.bzh/writeups/ecscfrench20193615incident/"><meta property="og:image" content="/logo.png"><meta property="article:section" content="writeups"><meta property="article:published_time" content="2019-06-27T21:57:40+08:00"><meta property="article:modified_time" content="2019-06-27T21:57:40+08:00"><meta property="og:site_name" content="Maki's adventure | Internet of things, IoT, ICS, forensic, pentest, red team & more :)"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="/logo.png"><meta name=twitter:title content="[ECSC] - 3615 incident"><meta name=twitter:description content="Simple reverse shell using OpenSSL."><meta name=application-name content="Maki's adventure | Internet of things, IoT, ICS, forensic, pentest, red team & more :)"><meta name=apple-mobile-web-app-title content="Maki's adventure | Internet of things, IoT, ICS, forensic, pentest, red team & more :)"><meta name=theme-color content="#ffffff"><meta name=msapplication-TileColor content="#da532c"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=manifest href=/site.webmanifest><link rel=canonical href=maki.bzh/writeups/ecscfrench20193615incident/><link rel=prev href=maki.bzh/writeups/ecscfrench2019cryptodiy/><link rel=next href=maki.bzh/writeups/wonkachall2019/><link rel=stylesheet href=/maki.bzh/css/style.min.css><link rel=preload href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css as=style onload="this.onload=null,this.rel='stylesheet'"><noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css></noscript><link rel=preload href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css as=style onload="this.onload=null,this.rel='stylesheet'"><noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css></noscript><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"[ECSC] - 3615 incident","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"maki.bzh\/writeups\/ecscfrench20193615incident\/"},"image":["\/images\/Apple-Devices-Preview.png"],"genre":"writeups","keywords":"anssi, ecsc, forensic, malware, memory dump, volatility","wordcount":1685,"url":"maki.bzh\/writeups\/ecscfrench20193615incident\/","datePublished":"2019-06-27T21:57:40+08:00","dateModified":"2019-06-27T21:57:40+08:00","license":"This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher":{"@type":"Organization","name":"xxxx","logo":"\/lib\/images\/avatar.png"},"author":{"@type":"Person","name":"Maki"},"description":"Simple reverse shell using OpenSSL."}</script></head><body data-header-desktop=fixed data-header-mobile=auto><script type=text/javascript>(window.localStorage&&localStorage.getItem('theme')?localStorage.getItem('theme')==='dark':'dark'==='auto'?window.matchMedia('(prefers-color-scheme: dark)').matches:'dark'==='dark')&&document.body.setAttribute('theme','dark')</script><div id=mask></div><div class=wrapper><header class=desktop id=header-desktop><div class=header-wrapper><div class=header-title><a href=maki.bzh/ title="Maki's adventure | Internet of things, IoT, ICS, forensic, pentest, red team & more :)"><span class=header-title-pre><i class='far fa-kiss-wink-heart fa-fw' aria-hidden=true></i></span></a></div><div class=menu><div class=menu-inner><a class=menu-item href=/maki.bzh/posts/>Posts </a><a class=menu-item href=/maki.bzh/shorts/>Shorts </a><a class=menu-item href=/maki.bzh/offers/>Offers </a><a class=menu-item href=/maki.bzh/writeups/>Writeups </a><a class=menu-item href=/maki.bzh/tags/>Tags </a><a class=menu-item href=/maki.bzh/about/>About </a><span class="menu-item delimiter"></span><a href=javascript:void(0); class="menu-item theme-switch" title="Switch Theme">
+<i class="fas fa-adjust fa-fw" aria-hidden=true></i></a></div></div></div></header><header class=mobile id=header-mobile><div class=header-container><div class=header-wrapper><div class=header-title><a href=maki.bzh/ title="Maki's adventure | Internet of things, IoT, ICS, forensic, pentest, red team & more :)"><span class=header-title-pre><i class='far fa-kiss-wink-heart fa-fw' aria-hidden=true></i></span></a></div><div class=menu-toggle id=menu-toggle-mobile><span></span><span></span><span></span></div></div><div class=menu id=menu-mobile><a class=menu-item href=/maki.bzh/posts/ title>Posts</a><a class=menu-item href=/maki.bzh/shorts/ title>Shorts</a><a class=menu-item href=/maki.bzh/offers/ title>Offers</a><a class=menu-item href=/maki.bzh/writeups/ title>Writeups</a><a class=menu-item href=/maki.bzh/tags/ title>Tags</a><a class=menu-item href=/maki.bzh/about/ title>About</a><a href=javascript:void(0); class="menu-item theme-switch" title="Switch Theme">
+<i class="fas fa-adjust fa-fw" aria-hidden=true></i></a></div></div></header><main class=main><div class=container><div class="page single special"><h1 class="single-title animate__animated animate__pulse animate__faster">[ECSC] - 3615 incident</h1><div class=content id=content><h1 id=3615-incident-1>3615 incident (1)</h1><h2 id=description>Description</h2><blockquote><p>Une victime de plus tombée sous le coup d’un rançongiciel. Le paiement de la rançon n’est pas envisagée vu le montant demandé. Vous êtes appelé pour essayer de restaurer les fichiers chiffrés.
+Une suite d’éléments est nécessaire pour avancer dans l’investigation et constituer le rapport d’incident.
+Pour commencer, quel est le nom du fichier exécutable de ce rançongiciel, son identifiant de processus et quel est devenu le nom du fichier flag.docx une fois chiffré ? Donnez le SHA1 de ce nom avec son extension.
+Note : l’image disque fait environ 440 Mo compressée et environ 1.4 Go décompressée. Réponse attendue au format ECSC{nom_du_rançongiciel.exe:PiD:sha1}.</p></blockquote><h2 id=nom--pid-du-rançongiciel>Nom & PID du rançongiciel</h2><p>On sait que le fichier flag.docx existe et a été chiffré par le ransomware, voyons ce qu&rsquo;un simple <code>yarascan</code> nous donne :</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>root@2767878b4519:/opt# vol.py -f usr_land/mem.dmp --profile=Win10x64_10586 yarascan -Y &#34;flag.docx&#34;
+</span></span><span class=line><span class=cl>Volatility Foundation Volatility Framework 2.6.1
+</span></span><span class=line><span class=cl>Rule: r1
+</span></span><span class=line><span class=cl>Owner: Process assistance.exe Pid 5208
+</span></span><span class=line><span class=cl>0x1280a472  66 6c 61 67 2e 64 6f 63 78 00 6a 73 00 00 43 3a   flag.docx.js..C:
+</span></span><span class=line><span class=cl>0x1280a482  5c 55 73 65 72 73 5c 54 4e 4b 4c 53 41 49 33 54   \Users\TNKLSAI3T
+</span></span><span class=line><span class=cl>0x1280a492  47 54 37 4f 39 5c 44 6f 63 75 6d 65 6e 74 73 5c   GT7O9\Documents\
+</span></span><span class=line><span class=cl>0x1280a4a2  66 6c 61 67 2e 64 6f 63 78 00 2e 69 6e 69 43 3a   flag.docx..iniC:
+</span></span><span class=line><span class=cl>0x1280a4b2  5c 55 73 65 72 73 5c 54 4e 4b 4c 53 41 49 33 54   \Users\TNKLSAI3T
+</span></span><span class=line><span class=cl>0x1280a4c2  47 54 37 4f 39 5c 4c 69 6e 6b 73 5c 5a 47 56 7a   GT7O9\Links\ZGVz
+</span></span><span class=line><span class=cl>0x1280a4d2  61 33 52 76 63 43 35 70 62 6d 6b 3d 00 00 43 3a   a3RvcC5pbmk=..C:
+</span></span><span class=line><span class=cl>0x1280a4e2  5c 55 73 65 72 73 5c 54 4e 4b 4c 53 41 49 33 54   \Users\TNKLSAI3T
+</span></span><span class=line><span class=cl>0x1280a4f2  47 54 37 4f 39 5c 4c 69 6e 6b 73 5c 5a 47 56 7a   GT7O9\Links\ZGVz
+</span></span><span class=line><span class=cl>0x1280a502  61 33 52 76 63 43 35 70 62 6d 6b 3d 6a 73 43 3a   a3RvcC5pbmk=jsC:
+</span></span><span class=line><span class=cl>0x1280a512  5c 55 73 65 72 73 5c 54 4e 4b 4c 53 41 49 33 54   \Users\TNKLSAI3T
+</span></span><span class=line><span class=cl>0x1280a522  47 54 37 4f 39 5c 4c 69 6e 6b 73 5c 64 65 73 6b   GT7O9\Links\desk
+</span></span><span class=line><span class=cl>0x1280a532  74 6f 70 2e 69 6e 69 00 6f 70 2e 69 6e 69 43 3a   top.ini.op.iniC:
+</span></span><span class=line><span class=cl>0x1280a542  5c 55 73 65 72 73 5c 54 4e 4b 4c 53 41 49 33 54   \Users\TNKLSAI3T
+</span></span><span class=line><span class=cl>0x1280a552  47 54 37 4f 39 5c 4c 69 6e 6b 73 5c 64 65 73 6b   GT7O9\Links\desk
+</span></span><span class=line><span class=cl>0x1280a562  74 6f 70 2e 69 6e 69 00 00 00 00 00 00 00 43 3a   top.ini.......C:
+</span></span><span class=line><span class=cl>[...]
+</span></span></code></pre></td></tr></table></div></div><p>Un seul process en ressort : <code>assistance.exe</code>, qui a le PID 5208.</p><p>Pour voir si ce binaire est malveillant, quoi de mieux qu&rsquo;un benchmark d&rsquo;antivirus:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>root@2767878b4519:/opt# vol.py -f usr_land/mem.dmp --profile<span class=o>=</span>Win10x64_10586 procdump -p <span class=m>5208</span> -D usr_land/wu/
+</span></span><span class=line><span class=cl>Volatility Foundation Volatility Framework 2.6.1
+</span></span><span class=line><span class=cl>Process<span class=o>(</span>V<span class=o>)</span>         ImageBase          Name                 Result
+</span></span><span class=line><span class=cl>------------------ ------------------ -------------------- ------
+</span></span><span class=line><span class=cl>0xffffe000106bb840 0x0000000000400000 assistance.exe       OK: executable.5208.exe
+</span></span></code></pre></td></tr></table></div></div><p><img class=lazyload src=/maki.bzh/svg/loading.min.svg data-src=https://i.imgur.com/0fgGdxO.png data-srcset="https://i.imgur.com/0fgGdxO.png, https://i.imgur.com/0fgGdxO.png 1.5x, https://i.imgur.com/0fgGdxO.png 2x" data-sizes=auto alt=https://i.imgur.com/0fgGdxO.png title=https://i.imgur.com/0fgGdxO.png></p><p><em>Fig 3</em>: Résultats virustotal</p><p>Un autre indice pourrait être l&rsquo;emplacement de l&rsquo;executable :</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>root@2767878b4519:/opt# vol.py -f usr_land/mem.dmp --profile<span class=o>=</span>Win10x64_10586 filescan &gt; usr_land/wu/pfilescan
+</span></span><span class=line><span class=cl>Volatility Foundation Volatility Framework 2.6.1
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>root@2767878b4519:/opt# cat usr_land/wu/pfilescan <span class=p>|</span> grep <span class=s1>&#39;assistance.exe&#39;</span>
+</span></span><span class=line><span class=cl>0x0000e00011360090      <span class=m>1</span>      <span class=m>0</span> R--r-d <span class=se>\D</span>evice<span class=se>\H</span>arddiskVolume3<span class=se>\U</span>sers<span class=se>\T</span>NKLSAI3TGT7O9<span class=se>\D</span>ownloads<span class=se>\a</span>ssistance.exe
+</span></span><span class=line><span class=cl>0x0000e00011483b40     <span class=m>10</span>      <span class=m>0</span> R--r-d <span class=se>\D</span>evice<span class=se>\H</span>arddiskVolume3<span class=se>\U</span>sers<span class=se>\T</span>NKLSAI3TGT7O9<span class=se>\D</span>ownloads<span class=se>\a</span>ssistance.exe
+</span></span><span class=line><span class=cl>0x0000e000121df450      <span class=m>6</span>      <span class=m>0</span> R--r-d <span class=se>\D</span>evice<span class=se>\H</span>arddiskVolume3<span class=se>\U</span>sers<span class=se>\T</span>NKLSAI3TGT7O9<span class=se>\D</span>ownloads<span class=se>\a</span>ssistance.exe
+</span></span><span class=line><span class=cl>0x0000e0001256bde0     <span class=m>14</span>      <span class=m>0</span> R--r-d <span class=se>\D</span>evice<span class=se>\M</span>up<span class=se>\;</span>Z:000000000002acd3<span class=se>\v</span>mware-host<span class=se>\S</span>hared Folders<span class=se>\e\a</span>ssistance.exe
+</span></span></code></pre></td></tr></table></div></div><p>Donc, on va dire que Michel a juste téléchargé le binaire et pas que quelqu&rsquo;un l&rsquo;a drop volontairement via un dossier partagé :D</p><h2 id=nom-de-flagdocx-chiffré>Nom de flag.docx chiffré</h2><p>Restons dans les fichiers chargés en mémoire, voyons rapidement ce qu&rsquo;il y a dedans :</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>0x0000e00010323f20  32768      1 R--rwd \Device\HarddiskVolume3\Users\TNKLSAI3TGT7O9\Downloads
+</span></span><span class=line><span class=cl>0x0000e000109d5090  32768      1 R--rwd \Device\HarddiskVolume3\Users\TNKLSAI3TGT7O9\Downloads
+</span></span><span class=line><span class=cl>0x0000e00011360090      1      0 R--r-d \Device\HarddiskVolume3\Users\TNKLSAI3TGT7O9\Downloads\assistance.exe
+</span></span><span class=line><span class=cl>0x0000e00011483b40     10      0 R--r-d \Device\HarddiskVolume3\Users\TNKLSAI3TGT7O9\Downloads\assistance.exe
+</span></span><span class=line><span class=cl>0x0000e00011e15f20  32768      1 R--rw- \Device\HarddiskVolume3\Users\TNKLSAI3TGT7O9\Downloads
+</span></span><span class=line><span class=cl>0x0000e000121df450      6      0 R--r-d \Device\HarddiskVolume3\Users\TNKLSAI3TGT7O9\Downloads\assistance.exe
+</span></span><span class=line><span class=cl>0x0000e000126f1650     16      0 RW-rw- \Device\HarddiskVolume3\Users\Administrateur\Downloads\ZGVza3RvcC5pbmk=.chiffré
+</span></span></code></pre></td></tr></table></div></div><p>Forcément, le fichier qui saute au visage est <code>ZGVza3RvcC5pbmk=.chiffré</code>. Voyons ce que le base64 signifie:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>root@2767878b4519:/opt# <span class=nb>echo</span> <span class=s1>&#39;ZGVza3RvcC5pbmk=&#39;</span> <span class=p>|</span> base64 -d
+</span></span><span class=line><span class=cl>desktop.ini
+</span></span></code></pre></td></tr></table></div></div><p>Intuitivement, je suppose que le nom des fichiers chiffrés est encodé en base64 et sont suivis de la charmante mention <code>chiffré</code>. Vérifions cette hypothèse :</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>desktop.iniroot@2767878b4519:/opt# <span class=nb>echo</span> -n <span class=s1>&#39;flag.docx&#39;</span> <span class=p>|</span> base64
+</span></span><span class=line><span class=cl>ZmxhZy5kb2N4
+</span></span><span class=line><span class=cl>root@2767878b4519:/opt# cat usr_land/wu/pfilescan <span class=p>|</span> grep <span class=s1>&#39;ZmxhZy5kb2N4&#39;</span>
+</span></span><span class=line><span class=cl>0x0000e000123988d0     <span class=m>16</span>      <span class=m>0</span> R--r-d <span class=se>\D</span>evice<span class=se>\H</span>arddiskVolume4<span class=se>\Z</span>mxhZy5kb2N4.chiffré
+</span></span></code></pre></td></tr></table></div></div><h2 id=flag>Flag</h2><blockquote><p>ECSC{assistance.exe:5208:c9a12b109a58361ff1381fceccdcdcade3ec595a}</p></blockquote><h1 id=3615-incident-2>3615 incident (2)</h1><h2 id=description-1>Description</h2><blockquote><p>Une victime de plus tombée sous le coup d’un rançongiciel. Le paiement de la rançon n’est pas envisagée vu le montant demandé. Vous êtes appelé pour essayer de restaurer les fichiers chiffrés.
+Une suite d’éléments est nécessaire pour avancer dans l’investigation et constituer le rapport d’incident.
+Retrouvez la clé de chiffrement de ce rançongiciel!
+Note : l’image disque fait environ 440 Mo compressée et environ 1.4 Go décompressée. Elle est identique au challenge 3615 Incident - 1. Réponse attendue au format ECSC{clé}.</p></blockquote><h2 id=etat-de-lart>Etat de l&rsquo;art</h2><p>Bon, pour trouver la clé d&rsquo;un ransomware, soit c&rsquo;est hardcodé dans le binaire, soit il va falloir tailler dans le vif de la mémoire.
+On a déjà récupéré le binaire, récupérons la mémoire de ce process.</p><p>En naviguant rapidement dans le binaire, on peut voir un repo GitHub :</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>➜  wu strings executable.5208.exe <span class=p>|</span> grep github
+</span></span><span class=line><span class=cl>github.com/mattn/go-colorable
+</span></span><span class=line><span class=cl>%github.com/mauri870/ransomware/client
+</span></span><span class=line><span class=cl>github.com/mauri870/ransomware/cryptofs
+</span></span><span class=line><span class=cl>github.com/mauri870/ransomware/build/ransomware
+</span></span><span class=line><span class=cl>github.com/mauri870/ransomware
+</span></span><span class=line><span class=cl>github.com/fatih/color
+</span></span><span class=line><span class=cl>github.com/mattn/go-colorable
+</span></span><span class=line><span class=cl>github.com/mattn/go-isatty
+</span></span></code></pre></td></tr></table></div></div><blockquote><p><a href=https://github.com/mauri870/ransomware/ target=_blank rel="noopener noreffer">https://github.com/mauri870/ransomware/</a></p></blockquote><p>Un super ransomware en Go. Donc à partir de là, je sais que le reverse n&rsquo;est pas une option.</p><h2 id=structure-de-la-clé---part-1>Structure de la clé - Part 1</h2><p>Dans les sources du ransomware on peut voir une structure entre un identifiant et une clé.</p><blockquote><p><a href=https://github.com/mauri870/ransomware/blob/master/cmd/ransomware/ransomware.go target=_blank rel="noopener noreffer">https://github.com/mauri870/ransomware/blob/master/cmd/ransomware/ransomware.go</a></p></blockquote><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kd>func</span> <span class=nf>encryptFiles</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>	<span class=nx>keys</span> <span class=o>:=</span> <span class=nb>make</span><span class=p>(</span><span class=kd>map</span><span class=p>[</span><span class=kt>string</span><span class=p>]</span><span class=kt>string</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=p>[</span><span class=o>...</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>	<span class=k>for</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=p>[</span><span class=o>...</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>		<span class=c1>// Generate the id and encryption key
+</span></span></span><span class=line><span class=cl><span class=c1></span>		<span class=nx>keys</span><span class=p>[</span><span class=s>&#34;id&#34;</span><span class=p>],</span> <span class=nx>_</span> <span class=p>=</span> <span class=nx>utils</span><span class=p>.</span><span class=nf>GenerateRandomANString</span><span class=p>(</span><span class=mi>32</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>		<span class=nx>keys</span><span class=p>[</span><span class=s>&#34;enckey&#34;</span><span class=p>],</span> <span class=nx>_</span> <span class=p>=</span> <span class=nx>utils</span><span class=p>.</span><span class=nf>GenerateRandomANString</span><span class=p>(</span><span class=mi>32</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>		<span class=c1>// Persist the key pair on server
+</span></span></span><span class=line><span class=cl><span class=c1></span>		<span class=nx>res</span><span class=p>,</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nx>Client</span><span class=p>.</span><span class=nf>AddNewKeyPair</span><span class=p>(</span><span class=nx>keys</span><span class=p>[</span><span class=s>&#34;id&#34;</span><span class=p>],</span> <span class=nx>keys</span><span class=p>[</span><span class=s>&#34;enckey&#34;</span><span class=p>])</span>
+</span></span><span class=line><span class=cl>        <span class=p>[</span><span class=o>...</span><span class=p>]</span>
+</span></span></code></pre></td></tr></table></div></div><blockquote><p><a href=https://github.com/mauri870/ransomware/blob/master/utils/utils.go target=_blank rel="noopener noreffer">https://github.com/mauri870/ransomware/blob/master/utils/utils.go</a></p></blockquote><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=c1>// Generate a random alphanumeric string with the given size
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kd>func</span> <span class=nf>GenerateRandomANString</span><span class=p>(</span><span class=nx>size</span> <span class=kt>int</span><span class=p>)</span> <span class=p>(</span><span class=kt>string</span><span class=p>,</span> <span class=kt>error</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>	<span class=nx>key</span> <span class=o>:=</span> <span class=nb>make</span><span class=p>([]</span><span class=kt>byte</span><span class=p>,</span> <span class=nx>size</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>	<span class=nx>_</span><span class=p>,</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nx>rand</span><span class=p>.</span><span class=nf>Read</span><span class=p>(</span><span class=nx>key</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>	<span class=k>if</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>		<span class=k>return</span> <span class=s>&#34;&#34;</span><span class=p>,</span> <span class=nx>err</span>
+</span></span><span class=line><span class=cl>	<span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=k>return</span> <span class=nx>hex</span><span class=p>.</span><span class=nf>EncodeToString</span><span class=p>(</span><span class=nx>key</span><span class=p>)[:</span><span class=nx>size</span><span class=p>],</span> <span class=kc>nil</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>Il est plutôt clair que la clé et l&rsquo;identifiant vont former une chaîne de 16 octets, mais en voici la preuve :</p><blockquote><p><a href=https://play.golang.org/ target=_blank rel="noopener noreffer">https://play.golang.org/</a></p></blockquote><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kn>package</span> <span class=nx>main</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=p>(</span>
+</span></span><span class=line><span class=cl>	<span class=s>&#34;crypto/rand&#34;</span>
+</span></span><span class=line><span class=cl>	<span class=s>&#34;encoding/hex&#34;</span>
+</span></span><span class=line><span class=cl>	<span class=s>&#34;fmt&#34;</span>
+</span></span><span class=line><span class=cl><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>GenerateRandomANString</span><span class=p>(</span><span class=nx>size</span> <span class=kt>int</span><span class=p>)</span> <span class=p>(</span><span class=kt>string</span><span class=p>,</span> <span class=kt>error</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>	<span class=nx>key</span> <span class=o>:=</span> <span class=nb>make</span><span class=p>([]</span><span class=kt>byte</span><span class=p>,</span> <span class=nx>size</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>	<span class=nx>_</span><span class=p>,</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nx>rand</span><span class=p>.</span><span class=nf>Read</span><span class=p>(</span><span class=nx>key</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>	<span class=k>if</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>		<span class=k>return</span> <span class=s>&#34;&#34;</span><span class=p>,</span> <span class=nx>err</span>
+</span></span><span class=line><span class=cl>	<span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=k>return</span> <span class=nx>hex</span><span class=p>.</span><span class=nf>EncodeToString</span><span class=p>(</span><span class=nx>key</span><span class=p>)[:</span><span class=nx>size</span><span class=p>],</span> <span class=kc>nil</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>main</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>	<span class=k>for</span> <span class=nx>i</span> <span class=o>:=</span> <span class=mi>0</span><span class=p>;</span> <span class=nx>i</span> <span class=p>&lt;</span> <span class=mi>10</span><span class=p>;</span> <span class=nx>i</span><span class=o>++</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    		<span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=nf>GenerateRandomANString</span><span class=p>(</span><span class=mi>32</span><span class=p>))</span>
+</span></span><span class=line><span class=cl>	<span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>Output :</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>d6e8aec1a39e2322635dd41a8fd24cf2 &lt;nil&gt;
+</span></span><span class=line><span class=cl>1100c622a07382ac8588fe0904cb987d &lt;nil&gt;
+</span></span><span class=line><span class=cl>1490d561257900bbf1c91543e69c0530 &lt;nil&gt;
+</span></span><span class=line><span class=cl>eebc86cfaf014b7b0258931b3e67870e &lt;nil&gt;
+</span></span><span class=line><span class=cl>26e938c4f18ad7d93d0bc6cc47eccbb9 &lt;nil&gt;
+</span></span><span class=line><span class=cl>dd712f6f01da3ed26fdf2a4bab19729c &lt;nil&gt;
+</span></span><span class=line><span class=cl>6cf81a92b9baa84af784edb73629714e &lt;nil&gt;
+</span></span><span class=line><span class=cl>2487a4aeab8cbc07b6f8ebe866e36ed9 &lt;nil&gt;
+</span></span><span class=line><span class=cl>43054bf6afbbe00950dd388458e16e71 &lt;nil&gt;
+</span></span><span class=line><span class=cl>83ce9f50f2c686873d0a05b4418696c8 &lt;nil&gt;
+</span></span></code></pre></td></tr></table></div></div><h2 id=structure-de-la-clé---part-2>Structure de la clé - Part 2</h2><p>On sait quelle forme a la donnée que l&rsquo;on cherche et on sait plus ou moins où elle se trouve. Mais regardons si cette structure <code>id / enckey</code> en JSON est présente en mémoire :</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>➜  wu strings 5208.dmp<span class=p>|</span> grep -C <span class=m>5</span> <span class=s2>&#34;enckey&#34;</span>
+</span></span><span class=line><span class=cl><span class=o>[</span>/LL
+</span></span><span class=line><span class=cl>95511870061fb3a2899aa6b2dc9838aa
+</span></span><span class=line><span class=cl><span class=s2>&#34;C:\Users\TNKLSAI3TGT7O9\Downloads\assistance.exe&#34;</span>
+</span></span><span class=line><span class=cl>C:<span class=se>\U</span>sers<span class=se>\T</span>NKLSAI3TGT7O9<span class=se>\D</span>ownloads<span class=se>\a</span>ssistance.exe
+</span></span><span class=line><span class=cl>S-1-5-21-2377780471-3200203716-3353778491-1000
+</span></span><span class=line><span class=cl><span class=o>{</span><span class=s2>&#34;id&#34;</span>: <span class=s2>&#34;cd18c00bb476764220d05121867d62de&#34;</span>, <span class=s2>&#34;enckey&#34;</span>: <span class=s2>&#34;
+</span></span></span><span class=line><span class=cl><span class=s2>cd18c00bb476764220d05121867d62de64e0821c53c7d161099be2188b6cac24cd18c00bb476764220d05121867d62de64e0821c53c7d161099be2188b6cac2495511870061fb3a2899aa6b2dc9838aa422d81e7e1c2aa46aa51405c13fed15b95511870061fb3a2899aa6b2dc9838aa422d81e7e1c2aa46aa51405c13fed15b
+</span></span></span><span class=line><span class=cl><span class=s2>Encrypting C:\Users\Administrateur\Contacts\desktop.ini...
+</span></span></span><span class=line><span class=cl><span class=s2>C:\Users\TNKLSA~1\AppData\Local\Temp\desktop.ini
+</span></span></span><span class=line><span class=cl><span class=s2>C:\Users\TNKLSA~1\AppData\Local\Temp\desktop.ini
+</span></span></span><span class=line><span class=cl><span class=s2>Encrypting C:\Users\Administrateur\Documents\desktop.ini...
+</span></span></span></code></pre></td></tr></table></div></div><p>On a quelque chose qui ressemble à la clé juste au-dessus de la structure. Pour nous conforter dans cette idée, regardons le pâté d&rsquo;hex juste à la suite de <code>enckey</code>:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>cd18c00bb476764220d05121867d62de
+</span></span><span class=line><span class=cl>64e0821c53c7d161099be2188b6cac24
+</span></span><span class=line><span class=cl>cd18c00bb476764220d05121867d62de
+</span></span><span class=line><span class=cl>64e0821c53c7d161099be2188b6cac24
+</span></span><span class=line><span class=cl>95511870061fb3a2899aa6b2dc9838aa
+</span></span><span class=line><span class=cl>422d81e7e1c2aa46aa51405c13fed15b
+</span></span><span class=line><span class=cl>95511870061fb3a2899aa6b2dc9838aa
+</span></span><span class=line><span class=cl>422d81e7e1c2aa46aa51405c13fed15b
+</span></span></code></pre></td></tr></table></div></div><p>Pour éviter de bruteforcer comme un âne, on peut essayer de voir s&rsquo;il y a d&rsquo;autres chaînes pouvant être de bons candidats :</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>➜  wu strings 5208.dmp<span class=p>|</span> grep -E <span class=s1>&#39;^[a-f0-9]{32}$&#39;</span> <span class=p>|</span> grep -v -E <span class=s1>&#39;[0-9]{32}&#39;</span> <span class=p>|</span> sort <span class=p>|</span> uniq
+</span></span><span class=line><span class=cl>15590781f1602a3ba9982b6a89cdaa83
+</span></span><span class=line><span class=cl>51e07da907d2e5118729806e6f6e6963
+</span></span><span class=line><span class=cl>5476d0c4a7a347909c4b8a13078d4390
+</span></span><span class=line><span class=cl>857bf9aba3e92444aed7cab9ad2342ea
+</span></span><span class=line><span class=cl>95511870061fb3a2899aa6b2dc9838aa
+</span></span><span class=line><span class=cl>965b7fc26dad90d340d2fa0a4879039f
+</span></span><span class=line><span class=cl>cd18c00bb476764220d05121867d62de
+</span></span></code></pre></td></tr></table></div></div><p>Il y a deux chaînes communes à nos paquets d&rsquo;octets :</p><ul><li><strong>cd18c00bb476764220d05121867d62de</strong> : Identifiants</li><li><strong>95511870061fb3a2899aa6b2dc9838aa</strong> : Clé ???</li></ul><p>C&rsquo;est effectivement la clé de chiffrement.</p><h2 id=flag-1>Flag</h2><blockquote><p>ECSC{95511870061fb3a2899aa6b2dc9838aa}</p></blockquote><h1 id=3615-incident-3>3615 incident (3)</h1><h2 id=description-2>Description</h2><blockquote><p>Une victime de plus tombée sous le coup d’un rançongiciel. Le paiement de la rançon n’est pas envisagée vu le montant demandé. Vous êtes appelé pour essayer de restaurer les fichiers chiffrés.
+Déchiffrez le fichier &ldquo;flag.docx&rdquo; ci-joint!</p></blockquote><h2 id=etat-de-lart-1>Etat de l&rsquo;art</h2><p>Dans ce dernier challenge de la série <em>3615 incident</em>, le fichier chiffré nous a été donné. On sait qu&rsquo;on cherche un docx, donc une signature de ZIP : <code>50 4B 03 04</code>.</p><p>On sait aussi que le fichier a été chiffré avec de l&rsquo;AES CTR, donc nous avons la clé, mais il manque l&rsquo;IV.</p><h2 id=a-la-recherche-de-liv-perdu>A la recherche de l&rsquo;IV perdu</h2><blockquote><p><a href=https://github.com/mauri870/ransomware/blob/master/cryptofs/file.go target=_blank rel="noopener noreffer">https://github.com/mauri870/ransomware/blob/master/cryptofs/file.go</a></p></blockquote><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=p>[</span><span class=o>...</span><span class=p>]</span>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=p>(</span><span class=nx>file</span> <span class=o>*</span><span class=nx>File</span><span class=p>)</span> <span class=nf>Encrypt</span><span class=p>(</span><span class=nx>enckey</span> <span class=kt>string</span><span class=p>,</span> <span class=nx>dst</span> <span class=nx>io</span><span class=p>.</span><span class=nx>Writer</span><span class=p>)</span> <span class=kt>error</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=p>[</span><span class=o>...</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>    	<span class=c1>// The IV needs to be unique, but not secure
+</span></span></span><span class=line><span class=cl><span class=c1></span>	<span class=nx>iv</span> <span class=o>:=</span> <span class=nb>make</span><span class=p>([]</span><span class=kt>byte</span><span class=p>,</span> <span class=nx>aes</span><span class=p>.</span><span class=nx>BlockSize</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=nx>_</span><span class=p>,</span> <span class=nx>err</span> <span class=p>=</span> <span class=nx>io</span><span class=p>.</span><span class=nf>ReadFull</span><span class=p>(</span><span class=nx>rand</span><span class=p>.</span><span class=nx>Reader</span><span class=p>,</span> <span class=nx>iv</span><span class=p>);</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=k>return</span> <span class=nx>err</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        <span class=c1>// Get a stream for encrypt/decrypt in counter mode (best performance I guess)
+</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=nx>stream</span> <span class=o>:=</span> <span class=nx>cipher</span><span class=p>.</span><span class=nf>NewCTR</span><span class=p>(</span><span class=nx>block</span><span class=p>,</span> <span class=nx>iv</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        <span class=c1>// Write the Initialization Vector (iv) as the first block
+</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=c1>// of the dst writer
+</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=nx>dst</span><span class=p>.</span><span class=nf>Write</span><span class=p>(</span><span class=nx>iv</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=p>[</span><span class=o>...</span><span class=p>]</span>
+</span></span></code></pre></td></tr></table></div></div><p>L&rsquo;IV est donc le premier bloc du fichier chiffré. Le voici :</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>➜  wu cat data <span class=p>|</span> head -c <span class=m>16</span> <span class=p>|</span> xxd -p
+</span></span><span class=line><span class=cl>b627d24fc90dfe7ce421c43312dc2f2e
+</span></span></code></pre></td></tr></table></div></div><p>Maintenant, soit on faire un super script python, soit on utilise CyberChef. Il est 5h53 du matin, je vais utiliser CyberChef: <a href=https://gchq.github.io/CyberChef/ target=_blank rel="noopener noreffer">https://gchq.github.io/CyberChef/</a></p><p>Pour récupérer le fichier chiffré sans le premier bloc :</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>➜  wu cat data <span class=p>|</span> xxd -p <span class=p>|</span> tail -c+33 <span class=p>|</span> tr -d <span class=s1>&#39; \n&#39;</span>
+</span></span></code></pre></td></tr></table></div></div><p>Ce qui nous donne :</p><p><img class=lazyload src=/maki.bzh/svg/loading.min.svg data-src=https://i.imgur.com/iCNbPt0.png data-srcset="https://i.imgur.com/iCNbPt0.png, https://i.imgur.com/iCNbPt0.png 1.5x, https://i.imgur.com/iCNbPt0.png 2x" data-sizes=auto alt=https://i.imgur.com/iCNbPt0.png title=https://i.imgur.com/iCNbPt0.png></p><p><em>Fig 4</em>: Déchiffrement du fichier dans CyberChef</p><p>La signature du début ressemble à un ZIP et la structure qui suit avec le <code>_rels/.rels</code> et le <code>docProps</code> font penser à un DOCX.</p><p><img class=lazyload src=/maki.bzh/svg/loading.min.svg data-src=https://i.imgur.com/nOvJUpi.png data-srcset="https://i.imgur.com/nOvJUpi.png, https://i.imgur.com/nOvJUpi.png 1.5x, https://i.imgur.com/nOvJUpi.png 2x" data-sizes=auto alt=https://i.imgur.com/nOvJUpi.png title=https://i.imgur.com/nOvJUpi.png></p><p><em>Fig 5</em>: Fichier déchiffré</p><h2 id=flag-2>Flag</h2><blockquote><p>ECSC{M4ud1t3_C4mp4gn3_2_r4NC0nG1c13L}</p></blockquote></div></div></div></main><footer class=footer><div class=footer-container><div class=footer-line>Powered by <a href=https://gohugo.io/ target=_blank rel="noopener noreffer" title="Hugo 0.100.2">Hugo</a> | Theme - <a href=https://github.com/dillonzq/LoveIt target=_blank rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden=true></i> LoveIt</a></div><div class=footer-line itemscope itemtype=http://schema.org/CreativeWork><i class="far fa-copyright fa-fw" aria-hidden=true></i><span itemprop=copyrightYear>2017 - 2023</span><span class=author itemprop=copyrightHolder>&nbsp;<a href=maki.bzh/ target=_blank>Maki - Alan Marrec</a></span>&nbsp;|&nbsp;<span class=license><a rel="license external nofollow noopener noreffer" href=https://creativecommons.org/licenses/by-nc/4.0/ target=_blank>CC BY-NC 4.0</a></span></div></div></footer></div><div id=fixed-buttons><a href=# id=back-to-top class=fixed-button title="Back to Top"><i class="fas fa-arrow-up fa-fw" aria-hidden=true></i>
+</a><a href=# id=view-comments class=fixed-button title="View Comments"><i class="fas fa-comment fa-fw" aria-hidden=true></i></a></div><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js></script><script type=text/javascript>window.config={code:{copyTitle:"Copy to clipboard",maxShownLines:50},comment:{},lightgallery:!0}</script><script type=text/javascript src=/maki.bzh/js/theme.min.js></script><script type=text/javascript>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-WVPYCS7SPM',{anonymize_ip:!0})</script><script type=text/javascript src="https://www.googletagmanager.com/gtag/js?id=G-WVPYCS7SPM" async></script></body></html>

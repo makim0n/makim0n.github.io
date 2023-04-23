@@ -1,0 +1,390 @@
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=robots content="noodp"><title>[ECSC] - CryptoDIY - Maki's adventure | Internet of things, IoT, ICS, forensic, pentest, red team & more :)</title><meta name=Description content="Maki's adventure | Internet of things, IoT, ICS, forensic, pentest, red team & more :)"><meta property="og:title" content="[ECSC] - CryptoDIY"><meta property="og:description" content="Description Dumby possède un secret qui en fait une personne exceptionnelle, en tout cas c’est ce qu’il dit. Dumb, un ami de Dumby, a échangé avec lui sur le sujet et n’a pas réussi à révéler ce mystère. Il vous confie une archive de cette conversation et compte sur vous pour résoudre l’énigme, surtout qu’il vient d’effacer la clé USB qui contenait ses clés secrètes et les fichiers déchiffrés, il porte bien son nom celui-là…"><meta property="og:type" content="article"><meta property="og:url" content="maki.bzh/writeups/ecscfrench2019cryptodiy/"><meta property="og:image" content="/logo.png"><meta property="article:section" content="writeups"><meta property="article:published_time" content="2019-06-27T21:57:40+08:00"><meta property="article:modified_time" content="2019-06-27T21:57:40+08:00"><meta property="og:site_name" content="Maki's adventure | Internet of things, IoT, ICS, forensic, pentest, red team & more :)"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="/logo.png"><meta name=twitter:title content="[ECSC] - CryptoDIY"><meta name=twitter:description content="Description Dumby possède un secret qui en fait une personne exceptionnelle, en tout cas c’est ce qu’il dit. Dumb, un ami de Dumby, a échangé avec lui sur le sujet et n’a pas réussi à révéler ce mystère. Il vous confie une archive de cette conversation et compte sur vous pour résoudre l’énigme, surtout qu’il vient d’effacer la clé USB qui contenait ses clés secrètes et les fichiers déchiffrés, il porte bien son nom celui-là…"><meta name=application-name content="Maki's adventure | Internet of things, IoT, ICS, forensic, pentest, red team & more :)"><meta name=apple-mobile-web-app-title content="Maki's adventure | Internet of things, IoT, ICS, forensic, pentest, red team & more :)"><meta name=theme-color content="#ffffff"><meta name=msapplication-TileColor content="#da532c"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=manifest href=/site.webmanifest><link rel=canonical href=maki.bzh/writeups/ecscfrench2019cryptodiy/><link rel=prev href=maki.bzh/writeups/ecscfrench2019exfiltration/><link rel=next href=maki.bzh/writeups/ecscfrench20193615incident/><link rel=stylesheet href=/maki.bzh/css/style.min.css><link rel=preload href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css as=style onload="this.onload=null,this.rel='stylesheet'"><noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css></noscript><link rel=preload href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css as=style onload="this.onload=null,this.rel='stylesheet'"><noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css></noscript><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"[ECSC] - CryptoDIY","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"maki.bzh\/writeups\/ecscfrench2019cryptodiy\/"},"image":["\/images\/Apple-Devices-Preview.png"],"genre":"writeups","keywords":"anssi, ecsc, crypto, chinese remainder theorem","wordcount":1310,"url":"maki.bzh\/writeups\/ecscfrench2019cryptodiy\/","datePublished":"2019-06-27T21:57:40+08:00","dateModified":"2019-06-27T21:57:40+08:00","license":"This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher":{"@type":"Organization","name":"xxxx","logo":"\/lib\/images\/avatar.png"},"author":{"@type":"Person","name":"Maki"},"description":""}</script></head><body data-header-desktop=fixed data-header-mobile=auto><script type=text/javascript>(window.localStorage&&localStorage.getItem('theme')?localStorage.getItem('theme')==='dark':'dark'==='auto'?window.matchMedia('(prefers-color-scheme: dark)').matches:'dark'==='dark')&&document.body.setAttribute('theme','dark')</script><div id=mask></div><div class=wrapper><header class=desktop id=header-desktop><div class=header-wrapper><div class=header-title><a href=maki.bzh/ title="Maki's adventure | Internet of things, IoT, ICS, forensic, pentest, red team & more :)"><span class=header-title-pre><i class='far fa-kiss-wink-heart fa-fw' aria-hidden=true></i></span></a></div><div class=menu><div class=menu-inner><a class=menu-item href=/maki.bzh/posts/>Posts </a><a class=menu-item href=/maki.bzh/shorts/>Shorts </a><a class=menu-item href=/maki.bzh/offers/>Offers </a><a class=menu-item href=/maki.bzh/writeups/>Writeups </a><a class=menu-item href=/maki.bzh/tags/>Tags </a><a class=menu-item href=/maki.bzh/about/>About </a><span class="menu-item delimiter"></span><a href=javascript:void(0); class="menu-item theme-switch" title="Switch Theme">
+<i class="fas fa-adjust fa-fw" aria-hidden=true></i></a></div></div></div></header><header class=mobile id=header-mobile><div class=header-container><div class=header-wrapper><div class=header-title><a href=maki.bzh/ title="Maki's adventure | Internet of things, IoT, ICS, forensic, pentest, red team & more :)"><span class=header-title-pre><i class='far fa-kiss-wink-heart fa-fw' aria-hidden=true></i></span></a></div><div class=menu-toggle id=menu-toggle-mobile><span></span><span></span><span></span></div></div><div class=menu id=menu-mobile><a class=menu-item href=/maki.bzh/posts/ title>Posts</a><a class=menu-item href=/maki.bzh/shorts/ title>Shorts</a><a class=menu-item href=/maki.bzh/offers/ title>Offers</a><a class=menu-item href=/maki.bzh/writeups/ title>Writeups</a><a class=menu-item href=/maki.bzh/tags/ title>Tags</a><a class=menu-item href=/maki.bzh/about/ title>About</a><a href=javascript:void(0); class="menu-item theme-switch" title="Switch Theme">
+<i class="fas fa-adjust fa-fw" aria-hidden=true></i></a></div></div></header><main class=main><div class=container><div class="page single special"><h1 class="single-title animate__animated animate__pulse animate__faster">[ECSC] - CryptoDIY</h1><div class=content id=content><h2 id=description>Description</h2><blockquote><p>Dumby possède un secret qui en fait une personne exceptionnelle, en tout cas c’est ce qu’il dit. Dumb, un ami de Dumby, a échangé avec lui sur le sujet et n’a pas réussi à révéler ce mystère. Il vous confie une archive de cette conversation et compte sur vous pour résoudre l’énigme, surtout qu’il vient d’effacer la clé USB qui contenait ses clés secrètes et les fichiers déchiffrés, il porte bien son nom celui-là…</p></blockquote><h2 id=mail>Mail</h2><p>On commence cette épreuve avec un dump de boit gmail. Dedans on retrouve un échange entre deux personnes parlant d&rsquo;un super algo de crypto de la mort qui tue et un fichier chiffré.</p><p><img class=lazyload src=/maki.bzh/svg/loading.min.svg data-src=https://i.imgur.com/2Ttrcps.png data-srcset="https://i.imgur.com/2Ttrcps.png, https://i.imgur.com/2Ttrcps.png 1.5x, https://i.imgur.com/2Ttrcps.png 2x" data-sizes=auto alt=https://i.imgur.com/2Ttrcps.png title=https://i.imgur.com/2Ttrcps.png></p><p>Et on retrouve le script implémentant cet algo:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span><span class=lnt>49
+</span><span class=lnt>50
+</span><span class=lnt>51
+</span><span class=lnt>52
+</span><span class=lnt>53
+</span><span class=lnt>54
+</span><span class=lnt>55
+</span><span class=lnt>56
+</span><span class=lnt>57
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=c1>#Public keys</span>
+</span></span><span class=line><span class=cl><span class=n>N</span><span class=o>=</span><span class=mi>53631231719770388398296099992823384509917463282369573510894245774887056120440201731735752915096736722856082884548917654078388282501542293219713052500317361</span> <span class=c1>#N=p*q with primes p and q that are part of my secret key</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>g1</span><span class=o>=</span><span class=mi>27888419610931008932601664194635863362934795268815711191831564335481311281875775885782976960387128801701810764586184606874328259752328953489610371824189861</span> <span class=c1>#g1=g^(r1*(p-1)) mod N where r1 is a secret random</span>
+</span></span><span class=line><span class=cl><span class=n>g2</span><span class=o>=</span><span class=mi>48099264739307394087061906063506998841178675587231635606136922987485103900358857801144199074460106065443613588490877251721439499846448566220473205526148817</span> <span class=c1>#g2=g^(r2*(q-1)) mod N where r2 is a secret random</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>#To encipher the message m of same size as N</span>
+</span></span><span class=line><span class=cl><span class=c1>#Choose two nounces s1 and s2 (plz keep them secret) and send me c1 and c2 given by:</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>random</span>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>encipher</span><span class=p>(</span><span class=n>m</span><span class=p>,</span><span class=n>g1</span><span class=p>,</span><span class=n>g2</span><span class=p>,</span><span class=n>N</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=n>s1</span> <span class=o>=</span> <span class=n>random</span><span class=o>.</span><span class=n>randrange</span><span class=p>(</span><span class=mi>2</span><span class=o>**</span><span class=mi>127</span><span class=p>,</span><span class=mi>2</span><span class=o>**</span><span class=mi>128</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>s2</span> <span class=o>=</span> <span class=n>random</span><span class=o>.</span><span class=n>randrange</span><span class=p>(</span><span class=mi>2</span><span class=o>**</span><span class=mi>127</span><span class=p>,</span><span class=mi>2</span><span class=o>**</span><span class=mi>128</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=p>(</span><span class=n>m</span><span class=o>*</span><span class=nb>pow</span><span class=p>(</span><span class=n>g1</span><span class=p>,</span><span class=n>s1</span><span class=p>,</span><span class=n>N</span><span class=p>))</span><span class=o>%</span><span class=n>N</span><span class=p>,</span> <span class=p>(</span><span class=n>m</span><span class=o>*</span><span class=nb>pow</span><span class=p>(</span><span class=n>g2</span><span class=p>,</span><span class=n>s2</span><span class=p>,</span><span class=n>N</span><span class=p>))</span><span class=o>%</span><span class=n>N</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>#To encipher a data use this code and send me the cipher file</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>nb_car_block</span><span class=o>=</span><span class=mi>64</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>BlobToIntSeq</span><span class=p>(</span><span class=n>m</span><span class=p>,</span><span class=n>nb_car_block</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=n>m</span> <span class=o>=</span> <span class=n>m</span> <span class=o>+</span> <span class=nb>bytes</span><span class=p>([</span><span class=mi>71</span><span class=p>,</span><span class=mi>82</span><span class=p>,</span><span class=mi>114</span><span class=p>])</span>
+</span></span><span class=line><span class=cl>    <span class=n>l</span> <span class=o>=</span> <span class=nb>len</span><span class=p>(</span><span class=n>m</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>r</span> <span class=o>=</span> <span class=n>l</span> <span class=o>%</span> <span class=n>nb_car_block</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=ow>not</span><span class=p>(</span><span class=n>r</span> <span class=o>==</span> <span class=mi>0</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=n>m</span> <span class=o>=</span> <span class=n>m</span> <span class=o>+</span> <span class=p>(</span><span class=n>nb_car_block</span><span class=o>-</span><span class=n>r</span><span class=p>)</span><span class=o>*</span><span class=nb>bytes</span><span class=p>([</span><span class=mi>114</span><span class=p>])</span>
+</span></span><span class=line><span class=cl>        <span class=n>l</span> <span class=o>=</span> <span class=nb>len</span><span class=p>(</span><span class=n>m</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=n>out</span> <span class=o>=</span> <span class=p>[]</span>
+</span></span><span class=line><span class=cl>    <span class=n>i</span> <span class=o>=</span> <span class=mi>0</span>
+</span></span><span class=line><span class=cl>    <span class=n>j</span> <span class=o>=</span> <span class=n>nb_car_block</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>while</span> <span class=n>j</span><span class=o>&lt;=</span><span class=n>l</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=n>tmp</span> <span class=o>=</span> <span class=nb>int</span><span class=o>.</span><span class=n>from_bytes</span><span class=p>(</span><span class=n>m</span><span class=p>[</span><span class=n>i</span><span class=p>:</span><span class=n>j</span><span class=p>],</span> <span class=s2>&#34;big&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=n>out</span> <span class=o>=</span> <span class=n>out</span> <span class=o>+</span> <span class=p>[</span><span class=n>tmp</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>        <span class=n>i</span><span class=p>,</span><span class=n>j</span> <span class=o>=</span> <span class=n>i</span><span class=o>+</span><span class=n>nb_car_block</span><span class=p>,</span><span class=n>j</span><span class=o>+</span><span class=n>nb_car_block</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=n>out</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>sys</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>plainbin</span> <span class=o>=</span> <span class=nb>open</span><span class=p>(</span><span class=n>sys</span><span class=o>.</span><span class=n>argv</span><span class=p>[</span><span class=mi>1</span><span class=p>],</span> <span class=s1>&#39;rb&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>plain</span> <span class=o>=</span> <span class=n>plainbin</span><span class=o>.</span><span class=n>read</span><span class=p>()</span>
+</span></span><span class=line><span class=cl><span class=n>plainbin</span><span class=o>.</span><span class=n>close</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>l</span> <span class=o>=</span> <span class=nb>len</span><span class=p>(</span><span class=n>plain</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>plainint</span> <span class=o>=</span> <span class=n>BlobToIntSeq</span><span class=p>(</span><span class=n>plain</span><span class=p>,</span><span class=n>nb_car_block</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>cipher</span> <span class=o>=</span> <span class=nb>open</span><span class=p>(</span><span class=n>sys</span><span class=o>.</span><span class=n>argv</span><span class=p>[</span><span class=mi>1</span><span class=p>]</span><span class=o>+</span><span class=s1>&#39;.cipher&#39;</span><span class=p>,</span> <span class=s1>&#39;w&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>i</span> <span class=o>=</span> <span class=mi>0</span>
+</span></span><span class=line><span class=cl><span class=k>for</span> <span class=n>m</span> <span class=ow>in</span> <span class=n>plainint</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=n>c1</span><span class=p>,</span><span class=n>c2</span><span class=o>=</span><span class=n>encipher</span><span class=p>(</span><span class=n>m</span><span class=p>,</span><span class=n>g1</span><span class=p>,</span><span class=n>g2</span><span class=p>,</span><span class=n>N</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>cipher</span><span class=o>.</span><span class=n>write</span><span class=p>((</span><span class=nb>str</span><span class=p>(</span><span class=n>c1</span><span class=p>))</span> <span class=o>+</span> <span class=s1>&#39;</span><span class=se>\n</span><span class=s1>&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>cipher</span><span class=o>.</span><span class=n>write</span><span class=p>((</span><span class=nb>str</span><span class=p>(</span><span class=n>c2</span><span class=p>))</span> <span class=o>+</span> <span class=s1>&#39;</span><span class=se>\n</span><span class=s1>&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>i</span><span class=o>=</span><span class=n>i</span><span class=o>+</span><span class=mi>1</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>cipher</span><span class=o>.</span><span class=n>close</span><span class=p>()</span>
+</span></span></code></pre></td></tr></table></div></div><p>Avant de commencer à attaquer le vif du sujet, il y a de mentions intéressantes dans les mails :</p><ul><li>&ldquo;in particular factorizzation of the modulus&rdquo;</li><li>&ldquo;the asiatic theorem&mldr; I do not remember the exact name&rdquo;</li></ul><p>Enfin, on sait que l&rsquo;on cherche un fichier MP4, qui a la signature suivante :</p><p><img class=lazyload src=/maki.bzh/svg/loading.min.svg data-src=https://www.file-recovery.com/signatures/mp4.png data-srcset="https://www.file-recovery.com/signatures/mp4.png, https://www.file-recovery.com/signatures/mp4.png 1.5x, https://www.file-recovery.com/signatures/mp4.png 2x" data-sizes=auto alt=https://www.file-recovery.com/signatures/mp4.png title=https://www.file-recovery.com/signatures/mp4.png></p><p>Maintenant, on sait pour où commencer et ce qu&rsquo;on cherche.</p><h2 id=factorisation>Factorisation</h2><p>On a un gros N, donc essayons de le factoriser. D&rsquo;habitude factordb fonctionne bien, mais dans ce cas précis pas du tout, je me suis rabattu sur : <a href=https://www.alpertron.com.ar/ECM.HTM target=_blank rel="noopener noreffer">https://www.alpertron.com.ar/ECM.HTM</a></p><p><img class=lazyload src=/maki.bzh/svg/loading.min.svg data-src=https://i.imgur.com/kIt1lVz.png data-srcset="https://i.imgur.com/kIt1lVz.png, https://i.imgur.com/kIt1lVz.png 1.5x, https://i.imgur.com/kIt1lVz.png 2x" data-sizes=auto alt=https://i.imgur.com/kIt1lVz.png title=https://i.imgur.com/kIt1lVz.png></p><p>Nous avons donc:</p><blockquote><p>p = 115792089237316195423570985008687907853269984665640564039457584007913129640233
+q = 463168356949264781694283940034751631413079938662562256157830336031652518559817</p></blockquote><h2 id=simplification>&ldquo;Simplification&rdquo;</h2><p>Les équations qui nous intéressent sont :</p><blockquote><p>g1=g^(r1*(p-1)) mod N
+g2=g^(r2*(q-1)) mod N</p></blockquote><p>Au début le fait de ne pas avoir <code>g</code> m&rsquo;a perturbé et je comprennais pas comment faire.
+Alors je me suis mis à jouer avec les modulo <code>p</code> et <code>q</code>. Et quelques chose de rigolo arriva:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=o>&gt;&gt;&gt;</span> <span class=kn>import</span> <span class=nn>random</span>
+</span></span><span class=line><span class=cl><span class=o>&gt;&gt;&gt;</span> <span class=n>g1</span><span class=o>=</span><span class=mi>27888419610931008932601664194635863362934795268815711191831564335481311281875775885782976960387128801701810764586184606874328259752328953489610371824189861</span> <span class=c1>#g1=g^(r1*(p-1)) mod N where r1 is a secret random</span>
+</span></span><span class=line><span class=cl><span class=o>&gt;&gt;&gt;</span> <span class=n>g2</span><span class=o>=</span><span class=mi>48099264739307394087061906063506998841178675587231635606136922987485103900358857801144199074460106065443613588490877251721439499846448566220473205526148817</span> <span class=c1>#g2=g^(r2*(q-1)) mod N where r2 is a secret random</span>
+</span></span><span class=line><span class=cl><span class=o>&gt;&gt;&gt;</span> <span class=n>N</span><span class=o>=</span><span class=mi>53631231719770388398296099992823384509917463282369573510894245774887056120440201731735752915096736722856082884548917654078388282501542293219713052500317361</span> <span class=c1>#N=p*q with primes p and q that are part of my secret key</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=o>&gt;&gt;&gt;</span> <span class=n>p</span> <span class=o>=</span> <span class=mi>115792089237316195423570985008687907853269984665640564039457584007913129640233</span>
+</span></span><span class=line><span class=cl><span class=o>&gt;&gt;&gt;</span> <span class=n>q</span> <span class=o>=</span> <span class=mi>463168356949264781694283940034751631413079938662562256157830336031652518559817</span>
+</span></span><span class=line><span class=cl><span class=o>&gt;&gt;&gt;</span> <span class=n>m</span> <span class=o>=</span> <span class=n>p</span><span class=o>+</span><span class=mi>5000000000000000000000000000000000000000000000000000</span> <span class=c1># Pour prendre un m bien plus grand que p</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=o>&gt;&gt;&gt;</span> <span class=k>def</span> <span class=nf>encipher</span><span class=p>(</span><span class=n>m</span><span class=p>,</span><span class=n>g1</span><span class=p>,</span><span class=n>g2</span><span class=p>,</span><span class=n>N</span><span class=p>):</span>
+</span></span><span class=line><span class=cl><span class=o>...</span>     <span class=n>s1</span> <span class=o>=</span> <span class=n>random</span><span class=o>.</span><span class=n>randrange</span><span class=p>(</span><span class=mi>2</span><span class=o>**</span><span class=mi>127</span><span class=p>,</span><span class=mi>2</span><span class=o>**</span><span class=mi>128</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=o>...</span>     <span class=n>s2</span> <span class=o>=</span> <span class=n>random</span><span class=o>.</span><span class=n>randrange</span><span class=p>(</span><span class=mi>2</span><span class=o>**</span><span class=mi>127</span><span class=p>,</span><span class=mi>2</span><span class=o>**</span><span class=mi>128</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=o>...</span>     <span class=k>return</span> <span class=p>(</span><span class=n>m</span><span class=o>*</span><span class=nb>pow</span><span class=p>(</span><span class=n>g1</span><span class=p>,</span><span class=n>s1</span><span class=p>,</span><span class=n>N</span><span class=p>))</span><span class=o>%</span><span class=n>N</span><span class=p>,</span> <span class=p>(</span><span class=n>m</span><span class=o>*</span><span class=nb>pow</span><span class=p>(</span><span class=n>g2</span><span class=p>,</span><span class=n>s2</span><span class=p>,</span><span class=n>N</span><span class=p>))</span><span class=o>%</span><span class=n>N</span> <span class=c1># m x</span>
+</span></span><span class=line><span class=cl><span class=o>...</span>
+</span></span><span class=line><span class=cl><span class=o>&gt;&gt;&gt;</span> <span class=n>i</span><span class=p>,</span><span class=n>j</span> <span class=o>=</span> <span class=n>encipher</span><span class=p>(</span><span class=n>m</span><span class=p>,</span><span class=n>g1</span><span class=p>,</span><span class=n>g2</span><span class=p>,</span><span class=n>N</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=o>&gt;&gt;&gt;</span> <span class=n>j</span><span class=o>%</span><span class=n>q</span>
+</span></span><span class=line><span class=cl><span class=mi>115792089237316195423570990008687907853269984665640564039457584007913129640233</span><span class=n>L</span>
+</span></span><span class=line><span class=cl><span class=o>&gt;&gt;&gt;</span> <span class=n>m</span><span class=o>%</span><span class=n>q</span>
+</span></span><span class=line><span class=cl><span class=mi>115792089237316195423570990008687907853269984665640564039457584007913129640233</span><span class=n>L</span>
+</span></span><span class=line><span class=cl><span class=o>&gt;&gt;&gt;</span> <span class=n>i</span><span class=o>%</span><span class=n>p</span>
+</span></span><span class=line><span class=cl><span class=mi>5000000000000000000000000000000000000000000000000000</span><span class=n>L</span>
+</span></span><span class=line><span class=cl><span class=o>&gt;&gt;&gt;</span> <span class=n>m</span><span class=o>%</span><span class=n>p</span>
+</span></span><span class=line><span class=cl><span class=mi>5000000000000000000000000000000000000000000000000000</span><span class=n>L</span>
+</span></span></code></pre></td></tr></table></div></div><p>On peut donc appliquer le CRT.
+Lors du challenge j&rsquo;ai fuzzé pour trouver ces résultats. Cependant, avec un peu de recherche, je suis tombé sur le <strong>petit théroème de Fermat</strong>, qui explique cette propriété :</p><blockquote><p><a href=http://villemin.gerard.free.fr/ThNbDemo/PtThFerm.htm target=_blank rel="noopener noreffer">http://villemin.gerard.free.fr/ThNbDemo/PtThFerm.htm</a></p></blockquote><h2 id=chinese-remainder-theorem>Chinese Remainder Theorem</h2><p>On cherche <code>m%n</code> avec <code>n = p*q</code>, grace à la simplification précédente on connait <code>m = i%p</code> et <code>m = j%q</code>.</p><p>Comme je suis une buse en math et une buse en prog, mais que je suis en bon en recherche Google, je suis tombé sur ce site :</p><blockquote><p><a href=https://www.geeksforgeeks.org/using-chinese-remainder-theorem-combine-modular-equations/ target=_blank rel="noopener noreffer">https://www.geeksforgeeks.org/using-chinese-remainder-theorem-combine-modular-equations/</a></p></blockquote><p>Ce site explique ce qu&rsquo;est le CRT et propose une implémentation en python. Et enfin quelques chose de prometteur :</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=o>&gt;&gt;&gt;</span> <span class=n>p</span> <span class=o>=</span> <span class=mi>115792089237316195423570985008687907853269984665640564039457584007913129640233</span>
+</span></span><span class=line><span class=cl><span class=o>&gt;&gt;&gt;</span> <span class=n>q</span> <span class=o>=</span> <span class=mi>463168356949264781694283940034751631413079938662562256157830336031652518559817</span>
+</span></span><span class=line><span class=cl><span class=o>&gt;&gt;&gt;</span> <span class=n>j</span> <span class=o>=</span> <span class=mi>0</span>
+</span></span><span class=line><span class=cl><span class=o>&gt;&gt;&gt;</span> <span class=n>k</span> <span class=o>=</span> <span class=mi>1</span>
+</span></span><span class=line><span class=cl><span class=o>&gt;&gt;&gt;</span>
+</span></span><span class=line><span class=cl><span class=o>&gt;&gt;&gt;</span> <span class=n>f</span> <span class=o>=</span> <span class=nb>open</span><span class=p>(</span><span class=s1>&#39;/Users/maki/Documents/ctf/ecsc/cryptodiy/Takeout/Mail/WIM.mp4.cipher&#39;</span><span class=p>,</span><span class=s1>&#39;r&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=o>&gt;&gt;&gt;</span> <span class=n>data</span> <span class=o>=</span> <span class=n>f</span><span class=o>.</span><span class=n>read</span><span class=p>()</span><span class=o>.</span><span class=n>split</span><span class=p>(</span><span class=s1>&#39;</span><span class=se>\n</span><span class=s1>&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=o>&gt;&gt;&gt;</span> <span class=n>f</span><span class=o>.</span><span class=n>close</span><span class=p>()</span>
+</span></span><span class=line><span class=cl><span class=o>&gt;&gt;&gt;</span> <span class=k>def</span> <span class=nf>extended_euclidean</span><span class=p>(</span><span class=n>a</span><span class=p>,</span> <span class=n>b</span><span class=p>):</span>
+</span></span><span class=line><span class=cl><span class=o>...</span>     <span class=k>if</span> <span class=n>a</span> <span class=o>==</span> <span class=mi>0</span><span class=p>:</span>
+</span></span><span class=line><span class=cl><span class=o>...</span>             <span class=k>return</span> <span class=p>(</span><span class=n>b</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>1</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=o>...</span>     <span class=k>else</span><span class=p>:</span>
+</span></span><span class=line><span class=cl><span class=o>...</span>             <span class=n>g</span><span class=p>,</span> <span class=n>y</span><span class=p>,</span> <span class=n>x</span> <span class=o>=</span> <span class=n>extended_euclidean</span><span class=p>(</span><span class=n>b</span> <span class=o>%</span> <span class=n>a</span><span class=p>,</span> <span class=n>a</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=o>...</span>             <span class=k>return</span> <span class=p>(</span><span class=n>g</span><span class=p>,</span> <span class=n>x</span> <span class=o>-</span> <span class=p>(</span><span class=n>b</span> <span class=o>//</span> <span class=n>a</span><span class=p>)</span> <span class=o>*</span> <span class=n>y</span><span class=p>,</span> <span class=n>y</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=o>...</span>
+</span></span><span class=line><span class=cl><span class=o>&gt;&gt;&gt;</span> <span class=k>def</span> <span class=nf>modinv</span><span class=p>(</span><span class=n>a</span><span class=p>,</span> <span class=n>m</span><span class=p>):</span>
+</span></span><span class=line><span class=cl><span class=o>...</span>     <span class=n>g</span><span class=p>,</span> <span class=n>x</span><span class=p>,</span> <span class=n>y</span> <span class=o>=</span> <span class=n>extended_euclidean</span><span class=p>(</span><span class=n>a</span><span class=p>,</span> <span class=n>m</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=o>...</span>     <span class=k>return</span> <span class=n>x</span> <span class=o>%</span> <span class=n>m</span>
+</span></span><span class=line><span class=cl><span class=o>...</span>
+</span></span><span class=line><span class=cl><span class=o>&gt;&gt;&gt;</span> <span class=k>def</span> <span class=nf>crt</span><span class=p>(</span><span class=n>m</span><span class=p>,</span> <span class=n>x</span><span class=p>):</span>
+</span></span><span class=line><span class=cl><span class=o>...</span>     <span class=k>while</span> <span class=kc>True</span><span class=p>:</span>
+</span></span><span class=line><span class=cl><span class=o>...</span>             <span class=n>temp1</span> <span class=o>=</span> <span class=n>modinv</span><span class=p>(</span><span class=n>m</span><span class=p>[</span><span class=mi>1</span><span class=p>],</span><span class=n>m</span><span class=p>[</span><span class=mi>0</span><span class=p>])</span> <span class=o>*</span> <span class=n>x</span><span class=p>[</span><span class=mi>0</span><span class=p>]</span> <span class=o>*</span> <span class=n>m</span><span class=p>[</span><span class=mi>1</span><span class=p>]</span> <span class=o>+</span> <span class=n>modinv</span><span class=p>(</span><span class=n>m</span><span class=p>[</span><span class=mi>0</span><span class=p>],</span><span class=n>m</span><span class=p>[</span><span class=mi>1</span><span class=p>])</span> <span class=o>*</span> <span class=n>x</span><span class=p>[</span><span class=mi>1</span><span class=p>]</span> <span class=o>*</span> <span class=n>m</span><span class=p>[</span><span class=mi>0</span><span class=p>]</span>
+</span></span><span class=line><span class=cl><span class=o>...</span>             <span class=n>temp2</span> <span class=o>=</span> <span class=n>m</span><span class=p>[</span><span class=mi>0</span><span class=p>]</span> <span class=o>*</span> <span class=n>m</span><span class=p>[</span><span class=mi>1</span><span class=p>]</span>
+</span></span><span class=line><span class=cl><span class=o>...</span>             <span class=n>x</span><span class=o>.</span><span class=n>remove</span><span class=p>(</span><span class=n>x</span><span class=p>[</span><span class=mi>0</span><span class=p>])</span>
+</span></span><span class=line><span class=cl><span class=o>...</span>             <span class=n>x</span><span class=o>.</span><span class=n>remove</span><span class=p>(</span><span class=n>x</span><span class=p>[</span><span class=mi>0</span><span class=p>])</span>
+</span></span><span class=line><span class=cl><span class=o>...</span>             <span class=n>x</span> <span class=o>=</span> <span class=p>[</span><span class=n>temp1</span> <span class=o>%</span> <span class=n>temp2</span><span class=p>]</span> <span class=o>+</span> <span class=n>x</span>
+</span></span><span class=line><span class=cl><span class=o>...</span>             <span class=n>m</span><span class=o>.</span><span class=n>remove</span><span class=p>(</span><span class=n>m</span><span class=p>[</span><span class=mi>0</span><span class=p>])</span>
+</span></span><span class=line><span class=cl><span class=o>...</span>             <span class=n>m</span><span class=o>.</span><span class=n>remove</span><span class=p>(</span><span class=n>m</span><span class=p>[</span><span class=mi>0</span><span class=p>])</span>
+</span></span><span class=line><span class=cl><span class=o>...</span>             <span class=n>m</span> <span class=o>=</span> <span class=p>[</span><span class=n>temp2</span><span class=p>]</span> <span class=o>+</span> <span class=n>m</span>
+</span></span><span class=line><span class=cl><span class=o>...</span>             <span class=k>if</span> <span class=nb>len</span><span class=p>(</span><span class=n>x</span><span class=p>)</span> <span class=o>==</span> <span class=mi>1</span><span class=p>:</span>
+</span></span><span class=line><span class=cl><span class=o>...</span>                     <span class=k>break</span>
+</span></span><span class=line><span class=cl><span class=o>...</span>     <span class=k>return</span> <span class=n>x</span><span class=p>[</span><span class=mi>0</span><span class=p>]</span>
+</span></span><span class=line><span class=cl><span class=o>...</span>
+</span></span><span class=line><span class=cl><span class=o>&gt;&gt;&gt;</span> <span class=n>m</span> <span class=o>=</span> <span class=p>[</span><span class=n>p</span><span class=p>,</span><span class=n>q</span><span class=p>]</span>
+</span></span><span class=line><span class=cl><span class=o>&gt;&gt;&gt;</span> <span class=n>x</span> <span class=o>=</span> <span class=p>[</span><span class=nb>int</span><span class=p>(</span><span class=n>data</span><span class=p>[</span><span class=mi>0</span><span class=p>])</span><span class=o>%</span><span class=n>p</span><span class=p>,</span> <span class=nb>int</span><span class=p>(</span><span class=n>data</span><span class=p>[</span><span class=mi>1</span><span class=p>])</span><span class=o>%</span><span class=n>q</span><span class=p>]</span>
+</span></span><span class=line><span class=cl><span class=o>&gt;&gt;&gt;</span> <span class=n>tmp</span> <span class=o>=</span> <span class=n>crt</span><span class=p>(</span><span class=n>m</span><span class=p>,</span><span class=n>x</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=o>&gt;&gt;&gt;</span> <span class=nb>hex</span><span class=p>(</span><span class=n>tmp</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=s1>&#39;0x1c667479706d703432000000016d7034316d70343269736f6d00016a8b6d6f6f760000006c6d76686400000000d8f7caa8d8f88d90000003e800009745L&#39;</span>
+</span></span><span class=line><span class=cl><span class=o>&gt;&gt;&gt;</span> <span class=nb>hex</span><span class=p>(</span><span class=n>tmp</span><span class=p>)[</span><span class=mi>2</span><span class=p>:</span><span class=o>-</span><span class=mi>1</span><span class=p>]</span><span class=o>.</span><span class=n>decode</span><span class=p>(</span><span class=s1>&#39;hex&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=s1>&#39;</span><span class=se>\x1c</span><span class=s1>ftypmp42</span><span class=se>\x00\x00\x00\x01</span><span class=s1>mp41mp42isom</span><span class=se>\x00\x01</span><span class=s1>j</span><span class=se>\x8b</span><span class=s1>moov</span><span class=se>\x00\x00\x00</span><span class=s1>lmvhd</span><span class=se>\x00\x00\x00\x00\xd8\xf7\xca\xa8\xd8\xf8\x8d\x90\x00\x00\x03\xe8\x00\x00\x97</span><span class=s1>E&#39;</span>
+</span></span></code></pre></td></tr></table></div></div><p><img class=lazyload src=/maki.bzh/svg/loading.min.svg data-src=https://media.giphy.com/media/VarW8M9eEha1y/giphy.gif data-srcset="https://media.giphy.com/media/VarW8M9eEha1y/giphy.gif, https://media.giphy.com/media/VarW8M9eEha1y/giphy.gif 1.5x, https://media.giphy.com/media/VarW8M9eEha1y/giphy.gif 2x" data-sizes=auto alt=https://media.giphy.com/media/VarW8M9eEha1y/giphy.gif title=https://media.giphy.com/media/VarW8M9eEha1y/giphy.gif></p><p>La signature d&rsquo;un MP4 ! Maintenant il faut jouer un peu avec la donnée. On remarque qu&rsquo;il manque des <code>00</code> au début du fichier. Il faut donc padder avec des <code>00</code> les blocs faisant une taille inférieure à 64.</p><h2 id=scripting-time>Scripting time</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span><span class=lnt>49
+</span><span class=lnt>50
+</span><span class=lnt>51
+</span><span class=lnt>52
+</span><span class=lnt>53
+</span><span class=lnt>54
+</span><span class=lnt>55
+</span><span class=lnt>56
+</span><span class=lnt>57
+</span><span class=lnt>58
+</span><span class=lnt>59
+</span><span class=lnt>60
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=ch>#!/usr/bin/python2</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Factor N : https://www.alpertron.com.ar/ECM.HTM</span>
+</span></span><span class=line><span class=cl><span class=n>p</span> <span class=o>=</span> <span class=mi>115792089237316195423570985008687907853269984665640564039457584007913129640233</span>
+</span></span><span class=line><span class=cl><span class=n>q</span> <span class=o>=</span> <span class=mi>463168356949264781694283940034751631413079938662562256157830336031652518559817</span>
+</span></span><span class=line><span class=cl><span class=n>j</span> <span class=o>=</span> <span class=mi>0</span>
+</span></span><span class=line><span class=cl><span class=n>k</span> <span class=o>=</span> <span class=mi>1</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>f</span> <span class=o>=</span> <span class=nb>open</span><span class=p>(</span><span class=s1>&#39;/Users/maki/Documents/ctf/ecsc/cryptodiy/Takeout/Mail/WIM.mp4.cipher&#39;</span><span class=p>,</span><span class=s1>&#39;r&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>data</span> <span class=o>=</span> <span class=n>f</span><span class=o>.</span><span class=n>read</span><span class=p>()</span><span class=o>.</span><span class=n>split</span><span class=p>(</span><span class=s1>&#39;</span><span class=se>\n</span><span class=s1>&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>f</span><span class=o>.</span><span class=n>close</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># function that implements Extended euclidean </span>
+</span></span><span class=line><span class=cl><span class=c1># algorithm </span>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>extended_euclidean</span><span class=p>(</span><span class=n>a</span><span class=p>,</span> <span class=n>b</span><span class=p>):</span> 
+</span></span><span class=line><span class=cl>	<span class=k>if</span> <span class=n>a</span> <span class=o>==</span> <span class=mi>0</span><span class=p>:</span> 
+</span></span><span class=line><span class=cl>		<span class=k>return</span> <span class=p>(</span><span class=n>b</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>1</span><span class=p>)</span> 
+</span></span><span class=line><span class=cl>	<span class=k>else</span><span class=p>:</span> 
+</span></span><span class=line><span class=cl>		<span class=n>g</span><span class=p>,</span> <span class=n>y</span><span class=p>,</span> <span class=n>x</span> <span class=o>=</span> <span class=n>extended_euclidean</span><span class=p>(</span><span class=n>b</span> <span class=o>%</span> <span class=n>a</span><span class=p>,</span> <span class=n>a</span><span class=p>)</span> 
+</span></span><span class=line><span class=cl>		<span class=k>return</span> <span class=p>(</span><span class=n>g</span><span class=p>,</span> <span class=n>x</span> <span class=o>-</span> <span class=p>(</span><span class=n>b</span> <span class=o>//</span> <span class=n>a</span><span class=p>)</span> <span class=o>*</span> <span class=n>y</span><span class=p>,</span> <span class=n>y</span><span class=p>)</span> 
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># modular inverse driver function </span>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>modinv</span><span class=p>(</span><span class=n>a</span><span class=p>,</span> <span class=n>m</span><span class=p>):</span> 
+</span></span><span class=line><span class=cl>	<span class=n>g</span><span class=p>,</span> <span class=n>x</span><span class=p>,</span> <span class=n>y</span> <span class=o>=</span> <span class=n>extended_euclidean</span><span class=p>(</span><span class=n>a</span><span class=p>,</span> <span class=n>m</span><span class=p>)</span> 
+</span></span><span class=line><span class=cl>	<span class=k>return</span> <span class=n>x</span> <span class=o>%</span> <span class=n>m</span> 
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># function implementing Chinese remainder theorem </span>
+</span></span><span class=line><span class=cl><span class=c1># list m contains all the modulii </span>
+</span></span><span class=line><span class=cl><span class=c1># list x contains the remainders of the equations </span>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>crt</span><span class=p>(</span><span class=n>m</span><span class=p>,</span> <span class=n>x</span><span class=p>):</span> 
+</span></span><span class=line><span class=cl>	<span class=k>while</span> <span class=kc>True</span><span class=p>:</span> 
+</span></span><span class=line><span class=cl>		<span class=n>temp1</span> <span class=o>=</span> <span class=n>modinv</span><span class=p>(</span><span class=n>m</span><span class=p>[</span><span class=mi>1</span><span class=p>],</span><span class=n>m</span><span class=p>[</span><span class=mi>0</span><span class=p>])</span> <span class=o>*</span> <span class=n>x</span><span class=p>[</span><span class=mi>0</span><span class=p>]</span> <span class=o>*</span> <span class=n>m</span><span class=p>[</span><span class=mi>1</span><span class=p>]</span> <span class=o>+</span> <span class=n>modinv</span><span class=p>(</span><span class=n>m</span><span class=p>[</span><span class=mi>0</span><span class=p>],</span><span class=n>m</span><span class=p>[</span><span class=mi>1</span><span class=p>])</span> <span class=o>*</span> <span class=n>x</span><span class=p>[</span><span class=mi>1</span><span class=p>]</span> <span class=o>*</span> <span class=n>m</span><span class=p>[</span><span class=mi>0</span><span class=p>]</span> 
+</span></span><span class=line><span class=cl>		<span class=n>temp2</span> <span class=o>=</span> <span class=n>m</span><span class=p>[</span><span class=mi>0</span><span class=p>]</span> <span class=o>*</span> <span class=n>m</span><span class=p>[</span><span class=mi>1</span><span class=p>]</span> 
+</span></span><span class=line><span class=cl>		<span class=n>x</span><span class=o>.</span><span class=n>remove</span><span class=p>(</span><span class=n>x</span><span class=p>[</span><span class=mi>0</span><span class=p>])</span> 
+</span></span><span class=line><span class=cl>		<span class=n>x</span><span class=o>.</span><span class=n>remove</span><span class=p>(</span><span class=n>x</span><span class=p>[</span><span class=mi>0</span><span class=p>])</span> 
+</span></span><span class=line><span class=cl>		<span class=n>x</span> <span class=o>=</span> <span class=p>[</span><span class=n>temp1</span> <span class=o>%</span> <span class=n>temp2</span><span class=p>]</span> <span class=o>+</span> <span class=n>x</span> 
+</span></span><span class=line><span class=cl>		<span class=n>m</span><span class=o>.</span><span class=n>remove</span><span class=p>(</span><span class=n>m</span><span class=p>[</span><span class=mi>0</span><span class=p>])</span> 
+</span></span><span class=line><span class=cl>		<span class=n>m</span><span class=o>.</span><span class=n>remove</span><span class=p>(</span><span class=n>m</span><span class=p>[</span><span class=mi>0</span><span class=p>])</span> 
+</span></span><span class=line><span class=cl>		<span class=n>m</span> <span class=o>=</span> <span class=p>[</span><span class=n>temp2</span><span class=p>]</span> <span class=o>+</span> <span class=n>m</span> 
+</span></span><span class=line><span class=cl>		<span class=k>if</span> <span class=nb>len</span><span class=p>(</span><span class=n>x</span><span class=p>)</span> <span class=o>==</span> <span class=mi>1</span><span class=p>:</span> 
+</span></span><span class=line><span class=cl>			<span class=k>break</span>
+</span></span><span class=line><span class=cl>	<span class=k>return</span> <span class=n>x</span><span class=p>[</span><span class=mi>0</span><span class=p>]</span> 
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>g</span> <span class=o>=</span> <span class=nb>open</span><span class=p>(</span><span class=s1>&#39;clear_dat&#39;</span><span class=p>,</span><span class=s1>&#39;wb+&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span> <span class=nb>len</span><span class=p>(</span><span class=n>data</span><span class=p>)):</span>
+</span></span><span class=line><span class=cl>	<span class=n>x</span> <span class=o>=</span> <span class=p>[</span><span class=nb>int</span><span class=p>(</span><span class=n>data</span><span class=p>[</span><span class=n>j</span><span class=p>])</span><span class=o>%</span><span class=n>p</span><span class=p>,</span> <span class=nb>int</span><span class=p>(</span><span class=n>data</span><span class=p>[</span><span class=n>k</span><span class=p>])</span><span class=o>%</span><span class=n>q</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>	<span class=n>j</span> <span class=o>=</span> <span class=n>j</span><span class=o>+</span><span class=mi>2</span>
+</span></span><span class=line><span class=cl>	<span class=n>k</span> <span class=o>=</span> <span class=n>k</span><span class=o>+</span><span class=mi>2</span>
+</span></span><span class=line><span class=cl>	<span class=n>m</span> <span class=o>=</span> <span class=p>[</span><span class=n>p</span><span class=p>,</span><span class=n>q</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>	<span class=n>tmp_var</span> <span class=o>=</span> <span class=n>crt</span><span class=p>(</span><span class=n>m</span><span class=p>,</span><span class=n>x</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>	<span class=n>tmp_var</span> <span class=o>=</span> <span class=nb>hex</span><span class=p>(</span><span class=n>tmp_var</span><span class=p>)</span><span class=o>.</span><span class=n>lstrip</span><span class=p>(</span><span class=s1>&#39;0x&#39;</span><span class=p>)</span><span class=o>.</span><span class=n>rstrip</span><span class=p>(</span><span class=s1>&#39;L&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>	<span class=k>if</span> <span class=nb>len</span><span class=p>(</span><span class=n>tmp_var</span><span class=p>)</span><span class=o>%</span><span class=mi>2</span> <span class=o>==</span> <span class=mi>0</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>		<span class=k>pass</span>
+</span></span><span class=line><span class=cl>	<span class=k>else</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>		<span class=n>tmp_var</span> <span class=o>=</span> <span class=s1>&#39;0&#39;</span><span class=o>+</span><span class=n>tmp_var</span>
+</span></span><span class=line><span class=cl>	<span class=n>dec</span> <span class=o>=</span> <span class=n>tmp_var</span><span class=o>.</span><span class=n>decode</span><span class=p>(</span><span class=s2>&#34;hex&#34;</span><span class=p>)</span><span class=o>.</span><span class=n>rjust</span><span class=p>(</span><span class=mi>64</span><span class=p>,</span><span class=s1>&#39;</span><span class=se>\x00</span><span class=s1>&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>	<span class=n>g</span><span class=o>.</span><span class=n>write</span><span class=p>(</span><span class=n>dec</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>g</span><span class=o>.</span><span class=n>close</span><span class=p>()</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=shazaaaaaaaam>SHAZAAAAAAAAM</h2><p>Nous voilà avec une vidéo&mldr; De K-pop&mldr; M&rsquo;enfin, regardons les exifs:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>➜  cryptodiy exiftool clear_dat
+</span></span><span class=line><span class=cl><span class=o>[</span>...<span class=o>]</span>
+</span></span><span class=line><span class=cl>Handler Description             : CLUE-&gt;JACKET <span class=p>;</span>-<span class=o>)</span>
+</span></span><span class=line><span class=cl><span class=o>[</span>...<span class=o>]</span>
+</span></span><span class=line><span class=cl>Description                     : <span class=nv>LSooRkxBRyA6IEVDU0N7c2hhMjU2KHNvbmcncyB0aXRsZSBpbiBsb3dlciBjYXNlIHdpdGhvdXQgc3BhY2UpfSkqLQo</span><span class=o>=</span>
+</span></span><span class=line><span class=cl><span class=o>[</span>...<span class=o>]</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>➜  cryptodiy <span class=nb>echo</span> -n <span class=s1>&#39;LSooRkxBRyA6IEVDU0N7c2hhMjU2KHNvbmcncyB0aXRsZSBpbiBsb3dlciBjYXNlIHdpdGhvdXQgc3BhY2UpfSkqLQo=&#39;</span> <span class=p>|</span> base64 -D
+</span></span><span class=line><span class=cl>-*<span class=o>(</span>FLAG : ECSC<span class=o>{</span>sha256<span class=o>(</span>song<span class=err>&#39;</span>s title in lower <span class=k>case</span> without space<span class=o>)})</span>*-
+</span></span></code></pre></td></tr></table></div></div><p>Pour les plus vieux des personnes qui liront ce writeup, l&rsquo;application <code>Snapchat</code> permet de reconnaitre une musique vu que Shazam est embarqué:</p><img src=https://i.imgur.com/kdX0kwr.jpg><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>➜  cryptodiy <span class=nb>echo</span> -n <span class=s1>&#39;iamthebest&#39;</span> <span class=p>|</span> sha256sum
+</span></span><span class=line><span class=cl>6693efcd0503059fc0561450033ac9fe712aff09e31e460f4f321f4324585188  -
+</span></span></code></pre></td></tr></table></div></div><h2 id=flag>Flag</h2><blockquote><p>ECSC{6693efcd0503059fc0561450033ac9fe712aff09e31e460f4f321f4324585188}</p></blockquote></div></div></div></main><footer class=footer><div class=footer-container><div class=footer-line>Powered by <a href=https://gohugo.io/ target=_blank rel="noopener noreffer" title="Hugo 0.100.2">Hugo</a> | Theme - <a href=https://github.com/dillonzq/LoveIt target=_blank rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden=true></i> LoveIt</a></div><div class=footer-line itemscope itemtype=http://schema.org/CreativeWork><i class="far fa-copyright fa-fw" aria-hidden=true></i><span itemprop=copyrightYear>2017 - 2023</span><span class=author itemprop=copyrightHolder>&nbsp;<a href=maki.bzh/ target=_blank>Maki - Alan Marrec</a></span>&nbsp;|&nbsp;<span class=license><a rel="license external nofollow noopener noreffer" href=https://creativecommons.org/licenses/by-nc/4.0/ target=_blank>CC BY-NC 4.0</a></span></div></div></footer></div><div id=fixed-buttons><a href=# id=back-to-top class=fixed-button title="Back to Top"><i class="fas fa-arrow-up fa-fw" aria-hidden=true></i>
+</a><a href=# id=view-comments class=fixed-button title="View Comments"><i class="fas fa-comment fa-fw" aria-hidden=true></i></a></div><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js></script><script type=text/javascript>window.config={code:{copyTitle:"Copy to clipboard",maxShownLines:50},comment:{},lightgallery:!0}</script><script type=text/javascript src=/maki.bzh/js/theme.min.js></script><script type=text/javascript>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-WVPYCS7SPM',{anonymize_ip:!0})</script><script type=text/javascript src="https://www.googletagmanager.com/gtag/js?id=G-WVPYCS7SPM" async></script></body></html>

@@ -1,0 +1,194 @@
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=robots content="noodp"><title>[French FCSC] - Cryptolocker - Maki's adventure | Internet of things, IoT, ICS, forensic, pentest, red team & more :)</title><meta name=Description content="Maki's adventure | Internet of things, IoT, ICS, forensic, pentest, red team & more :)"><meta property="og:title" content="[French FCSC] - Cryptolocker"><meta property="og:description" content="Un de nos admins nous a appelé en urgence suite à un CryptoLocker qui s&rsquo;est lancé sur un serveur ultra-sensible, juste après avoir appliqué une mise à jour fournie par notre prestataire informatique.
+Ce malware vise spécifiquement un fichier pouvant faire perdre des millions d&rsquo;euros à notre entreprise : il est très important de le retrouver !
+L&rsquo;administrateur nous a dit que pour éviter que le logiciel ne se propage, il a mis en pause le serveur virtualisé et a récupéré sa mémoire vive dès qu&rsquo;il a détecté l&rsquo;attaque."><meta property="og:type" content="article"><meta property="og:url" content="maki.bzh/writeups/fcscfrench2020cryptolocker/"><meta property="og:image" content="/logo.png"><meta property="article:section" content="writeups"><meta property="article:published_time" content="2020-06-27T21:57:40+08:00"><meta property="article:modified_time" content="2020-06-27T21:57:40+08:00"><meta property="og:site_name" content="Maki's adventure | Internet of things, IoT, ICS, forensic, pentest, red team & more :)"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="/logo.png"><meta name=twitter:title content="[French FCSC] - Cryptolocker"><meta name=twitter:description content="Un de nos admins nous a appelé en urgence suite à un CryptoLocker qui s&rsquo;est lancé sur un serveur ultra-sensible, juste après avoir appliqué une mise à jour fournie par notre prestataire informatique.
+Ce malware vise spécifiquement un fichier pouvant faire perdre des millions d&rsquo;euros à notre entreprise : il est très important de le retrouver !
+L&rsquo;administrateur nous a dit que pour éviter que le logiciel ne se propage, il a mis en pause le serveur virtualisé et a récupéré sa mémoire vive dès qu&rsquo;il a détecté l&rsquo;attaque."><meta name=application-name content="Maki's adventure | Internet of things, IoT, ICS, forensic, pentest, red team & more :)"><meta name=apple-mobile-web-app-title content="Maki's adventure | Internet of things, IoT, ICS, forensic, pentest, red team & more :)"><meta name=theme-color content="#ffffff"><meta name=msapplication-TileColor content="#da532c"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=manifest href=/site.webmanifest><link rel=canonical href=maki.bzh/writeups/fcscfrench2020cryptolocker/><link rel=prev href=maki.bzh/writeups/fcscfrench2020findme/><link rel=next href=maki.bzh/writeups/fcscfrench2020chapardeur/><link rel=stylesheet href=/maki.bzh/css/style.min.css><link rel=preload href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css as=style onload="this.onload=null,this.rel='stylesheet'"><noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css></noscript><link rel=preload href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css as=style onload="this.onload=null,this.rel='stylesheet'"><noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css></noscript><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"[French FCSC] - Cryptolocker","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"maki.bzh\/writeups\/fcscfrench2020cryptolocker\/"},"image":["\/images\/Apple-Devices-Preview.png"],"genre":"writeups","keywords":"forensic, malware, volatility","wordcount":1266,"url":"maki.bzh\/writeups\/fcscfrench2020cryptolocker\/","datePublished":"2020-06-27T21:57:40+08:00","dateModified":"2020-06-27T21:57:40+08:00","license":"This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher":{"@type":"Organization","name":"xxxx","logo":"\/lib\/images\/avatar.png"},"author":{"@type":"Person","name":"Maki"},"description":""}</script></head><body data-header-desktop=fixed data-header-mobile=auto><script type=text/javascript>(window.localStorage&&localStorage.getItem('theme')?localStorage.getItem('theme')==='dark':'dark'==='auto'?window.matchMedia('(prefers-color-scheme: dark)').matches:'dark'==='dark')&&document.body.setAttribute('theme','dark')</script><div id=mask></div><div class=wrapper><header class=desktop id=header-desktop><div class=header-wrapper><div class=header-title><a href=maki.bzh/ title="Maki's adventure | Internet of things, IoT, ICS, forensic, pentest, red team & more :)"><span class=header-title-pre><i class='far fa-kiss-wink-heart fa-fw' aria-hidden=true></i></span></a></div><div class=menu><div class=menu-inner><a class=menu-item href=/maki.bzh/posts/>Posts </a><a class=menu-item href=/maki.bzh/shorts/>Shorts </a><a class=menu-item href=/maki.bzh/offers/>Offers </a><a class=menu-item href=/maki.bzh/writeups/>Writeups </a><a class=menu-item href=/maki.bzh/tags/>Tags </a><a class=menu-item href=/maki.bzh/about/>About </a><span class="menu-item delimiter"></span><a href=javascript:void(0); class="menu-item theme-switch" title="Switch Theme">
+<i class="fas fa-adjust fa-fw" aria-hidden=true></i></a></div></div></div></header><header class=mobile id=header-mobile><div class=header-container><div class=header-wrapper><div class=header-title><a href=maki.bzh/ title="Maki's adventure | Internet of things, IoT, ICS, forensic, pentest, red team & more :)"><span class=header-title-pre><i class='far fa-kiss-wink-heart fa-fw' aria-hidden=true></i></span></a></div><div class=menu-toggle id=menu-toggle-mobile><span></span><span></span><span></span></div></div><div class=menu id=menu-mobile><a class=menu-item href=/maki.bzh/posts/ title>Posts</a><a class=menu-item href=/maki.bzh/shorts/ title>Shorts</a><a class=menu-item href=/maki.bzh/offers/ title>Offers</a><a class=menu-item href=/maki.bzh/writeups/ title>Writeups</a><a class=menu-item href=/maki.bzh/tags/ title>Tags</a><a class=menu-item href=/maki.bzh/about/ title>About</a><a href=javascript:void(0); class="menu-item theme-switch" title="Switch Theme">
+<i class="fas fa-adjust fa-fw" aria-hidden=true></i></a></div></div></header><main class=main><div class=container><div class="page single special"><h1 class="single-title animate__animated animate__pulse animate__faster">[French FCSC] - Cryptolocker</h1><div class=content id=content><blockquote><p>Un de nos admins nous a appelé en urgence suite à un CryptoLocker qui s&rsquo;est lancé sur un serveur ultra-sensible, juste après avoir appliqué une mise à jour fournie par notre prestataire informatique.</p><p>Ce malware vise spécifiquement un fichier pouvant faire perdre des millions d&rsquo;euros à notre entreprise : il est très important de le retrouver !</p><p>L&rsquo;administrateur nous a dit que pour éviter que le logiciel ne se propage, il a mis en pause le serveur virtualisé et a récupéré sa mémoire vive dès qu&rsquo;il a détecté l&rsquo;attaque.
+Vous êtes notre seul espoir.</p><p>SHA256(memory1.dmp.gz) = 39e31ca61067e51f9566f0b669ac1ddbd09924a6f7720dcb08c9ac46cee186f5.</p></blockquote><h2 id=tldr>TL;DR</h2><p>Un dump mémoire Windows 7 où un ransomware a été exécuté. Le processus &ldquo;updater&rdquo; est le ransomware. Il est possible de récupérer les fichiers de flag et de clé dans les dossiers de l&rsquo;utilisateur courant. Un peu de rétro-ingénierie sur le binaire montre que c&rsquo;est un xor un peu modifié.</p><h2 id=état-des-lieux>État des lieux</h2><p>On commence cette épreuve avec un dump de la mémoire d&rsquo;un Windows visiblement:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>➜  file memory.dmp 
+</span></span><span class=line><span class=cl>memory.dmp: MS Windows 32bit crash dump, PAE, full dump, <span class=m>262030</span> pages
+</span></span></code></pre></td></tr></table></div></div><p>On sort notre plus beau volatility et on cherche le bon profil:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>➜  python volatility/vol.py -f /opt/usr_land/memory.dmp imageinfo
+</span></span><span class=line><span class=cl>Volatility Foundation Volatility Framework 2.6.1
+</span></span><span class=line><span class=cl>INFO    : volatility.debug    : Determining profile based on KDBG search...
+</span></span><span class=line><span class=cl>          Suggested Profile<span class=o>(</span>s<span class=o>)</span> : Win7SP1x86_23418, Win7SP0x86, Win7SP1x86_24000, Win7SP1x86 <span class=o>(</span>Instantiated with WinXPSP2x86<span class=o>)</span>
+</span></span><span class=line><span class=cl>                     AS Layer1 : IA32PagedMemoryPae <span class=o>(</span>Kernel AS<span class=o>)</span>
+</span></span><span class=line><span class=cl>                     AS Layer2 : WindowsCrashDumpSpace32 <span class=o>(</span>Unnamed AS<span class=o>)</span>
+</span></span><span class=line><span class=cl>                     AS Layer3 : FileAddressSpace <span class=o>(</span>/opt/usr_land/memory.dmp<span class=o>)</span>
+</span></span><span class=line><span class=cl>                      PAE <span class=nb>type</span> : PAE
+</span></span><span class=line><span class=cl>                           DTB : 0x185000L
+</span></span><span class=line><span class=cl>             KUSER_SHARED_DATA : 0xffdf0000L
+</span></span><span class=line><span class=cl>           Image date and <span class=nb>time</span> : 2020-04-13 18:39:35 UTC+0000
+</span></span><span class=line><span class=cl>     Image <span class=nb>local</span> date and <span class=nb>time</span> : 2020-04-13 11:39:35 -0700
+</span></span></code></pre></td></tr></table></div></div><p>Le profile à utiliser est:</p><blockquote><p>Win7SP1x86_23418</p></blockquote><p>Avant de partir comme un débile dans le dump, il faut se poser et se demander ce qu&rsquo;on sait et ce qu&rsquo;on cherche.
+Ce qu&rsquo;on sait:</p><ul><li>Déclenchement juste après l&rsquo;exécution d&rsquo;une <strong>mise à jour</strong> ;</li><li>Le malware vise un fichier (flag ?) ;</li><li>Dump mémoire Windows 7.</li></ul><p>Ce qu&rsquo;on cherche:</p><ul><li>Le malware ;</li><li>Le fichier chiffré ;</li><li>Le mécanisme de chiffrement.</li></ul><p>Aller, yapluka.</p><h2 id=localiser-le-malware>Localiser le malware</h2><p>Comme le malware a été exécuté après une mise à jour, voyons ce que les processus donnent:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>➜  python volatility/vol.py -f /opt/usr_land/memory.dmp --profile<span class=o>=</span>Win7SP1x86_23418 pstree
+</span></span><span class=line><span class=cl>Volatility Foundation Volatility Framework 2.6.1
+</span></span><span class=line><span class=cl>Name                                                  Pid   PPid   Thds   Hnds Time
+</span></span><span class=line><span class=cl>-------------------------------------------------- ------ ------ ------ ------ ----
+</span></span><span class=line><span class=cl> 0x85093c90:explorer.exe                             <span class=m>1432</span>   <span class=m>1320</span>     <span class=m>28</span>    <span class=m>756</span> 2020-04-13 18:37:17 UTC+0000
+</span></span><span class=line><span class=cl><span class=o>[</span>...<span class=o>]</span>
+</span></span><span class=line><span class=cl>. 0x83de43a8:update_v0.5.ex                          <span class=m>3388</span>   <span class=m>1432</span>      <span class=m>2</span>     <span class=m>61</span> 2020-04-13 18:38:00 UTC+0000
+</span></span><span class=line><span class=cl><span class=o>[</span>...<span class=o>]</span>
+</span></span></code></pre></td></tr></table></div></div><p>Je ne suis pas un expert Windows, mais de mémoire le processus de mise à jour, ce n’est pas du tout <code>update_v0.5.exe</code>. On peut essayer de l&rsquo;extraire et regarder rapidement ce que c&rsquo;est:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>➜  python volatility/vol.py -f /opt/usr_land/memory.dmp --profile<span class=o>=</span>Win7SP1x86_23418 procdump -p <span class=m>3388</span> -D /opt/usr_land/Wu/
+</span></span><span class=line><span class=cl>Volatility Foundation Volatility Framework 2.6.1
+</span></span><span class=line><span class=cl>Process<span class=o>(</span>V<span class=o>)</span> ImageBase  Name                 Result
+</span></span><span class=line><span class=cl>---------- ---------- -------------------- ------
+</span></span><span class=line><span class=cl>0x83de43a8 0x00400000 update_v0.5.ex       OK: executable.3388.exe
+</span></span></code></pre></td></tr></table></div></div><p>Alors déjà, qu&rsquo;est ce que c&rsquo;est que ce fichier:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>➜  file executable.3388.exe 
+</span></span><span class=line><span class=cl>executable.3388.exe: PE32 executable <span class=o>(</span>console<span class=o>)</span> Intel 80386, <span class=k>for</span> MS Windows
+</span></span><span class=line><span class=cl>➜  strings executable.3388.exe
+</span></span><span class=line><span class=cl><span class=o>[</span>...<span class=o>]</span>
+</span></span><span class=line><span class=cl><span class=o>[</span>info<span class=o>]</span> entering the folder : %s
+</span></span><span class=line><span class=cl>flag.txt
+</span></span><span class=line><span class=cl><span class=o>[</span>info<span class=o>]</span> file encryptable found : %s
+</span></span><span class=line><span class=cl>	ENCRYPTOR v0.5
+</span></span><span class=line><span class=cl>key.txt
+</span></span><span class=line><span class=cl><span class=o>[</span>error<span class=o>]</span> can<span class=s1>&#39;t read the key-file :s
+</span></span></span><span class=line><span class=cl><span class=s1>****Chiffrement termin
+</span></span></span><span class=line><span class=cl><span class=s1>e ! Envoyez l&#39;</span>argent !
+</span></span><span class=line><span class=cl><span class=o>[</span>...<span class=o>]</span>
+</span></span></code></pre></td></tr></table></div></div><p>Déjà, pas de bol, ce n’est pas du .net. Ensuite, le binaire n’a pas l&rsquo;air super friendly. Il parle de &ldquo;flag.txt&rdquo; et &ldquo;key.txt&rdquo;.</p><h2 id=récupération-du-flag-chiffré-et-de-la-clé>Récupération du flag chiffré et de la clé</h2><p>On va voir si ces fichiers sont présents en mémoire:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>➜  python volatility/vol.py -f /opt/usr_land/memory.dmp --profile<span class=o>=</span>Win7SP1x86_23418 filescan &gt; /opt/usr_land/Wu/filescan
+</span></span><span class=line><span class=cl>Volatility Foundation Volatility Framework 2.6.1
+</span></span><span class=line><span class=cl>➜  cat filescan<span class=p>|</span> grep -E <span class=s2>&#34;flag\.txt|key\.txt&#34;</span>
+</span></span><span class=line><span class=cl>0x000000003e6fa100      <span class=m>8</span>      <span class=m>0</span> RW-rw- <span class=se>\D</span>evice<span class=se>\H</span>arddiskVolume1<span class=se>\U</span>sers<span class=se>\I</span>EUser<span class=se>\D</span>esktop<span class=se>\k</span>ey.txt
+</span></span><span class=line><span class=cl>0x000000003ed13898      <span class=m>2</span>      <span class=m>1</span> R--rw- <span class=se>\D</span>evice<span class=se>\H</span>arddiskVolume1<span class=se>\U</span>sers<span class=se>\I</span>EUser<span class=se>\D</span>esktop<span class=se>\k</span>ey.txt
+</span></span><span class=line><span class=cl>0x000000003ed139f0      <span class=m>2</span>      <span class=m>0</span> RW-rw- <span class=se>\D</span>evice<span class=se>\H</span>arddiskVolume1<span class=se>\U</span>sers<span class=se>\I</span>EUser<span class=se>\D</span>esktop<span class=se>\f</span>lag.txt.enc
+</span></span></code></pre></td></tr></table></div></div><p>Il semblerait que ces fichiers soient présents. Par acquit de conscience, on peut regarder ce qu&rsquo;il y a d&rsquo;autre sur le bureau de l&rsquo;utilisateur:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>➜  cat filescan<span class=p>|</span> fgrep <span class=s1>&#39;\IEUser\Desktop\&#39;</span>
+</span></span><span class=line><span class=cl>0x000000003e6fa100      <span class=m>8</span>      <span class=m>0</span> RW-rw- <span class=se>\D</span>evice<span class=se>\H</span>arddiskVolume1<span class=se>\U</span>sers<span class=se>\I</span>EUser<span class=se>\D</span>esktop<span class=se>\k</span>ey.txt
+</span></span><span class=line><span class=cl>0x000000003e90b1e8      <span class=m>3</span>      <span class=m>0</span> R--r-d <span class=se>\D</span>evice<span class=se>\H</span>arddiskVolume1<span class=se>\U</span>sers<span class=se>\I</span>EUser<span class=se>\D</span>esktop<span class=se>\D</span>umpIt.exe
+</span></span><span class=line><span class=cl>0x000000003eb40430      <span class=m>8</span>      <span class=m>0</span> R--rwd <span class=se>\D</span>evice<span class=se>\H</span>arddiskVolume1<span class=se>\U</span>sers<span class=se>\I</span>EUser<span class=se>\D</span>esktop<span class=se>\d</span>esktop.ini
+</span></span><span class=line><span class=cl>0x000000003ed13898      <span class=m>2</span>      <span class=m>1</span> R--rw- <span class=se>\D</span>evice<span class=se>\H</span>arddiskVolume1<span class=se>\U</span>sers<span class=se>\I</span>EUser<span class=se>\D</span>esktop<span class=se>\k</span>ey.txt
+</span></span><span class=line><span class=cl>0x000000003ed139f0      <span class=m>2</span>      <span class=m>0</span> RW-rw- <span class=se>\D</span>evice<span class=se>\H</span>arddiskVolume1<span class=se>\U</span>sers<span class=se>\I</span>EUser<span class=se>\D</span>esktop<span class=se>\f</span>lag.txt.enc
+</span></span><span class=line><span class=cl>0x000000003ed66b60      <span class=m>6</span>      <span class=m>0</span> R--r-d <span class=se>\D</span>evice<span class=se>\H</span>arddiskVolume1<span class=se>\U</span>sers<span class=se>\I</span>EUser<span class=se>\D</span>esktop<span class=se>\u</span>pdate_v0.5.exe
+</span></span><span class=line><span class=cl>0x000000003fdec360      <span class=m>1</span>      <span class=m>1</span> RW-rw- <span class=se>\D</span>evice<span class=se>\H</span>arddiskVolume1<span class=se>\U</span>sers<span class=se>\I</span>EUser<span class=se>\D</span>esktop<span class=se>\I</span>EWIN7-20200413-183930.dmp
+</span></span></code></pre></td></tr></table></div></div><p>Bon, bah le malware est là aussi, ce n&rsquo;était pas obligatoire de l&rsquo;extraire des process. Il est temps de récupérer les deux fichiers qui nous intéressent.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>➜  python volatility/vol.py -f /opt/usr_land/memory.dmp --profile<span class=o>=</span>Win7SP1x86_23418 dumpfiles -Q 0x000000003ed13898 -D /opt/usr_land/Wu/
+</span></span><span class=line><span class=cl>Volatility Foundation Volatility Framework 2.6.1
+</span></span><span class=line><span class=cl>DataSectionObject 0x3ed13898   None   <span class=se>\D</span>evice<span class=se>\H</span>arddiskVolume1<span class=se>\U</span>sers<span class=se>\I</span>EUser<span class=se>\D</span>esktop<span class=se>\k</span>ey.txt
+</span></span><span class=line><span class=cl>SharedCacheMap 0x3ed13898   None   <span class=se>\D</span>evice<span class=se>\H</span>arddiskVolume1<span class=se>\U</span>sers<span class=se>\I</span>EUser<span class=se>\D</span>esktop<span class=se>\k</span>ey.txt
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>➜  python volatility/vol.py -f /opt/usr_land/memory.dmp --profile<span class=o>=</span>Win7SP1x86_23418 dumpfiles -Q 0x000000003ed139f0 -D /opt/usr_land/Wu/
+</span></span><span class=line><span class=cl>Volatility Foundation Volatility Framework 2.6.1
+</span></span><span class=line><span class=cl>DataSectionObject 0x3ed139f0   None   <span class=se>\D</span>evice<span class=se>\H</span>arddiskVolume1<span class=se>\U</span>sers<span class=se>\I</span>EUser<span class=se>\D</span>esktop<span class=se>\f</span>lag.txt.enc
+</span></span></code></pre></td></tr></table></div></div><p>Une analyse rapide des fichiers:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>➜  cat file.None.0x854fbc98.dat 
+</span></span><span class=line><span class=cl>0ba883a22afb84506c8d8fd9e42a5ce4e8eb1cc87c315a28dd
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>➜  cat file.None.0x855651e0.dat
+</span></span><span class=line><span class=cl><span class=err>&#39;</span><span class=o>{</span>kp�U<span class=o>]</span>
+</span></span><span class=line><span class=cl>       SUU	<span class=o>]</span>Y^<span class=se>\T</span>QU^UWR<span class=o>[</span>W<span class=se>\Q</span>TPQ
+</span></span><span class=line><span class=cl>                                  ^UQUVYZWQRWZP%                                                                                                                   
+</span></span><span class=line><span class=cl>                                  
+</span></span><span class=line><span class=cl>➜  cat file.None.0x855651e0.dat <span class=p>|</span> wc -c
+</span></span><span class=line><span class=cl><span class=m>4096</span>
+</span></span></code></pre></td></tr></table></div></div><p>C&rsquo;est étrange d&rsquo;avoir une taille de 4096, mais pas beaucoup de bytes à l&rsquo;affichage. Un rapide hexdump montre qu&rsquo;il y a plein de null bytes (merci volatility, je suppose qu&rsquo;une page mémoire c&rsquo;est 4Kb, et qu&rsquo;il pad avec du \x00).</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>➜  hexdump -C file.None.0x855651e0.dat 
+</span></span><span class=line><span class=cl><span class=m>00000000</span>  <span class=m>27</span> 7b 6b <span class=m>70</span> 1a <span class=m>01</span> <span class=m>00</span> <span class=m>55</span>  <span class=m>05</span> <span class=m>07</span> 5d 0c <span class=m>53</span> <span class=m>55</span> <span class=m>05</span> <span class=m>55</span>  <span class=p>|</span><span class=err>&#39;</span><span class=o>{</span>kp...U..<span class=o>]</span>.SU.U<span class=p>|</span>
+</span></span><span class=line><span class=cl><span class=m>00000010</span>  <span class=m>09</span> 5d <span class=m>59</span> 5e <span class=m>06</span> 5c <span class=m>04</span> <span class=m>02</span>  <span class=m>06</span> <span class=m>54</span> <span class=m>07</span> <span class=m>51</span> <span class=m>00</span> <span class=m>55</span> <span class=m>01</span> 5e  <span class=p>|</span>.<span class=o>]</span>Y^.<span class=se>\.</span>..T.Q.U.^<span class=p>|</span>
+</span></span><span class=line><span class=cl><span class=m>00000020</span>  <span class=m>55</span> <span class=m>57</span> <span class=m>52</span> 5b <span class=m>57</span> 5c <span class=m>51</span> <span class=m>54</span>  <span class=m>50</span> <span class=m>07</span> <span class=m>51</span> <span class=m>07</span> 0b 5e <span class=m>55</span> <span class=m>51</span>  <span class=p>|</span>UWR<span class=o>[</span>W<span class=se>\Q</span>TP.Q..^UQ<span class=p>|</span>
+</span></span><span class=line><span class=cl><span class=m>00000030</span>  <span class=m>55</span> <span class=m>56</span> <span class=m>02</span> <span class=m>59</span> 5a <span class=m>07</span> <span class=m>05</span> <span class=m>02</span>  <span class=m>57</span> <span class=m>51</span> <span class=m>52</span> <span class=m>01</span> 0f <span class=m>03</span> <span class=m>57</span> <span class=m>02</span>  <span class=p>|</span>UV.YZ...WQR...W.<span class=p>|</span>
+</span></span><span class=line><span class=cl><span class=m>00000040</span>  <span class=m>06</span> <span class=m>01</span> 5a <span class=m>50</span> 0f 1b 6e <span class=m>00</span>  <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> <span class=m>00</span>  <span class=p>|</span>..ZP..n.........<span class=p>|</span>
+</span></span><span class=line><span class=cl><span class=m>00000050</span>  <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> <span class=m>00</span>  <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> <span class=m>00</span>  <span class=p>|</span>................<span class=p>|</span>
+</span></span><span class=line><span class=cl>*
+</span></span><span class=line><span class=cl><span class=m>00001000</span>
+</span></span></code></pre></td></tr></table></div></div><p>On récupère les bytes qui nous intéressent et on en fait un fichier sans null bytes. Et juste pour le fun on sort un sexy one liner:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>➜  hexdump -C file.None.0x855651e0.dat <span class=p>|</span> cut -c11-60 <span class=p>|</span> tr -d <span class=s1>&#39;\n &#39;</span> <span class=p>|</span> sed <span class=s1>&#39;s/0000//g&#39;</span> <span class=p>|</span> sed <span class=s1>&#39;s/..$//g&#39;</span> <span class=p>|</span> xxd -r -p <span class=p>|</span> wc -c
+</span></span><span class=line><span class=cl><span class=m>71</span>
+</span></span></code></pre></td></tr></table></div></div><p>On sait que ce n’est pas de l&rsquo;AES, vu que ce n&rsquo;est pas un multiple de 16. Par intuition, je ne pense pas que ce soit du RSA, EC ou autre chiffrement asymétrique. Donc on va se laisser penser que c&rsquo;est un xor. Mais il est temps de reverse le malware.</p><h2 id=reverse-du-malware>Reverse du malware</h2><p>Notre petit pote il ouvre bien le fichier &ldquo;key.txt&rdquo; et le stock dans un buffer:</p><p><img class=lazyload src=/maki.bzh/svg/loading.min.svg data-src=https://i.imgur.com/3DuIzUO.png data-srcset="https://i.imgur.com/3DuIzUO.png, https://i.imgur.com/3DuIzUO.png 1.5x, https://i.imgur.com/3DuIzUO.png 2x" data-sizes=auto alt=https://i.imgur.com/3DuIzUO.png title=https://i.imgur.com/3DuIzUO.png></p><p>La fonction que j&rsquo;ai renommée <code>encrypt_n_xor</code> prend le chemin du flag en paramètre:</p><p><img class=lazyload src=/maki.bzh/svg/loading.min.svg data-src=https://i.imgur.com/wtMDg13.png data-srcset="https://i.imgur.com/wtMDg13.png, https://i.imgur.com/wtMDg13.png 1.5x, https://i.imgur.com/wtMDg13.png 2x" data-sizes=auto alt=https://i.imgur.com/wtMDg13.png title=https://i.imgur.com/wtMDg13.png></p><p>En fin de compte, l&rsquo;hypopthèse de départ était bonne, c&rsquo;est bien un xor:</p><p><img class=lazyload src=/maki.bzh/svg/loading.min.svg data-src=https://i.imgur.com/pq066hs.png data-srcset="https://i.imgur.com/pq066hs.png, https://i.imgur.com/pq066hs.png 1.5x, https://i.imgur.com/pq066hs.png 2x" data-sizes=auto alt=https://i.imgur.com/pq066hs.png title=https://i.imgur.com/pq066hs.png></p><p>C&rsquo;est donc un xor où la clé est parcourue avec un décalage de +2 octets.</p><p>Si on récapitule ce qu&rsquo;on cherchait au départ:</p><ul><li>Le malware -> Le binaire &ldquo;update_v0.5.exe&rdquo; ;</li><li>Le fichier chiffré -> Le fichier &ldquo;flag.txt.enc&rdquo; ;</li><li>Le mécanisme de chiffrement -> Un xor un peu revisité avec le fichier &ldquo;key.txt&rdquo;.</li></ul><h2 id=déchiffrer-le-flag>Déchiffrer le flag</h2><p>Il ne reste qu&rsquo;à déchiffrer:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=kn>from</span> <span class=nn>ENO</span> <span class=kn>import</span> <span class=o>*</span>
+</span></span><span class=line><span class=cl><span class=n>key</span> <span class=o>=</span> <span class=sa>b</span><span class=s2>&#34;0ba883a22afb84506c8d8fd9e42a5ce4e8eb1cc87c315a28dd&#34;</span>
+</span></span><span class=line><span class=cl><span class=n>enc_dat</span> <span class=o>=</span> <span class=n>htos</span><span class=p>(</span><span class=s2>&#34;277b6b701a01005505075d0c53550555095d595e065c0402065407510055015e5557525b575c5154500751070b5e5551555602595a070502575152010f03570206015a500f1b6e&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>flag</span> <span class=o>=</span> <span class=s2>&#34;&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=nb>len</span><span class=p>(</span><span class=n>enc_dat</span><span class=p>)):</span>
+</span></span><span class=line><span class=cl>    <span class=n>flag</span> <span class=o>+=</span> <span class=nb>chr</span><span class=p>(</span><span class=n>enc_dat</span><span class=p>[</span><span class=n>i</span><span class=p>]</span> <span class=o>^</span> <span class=n>key</span><span class=p>[(</span><span class=n>i</span><span class=o>+</span><span class=mi>2</span><span class=p>)</span><span class=o>%</span><span class=nb>len</span><span class=p>(</span><span class=n>key</span><span class=p>)])</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=n>flag</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=flag>Flag</h2><blockquote><p>FCSC{324cee8fe3619a8bea64522eadf05c84df7c6df9f15e4cab4d0e04c77b20bb47}</p></blockquote><h2 id=bonus>Bonus</h2><p>Il est possible d&rsquo;utiliser le plugin &ldquo;mft_parser&rdquo; de volatility pour récupérer le contenu de &ldquo;key.txt&rdquo; et &ldquo;flag.txt.enc&rdquo;. J&rsquo;utilise toujours ce plugin au début d&rsquo;un challenge de mem Windows, des fois que le flag soit dans les fichiers résidents :D</p></div></div></div></main><footer class=footer><div class=footer-container><div class=footer-line>Powered by <a href=https://gohugo.io/ target=_blank rel="noopener noreffer" title="Hugo 0.100.2">Hugo</a> | Theme - <a href=https://github.com/dillonzq/LoveIt target=_blank rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden=true></i> LoveIt</a></div><div class=footer-line itemscope itemtype=http://schema.org/CreativeWork><i class="far fa-copyright fa-fw" aria-hidden=true></i><span itemprop=copyrightYear>2017 - 2023</span><span class=author itemprop=copyrightHolder>&nbsp;<a href=maki.bzh/ target=_blank>Maki - Alan Marrec</a></span>&nbsp;|&nbsp;<span class=license><a rel="license external nofollow noopener noreffer" href=https://creativecommons.org/licenses/by-nc/4.0/ target=_blank>CC BY-NC 4.0</a></span></div></div></footer></div><div id=fixed-buttons><a href=# id=back-to-top class=fixed-button title="Back to Top"><i class="fas fa-arrow-up fa-fw" aria-hidden=true></i>
+</a><a href=# id=view-comments class=fixed-button title="View Comments"><i class="fas fa-comment fa-fw" aria-hidden=true></i></a></div><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js></script><script type=text/javascript>window.config={code:{copyTitle:"Copy to clipboard",maxShownLines:50},comment:{},lightgallery:!0}</script><script type=text/javascript src=/maki.bzh/js/theme.min.js></script><script type=text/javascript>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-WVPYCS7SPM',{anonymize_ip:!0})</script><script type=text/javascript src="https://www.googletagmanager.com/gtag/js?id=G-WVPYCS7SPM" async></script></body></html>

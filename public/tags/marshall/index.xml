@@ -1,0 +1,7 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>marshall - Tag - Maki's adventure | Internet of things, IoT, ICS, forensic, pentest, red team &amp; more :)</title><link>maki.bzh/tags/marshall/</link><description>marshall - Tag - Maki's adventure | Internet of things, IoT, ICS, forensic, pentest, red team &amp; more :)</description><generator>Hugo -- gohugo.io</generator><language>en</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 22 Oct 2018 21:57:40 +0800</lastBuildDate><atom:link href="maki.bzh/tags/marshall/" rel="self" type="application/rss+xml"/><item><title>[European Cyber Week] - Intrusion</title><link>maki.bzh/writeups/ecw2018intrusion/</link><pubDate>Mon, 22 Oct 2018 21:57:40 +0800</pubDate><author>Maki</author><guid>maki.bzh/writeups/ecw2018intrusion/</guid><description>Intrusion 1/4 State of the art I start this challenge with a website:
+web150-smartstuff.challenge-ecw.fr
+Nothing really interesting at first glance. After digging a bit in HTML source code, I notice 2 pages:
+thor.css thor.js Thor.css When I checked this file, I noticed a different subdomain:
+web150_dev.challenge-ecw.fr
+Flag Then I just curl this new subdomain:
+1 2 3 4 $ curl -v -H &amp;#39;User-Agent: Chrome&amp;#39; https://web150_dev.challenge-ecw.fr [...] ECW{5822a94206522fe5382d2f00acc5cadf} [...] Intrusion 2/4 State of the art Ok, now we&amp;rsquo;re on the dev platform.</description></item></channel></rss>

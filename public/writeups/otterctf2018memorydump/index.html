@@ -1,0 +1,642 @@
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=robots content="noodp"><title>[OtterCTF] - Memory dump - Maki's adventure | Internet of things, IoT, ICS, forensic, pentest, red team & more :)</title><meta name=Description content="Maki's adventure | Internet of things, IoT, ICS, forensic, pentest, red team & more :)"><meta property="og:title" content="[OtterCTF] - Memory dump"><meta property="og:description" content="The memory dump to analyze can be found at this address: https://mega.nz/#!sh8wmCIL!b4tpech4wzc3QQ6YgQ2uZnOmctRZ2duQxDqxbkWYipQ
+1 - What the password? The first thing to do with a memory dump: determine which OS is it and which version of the OS. Volatility needs those information to properly parse the memory:
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 $ vol.py --plugins=plug_vol/ -f usr_land/OtterCTF.vmem imageinfo Volatility Foundation Volatility Framework 2."><meta property="og:type" content="article"><meta property="og:url" content="maki.bzh/writeups/otterctf2018memorydump/"><meta property="og:image" content="/logo.png"><meta property="article:section" content="writeups"><meta property="article:published_time" content="2018-12-24T21:57:40+08:00"><meta property="article:modified_time" content="2018-12-24T21:57:40+08:00"><meta property="og:site_name" content="Maki's adventure | Internet of things, IoT, ICS, forensic, pentest, red team & more :)"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="/logo.png"><meta name=twitter:title content="[OtterCTF] - Memory dump"><meta name=twitter:description content="The memory dump to analyze can be found at this address: https://mega.nz/#!sh8wmCIL!b4tpech4wzc3QQ6YgQ2uZnOmctRZ2duQxDqxbkWYipQ
+1 - What the password? The first thing to do with a memory dump: determine which OS is it and which version of the OS. Volatility needs those information to properly parse the memory:
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 $ vol.py --plugins=plug_vol/ -f usr_land/OtterCTF.vmem imageinfo Volatility Foundation Volatility Framework 2."><meta name=application-name content="Maki's adventure | Internet of things, IoT, ICS, forensic, pentest, red team & more :)"><meta name=apple-mobile-web-app-title content="Maki's adventure | Internet of things, IoT, ICS, forensic, pentest, red team & more :)"><meta name=theme-color content="#ffffff"><meta name=msapplication-TileColor content="#da532c"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=manifest href=/site.webmanifest><link rel=canonical href=maki.bzh/writeups/otterctf2018memorydump/><link rel=prev href=maki.bzh/writeups/otterctf2018network/><link rel=next href=maki.bzh/writeups/tamu2019readingrainbow/><link rel=stylesheet href=/maki.bzh/css/style.min.css><link rel=preload href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css as=style onload="this.onload=null,this.rel='stylesheet'"><noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css></noscript><link rel=preload href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css as=style onload="this.onload=null,this.rel='stylesheet'"><noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css></noscript><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"[OtterCTF] - Memory dump","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"maki.bzh\/writeups\/otterctf2018memorydump\/"},"image":["\/images\/Apple-Devices-Preview.png"],"genre":"writeups","keywords":"otterctf, forensic, memory, volatility, yara","wordcount":4057,"url":"maki.bzh\/writeups\/otterctf2018memorydump\/","datePublished":"2018-12-24T21:57:40+08:00","dateModified":"2018-12-24T21:57:40+08:00","license":"This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher":{"@type":"Organization","name":"xxxx","logo":"\/lib\/images\/avatar.png"},"author":{"@type":"Person","name":"Maki"},"description":""}</script></head><body data-header-desktop=fixed data-header-mobile=auto><script type=text/javascript>(window.localStorage&&localStorage.getItem('theme')?localStorage.getItem('theme')==='dark':'dark'==='auto'?window.matchMedia('(prefers-color-scheme: dark)').matches:'dark'==='dark')&&document.body.setAttribute('theme','dark')</script><div id=mask></div><div class=wrapper><header class=desktop id=header-desktop><div class=header-wrapper><div class=header-title><a href=maki.bzh/ title="Maki's adventure | Internet of things, IoT, ICS, forensic, pentest, red team & more :)"><span class=header-title-pre><i class='far fa-kiss-wink-heart fa-fw' aria-hidden=true></i></span></a></div><div class=menu><div class=menu-inner><a class=menu-item href=/maki.bzh/posts/>Posts </a><a class=menu-item href=/maki.bzh/shorts/>Shorts </a><a class=menu-item href=/maki.bzh/offers/>Offers </a><a class=menu-item href=/maki.bzh/writeups/>Writeups </a><a class=menu-item href=/maki.bzh/tags/>Tags </a><a class=menu-item href=/maki.bzh/about/>About </a><span class="menu-item delimiter"></span><a href=javascript:void(0); class="menu-item theme-switch" title="Switch Theme">
+<i class="fas fa-adjust fa-fw" aria-hidden=true></i></a></div></div></div></header><header class=mobile id=header-mobile><div class=header-container><div class=header-wrapper><div class=header-title><a href=maki.bzh/ title="Maki's adventure | Internet of things, IoT, ICS, forensic, pentest, red team & more :)"><span class=header-title-pre><i class='far fa-kiss-wink-heart fa-fw' aria-hidden=true></i></span></a></div><div class=menu-toggle id=menu-toggle-mobile><span></span><span></span><span></span></div></div><div class=menu id=menu-mobile><a class=menu-item href=/maki.bzh/posts/ title>Posts</a><a class=menu-item href=/maki.bzh/shorts/ title>Shorts</a><a class=menu-item href=/maki.bzh/offers/ title>Offers</a><a class=menu-item href=/maki.bzh/writeups/ title>Writeups</a><a class=menu-item href=/maki.bzh/tags/ title>Tags</a><a class=menu-item href=/maki.bzh/about/ title>About</a><a href=javascript:void(0); class="menu-item theme-switch" title="Switch Theme">
+<i class="fas fa-adjust fa-fw" aria-hidden=true></i></a></div></div></header><main class=main><div class=container><div class="page single special"><h1 class="single-title animate__animated animate__pulse animate__faster">[OtterCTF] - Memory dump</h1><div class=content id=content><p>The memory dump to analyze can be found at this address: <a href=https://mega.nz/#!sh8wmCIL!b4tpech4wzc3QQ6YgQ2uZnOmctRZ2duQxDqxbkWYipQ target=_blank rel="noopener noreffer">https://mega.nz/#!sh8wmCIL!b4tpech4wzc3QQ6YgQ2uZnOmctRZ2duQxDqxbkWYipQ</a></p><h2 id=1---what-the-password>1 - What the password?</h2><p><img class=lazyload src=/maki.bzh/svg/loading.min.svg data-src=/lib/images/writeups/2018_otterctf/memorydump/statement_mem1.png data-srcset="/lib/images/writeups/2018_otterctf/memorydump/statement_mem1.png, /lib/images/writeups/2018_otterctf/memorydump/statement_mem1.png 1.5x, /lib/images/writeups/2018_otterctf/memorydump/statement_mem1.png 2x" data-sizes=auto alt=/lib/images/writeups/2018_otterctf/memorydump/statement_mem1.png title=/lib/images/writeups/2018_otterctf/memorydump/statement_mem1.png></p><p>The first thing to do with a memory dump: determine which OS is it and which version of the OS. Volatility needs those information to properly parse the memory:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ vol.py --plugins<span class=o>=</span>plug_vol/ -f usr_land/OtterCTF.vmem imageinfo
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>Volatility Foundation Volatility Framework 2.6.1
+</span></span><span class=line><span class=cl>INFO    : volatility.debug    : Determining profile based on KDBG search...
+</span></span><span class=line><span class=cl>          Suggested Profile<span class=o>(</span>s<span class=o>)</span> : Win7SP1x64, Win7SP0x64, Win2008R2SP0x64, Win2008R2SP1x64_24000, Win2008R2SP1x64_23418, Win2008R2SP1x64, Win7SP1x64_24000, Win7SP1x64_23418
+</span></span><span class=line><span class=cl>                     AS Layer1 : WindowsAMD64PagedMemory <span class=o>(</span>Kernel AS<span class=o>)</span>
+</span></span><span class=line><span class=cl>                     AS Layer2 : FileAddressSpace <span class=o>(</span>/opt/usr_land/OtterCTF.vmem<span class=o>)</span>
+</span></span><span class=line><span class=cl>                      PAE <span class=nb>type</span> : No PAE
+</span></span><span class=line><span class=cl>                           DTB : 0x187000L
+</span></span><span class=line><span class=cl>                          KDBG : 0xf80002c430a0L
+</span></span><span class=line><span class=cl>          Number of Processors : <span class=m>2</span>
+</span></span><span class=line><span class=cl>     Image Type <span class=o>(</span>Service Pack<span class=o>)</span> : <span class=m>1</span>
+</span></span><span class=line><span class=cl>                KPCR <span class=k>for</span> CPU <span class=m>0</span> : 0xfffff80002c44d00L
+</span></span><span class=line><span class=cl>                KPCR <span class=k>for</span> CPU <span class=m>1</span> : 0xfffff880009ef000L
+</span></span><span class=line><span class=cl>             KUSER_SHARED_DATA : 0xfffff78000000000L
+</span></span><span class=line><span class=cl>           Image date and <span class=nb>time</span> : 2018-08-04 19:34:22 UTC+0000
+</span></span><span class=line><span class=cl>     Image <span class=nb>local</span> date and <span class=nb>time</span> : 2018-08-04 22:34:22 +0300
+</span></span></code></pre></td></tr></table></div></div><p>Before continuing, I&rsquo;m used to redirecting volatility plugins output into files. It will be faster if I need to check information in the future. I call them with the following syntax:</p><blockquote><p>p&lt;plugin name></p></blockquote><p>For example: for <code>pstree</code> it becomes <code>ppstree</code></p><p>Let&rsquo;s get started. Finding a user password in a memory dump, there is not a lot of possibilities:</p><ul><li>Cracking NTLM hashes</li><li>Find the password stored into processes</li><li>Find the password stored in a file (the legendary password.txt on the desktop)</li></ul><h3 id=cracking-ntlm-hashes>Cracking NTLM hashes</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ vol.py --plugins<span class=o>=</span>plug_vol/ -f usr_land/OtterCTF.vmem --profile<span class=o>=</span>Win7SP1x64 hashdump
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>Volatility Foundation Volatility Framework 2.6.1
+</span></span><span class=line><span class=cl>Administrator:500:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::
+</span></span><span class=line><span class=cl>Guest:501:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::
+</span></span><span class=line><span class=cl>Rick:1000:aad3b435b51404eeaad3b435b51404ee:518172d012f97d3a8fcc089615283940:::
+</span></span></code></pre></td></tr></table></div></div><p>With this, I have tried to break <code>Rick</code>&rsquo;s NTLM hash on a website like crackstation. After two or three attempts I decided to try the second option: find the password into process memory.</p><h3 id=process-process-my-wonderful-process>Process, process, my wonderful process</h3><p>When I spoke about a process, it can be <code>notepad.exe</code> with a piece of text file in memory for example. Or, it can be the Windows &ldquo;strongbox&rdquo;: <code>lsass.exe</code>.</p><p><code>Mimikatz</code> is a famous tool used by pentesters and (unfortunately) by malwares. This tool takes advantages of some <code>lsass</code> weaknesses (and many others) to find clear text password in memory.</p><p>Volatility plugin has been made:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ vol.py --plugins<span class=o>=</span>plug_vol/ -f usr_land/OtterCTF.vmem --profile<span class=o>=</span>Win7SP1x64 mimikatz
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>Volatility Foundation Volatility Framework 2.6.1
+</span></span><span class=line><span class=cl>Module   User             Domain           Password                                
+</span></span><span class=line><span class=cl>-------- ---------------- ---------------- ----------------------------------------
+</span></span><span class=line><span class=cl>wdigest  Rick             WIN-LO6FAF3DTFE  MortyIsReallyAnOtter                    
+</span></span><span class=line><span class=cl>wdigest  WIN-LO6FAF3DTFE$ WORKGROUP
+</span></span></code></pre></td></tr></table></div></div><p>Great, the password has been found, so we got the flag.</p><h3 id=flag>Flag</h3><blockquote><p>CTF{MortyIsReallyAnOtter}</p></blockquote><h2 id=2---general-info>2 - General Info</h2><p><img class=lazyload src=/maki.bzh/svg/loading.min.svg data-src=/lib/images/writeups/2018_otterctf/memorydump/statement_mem2.png data-srcset="/lib/images/writeups/2018_otterctf/memorydump/statement_mem2.png, /lib/images/writeups/2018_otterctf/memorydump/statement_mem2.png 1.5x, /lib/images/writeups/2018_otterctf/memorydump/statement_mem2.png 2x" data-sizes=auto alt=/lib/images/writeups/2018_otterctf/memorydump/statement_mem2.png title=/lib/images/writeups/2018_otterctf/memorydump/statement_mem2.png></p><p>Now, we&rsquo;re looking for 2 flags: computer&rsquo;s IP and computer&rsquo;s name.</p><h3 id=computer-name>Computer name</h3><p>Computer&rsquo;s name is really easy to find because mimikatz plugins used previously brought it out: WIN-LO6FAF3DTFE.</p><p>So the flag is:</p><blockquote><p>CTF{WIN-LO6FAF3DTFE}</p></blockquote><h3 id=computer-ip>Computer IP</h3><p>Computer&rsquo;s IP address will not be much more complicated to find. By default, volatility can list all actives network connections with <code>netscan</code> plugin. This feature allows us to have a <code>netstat</code> view at memory acquisition.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ vol.py --plugins<span class=o>=</span>plug_vol/ -f usr_land/OtterCTF.vmem --profile<span class=o>=</span>Win7SP1x64 netscan &gt; pnetscan
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>$ cat pnetscan
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>Volatility Foundation Volatility Framework 2.6.1
+</span></span><span class=line><span class=cl>Offset<span class=o>(</span>P<span class=o>)</span>          Proto    Local Address                  Foreign Address      State            Pid      Owner          Created
+</span></span><span class=line><span class=cl>0x7d60f010         UDPv4    0.0.0.0:1900                   *:*                                   <span class=m>2836</span>     BitTorrent.exe 2018-08-04 19:27:17 UTC+0000
+</span></span><span class=line><span class=cl>0x7d62b3f0         UDPv4    192.168.202.131:6771           *:*                                   <span class=m>2836</span>     BitTorrent.exe 2018-08-04 19:27:22 UTC+0000
+</span></span><span class=line><span class=cl>0x7d62f4c0         UDPv4    127.0.0.1:62307                *:*                                   <span class=m>2836</span>     BitTorrent.exe 2018-08-04 19:27:17 UTC+0000
+</span></span><span class=line><span class=cl>0x7d62f920         UDPv4    192.168.202.131:62306          *:*                                   <span class=m>2836</span>     BitTorrent.exe 2018-08-04 19:27:17 UTC+0000
+</span></span><span class=line><span class=cl>0x7d6424c0         UDPv4    0.0.0.0:50762                  *:*                                   <span class=m>4076</span>     chrome.exe     2018-08-04 19:33:37 UTC+0000
+</span></span><span class=line><span class=cl>0x7d6b4250         UDPv6    ::1:1900                       *:*                                   <span class=m>164</span>      svchost.exe    2018-08-04 19:28:42 UTC+0000
+</span></span><span class=line><span class=cl>0x7d6e3230         UDPv4    127.0.0.1:6771                 *:*                                   <span class=m>2836</span>     BitTorrent.exe 2018-08-04 19:27:22 UTC+0000
+</span></span><span class=line><span class=cl>0x7d6ed650         UDPv4    0.0.0.0:5355                   *:*                                   <span class=m>620</span>      svchost.exe    2018-08-04 19:34:22 UTC+0000
+</span></span><span class=line><span class=cl>0x7d71c8a0         UDPv4    0.0.0.0:0                      *:*                                   <span class=m>868</span>      svchost.exe    2018-08-04 19:34:22 UTC+0000
+</span></span><span class=line><span class=cl>0x7d71c8a0         UDPv6    :::0                           *:*                                   <span class=m>868</span>      svchost.exe    2018-08-04 19:34:22 UTC+0000
+</span></span><span class=line><span class=cl>0x7d74a390         UDPv4    127.0.0.1:52847                *:*                                   <span class=m>2624</span>     bittorrentie.e 2018-08-04 19:27:24 UTC+0000
+</span></span><span class=line><span class=cl>0x7d7602c0         UDPv4    127.0.0.1:52846                *:*                                   <span class=m>2308</span>     bittorrentie.e 2018-08-04 19:27:24 UTC+0000
+</span></span><span class=line><span class=cl><span class=o>[</span>...<span class=o>]</span>
+</span></span></code></pre></td></tr></table></div></div><p>The most frequent source IP in the output is: 192.168.202.131. Good news, it&rsquo;s the flag:</p><blockquote><p>CTF{192.168.202.131}</p></blockquote><h2 id=3---play-time>3 - Play time</h2><p><img class=lazyload src=/maki.bzh/svg/loading.min.svg data-src=/lib/images/writeups/2018_otterctf/memorydump/statement_mem3.png data-srcset="/lib/images/writeups/2018_otterctf/memorydump/statement_mem3.png, /lib/images/writeups/2018_otterctf/memorydump/statement_mem3.png 1.5x, /lib/images/writeups/2018_otterctf/memorydump/statement_mem3.png 2x" data-sizes=auto alt=/lib/images/writeups/2018_otterctf/memorydump/statement_mem3.png title=/lib/images/writeups/2018_otterctf/memorydump/statement_mem3.png></p><p>Again, two flags to find. This time, let&rsquo;s start to resolve the first flag: game name.</p><h3 id=game-name>Game name</h3><p>If <strong>Rick</strong> plays to something, his process should run:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span><span class=lnt>49
+</span><span class=lnt>50
+</span><span class=lnt>51
+</span><span class=lnt>52
+</span><span class=lnt>53
+</span><span class=lnt>54
+</span><span class=lnt>55
+</span><span class=lnt>56
+</span><span class=lnt>57
+</span><span class=lnt>58
+</span><span class=lnt>59
+</span><span class=lnt>60
+</span><span class=lnt>61
+</span><span class=lnt>62
+</span><span class=lnt>63
+</span><span class=lnt>64
+</span><span class=lnt>65
+</span><span class=lnt>66
+</span><span class=lnt>67
+</span><span class=lnt>68
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ vol.py --plugins<span class=o>=</span>plug_vol/ -f usr_land/OtterCTF.vmem --profile<span class=o>=</span>Win7SP1x64 pstree &gt; ppstree
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>$ cat ppstree
+</span></span><span class=line><span class=cl>Name                                                  Pid   PPid   Thds   Hnds Time
+</span></span><span class=line><span class=cl>-------------------------------------------------- ------ ------ ------ ------ ----
+</span></span><span class=line><span class=cl> 0xfffffa801b27e060:explorer.exe                     <span class=m>2728</span>   <span class=m>2696</span>     <span class=m>33</span>    <span class=m>854</span> 2018-08-04 19:27:04 UTC+0000
+</span></span><span class=line><span class=cl>. 0xfffffa801b486b30:Rick And Morty                  <span class=m>3820</span>   <span class=m>2728</span>      <span class=m>4</span>    <span class=m>185</span> 2018-08-04 19:32:55 UTC+0000
+</span></span><span class=line><span class=cl>.. 0xfffffa801a4c5b30:vmware-tray.ex                 <span class=m>3720</span>   <span class=m>3820</span>      <span class=m>8</span>    <span class=m>147</span> 2018-08-04 19:33:02 UTC+0000
+</span></span><span class=line><span class=cl>. 0xfffffa801b2f02e0:WebCompanion.e                  <span class=m>2844</span>   <span class=m>2728</span>      <span class=m>0</span> ------ 2018-08-04 19:27:07 UTC+0000
+</span></span><span class=line><span class=cl>. 0xfffffa801a4e3870:chrome.exe                      <span class=m>4076</span>   <span class=m>2728</span>     <span class=m>44</span>   <span class=m>1160</span> 2018-08-04 19:29:30 UTC+0000
+</span></span><span class=line><span class=cl>.. 0xfffffa801a4eab30:chrome.exe                     <span class=m>4084</span>   <span class=m>4076</span>      <span class=m>8</span>     <span class=m>86</span> 2018-08-04 19:29:30 UTC+0000
+</span></span><span class=line><span class=cl>.. 0xfffffa801a5ef1f0:chrome.exe                     <span class=m>1796</span>   <span class=m>4076</span>     <span class=m>15</span>    <span class=m>170</span> 2018-08-04 19:33:41 UTC+0000
+</span></span><span class=line><span class=cl>.. 0xfffffa801aa00a90:chrome.exe                     <span class=m>3924</span>   <span class=m>4076</span>     <span class=m>16</span>    <span class=m>228</span> 2018-08-04 19:29:51 UTC+0000
+</span></span><span class=line><span class=cl>.. 0xfffffa801a635240:chrome.exe                     <span class=m>3648</span>   <span class=m>4076</span>     <span class=m>16</span>    <span class=m>207</span> 2018-08-04 19:33:38 UTC+0000
+</span></span><span class=line><span class=cl>.. 0xfffffa801a502b30:chrome.exe                      <span class=m>576</span>   <span class=m>4076</span>      <span class=m>2</span>     <span class=m>58</span> 2018-08-04 19:29:31 UTC+0000
+</span></span><span class=line><span class=cl>.. 0xfffffa801a4f7b30:chrome.exe                     <span class=m>1808</span>   <span class=m>4076</span>     <span class=m>13</span>    <span class=m>229</span> 2018-08-04 19:29:32 UTC+0000
+</span></span><span class=line><span class=cl>.. 0xfffffa801a7f98f0:chrome.exe                     <span class=m>2748</span>   <span class=m>4076</span>     <span class=m>15</span>    <span class=m>181</span> 2018-08-04 19:31:15 UTC+0000
+</span></span><span class=line><span class=cl>. 0xfffffa801b5cb740:LunarMS.exe                      <span class=m>708</span>   <span class=m>2728</span>     <span class=m>18</span>    <span class=m>346</span> 2018-08-04 19:27:39 UTC+0000
+</span></span><span class=line><span class=cl>. 0xfffffa801b1cdb30:vmtoolsd.exe                    <span class=m>2804</span>   <span class=m>2728</span>      <span class=m>6</span>    <span class=m>190</span> 2018-08-04 19:27:06 UTC+0000
+</span></span><span class=line><span class=cl>. 0xfffffa801b290b30:BitTorrent.exe                  <span class=m>2836</span>   <span class=m>2728</span>     <span class=m>24</span>    <span class=m>471</span> 2018-08-04 19:27:07 UTC+0000
+</span></span><span class=line><span class=cl>.. 0xfffffa801b4c9b30:bittorrentie.e                 <span class=m>2624</span>   <span class=m>2836</span>     <span class=m>13</span>    <span class=m>316</span> 2018-08-04 19:27:21 UTC+0000
+</span></span><span class=line><span class=cl>.. 0xfffffa801b4a7b30:bittorrentie.e                 <span class=m>2308</span>   <span class=m>2836</span>     <span class=m>15</span>    <span class=m>337</span> 2018-08-04 19:27:19 UTC+0000
+</span></span><span class=line><span class=cl> 0xfffffa8018d44740:System                              <span class=m>4</span>      <span class=m>0</span>     <span class=m>95</span>    <span class=m>411</span> 2018-08-04 19:26:03 UTC+0000
+</span></span><span class=line><span class=cl>. 0xfffffa801947e4d0:smss.exe                         <span class=m>260</span>      <span class=m>4</span>      <span class=m>2</span>     <span class=m>30</span> 2018-08-04 19:26:03 UTC+0000
+</span></span><span class=line><span class=cl> 0xfffffa801a2ed060:wininit.exe                       <span class=m>396</span>    <span class=m>336</span>      <span class=m>3</span>     <span class=m>78</span> 2018-08-04 19:26:11 UTC+0000
+</span></span><span class=line><span class=cl>. 0xfffffa801ab377c0:services.exe                     <span class=m>492</span>    <span class=m>396</span>     <span class=m>11</span>    <span class=m>242</span> 2018-08-04 19:26:12 UTC+0000
+</span></span><span class=line><span class=cl>.. 0xfffffa801afe7800:svchost.exe                    <span class=m>1948</span>    <span class=m>492</span>      <span class=m>6</span>     <span class=m>96</span> 2018-08-04 19:26:42 UTC+0000
+</span></span><span class=line><span class=cl>.. 0xfffffa801ae92920:vmtoolsd.exe                   <span class=m>1428</span>    <span class=m>492</span>      <span class=m>9</span>    <span class=m>313</span> 2018-08-04 19:26:27 UTC+0000
+</span></span><span class=line><span class=cl>... 0xfffffa801a572b30:cmd.exe                       <span class=m>3916</span>   <span class=m>1428</span>      <span class=m>0</span> ------ 2018-08-04 19:34:22 UTC+0000
+</span></span><span class=line><span class=cl>.. 0xfffffa801ae0f630:VGAuthService.                 <span class=m>1356</span>    <span class=m>492</span>      <span class=m>3</span>     <span class=m>85</span> 2018-08-04 19:26:25 UTC+0000
+</span></span><span class=line><span class=cl>.. 0xfffffa801abbdb30:vmacthlp.exe                    <span class=m>668</span>    <span class=m>492</span>      <span class=m>3</span>     <span class=m>56</span> 2018-08-04 19:26:16 UTC+0000
+</span></span><span class=line><span class=cl>.. 0xfffffa801aad1060:Lavasoft.WCAss                 <span class=m>3496</span>    <span class=m>492</span>     <span class=m>14</span>    <span class=m>473</span> 2018-08-04 19:33:49 UTC+0000
+</span></span><span class=line><span class=cl>.. 0xfffffa801a6af9f0:svchost.exe                     <span class=m>164</span>    <span class=m>492</span>     <span class=m>12</span>    <span class=m>147</span> 2018-08-04 19:28:42 UTC+0000
+</span></span><span class=line><span class=cl>.. 0xfffffa801ac2e9e0:svchost.exe                     <span class=m>808</span>    <span class=m>492</span>     <span class=m>22</span>    <span class=m>508</span> 2018-08-04 19:26:18 UTC+0000
+</span></span><span class=line><span class=cl>... 0xfffffa801ac753a0:audiodg.exe                    <span class=m>960</span>    <span class=m>808</span>      <span class=m>7</span>    <span class=m>151</span> 2018-08-04 19:26:19 UTC+0000
+</span></span><span class=line><span class=cl>.. 0xfffffa801ae7f630:dllhost.exe                    <span class=m>1324</span>    <span class=m>492</span>     <span class=m>15</span>    <span class=m>207</span> 2018-08-04 19:26:42 UTC+0000
+</span></span><span class=line><span class=cl>.. 0xfffffa801a6c2700:mscorsvw.exe                   <span class=m>3124</span>    <span class=m>492</span>      <span class=m>7</span>     <span class=m>77</span> 2018-08-04 19:28:43 UTC+0000
+</span></span><span class=line><span class=cl>.. 0xfffffa801b232060:sppsvc.exe                     <span class=m>2500</span>    <span class=m>492</span>      <span class=m>4</span>    <span class=m>149</span> 2018-08-04 19:26:58 UTC+0000
+</span></span><span class=line><span class=cl>.. 0xfffffa801abebb30:svchost.exe                     <span class=m>712</span>    <span class=m>492</span>      <span class=m>8</span>    <span class=m>301</span> 2018-08-04 19:26:17 UTC+0000
+</span></span><span class=line><span class=cl>.. 0xfffffa801ad718a0:svchost.exe                    <span class=m>1164</span>    <span class=m>492</span>     <span class=m>18</span>    <span class=m>312</span> 2018-08-04 19:26:23 UTC+0000
+</span></span><span class=line><span class=cl>.. 0xfffffa801ac31b30:svchost.exe                     <span class=m>844</span>    <span class=m>492</span>     <span class=m>17</span>    <span class=m>396</span> 2018-08-04 19:26:18 UTC+0000
+</span></span><span class=line><span class=cl>... 0xfffffa801b1fab30:dwm.exe                       <span class=m>2704</span>    <span class=m>844</span>      <span class=m>4</span>     <span class=m>97</span> 2018-08-04 19:27:04 UTC+0000
+</span></span><span class=line><span class=cl>.. 0xfffffa801988c2d0:PresentationFo                  <span class=m>724</span>    <span class=m>492</span>      <span class=m>6</span>    <span class=m>148</span> 2018-08-04 19:27:52 UTC+0000
+</span></span><span class=line><span class=cl>.. 0xfffffa801b603610:mscorsvw.exe                    <span class=m>412</span>    <span class=m>492</span>      <span class=m>7</span>     <span class=m>86</span> 2018-08-04 19:28:42 UTC+0000
+</span></span><span class=line><span class=cl>.. 0xfffffa8018e3c890:svchost.exe                     <span class=m>604</span>    <span class=m>492</span>     <span class=m>11</span>    <span class=m>376</span> 2018-08-04 19:26:16 UTC+0000
+</span></span><span class=line><span class=cl>... 0xfffffa8019124b30:WmiPrvSE.exe                  <span class=m>1800</span>    <span class=m>604</span>      <span class=m>9</span>    <span class=m>222</span> 2018-08-04 19:26:39 UTC+0000
+</span></span><span class=line><span class=cl>... 0xfffffa801b112060:WmiPrvSE.exe                  <span class=m>2136</span>    <span class=m>604</span>     <span class=m>12</span>    <span class=m>324</span> 2018-08-04 19:26:51 UTC+0000
+</span></span><span class=line><span class=cl>.. 0xfffffa801ad5ab30:spoolsv.exe                    <span class=m>1120</span>    <span class=m>492</span>     <span class=m>14</span>    <span class=m>346</span> 2018-08-04 19:26:22 UTC+0000
+</span></span><span class=line><span class=cl>.. 0xfffffa801ac4db30:svchost.exe                     <span class=m>868</span>    <span class=m>492</span>     <span class=m>45</span>   <span class=m>1114</span> 2018-08-04 19:26:18 UTC+0000
+</span></span><span class=line><span class=cl>.. 0xfffffa801a6e4b30:svchost.exe                    <span class=m>3196</span>    <span class=m>492</span>     <span class=m>14</span>    <span class=m>352</span> 2018-08-04 19:28:44 UTC+0000
+</span></span><span class=line><span class=cl>.. 0xfffffa801acd37e0:svchost.exe                     <span class=m>620</span>    <span class=m>492</span>     <span class=m>19</span>    <span class=m>415</span> 2018-08-04 19:26:21 UTC+0000
+</span></span><span class=line><span class=cl>.. 0xfffffa801b1e9b30:taskhost.exe                   <span class=m>2344</span>    <span class=m>492</span>      <span class=m>8</span>    <span class=m>193</span> 2018-08-04 19:26:57 UTC+0000
+</span></span><span class=line><span class=cl>.. 0xfffffa801ac97060:svchost.exe                    <span class=m>1012</span>    <span class=m>492</span>     <span class=m>12</span>    <span class=m>554</span> 2018-08-04 19:26:20 UTC+0000
+</span></span><span class=line><span class=cl>.. 0xfffffa801b3aab30:SearchIndexer.                 <span class=m>3064</span>    <span class=m>492</span>     <span class=m>11</span>    <span class=m>610</span> 2018-08-04 19:27:14 UTC+0000
+</span></span><span class=line><span class=cl>.. 0xfffffa801aff3b30:msdtc.exe                      <span class=m>1436</span>    <span class=m>492</span>     <span class=m>14</span>    <span class=m>155</span> 2018-08-04 19:26:43 UTC+0000
+</span></span><span class=line><span class=cl>. 0xfffffa801ab3f060:lsass.exe                        <span class=m>500</span>    <span class=m>396</span>      <span class=m>7</span>    <span class=m>610</span> 2018-08-04 19:26:12 UTC+0000
+</span></span><span class=line><span class=cl>. 0xfffffa801ab461a0:lsm.exe                          <span class=m>508</span>    <span class=m>396</span>     <span class=m>10</span>    <span class=m>148</span> 2018-08-04 19:26:12 UTC+0000
+</span></span><span class=line><span class=cl> 0xfffffa801a0c8380:csrss.exe                         <span class=m>348</span>    <span class=m>336</span>      <span class=m>9</span>    <span class=m>563</span> 2018-08-04 19:26:10 UTC+0000
+</span></span><span class=line><span class=cl>. 0xfffffa801a6643d0:conhost.exe                     <span class=m>2420</span>    <span class=m>348</span>      <span class=m>0</span>     <span class=m>30</span> 2018-08-04 19:34:22 UTC+0000
+</span></span><span class=line><span class=cl> 0xfffffa80198d3b30:csrss.exe                         <span class=m>388</span>    <span class=m>380</span>     <span class=m>11</span>    <span class=m>460</span> 2018-08-04 19:26:11 UTC+0000
+</span></span><span class=line><span class=cl> 0xfffffa801aaf4060:winlogon.exe                      <span class=m>432</span>    <span class=m>380</span>      <span class=m>3</span>    <span class=m>113</span> 2018-08-04 19:26:11 UTC+0000
+</span></span><span class=line><span class=cl> 0xfffffa801b18f060:WebCompanionIn                   <span class=m>3880</span>   <span class=m>1484</span>     <span class=m>15</span>    <span class=m>522</span> 2018-08-04 19:33:07 UTC+0000
+</span></span><span class=line><span class=cl>. 0xfffffa801aa72b30:sc.exe                          <span class=m>3504</span>   <span class=m>3880</span>      <span class=m>0</span> ------ 2018-08-04 19:33:48 UTC+0000
+</span></span><span class=line><span class=cl>. 0xfffffa801aeb6890:sc.exe                           <span class=m>452</span>   <span class=m>3880</span>      <span class=m>0</span> ------ 2018-08-04 19:33:48 UTC+0000
+</span></span><span class=line><span class=cl>. 0xfffffa801a6268b0:WebCompanion.e                  <span class=m>3856</span>   <span class=m>3880</span>     <span class=m>15</span>    <span class=m>386</span> 2018-08-04 19:34:05 UTC+0000
+</span></span><span class=line><span class=cl>. 0xfffffa801b08f060:sc.exe                          <span class=m>3208</span>   <span class=m>3880</span>      <span class=m>0</span> ------ 2018-08-04 19:33:47 UTC+0000
+</span></span><span class=line><span class=cl>. 0xfffffa801ac01060:sc.exe                          <span class=m>2028</span>   <span class=m>3880</span>      <span class=m>0</span> ------ 2018-08-04 19:33:49 UTC+0000
+</span></span><span class=line><span class=cl> 0xfffffa801b1fd960:notepad.exe                      <span class=m>3304</span>   <span class=m>3132</span>      <span class=m>2</span>     <span class=m>79</span> 2018-08-04 19:34:10 UTC+0000
+</span></span></code></pre></td></tr></table></div></div><p>Here are suspicious processes:</p><ul><li>&ldquo;Rick and Morty&rdquo;</li><li>vmware-tray.exe</li><li>WebCompanion.exe</li><li>LunarMS.exe</li></ul><p>After some internet research, <strong>LunarMS</strong> appears to be the best candidate. Good!</p><blockquote><p>CTF{LunarMS}</p></blockquote><h3 id=game-ip>Game IP</h3><p>Now I got the process name, find the associated IP will be easy. Indeed, <code>netscan</code> plugin used previously is also showing IP address associated to processes.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ cat pnetscan <span class=p>|</span> grep LunarMS
+</span></span><span class=line><span class=cl>0x7d6124d0         TCPv4    192.168.202.131:49530          77.102.199.102:7575  CLOSED           <span class=m>708</span>      LunarMS.exe    
+</span></span><span class=line><span class=cl>0x7e413a40         TCPv4    -:0                            -:0                  CLOSED           <span class=m>708</span>      LunarMS.exe    
+</span></span><span class=line><span class=cl>0x7e521b50         TCPv4    -:0                            -:0                  CLOSED           <span class=m>708</span>      LunarMS.exe
+</span></span></code></pre></td></tr></table></div></div><p>The only IP address comes out:</p><blockquote><p>CTF{77.102.199.102}</p></blockquote><h2 id=4---name-game>4 - Name Game</h2><p><img class=lazyload src=/maki.bzh/svg/loading.min.svg data-src=/lib/images/writeups/2018_otterctf/memorydump/statement_mem4.png data-srcset="/lib/images/writeups/2018_otterctf/memorydump/statement_mem4.png, /lib/images/writeups/2018_otterctf/memorydump/statement_mem4.png 1.5x, /lib/images/writeups/2018_otterctf/memorydump/statement_mem4.png 2x" data-sizes=auto alt=/lib/images/writeups/2018_otterctf/memorydump/statement_mem4.png title=/lib/images/writeups/2018_otterctf/memorydump/statement_mem4.png></p><p>We know the game, then we know its PID. We got a string, I will use it as search index: <strong>Lunar-3</strong>.</p><p>A volatility plugin that I like a lot is <code>yarascan</code>, it&rsquo;s like a grep, but better for a memory dump. It&rsquo;s possible to look for patterns with regular expression or just looking for standard strings. For this challenge, I will only look for standard strings in the game process:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ vol.py --plugins<span class=o>=</span>plug_vol/ -f usr_land/OtterCTF.vmem --profile<span class=o>=</span>Win7SP1x64 yarascan --yara-rules<span class=o>=</span><span class=s2>&#34;Lunar-3&#34;</span> -p <span class=m>708</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>Volatility Foundation Volatility Framework 2.6.1
+</span></span><span class=line><span class=cl>Rule: r1
+</span></span><span class=line><span class=cl>Owner: Process LunarMS.exe Pid <span class=m>708</span>
+</span></span><span class=line><span class=cl>0x5a0c1070  4c <span class=m>75</span> 6e <span class=m>61</span> <span class=m>72</span> 2d <span class=m>33</span> <span class=m>00</span> <span class=m>00</span> 7a <span class=m>33</span> <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> <span class=m>00</span>   Lunar-3..z3.....
+</span></span><span class=line><span class=cl>0x5a0c1080  <span class=m>00</span> 1d <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> <span class=m>01</span> <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> 0b <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> 0b <span class=m>00</span> <span class=m>00</span>   ................
+</span></span><span class=line><span class=cl>0x5a0c1090  <span class=m>00</span> <span class=m>30</span> <span class=m>74</span> <span class=m>74</span> <span class=m>33</span> <span class=m>72</span> <span class=m>38</span> <span class=m>72</span> <span class=m>33</span> <span class=m>33</span> 7a <span class=m>33</span> <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> <span class=m>00</span>   .0tt3r8r33z3....
+</span></span><span class=line><span class=cl>0x5a0c10a0  <span class=m>00</span> <span class=m>00</span> 1d <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> <span class=m>01</span> <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> 0d <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> 0d <span class=m>00</span>   ................
+</span></span><span class=line><span class=cl>0x5a0c10b0  <span class=m>00</span> <span class=m>00</span> <span class=m>53</span> 6f <span class=m>75</span> 6e <span class=m>64</span> 2f <span class=m>55</span> <span class=m>49</span> 2e <span class=m>69</span> 6d <span class=m>67</span> 2f <span class=m>00</span>   ..Sound/UI.img/.
+</span></span><span class=line><span class=cl>0x5a0c10c0  <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> 1d <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> <span class=m>01</span> <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> 0c <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> 0c   ................
+</span></span><span class=line><span class=cl>0x5a0c10d0  <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> <span class=m>42</span> <span class=m>74</span> 4d 6f <span class=m>75</span> <span class=m>73</span> <span class=m>65</span> <span class=m>43</span> 6c <span class=m>69</span> <span class=m>63</span> 6b <span class=m>00</span>   ...BtMouseClick.
+</span></span><span class=line><span class=cl>0x5a0c10e0  <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> 1d <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> <span class=m>01</span> <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> <span class=m>07</span> <span class=m>00</span> <span class=m>00</span> <span class=m>00</span>   ................
+</span></span><span class=line><span class=cl>0x5a0c10f0  <span class=m>07</span> <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> 4c <span class=m>75</span> 6e <span class=m>61</span> <span class=m>72</span> 2d <span class=m>34</span> <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> <span class=m>00</span>   ....Lunar-4.....
+</span></span><span class=line><span class=cl>0x5a0c1100  <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> 1d <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> <span class=m>01</span> <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> <span class=m>07</span> <span class=m>00</span> <span class=m>00</span>   ................
+</span></span><span class=line><span class=cl>0x5a0c1110  <span class=m>00</span> <span class=m>07</span> <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> 4c <span class=m>75</span> 6e <span class=m>61</span> <span class=m>72</span> 2d <span class=m>31</span> <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> <span class=m>00</span>   .....Lunar-1....
+</span></span><span class=line><span class=cl>0x5a0c1120  <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> 1d <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> <span class=m>01</span> <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> <span class=m>07</span> <span class=m>00</span>   ................
+</span></span><span class=line><span class=cl>0x5a0c1130  <span class=m>00</span> <span class=m>00</span> <span class=m>07</span> <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> 4c <span class=m>75</span> 6e <span class=m>61</span> <span class=m>72</span> 2d <span class=m>32</span> <span class=m>00</span> <span class=m>00</span> 7a   ......Lunar-2..z
+</span></span><span class=line><span class=cl>0x5a0c1140  <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> 1d <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> <span class=m>01</span> <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> <span class=m>08</span>   ................
+</span></span><span class=line><span class=cl>0x5a0c1150  <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> <span class=m>08</span> <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> <span class=m>53</span> <span class=m>63</span> <span class=m>72</span> 6f 6c 6c <span class=m>55</span> <span class=m>70</span> <span class=m>00</span>   .......ScrollUp.
+</span></span><span class=line><span class=cl>0x5a0c1160  <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> 1d <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> <span class=m>01</span> <span class=m>00</span> <span class=m>00</span> <span class=m>00</span>   ................
+</span></span></code></pre></td></tr></table></div></div><p>The leet speak string looks like a flag ;)</p><blockquote><p>CTF{0tt3r8r33z3}</p></blockquote><h2 id=5---name-game-2>5 - Name Game 2</h2><p><img class=lazyload src=/maki.bzh/svg/loading.min.svg data-src=/lib/images/writeups/2018_otterctf/memorydump/statement_mem5.png data-srcset="/lib/images/writeups/2018_otterctf/memorydump/statement_mem5.png, /lib/images/writeups/2018_otterctf/memorydump/statement_mem5.png 1.5x, /lib/images/writeups/2018_otterctf/memorydump/statement_mem5.png 2x" data-sizes=auto alt=/lib/images/writeups/2018_otterctf/memorydump/statement_mem5.png title=/lib/images/writeups/2018_otterctf/memorydump/statement_mem5.png></p><p>In this case, I will use custom yara rules. The statement does not give strings, just a pattern: <strong>0x64 0x??{6-8} 0x40 0x06 0x??{18} 0x5a 0x0c 0x00{2}</strong></p><p>To find this pattern in memory, I just have to do a custom rule, here is my <code>otterrule.yar</code> file:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-yml data-lang=yml><span class=line><span class=cl><span class=l>rule OtterCTF</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span>{<span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nt>meta</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=l>desc = &#34;OtterCTF&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=l>weight = 10</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nt>strings</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=l>$a = {?? [6-8] 40 06 [18] 5a 0c 00 00}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nt>condition</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=l>$a</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span>}<span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>Still filtering on the same PID, just add our rule file to the filter:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ vol.py --plugins<span class=o>=</span>plug_vol/ -f usr_land/OtterCTF.vmem --profile<span class=o>=</span>Win7SP1x64 yarascan -y usr_land/otterrule.ya -p <span class=m>708</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>Volatility Foundation Volatility Framework 2.6.1
+</span></span><span class=line><span class=cl>Rule: OtterCTF
+</span></span><span class=line><span class=cl>Owner: Process LunarMS.exe Pid <span class=m>708</span>
+</span></span><span class=line><span class=cl>0x5ab4dfa7  <span class=m>08</span> <span class=m>44</span> <span class=m>64</span> <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> <span class=m>40</span> <span class=m>06</span> <span class=m>00</span> <span class=m>00</span> b4 e5 af   .Dd......@......
+</span></span><span class=line><span class=cl>0x5ab4dfb7  <span class=m>00</span> <span class=m>01</span> <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> b0 e5 af <span class=m>00</span> 5a 0c <span class=m>00</span>   .............Z..
+</span></span><span class=line><span class=cl>0x5ab4dfc7  <span class=m>00</span> 4d <span class=m>30</span> <span class=m>72</span> <span class=m>74</span> <span class=m>79</span> 4c <span class=m>30</span> 4c <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> <span class=m>00</span>   .M0rtyL0L.......
+</span></span><span class=line><span class=cl>0x5ab4dfd7  <span class=m>21</span> 4e <span class=m>00</span> <span class=m>00</span> <span class=m>55</span> <span class=m>75</span> <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> <span class=m>00</span>   !N..Uu..........
+</span></span><span class=line><span class=cl>0x5ab4dfe7  <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> <span class=m>00</span>   ................
+</span></span><span class=line><span class=cl>0x5ab4dff7  b4 <span class=m>10</span> <span class=m>95</span> 6f d5 <span class=nb>cd</span> <span class=m>66</span> <span class=m>36</span> <span class=m>66</span> <span class=m>36</span> b4 ab ee fa a4 <span class=m>73</span>   ...o..f6f6.....s
+</span></span><span class=line><span class=cl>0x5ab4e007  9f <span class=m>70</span> f2 ab 6e ba 3a c4 3f c4 3c ac ee <span class=m>25</span> ac d9   .p..n.:.?.&lt;..%..
+</span></span><span class=line><span class=cl>0x5ab4e017  a8 d9 <span class=m>60</span> ac 6e a0 d6 <span class=m>25</span> d2 <span class=m>25</span> a8 ab ee ee e1 aa   ..<span class=sb>`</span>.n..%.%......
+</span></span><span class=line><span class=cl>0x5ab4e027  d2 a2 <span class=m>29</span> ac 2e 9b d1 5e f4 <span class=m>57</span> d8 ab 2e <span class=m>27</span> <span class=m>86</span> <span class=m>01</span>   ..<span class=o>)</span>....^.W...<span class=err>&#39;</span>..
+</span></span><span class=line><span class=cl>0x5ab4e037  7c <span class=m>07</span> <span class=m>87</span> ab ee 0a e8 5f <span class=m>12</span> <span class=m>59</span> d7 ab 6e <span class=m>31</span> <span class=m>96</span> <span class=m>49</span>   <span class=p>|</span>......_.Y..n1.I
+</span></span><span class=line><span class=cl>0x5ab4e047  <span class=m>96</span> <span class=m>49</span> cb ab ee 9e dd e6 dd e6 6a ac 2e 2c <span class=m>12</span> bd   .I........j..,..
+</span></span><span class=line><span class=cl>0x5ab4e057  3e <span class=m>25</span> 1f <span class=m>03</span> 6d <span class=m>29</span> <span class=m>87</span> 9d <span class=m>69</span> <span class=m>26</span> f8 4a f8 4a cb ab   &gt;%..m<span class=o>)</span>..i<span class=p>&amp;</span>.J.J..
+</span></span><span class=line><span class=cl>0x5ab4e067  6e ad <span class=m>60</span> <span class=m>35</span> ef a2 <span class=m>01</span> c2 <span class=m>38</span> <span class=m>65</span> 2c d8 fa <span class=nb>cd</span> e4 f8   n.<span class=sb>`</span>5....8e,.....
+</span></span><span class=line><span class=cl>0x5ab4e077  <span class=m>90</span> <span class=m>31</span> c7 <span class=m>87</span> 8c <span class=m>21</span> 0e <span class=m>70</span> e6 6d <span class=m>78</span> <span class=m>20</span> af <span class=m>00</span> <span class=m>00</span> <span class=m>00</span>   .1...!.p.mx.....
+</span></span><span class=line><span class=cl>0x5ab4e087  <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> 5e <span class=m>81</span>   ..............^.
+</span></span><span class=line><span class=cl>0x5ab4e097  ee 8f 7c 6a 4e <span class=m>74</span> <span class=m>06</span> <span class=m>86</span> f8 0d <span class=m>06</span> <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> <span class=m>00</span>   ..<span class=p>|</span>jNt..........
+</span></span><span class=line><span class=cl><span class=o>[</span>...<span class=o>]</span>
+</span></span></code></pre></td></tr></table></div></div><p>Great, it works well!</p><blockquote><p>CTF{M0rtyL0L}</p></blockquote><h2 id=6---silly-rick>6 - Silly Rick</h2><p><img class=lazyload src=/maki.bzh/svg/loading.min.svg data-src=/lib/images/writeups/2018_otterctf/memorydump/statement_mem6.png data-srcset="/lib/images/writeups/2018_otterctf/memorydump/statement_mem6.png, /lib/images/writeups/2018_otterctf/memorydump/statement_mem6.png 1.5x, /lib/images/writeups/2018_otterctf/memorydump/statement_mem6.png 2x" data-sizes=auto alt=/lib/images/writeups/2018_otterctf/memorydump/statement_mem6.png title=/lib/images/writeups/2018_otterctf/memorydump/statement_mem6.png></p><p>This challenge will use a standard volatility plugin: <code>clipboard</code>. This plugin will get the clipboard content at dump time:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ vol.py --plugins<span class=o>=</span>plug_vol/ -f usr_land/OtterCTF.vmem --profile<span class=o>=</span>Win7SP1x64 clipboard
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>Volatility Foundation Volatility Framework 2.6.1
+</span></span><span class=line><span class=cl>Session    WindowStation Format                         Handle Object             Data                                              
+</span></span><span class=line><span class=cl>---------- ------------- ------------------ ------------------ ------------------ --------------------------------------------------
+</span></span><span class=line><span class=cl>         <span class=m>1</span> WinSta0       CF_UNICODETEXT                0x602e3 0xfffff900c1ad93f0 M@il_Pr0vid0rs                                    
+</span></span><span class=line><span class=cl>         <span class=m>1</span> WinSta0       CF_TEXT                          0x10 ------------------                                                   
+</span></span><span class=line><span class=cl>         <span class=m>1</span> WinSta0       0x150133L              0x200000000000 ------------------                                                   
+</span></span><span class=line><span class=cl>         <span class=m>1</span> WinSta0       CF_TEXT                           0x1 ------------------                                                   
+</span></span><span class=line><span class=cl>         <span class=m>1</span> ------------- ------------------           0x150133 0xfffff900c1c1adc0
+</span></span></code></pre></td></tr></table></div></div><p>EZ Win :D</p><blockquote><p>CTF{M@il_Pr0vid0rs}</p></blockquote><h2 id=7---hide-and-seek>7 - Hide and Seek</h2><p><img class=lazyload src=/maki.bzh/svg/loading.min.svg data-src=/lib/images/writeups/2018_otterctf/memorydump/statement_mem7.png data-srcset="/lib/images/writeups/2018_otterctf/memorydump/statement_mem7.png, /lib/images/writeups/2018_otterctf/memorydump/statement_mem7.png 1.5x, /lib/images/writeups/2018_otterctf/memorydump/statement_mem7.png 2x" data-sizes=auto alt=/lib/images/writeups/2018_otterctf/memorydump/statement_mem7.png title=/lib/images/writeups/2018_otterctf/memorydump/statement_mem7.png></p><p>It&rsquo;s starting to get interesting: malware. For this challenge, it&rsquo;s better not to go wrong.</p><h3 id=a-needle-in-a-haystack>A needle in a haystack</h3><p>If we get processes tree, we can notify some strange things:</p><ul><li>A &ldquo;Rick and Morty&rdquo; process, that has a child process ;</li><li>Lavasoft process ;</li><li>BitTorrent processes ;</li><li>WebCompanion ;</li><li>Notepad.exe which hasn&rsquo;t got parent process.</li></ul><p>Remember, a malware can have any name. It&rsquo;s better to look at the parents/child processes.</p><h3 id=malware-is-that-you>Malware, is that you?</h3><p>I&rsquo;m going to start with my first hypothesis: the <code>Rick and Morty</code> process and his child, <code>vmware-tray.exe</code>.</p><p>The first step, extract binaries:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ vol.py --plugins<span class=o>=</span>plug_vol/ -f usr_land/OtterCTF.vmem --profile<span class=o>=</span>Win7SP1x64 procdump -p <span class=m>3820</span> -D .
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>Volatility Foundation Volatility Framework 2.6.1
+</span></span><span class=line><span class=cl>Process<span class=o>(</span>V<span class=o>)</span>         ImageBase          Name                 Result
+</span></span><span class=line><span class=cl>------------------ ------------------ -------------------- ------
+</span></span><span class=line><span class=cl>0xfffffa801b486b30 0x0000000000400000 Rick And Morty       OK: executable.3820.exe
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>$ vol.py --plugins<span class=o>=</span>plug_vol/ -f usr_land/OtterCTF.vmem --profile<span class=o>=</span>Win7SP1x64 procdump -p <span class=m>3720</span> -D .
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>Volatility Foundation Volatility Framework 2.6.1
+</span></span><span class=line><span class=cl>Process<span class=o>(</span>V<span class=o>)</span>         ImageBase          Name                 Result
+</span></span><span class=line><span class=cl>------------------ ------------------ -------------------- ------
+</span></span><span class=line><span class=cl>0xfffffa801a4c5b30 0x0000000000ec0000 vmware-tray.ex       OK: executable.3720.exe
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>$ mv executable.3820.exe rickandmorty.exe
+</span></span><span class=line><span class=cl>$ mv executable.3720.exe vmware-tray.exe
+</span></span></code></pre></td></tr></table></div></div><p>Now a little visit on virustotal, to see the score of those two rogues. First, <code>rickandmorty.exe</code>:</p><p><img class=lazyload src=/maki.bzh/svg/loading.min.svg data-src=/lib/images/writeups/2018_otterctf/memorydump/part7_1.png data-srcset="/lib/images/writeups/2018_otterctf/memorydump/part7_1.png, /lib/images/writeups/2018_otterctf/memorydump/part7_1.png 1.5x, /lib/images/writeups/2018_otterctf/memorydump/part7_1.png 2x" data-sizes=auto alt=/lib/images/writeups/2018_otterctf/memorydump/part7_1.png title=/lib/images/writeups/2018_otterctf/memorydump/part7_1.png></p><p>Well, 4/68 it&rsquo;s not really huge, probably a false positive. What Virustotal says about <code>vmware-tray.exe</code>:</p><p><img class=lazyload src=/maki.bzh/svg/loading.min.svg data-src=/lib/images/writeups/2018_otterctf/memorydump/part7_2.png data-srcset="/lib/images/writeups/2018_otterctf/memorydump/part7_2.png, /lib/images/writeups/2018_otterctf/memorydump/part7_2.png 1.5x, /lib/images/writeups/2018_otterctf/memorydump/part7_2.png 2x" data-sizes=auto alt=/lib/images/writeups/2018_otterctf/memorydump/part7_2.png title=/lib/images/writeups/2018_otterctf/memorydump/part7_2.png></p><p>Great! Better results! It smells the malware :D</p><p>And it is:</p><blockquote><p>CTF{vmware-tray.exe}</p></blockquote><h2 id=8---path-to-glory>8 - Path to glory</h2><p><img class=lazyload src=/maki.bzh/svg/loading.min.svg data-src=/lib/images/writeups/2018_otterctf/memorydump/statement_mem8.png data-srcset="/lib/images/writeups/2018_otterctf/memorydump/statement_mem8.png, /lib/images/writeups/2018_otterctf/memorydump/statement_mem8.png 1.5x, /lib/images/writeups/2018_otterctf/memorydump/statement_mem8.png 2x" data-sizes=auto alt=/lib/images/writeups/2018_otterctf/memorydump/statement_mem8.png title=/lib/images/writeups/2018_otterctf/memorydump/statement_mem8.png></p><p>According to running processes, I suppose the awful habits of Rick, are the illegal downloads on BitTorrent</p><p>Let&rsquo;s try to find what he downloaded:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ vol.py --plugins<span class=o>=</span>plug_vol/ -f usr_land/OtterCTF.vmem --profile<span class=o>=</span>Win7SP1x64 filescan &gt; pfilescan
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>$ cat pfilescan <span class=p>|</span> grep -i torrent 
+</span></span><span class=line><span class=cl><span class=o>[</span>...<span class=o>]</span>
+</span></span><span class=line><span class=cl>0x000000007d63dbc0     <span class=m>10</span>      <span class=m>0</span> R--r-d <span class=se>\D</span>evice<span class=se>\H</span>arddiskVolume1<span class=se>\T</span>orrents<span class=se>\R</span>ick And Morty season <span class=m>1</span> download.exe
+</span></span><span class=line><span class=cl>0x000000007d8813c0      <span class=m>2</span>      <span class=m>0</span> RW-rwd <span class=se>\D</span>evice<span class=se>\H</span>arddiskVolume1<span class=se>\U</span>sers<span class=se>\R</span>ick<span class=se>\D</span>ownloads<span class=se>\R</span>ick And Morty season <span class=m>1</span> download.exe.torrent
+</span></span><span class=line><span class=cl>0x000000007da56240      <span class=m>2</span>      <span class=m>0</span> RW-rwd <span class=se>\D</span>evice<span class=se>\H</span>arddiskVolume1<span class=se>\T</span>orrents<span class=se>\R</span>ick And Morty season <span class=m>1</span> download.exe
+</span></span><span class=line><span class=cl>0x000000007dae9350      <span class=m>2</span>      <span class=m>0</span> RWD--- <span class=se>\D</span>evice<span class=se>\H</span>arddiskVolume1<span class=se>\U</span>sers<span class=se>\R</span>ick<span class=se>\A</span>ppData<span class=se>\R</span>oaming<span class=se>\B</span>itTorrent<span class=se>\R</span>ick And Morty season <span class=m>1</span> download.exe.1.torrent
+</span></span><span class=line><span class=cl>0x000000007dcbf6f0      <span class=m>2</span>      <span class=m>0</span> RW-rwd <span class=se>\D</span>evice<span class=se>\H</span>arddiskVolume1<span class=se>\U</span>sers<span class=se>\R</span>ick<span class=se>\A</span>ppData<span class=se>\R</span>oaming<span class=se>\B</span>itTorrent<span class=se>\R</span>ick And Morty season <span class=m>1</span> download.exe.1.torrent
+</span></span><span class=line><span class=cl>0x000000007e710070      <span class=m>8</span>      <span class=m>0</span> R--rwd <span class=se>\D</span>evice<span class=se>\H</span>arddiskVolume1<span class=se>\T</span>orrents<span class=se>\R</span>ick And Morty season <span class=m>1</span> download.exe
+</span></span><span class=line><span class=cl><span class=o>[</span>...<span class=o>]</span>
+</span></span></code></pre></td></tr></table></div></div><p>There is a bunch of suspicious files. I first tried to extract <code>Rick And Morty season 1 download.exe</code> file but nothing really relevant inside for our problem:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ vol.py --plugins<span class=o>=</span>plug_vol/ -f usr_land/OtterCTF.vmem --profile<span class=o>=</span>Win7SP1x64 dumpfiles -Q 0x000000007e710070 -D .
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>Volatility Foundation Volatility Framework 2.6.1
+</span></span><span class=line><span class=cl>ImageSectionObject 0x7e710070   None   <span class=se>\D</span>evice<span class=se>\H</span>arddiskVolume1<span class=se>\T</span>orrents<span class=se>\R</span>ick And Morty season <span class=m>1</span> download.exe
+</span></span><span class=line><span class=cl>DataSectionObject 0x7e710070   None   <span class=se>\D</span>evice<span class=se>\H</span>arddiskVolume1<span class=se>\T</span>orrents<span class=se>\R</span>ick And Morty season <span class=m>1</span> download.exe
+</span></span></code></pre></td></tr></table></div></div><p>Let&rsquo;s do the same operation on the <strong>torrent</strong> file:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ vol.py --plugins<span class=o>=</span>plug_vol/ -f usr_land/OtterCTF.vmem --profile<span class=o>=</span>Win7SP1x64 dumpfiles -Q 0x000000007dae9350 -D .
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>Volatility Foundation Volatility Framework 2.6.1
+</span></span><span class=line><span class=cl>DataSectionObject 0x7dae9350   None   <span class=se>\D</span>evice<span class=se>\H</span>arddiskVolume1<span class=se>\U</span>sers<span class=se>\R</span>ick<span class=se>\A</span>ppData<span class=se>\R</span>oaming<span class=se>\B</span>itTorrent<span class=se>\R</span>ick And Morty season <span class=m>1</span> download.exe.1.torrent
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>$ strings file.None.0xfffffa801b42c9e0.dat
+</span></span><span class=line><span class=cl>d8:announce44:udp://tracker.openbittorrent.com:80/announce13:announce-listll44:udp://tracker.openbittorrent.com:80/announceel42:udp://tracker.opentrackr.org:1337/announceee10:created by17:BitTorrent/7.10.313:creation datei1533150595e8:encoding5:UTF-84:infod6:lengthi456670e4:name36:Rick And Morty season <span class=m>1</span> download.exe12:piece lengthi16384e6:pieces560:<span class=se>\I</span>
+</span></span><span class=line><span class=cl>!PC&lt;^X
+</span></span><span class=line><span class=cl>B.k_Rk
+</span></span><span class=line><span class=cl>0&lt;<span class=p>;</span>O87o
+</span></span><span class=line><span class=cl>!4^<span class=s2>&#34;
+</span></span></span><span class=line><span class=cl><span class=s2>3hq,
+</span></span></span><span class=line><span class=cl><span class=s2>&amp;iW1|
+</span></span></span><span class=line><span class=cl><span class=s2>K68:o
+</span></span></span><span class=line><span class=cl><span class=s2>w~Q~YT
+</span></span></span><span class=line><span class=cl><span class=s2></span><span class=nv>$$</span><span class=s2>o9p
+</span></span></span><span class=line><span class=cl><span class=s2>bwF:u
+</span></span></span><span class=line><span class=cl><span class=s2>e7:website19:M3an_T0rren7_4_R!cke
+</span></span></span></code></pre></td></tr></table></div></div><p>Yay, it works!</p><blockquote><p>CTF{M3an_T0rren7_4_R!ck}</p></blockquote><h2 id=9---path-to-glory-2>9 - Path to glory 2</h2><p><img class=lazyload src=/maki.bzh/svg/loading.min.svg data-src=/lib/images/writeups/2018_otterctf/memorydump/statement_mem9.png data-srcset="/lib/images/writeups/2018_otterctf/memorydump/statement_mem9.png, /lib/images/writeups/2018_otterctf/memorydump/statement_mem9.png 1.5x, /lib/images/writeups/2018_otterctf/memorydump/statement_mem9.png 2x" data-sizes=auto alt=/lib/images/writeups/2018_otterctf/memorydump/statement_mem9.png title=/lib/images/writeups/2018_otterctf/memorydump/statement_mem9.png></p><p>Honestly, with a good friend, we just guessed this flag, it&rsquo;s insane.</p><p>He sent me this message: &ldquo;Hey bro, try to find the string &lsquo;Th3&rsquo; inside memory!&rdquo;</p><p>Ok, but we can add more filter to be more efficient. The torrent file doesn&rsquo;t come by a magic trick. Rick downloaded it with his favorite browser: Chrome.</p><p>Then I search the string &ldquo;Th3&rdquo; into Chrome processes:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ vol.py --plugins<span class=o>=</span>plug_vol/ -f usr_land/OtterCTF.vmem --profile<span class=o>=</span>Win7SP1x64 yarascan --yara-rules<span class=o>=</span><span class=s2>&#34;Th3&#34;</span> -p <span class=m>3924</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=o>[</span>...<span class=o>]</span>
+</span></span><span class=line><span class=cl>Volatility Foundation Volatility Framework 2.6.1
+</span></span><span class=line><span class=cl>Rule: r1
+</span></span><span class=line><span class=cl>Owner: Process chrome.exe Pid <span class=m>3924</span>
+</span></span><span class=line><span class=cl>0x6203ba714dd  5f <span class=m>54</span> <span class=m>68</span> <span class=m>33</span> 5f <span class=m>57</span> <span class=m>65</span> <span class=m>61</span> 6b <span class=m>33</span> <span class=m>73</span> <span class=m>37</span> 5f 4c <span class=m>69</span> 6e   _Th3_Weak3s7_Lin
+</span></span><span class=line><span class=cl>0x6203ba714ed  6b 5f <span class=m>49</span> 6e 5f <span class=m>54</span> <span class=m>68</span> <span class=m>33</span> 5f <span class=m>43</span> <span class=m>68</span> <span class=m>40</span> <span class=m>69</span> 6e <span class=m>59</span> <span class=m>65</span>   k_In_Th3_Ch@inYe
+</span></span><span class=line><span class=cl>0x6203ba714fd  <span class=m>61</span> <span class=m>72</span> <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> <span class=m>06</span> <span class=m>20</span> 3b a7 0f <span class=m>50</span> <span class=m>51</span> <span class=m>46</span> e2 0d 2f   ar.....<span class=p>;</span>..PQF../
+</span></span><span class=line><span class=cl>0x6203ba7150d  2f <span class=m>73</span> <span class=m>65</span> <span class=m>63</span> 2d <span class=m>73</span> 2e <span class=m>75</span> <span class=m>69</span> <span class=m>63</span> <span class=m>64</span> 6e 2e <span class=m>63</span> 6f 6d   /sec-s.uicdn.com
+</span></span><span class=line><span class=cl>0x6203ba7151d  2f 6e <span class=m>61</span> <span class=m>76</span> 2d <span class=m>63</span> <span class=m>64</span> 6e 2f <span class=m>68</span> 6f 6d <span class=m>65</span> 2f <span class=m>70</span> <span class=m>72</span>   /nav-cdn/home/pr
+</span></span><span class=line><span class=cl>0x6203ba7152d  <span class=m>65</span> 6c 6f <span class=m>61</span> <span class=m>64</span> <span class=m>65</span> <span class=m>72</span> 2e <span class=m>67</span> <span class=m>69</span> <span class=m>66</span> <span class=m>00</span> <span class=m>00</span> <span class=m>06</span> <span class=m>20</span> 3b   eloader.gif....<span class=p>;</span>
+</span></span><span class=line><span class=cl>0x6203ba7153d  a7 <span class=m>16</span> <span class=m>18</span> <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> <span class=m>02</span> 6e <span class=m>00</span> <span class=m>61</span> <span class=m>00</span> <span class=m>76</span> <span class=m>00</span> <span class=m>69</span> <span class=m>00</span> <span class=m>67</span>   .......n.a.v.i.g
+</span></span><span class=line><span class=cl>0x6203ba7154d  <span class=m>00</span> <span class=m>61</span> <span class=m>00</span> <span class=m>74</span> <span class=m>00</span> 6f <span class=m>00</span> <span class=m>72</span> <span class=m>00</span> 2d <span class=m>00</span> 6c <span class=m>00</span> <span class=m>78</span> <span class=m>00</span> <span class=m>61</span>   .a.t.o.r.-.l.x.a
+</span></span><span class=line><span class=cl>0x6203ba7155d  <span class=m>00</span> 2e <span class=m>00</span> 6d <span class=m>00</span> <span class=m>61</span> <span class=m>00</span> <span class=m>69</span> <span class=m>00</span> 6c <span class=m>00</span> 2e <span class=m>00</span> <span class=m>63</span> <span class=m>00</span> 6f   ...m.a.i.l...c.o
+</span></span><span class=line><span class=cl>0x6203ba7156d  <span class=m>00</span> 6d <span class=m>00</span> <span class=m>01</span> <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> <span class=m>16</span> <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> <span class=m>62</span> 6e   .m............bn
+</span></span><span class=line><span class=cl>0x6203ba7157d  <span class=m>00</span> <span class=m>61</span> <span class=m>00</span> <span class=m>76</span> <span class=m>00</span> <span class=m>69</span> <span class=m>00</span> <span class=m>67</span> <span class=m>00</span> <span class=m>61</span> <span class=m>00</span> <span class=m>74</span> <span class=m>00</span> 6f <span class=m>00</span> <span class=m>72</span>   .a.v.i.g.a.t.o.r
+</span></span><span class=line><span class=cl>0x6203ba7158d  <span class=m>00</span> 2d <span class=m>00</span> 6c <span class=m>00</span> <span class=m>78</span> <span class=m>00</span> <span class=m>61</span> <span class=m>00</span> 2e <span class=m>00</span> 6d <span class=m>00</span> <span class=m>61</span> <span class=m>00</span> <span class=m>69</span>   .-.l.x.a...m.a.i
+</span></span><span class=line><span class=cl>0x6203ba7159d  <span class=m>00</span> 6c <span class=m>00</span> 2e <span class=m>00</span> <span class=m>63</span> <span class=m>00</span> 6f <span class=m>00</span> 6d <span class=m>00</span> <span class=m>04</span> <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> 2a   .l...c.o.m.....*
+</span></span><span class=line><span class=cl>0x6203ba715ad  <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> 4f ac c4 0e <span class=m>73</span> <span class=m>69</span> 6d <span class=m>70</span> 6c <span class=m>65</span> 2d <span class=m>69</span> <span class=m>63</span>   ...O...simple-ic
+</span></span><span class=line><span class=cl>0x6203ba715bd  6f 6e 5f <span class=m>74</span> 6f 6f 6c <span class=m>62</span> <span class=m>61</span> <span class=m>72</span> 2d <span class=m>63</span> <span class=m>68</span> <span class=m>61</span> 6e <span class=m>67</span>   on_toolbar-chang
+</span></span><span class=line><span class=cl>0x6203ba715cd  <span class=m>65</span> 2d <span class=m>76</span> <span class=m>69</span> <span class=m>65</span> <span class=m>77</span> 2d <span class=m>68</span> 6f <span class=m>72</span> <span class=m>69</span> 7a 6f 6e <span class=m>74</span> <span class=m>61</span>   e-view-horizonta
+</span></span><span class=line><span class=cl><span class=o>[</span>...<span class=o>]</span>
+</span></span></code></pre></td></tr></table></div></div><p>Ok, I got a piece of something, maybe of the flag:</p><blockquote><p>_Th3_Weak3s7_Link_In_Th3_Ch@inYear</p></blockquote><p>Let&rsquo;s extract memory from process 3924 and see what happens. To look into memory dump, I&rsquo;m using a good old <code>strings</code> and <code>grep</code> / <code>less</code> command.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ vol.py --plugins<span class=o>=</span>plug_vol/ -f usr_land/OtterCTF.vmem --profile<span class=o>=</span>Win7SP1x64 memdump -p <span class=m>3924</span> -D .
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>Volatility Foundation Volatility Framework 2.6.1
+</span></span><span class=line><span class=cl>************************************************************************
+</span></span><span class=line><span class=cl>Writing chrome.exe <span class=o>[</span>  3924<span class=o>]</span> to 3924.dmp
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>$ strings 3924.dmp<span class=p>|</span> grep Weak3s7_Link_In
+</span></span><span class=line><span class=cl>Hum@n_I5_Th3_Weak3s7_Link_In_Th3_Ch@inYear
+</span></span><span class=line><span class=cl><span class=o>[</span>...<span class=o>]</span>
+</span></span></code></pre></td></tr></table></div></div><p>And the flag is:</p><blockquote><p>CTF{Hum@n_I5_Th3_Weak3s7_Link_In_Th3_Ch@in}</p></blockquote><h2 id=10---bit-4-bit>10 - Bit 4 Bit</h2><p><img class=lazyload src=/maki.bzh/svg/loading.min.svg data-src=/lib/images/writeups/2018_otterctf/memorydump/statement_mem10.png data-srcset="/lib/images/writeups/2018_otterctf/memorydump/statement_mem10.png, /lib/images/writeups/2018_otterctf/memorydump/statement_mem10.png 1.5x, /lib/images/writeups/2018_otterctf/memorydump/statement_mem10.png 2x" data-sizes=auto alt=/lib/images/writeups/2018_otterctf/memorydump/statement_mem10.png title=/lib/images/writeups/2018_otterctf/memorydump/statement_mem10.png></p><p>If all scenario steps are followed, finding the wallet will be easy. The malware is known: <code>vmware-tray.exe</code>. We suspect that the wallet is embedded in the malicious binary:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ strings -e l vmware-tray.exe               
+</span></span><span class=line><span class=cl><span class=o>[</span>...<span class=o>]</span>
+</span></span><span class=line><span class=cl>label2
+</span></span><span class=line><span class=cl>Your Payment has failed, The funs have been sent back to your wallet. Please send it again
+</span></span><span class=line><span class=cl>Error
+</span></span><span class=line><span class=cl>1MmpEmebJkqXG8nQv4cjJSmxZQFVmFo63M
+</span></span><span class=line><span class=cl>Send 0.16 to the address below.
+</span></span><span class=line><span class=cl>I paid, Now give me back my files.
+</span></span><span class=line><span class=cl>Form3
+</span></span><span class=line><span class=cl>hidden_tear.Properties.Resources
+</span></span><span class=line><span class=cl>Bitcoin_Accepted_Here-4800px
+</span></span><span class=line><span class=cl><span class=o>[</span>...<span class=o>]</span>
+</span></span></code></pre></td></tr></table></div></div><p>The flag is:</p><blockquote><p>CTF{1MmpEmebJkqXG8nQv4cjJSmxZQFVmFo63M}</p></blockquote><h2 id=11---graphics-for-the-weak>11 - Graphic&rsquo;s for the Weak</h2><p><img class=lazyload src=/maki.bzh/svg/loading.min.svg data-src=/lib/images/writeups/2018_otterctf/memorydump/statement_mem11.png data-srcset="/lib/images/writeups/2018_otterctf/memorydump/statement_mem11.png, /lib/images/writeups/2018_otterctf/memorydump/statement_mem11.png 1.5x, /lib/images/writeups/2018_otterctf/memorydump/statement_mem11.png 2x" data-sizes=auto alt=/lib/images/writeups/2018_otterctf/memorydump/statement_mem11.png title=/lib/images/writeups/2018_otterctf/memorydump/statement_mem11.png></p><p>Like the previous challenge, we already identified the malware. So if the malware deal with a picture, there are two possibilities:</p><ul><li>The picture is embedded in the malware</li><li>The malware will download the picture</li></ul><p>There is an easy way to check the first hypothesis, use a carving software like <code>binwalk</code>, <code>foremost</code> or whatever.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ binwalk vmware-tray.exe
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>DECIMAL       HEXADECIMAL     DESCRIPTION
+</span></span><span class=line><span class=cl>--------------------------------------------------------------------------------
+</span></span><span class=line><span class=cl><span class=m>0</span>             0x0             Microsoft executable, portable <span class=o>(</span>PE<span class=o>)</span>
+</span></span><span class=line><span class=cl><span class=m>9178</span>          0x23DA          Copyright string: <span class=s2>&#34;CopyrightAttribute&#34;</span>
+</span></span><span class=line><span class=cl><span class=m>116288</span>        0x1C640         PNG image, <span class=m>4800</span> x 1454, 8-bit/color RGBA, non-interlaced
+</span></span><span class=line><span class=cl><span class=m>116416</span>        0x1C6C0         Zlib compressed data, compressed
+</span></span><span class=line><span class=cl><span class=m>344098</span>        0x54022         PNG image, <span class=m>800</span> x 600, 8-bit colormap, non-interlaced
+</span></span><span class=line><span class=cl><span class=m>344511</span>        0x541BF         Zlib compressed data, best compression
+</span></span><span class=line><span class=cl><span class=m>420575</span>        0x66ADF         XML document, version: <span class=s2>&#34;1.0&#34;</span>
+</span></span><span class=line><span class=cl><span class=m>423178</span>        0x6750A         Unix path: /schemas.microsoft.com/SMI/2005/WindowsSettings<span class=s2>&#34;&gt;true&lt;/dpiAware&gt;
+</span></span></span></code></pre></td></tr></table></div></div><p>We can see two PNG files, let&rsquo;s try to extract them with <code>foremost</code>. I&rsquo;m using foremost instead of binwalk to extract data because files extracted by foremost are much cleaner:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ foremost vmware-tray.exe   
+</span></span><span class=line><span class=cl>Processing: vmware-tray.exe
+</span></span><span class=line><span class=cl><span class=p>|</span>*<span class=p>|</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>$ file output/png/00000672.png
+</span></span><span class=line><span class=cl>output/png/00000672.png: PNG image data, <span class=m>800</span> x 600, 8-bit colormap, non-interlaced
+</span></span></code></pre></td></tr></table></div></div><p><img class=lazyload src=/maki.bzh/svg/loading.min.svg data-src=/lib/images/writeups/2018_otterctf/memorydump/part11_1.png data-srcset="/lib/images/writeups/2018_otterctf/memorydump/part11_1.png, /lib/images/writeups/2018_otterctf/memorydump/part11_1.png 1.5x, /lib/images/writeups/2018_otterctf/memorydump/part11_1.png 2x" data-sizes=auto alt=/lib/images/writeups/2018_otterctf/memorydump/part11_1.png title=/lib/images/writeups/2018_otterctf/memorydump/part11_1.png></p><blockquote><p>CTF{S0_Just_M0v3_Socy}</p></blockquote><h2 id=12---recovery>12 - Recovery</h2><p><img class=lazyload src=/maki.bzh/svg/loading.min.svg data-src=/lib/images/writeups/2018_otterctf/memorydump/statement_mem12.png data-srcset="/lib/images/writeups/2018_otterctf/memorydump/statement_mem12.png, /lib/images/writeups/2018_otterctf/memorydump/statement_mem12.png 1.5x, /lib/images/writeups/2018_otterctf/memorydump/statement_mem12.png 2x" data-sizes=auto alt=/lib/images/writeups/2018_otterctf/memorydump/statement_mem12.png title=/lib/images/writeups/2018_otterctf/memorydump/statement_mem12.png></p><p>I didn&rsquo;t manage to solve those two last challenges during the CTF time. But there are very interesting, I had a lot of fun solving them.</p><p>To find the encryption key, I have to reverse the malware. I want to find out how the key is generated and how the key is sent to the command and control server. Fortunately, the malware was developed with .NET language:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ file vmware-tray.exe        
+</span></span><span class=line><span class=cl>vmware-tray.exe: PE32 executable <span class=o>(</span>GUI<span class=o>)</span> Intel <span class=m>80386</span> Mono/.Net assembly, <span class=k>for</span> MS Windows
+</span></span></code></pre></td></tr></table></div></div><p>.NET languages can be decompiled easily with tools like ILSPy. The less I&rsquo;m seeing assembly better I am! :D</p><p>I quickly identified the function <code>SendPassword</code>.</p><p><img class=lazyload src=/maki.bzh/svg/loading.min.svg data-src=/lib/images/writeups/2018_otterctf/memorydump/part12_1.png data-srcset="/lib/images/writeups/2018_otterctf/memorydump/part12_1.png, /lib/images/writeups/2018_otterctf/memorydump/part12_1.png 1.5x, /lib/images/writeups/2018_otterctf/memorydump/part12_1.png 2x" data-sizes=auto alt=/lib/images/writeups/2018_otterctf/memorydump/part12_1.png title=/lib/images/writeups/2018_otterctf/memorydump/part12_1.png></p><p>Now that I&rsquo;ve been achieving to find how the key is sent, I can search the pattern in the memory dump:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ strings -e l  OtterCTF.vmem<span class=p>|</span> grep <span class=s2>&#34;WIN-LO6FAF3DTFE-Rick &#34;</span>
+</span></span><span class=line><span class=cl>WIN-LO6FAF3DTFE-Rick aDOBofVYUNVnmp7
+</span></span></code></pre></td></tr></table></div></div><blockquote><p>CTF{aDOBofVYUNVnmp7}</p></blockquote><h2 id=13---closure>13 - Closure</h2><p>While I was looking for the method that sent the key to the command and control server, I saw a name that caught my attention: <code>HiddenTears</code>.</p><p>HiddenTears is ransomware available on GitHub since 2015. Some little jerks use this GitHub to do new strains. But it means HiddenTears decrypter is available on the internet, even on the GitHub.</p><p>Decrypter: <a href=https://github.com/goliate/hidden-tear/tree/master/hidden-tear-decrypter target=_blank rel="noopener noreffer">https://github.com/goliate/hidden-tear/tree/master/hidden-tear-decrypter</a></p><p>Firstly, get the file which contains the flag:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ cat pfilescan <span class=p>|</span> grep -i flag
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>0x000000007d61b070     <span class=m>16</span>      <span class=m>0</span> RW-rw- <span class=se>\D</span>evice<span class=se>\H</span>arddiskVolume1<span class=se>\U</span>sers<span class=se>\R</span>ick<span class=se>\A</span>ppData<span class=se>\R</span>oaming<span class=se>\M</span>icrosoft<span class=se>\W</span>indows<span class=se>\R</span>ecent<span class=se>\F</span>lag.txt.WINDOWS.lnk
+</span></span><span class=line><span class=cl>0x000000007e410890     <span class=m>16</span>      <span class=m>0</span> R--r-- <span class=se>\D</span>evice<span class=se>\H</span>arddiskVolume1<span class=se>\U</span>sers<span class=se>\R</span>ick<span class=se>\D</span>esktop<span class=se>\F</span>lag.txt
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>$ vol.py --plugins<span class=o>=</span>plug_vol/ -f usr_land/OtterCTF.vmem --profile<span class=o>=</span>Win7SP1x64 dumpfiles -Q 0x000000007e410890 -D . 
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>Volatility Foundation Volatility Framework 2.6.1
+</span></span><span class=line><span class=cl>DataSectionObject 0x7e410890   None   <span class=se>\D</span>evice<span class=se>\H</span>arddiskVolume1<span class=se>\U</span>sers<span class=se>\R</span>ick<span class=se>\D</span>esktop<span class=se>\F</span>lag.txt
+</span></span></code></pre></td></tr></table></div></div><p>So, now we got a decryption key, an encrypted file, and a decrypter. It sounds good ;)</p><p>&mldr; Or not, there is a little problem in the &ldquo;Flag.txt&rdquo; file that has been extracted:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ hexdump -C  Flag.txt 
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=m>00000000</span>  7b e6 <span class=m>24</span> <span class=m>56</span> 9e 5c 0f ef  8e <span class=m>43</span> <span class=m>28</span> f7 e4 c5 <span class=m>83</span> ff  <span class=p>|</span><span class=o>{</span>.<span class=nv>$V</span>.<span class=se>\.</span>..C<span class=o>(</span>.....<span class=p>|</span>
+</span></span><span class=line><span class=cl><span class=m>00000010</span>  6c <span class=m>31</span> d7 e6 1c da ea <span class=m>54</span>  cf <span class=m>72</span> dd d6 ec 7e b0 7b  <span class=p>|</span>l1.....T.r...~.<span class=o>{</span><span class=p>|</span>
+</span></span><span class=line><span class=cl><span class=m>00000020</span>  c6 8d d0 a8 cc c2 ce 6e  3e ee <span class=m>03</span> <span class=m>47</span> c1 0b b3 e8  <span class=p>|</span>.......n&gt;..G....<span class=p>|</span>
+</span></span><span class=line><span class=cl><span class=m>00000030</span>  <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> <span class=m>00</span>  <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> <span class=m>00</span> <span class=m>00</span>  <span class=p>|</span>................<span class=p>|</span>
+</span></span><span class=line><span class=cl>*
+</span></span><span class=line><span class=cl><span class=m>00001000</span>
+</span></span></code></pre></td></tr></table></div></div><p>There is a little mistake about padding, is there a bunch of zero at the end of the file. It probably happens during file extraction from memory.</p><p>When the file is lightened of its 0 and renamed with &lsquo;.locked&rsquo; extension, it&rsquo;s decryption time:</p><p><img class=lazyload src=/maki.bzh/svg/loading.min.svg data-src=/lib/images/writeups/2018_otterctf/memorydump/part13_1.gif data-srcset="/lib/images/writeups/2018_otterctf/memorydump/part13_1.gif, /lib/images/writeups/2018_otterctf/memorydump/part13_1.gif 1.5x, /lib/images/writeups/2018_otterctf/memorydump/part13_1.gif 2x" data-sizes=auto alt=/lib/images/writeups/2018_otterctf/memorydump/part13_1.gif title=/lib/images/writeups/2018_otterctf/memorydump/part13_1.gif></p><blockquote><p>CTF{Im_Th@_B3S7_RicK_0f_Th3m_4ll}</p></blockquote></div></div></div></main><footer class=footer><div class=footer-container><div class=footer-line>Powered by <a href=https://gohugo.io/ target=_blank rel="noopener noreffer" title="Hugo 0.100.2">Hugo</a> | Theme - <a href=https://github.com/dillonzq/LoveIt target=_blank rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden=true></i> LoveIt</a></div><div class=footer-line itemscope itemtype=http://schema.org/CreativeWork><i class="far fa-copyright fa-fw" aria-hidden=true></i><span itemprop=copyrightYear>2017 - 2023</span><span class=author itemprop=copyrightHolder>&nbsp;<a href=maki.bzh/ target=_blank>Maki - Alan Marrec</a></span>&nbsp;|&nbsp;<span class=license><a rel="license external nofollow noopener noreffer" href=https://creativecommons.org/licenses/by-nc/4.0/ target=_blank>CC BY-NC 4.0</a></span></div></div></footer></div><div id=fixed-buttons><a href=# id=back-to-top class=fixed-button title="Back to Top"><i class="fas fa-arrow-up fa-fw" aria-hidden=true></i>
+</a><a href=# id=view-comments class=fixed-button title="View Comments"><i class="fas fa-comment fa-fw" aria-hidden=true></i></a></div><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js></script><script type=text/javascript>window.config={code:{copyTitle:"Copy to clipboard",maxShownLines:50},comment:{},lightgallery:!0}</script><script type=text/javascript src=/maki.bzh/js/theme.min.js></script><script type=text/javascript>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-WVPYCS7SPM',{anonymize_ip:!0})</script><script type=text/javascript src="https://www.googletagmanager.com/gtag/js?id=G-WVPYCS7SPM" async></script></body></html>

