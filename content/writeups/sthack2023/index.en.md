@@ -19,9 +19,12 @@ lightgallery: true
 
 ## Description
 
-Pour cette épreuve nous avons un boitier qui gère le contrôle d'accès physique à un lieu. L'utilisateur entre son code secret et le boitier génère un OTP envoyé par SMS. Lors de la saisi du bon OTP, la porte s'ouvre.
+Seconde Sthack pour moi, l'occasion de participer avec [Login Sécurité](https://twitter.com/LoginSecurite) et voir les copains [Laluka](https://twitter.com/TheLaluka), [Vic](https://twitter.com/v1csec) et [Phenol](https://twitter.com/Phenol__) :)
 
-De ce que j'en ai vu, le microcontrôleur est un Raspberry Pi Pico et une antenne pour envoyer les sms. L'énoncé nous donne le code secret d'un utilisateur et mentionne le fait qu'il n'est pas possible de démonter le boitier, donc attaques hardware impossibles :(
+Pour cette épreuve nous avons un boitier qui gère un contrôle d'accès physique. L'utilisateur entre son code secret et le boitier génère un OTP envoyé par SMS. Lors de la saisi du bon OTP, la porte s'ouvre.
+
+De ce que j'en ai vu, le microcontrôleur est un Raspberry Pi Pico et une antenne est plug pour envoyer les sms. L'énoncé nous donne le code secret d'un utilisateur et mentionne le fait qu'il n'est pas possible de démonter le boitier, donc attaques hardware impossibles :(
+On commence quand même avec les sources du boitier et sa documentation.
 
 ![](/lib/images/writeups/2023_sthack/boitier.png)
 
@@ -46,9 +49,9 @@ char * generate_otp (char* secret_pin)
 }
 ```
 
-Ce snippet appelle plusieurs autres fonctions :
+La `seed` est donc dérivée de deux paramètres :
 * read_onboard_temperature() : Permet de récupérer la température du capteur embarqué dans le RPi Pico (RP2040) ;
-* atoi(secret_pin) : Transforme le pin du patron dans l'énoncé en integer ;
+* atoi(secret_pin) : Transforme le pin du patron dans l'énoncé en integer.
 
 ```c
 // Get a int based on board temperature
@@ -67,7 +70,11 @@ uint16_t read_onboard_temperature() {
 }
 ```
 
-Le fameux OTP est donc généré par la température retournée par le capteur. Le premier guess était "facile, il suffit d'aller dans la même pièce que le capteur, récupérer la température et recalculer la seed". Pour ça j'ai demandé à "Ajani" (le créateur du challenge) de me prêter un Raspberry Pi Pico. Je voulais avoir accès à la température du même capteur et du même environnement que celui de prod pour les tests (au final, c'était une bonne idée puisque la version C et des compilateurs sont différents entre le Pico et ceux sur des desktop).
+Le fameux OTP est donc généré par la température retournée par le capteur. Le premier guess était : 
+
+> "facile, il suffit d'aller dans la même pièce que le capteur, récupérer la température et recalculer la seed" - Citation de "Maki bisounours"
+
+Pour ça j'ai demandé à "Ajani" (le créateur du challenge) de me prêter un Raspberry Pi Pico. Je voulais avoir accès à la température du même capteur et du même environnement que celui de prod pour les tests (au final, c'était une bonne idée puisque la version C et des compilateurs sont différents entre le Pico et ceux sur des desktop).
 
 La première question était donc : le retour de `adc_read()` est sous quel format ? La température en Celsius ? La représentation de la tension ? etc.
 
@@ -87,6 +94,7 @@ Ces liens là m'ont permis d'installer ce que je voulais rapidement :
 * https://www.gibbard.me/using_the_raspberry_pi_pico_on_ubuntu/
 * https://learnembeddedsystems.co.uk/pico-usb-serial-code
 * https://learnembeddedsystems.co.uk/using-the-rp2040-on-board-temperature-sensor 
+* [https://learnembeddedsystems.co.uk/get-fooled-rpi-pico](https://www.youtube.com/watch?v=dQw4w9WgXcQ)
 
 Finalement un premier snippet qui récupère la température ambiante et l'affiche a été réalisé sans trop de soucis :
 
@@ -284,6 +292,11 @@ Ce code correspond à une température entre **-33.710217** et **-33.260292**.
 ![](/lib/images/writeups/2023_sthack/flag.png)
 
 > S4N_FR4NC1SC0
+
+Pour conclure cette épreuve, super challenge, pas que celui là d'ailleurs, l'ensemble des épreuves étaient super chouettes, comme l'année dernière :)
+Hâte à l'année prochaine !
+
+![](https://media.giphy.com/media/jDutVr7IRrTivNw43P/giphy.gif)
 
 ---
 
